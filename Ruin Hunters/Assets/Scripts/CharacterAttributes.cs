@@ -10,16 +10,20 @@ public class CharacterAttributes
     public int maxHealth;
     public string nameOfCharacter;
     public int combatSpeed;
+    public int skillDamage;
+    public int attackDamage;
     public List<Skill> skills; // List of skills specific to the character    
-    public bool isPlayerControlled; // New flag to indicate if this is a player character
+    public PublicEnums.Regions regions;
+    public bool isTurn;
 
-    public CharacterAttributes(string name, bool isPlayer)
+    public CharacterAttributes(string name)
     {
         nameOfCharacter = name;
         health = 100;
         maxHealth = 100;
-        skills = new List<Skill>();
-        isPlayerControlled = isPlayer;
+        skills = new List<Skill>();        
+        isTurn = false;
+        regions = PublicEnums.Regions.plains;
     }
 }
 

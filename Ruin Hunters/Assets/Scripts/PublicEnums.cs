@@ -24,4 +24,11 @@ public class PublicEnums : MonoBehaviour
         Earth,
         
     }
+
+    public enum Regions
+    {
+        desert,
+        plains,
+        caves,
+    }
 }

@@ -4,28 +4,24 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour, IDamage
 {
-    public int maxHealth;
-    public int currentHealth;
-    public int skillDamage;
-    public int attackDamage;
+    public string enemyName;
+    CharacterAttributes enemyAttributes;
 
     // Weaknesses
     public List<WeaponCalc> weaponsWeakness = new List<WeaponCalc>();
     public List<ElementCalc> elementWeakness = new List<ElementCalc>();
     public List<Skill> availableSkills = new List<Skill>();
 
-    private bool isTurn;
-
     void Start()
     {
-        currentHealth = maxHealth;
+        enemyAttributes = new CharacterAttributes(enemyName);
     }
 
     void Update()
     {
         if(GameManager.Instance.combat)
         {
-            if(isTurn)
+            if(enemyAttributes.isTurn)
             {
                 HandleCombatActions();
             }
@@ -60,7 +56,7 @@ public class EnemyAI : MonoBehaviour, IDamage
             float multiplier = GetDamageMultiplier(skill.elementType);
 
             // Activate the skill, passing the player as the target
-            skill.ActivateSkill(player.gameObject, skillDamage, multiplier); // Attacker power is set to 10 for now
+            skill.ActivateSkill(player.gameObject, enemyAttributes.skillDamage, multiplier); // Attacker power is set to 10 for now
         }
     }
 
@@ -80,7 +76,7 @@ public class EnemyAI : MonoBehaviour, IDamage
 
             // Activate the weapon attack
             Skill weaponAttack = new Skill(); 
-            weaponAttack.ActivateWeaponAttack(player.gameObject, attackDamage, weaponMultiplier); // Example power 10
+            weaponAttack.ActivateWeaponAttack(player.gameObject, enemyAttributes.attackDamage, weaponMultiplier); // Example power 10
         }
     }
 
@@ -88,10 +84,10 @@ public class EnemyAI : MonoBehaviour, IDamage
     {
         float multiplier = GetDamageMultiplier(elementType);
         damage = Mathf.FloorToInt(damage * multiplier);
-        currentHealth -= damage;
+        enemyAttributes.health -= damage;
        
 
-        if (currentHealth <= 0)
+        if (enemyAttributes.health <= 0)
         {
             //dead
         }
@@ -123,11 +119,12 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     public void StartTurn()
     {
-        isTurn = true;
+        enemyAttributes.isTurn = true;
     }
 
     public void EndTurn()
     {
-        isTurn = false;
+        enemyAttributes.isTurn = false;
     }
 }
+

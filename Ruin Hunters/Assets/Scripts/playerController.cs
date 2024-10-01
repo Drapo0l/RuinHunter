@@ -22,14 +22,14 @@ public class playerController : MonoBehaviour, IDamage
 
     public PlayerActionSelector actionSelector; // refernece to action selector
 
-    private bool isTurn;   
+    
 
     // Start is called before the first frame update
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody>();
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-        characterAttributes = new CharacterAttributes(characterName, true);
+        characterAttributes = new CharacterAttributes(characterName);
     }
 
     // Update is called once per frame
@@ -42,7 +42,7 @@ public class playerController : MonoBehaviour, IDamage
         }
         else
         {
-            if(isTurn) 
+            if(characterAttributes.isTurn) 
             {
                 // when it's the player's turn, show the menu
                 actionSelector.ShowMenu(transform);

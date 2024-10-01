@@ -8,11 +8,15 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance;
 
+    List<CharacterAttributes> playerParty; // list to hold player party
     public List<CharacterAttributes> characters; //list to hold enmies and allies
     private int currentTurnIndex = 0; // index of the current character's turn
 
     public bool combat = false;
-    public List <CharacterAttributes> turnOrder; // list to hold the characters sorted by speed
+    public List<CharacterAttributes> turnOrder;
+
+    public List<RegionEnemyPool> enemyPools; //enemy pool for every region
+    public List<CharacterAttributes> currentEnemies; // current enemies in combat
 
     private void Awake ()
     {
@@ -29,11 +33,18 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         //begin combat if necessary
+        playerParty = PartyManager.Instance.GetCurrentParty();
         StartCombat();   
     }
 
     void StartCombat()
     {
+        characters = new List<CharacterAttributes>();
+        
+        characters.AddRange(playerParty);
+
+        AddRandomEnemies(playerParty[0].regions);
+
         // Sort characters based on speed in descending order
         turnOrder = new List<CharacterAttributes>(characters);
         characters.Sort((a, b) => b.combatSpeed.CompareTo(a.combatSpeed));
@@ -42,31 +53,40 @@ public class GameManager : MonoBehaviour
         StartTurn(); // start the first character's turn
     }
 
+    void AddRandomEnemies(PublicEnums.Regions region)
+    {
+        // clear enemy list
+        currentEnemies.Clear();
+
+        //find the region
+        RegionEnemyPool pool = enemyPools.Find(r => r.region == region);
+
+        if(pool != null)
+        {
+            List<GameObject> enemies = pool.GetEnemies();
+
+            foreach (var enemy in enemies) 
+            {
+                enemy.transform.position = GetSpawnPosition();
+                characters.Add(enemy.GetComponent<CharacterAttributes>());
+            }
+        }
+    }
+
+    Vector3 GetSpawnPosition()
+    {
+        //spawn at certain location
+        return Vector3.zero; //placeholder
+    }
+
     public void StartTurn()
     {
         combat = true;
-        CharacterAttributes currentCharacter = turnOrder[currentTurnIndex];
-        playerController player;
-        // check if it's the player's turn or an enemy's turn
-        if ( currentCharacter.isPlayerControlled)
-        {
-            //Get the correct player controller based on this character
-            //playerController playerController = FindPlayerControllerByCharacter(currentCharacter);
-            //playerController.StartTurn();
-        }
-        //else
-        //{
-        //    // get the enemy controller for this character
-        //    EnemyAI enemy = FindEnemyByName(currentCharacter.nameOfCharacter);
-        //    enemy.StartTurn(); 
-        //}    
-    }
 
-    //playerController FindPlayerControllerByCharacter(CharacterAttributes character)
-    //{
-    //    // find the correct playerController based on the character's name
-    //    return FindObjectOfType<playerController>().FirstOrDefault(pc => pc.characterAttributes.nameOfCharacter == character.nameOfCharacter);
-    //}
+        CharacterAttributes currentCharacter = turnOrder[currentTurnIndex];
+
+        currentCharacter.isTurn = true;
+    }
 
     public void EndTurn()
     {
