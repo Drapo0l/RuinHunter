@@ -55,9 +55,9 @@ public class EnemyAI : MonoBehaviour
         GameObject target;
         while (true)
         {
-            ran = Random.Range(1, PartyManager.Instance.startingPlayerParty.Count);
+            ran = Random.Range(1, PartyManager.Instance.startingPlayerParty.Count) - 1;
             target = PartyManager.Instance.startingPlayerParty[ran];
-            if (target.GetComponent<CharacterAttributes>().health <= 0)
+            if (target.GetComponent<playerController>().playerStats.health <= 0)
             {
 
             }
@@ -88,9 +88,9 @@ public class EnemyAI : MonoBehaviour
         GameObject target;
         while (true)
         {
-             ran = Random.Range(1, PartyManager.Instance.startingPlayerParty.Count);
+             ran = Random.Range(1, PartyManager.Instance.startingPlayerParty.Count) - 1;
              target = PartyManager.Instance.startingPlayerParty[ran];
-            if (target.GetComponent<CharacterAttributes>().health <= 0)
+            if (target.GetComponent<playerController>().playerStats.health <= 0)
             {
 
             }
@@ -116,6 +116,21 @@ public class EnemyAI : MonoBehaviour
         damage = Mathf.FloorToInt(damage * multiplier);
         enemyAttributes.stats.health -= damage;
 
+        GameManager.Instance.EndTurn();
+
+        if (enemyAttributes.stats.health <= 0)
+        {
+            //dead
+        }
+    }
+
+    public void TakeSkillDamage(int damage, PublicEnums.ElementType elementType)
+    {
+        float multiplier = GetSkillMultiplier(elementType);
+        damage = Mathf.FloorToInt(damage * multiplier);
+        enemyAttributes.stats.health -= damage;
+
+        GameManager.Instance.EndTurn();
 
         if (enemyAttributes.stats.health <= 0)
         {

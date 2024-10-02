@@ -142,6 +142,11 @@ public class GameManager : MonoBehaviour
     {
         combat = true;
 
+        foreach (var chara in turnOrder)
+        {
+            chara.stats.isTurn = false;
+        }
+
         CharacterComponent currentCharacter = turnOrder[currentTurnIndex];
 
         currentCharacter.stats.isTurn = true;

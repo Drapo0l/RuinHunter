@@ -19,8 +19,8 @@ public class CharacterAttributes : ScriptableObject
     public int Defence;
     public List<Skill> skills; // List of skills specific to the character    
     public PublicEnums.Regions regions;
-    public bool isTurn;
-    public bool isStuned;
+    public bool isTurn = false;
+    public bool isStuned = false;
    
 
 }
