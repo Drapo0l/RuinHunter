@@ -2,26 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAI : MonoBehaviour, IDamage
+public class EnemyAI : MonoBehaviour
 {
     public string enemyName;
-    CharacterAttributes enemyAttributes;
+    public CharacterComponent enemyAttributes;
+    public CharacterAttributes enemyStats;
 
     // Weaknesses
     public List<WeaponCalc> weaponsWeakness = new List<WeaponCalc>();
     public List<ElementCalc> elementWeakness = new List<ElementCalc>();
-    public List<Skill> availableSkills = new List<Skill>();
+    List<Skill> availableSkills;
 
     void Start()
     {
-        enemyAttributes = new CharacterAttributes(enemyName);
+        enemyAttributes = new CharacterComponent(enemyStats);
+        availableSkills = enemyAttributes.stats.skills;
     }
 
     void Update()
     {
         if(GameManager.Instance.combat)
         {
-            if(enemyAttributes.isTurn)
+            if(enemyAttributes.stats.isTurn)
             {
                 HandleCombatActions();
             }
@@ -53,7 +55,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         if (player != null)
         {
             // Calculate skill damage using any multipliers
-            float multiplier = GetDamageMultiplier(skill.elementType);
+            float multiplier = GetSkillMultiplier(skill.elementType);
 
             // Activate the skill, passing the player as the target
             skill.ActivateSkill(player.gameObject, enemyAttributes.skillDamage, multiplier, enemyAttributes.critChance, enemyAttributes.effectChance); // Attacker power is set to 10 for now
@@ -80,20 +82,20 @@ public class EnemyAI : MonoBehaviour, IDamage
         }
     }
 
-    public void TakeDamage(int damage, PublicEnums.ElementType elementType)
+    public void TakeMeleeDamage(int damage, PublicEnums.WeaponType weaponType)
     {
-        float multiplier = GetDamageMultiplier(elementType);
+        float multiplier = GetWeaponMultiplier(weaponType);
         damage = Mathf.FloorToInt(damage * multiplier);
-        enemyAttributes.health -= damage;
-       
+        enemyAttributes.stats.health -= damage;
 
-        if (enemyAttributes.health <= 0)
+
+        if (enemyAttributes.stats.health <= 0)
         {
             //dead
         }
     }
 
-    public float GetDamageMultiplier(PublicEnums.ElementType elementType)
+    public float GetSkillMultiplier(PublicEnums.ElementType elementType)
     {
         foreach (var weakness in elementWeakness)
         {
@@ -119,12 +121,12 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     public void StartTurn()
     {
-        enemyAttributes.isTurn = true;
+        enemyAttributes.stats.isTurn = true;
     }
 
     public void EndTurn()
     {
-        enemyAttributes.isTurn = false;
+        enemyAttributes.stats.isTurn = false;
     }
 }
 
