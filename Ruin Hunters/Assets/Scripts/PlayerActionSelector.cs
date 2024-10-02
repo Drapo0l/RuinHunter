@@ -12,6 +12,7 @@ public class PlayerActionSelector : MonoBehaviour
     public Transform skillsMenuParent;            // Parent where SKILL buttons will be added
     public GameObject buttonPrefab;               // Prefab for dynamically created buttons
     public GameObject menuPanel;                  //Panel for the menu UI
+    public GameObject battleCamera;               // battle cam
 
     private int currentSelection = 0;              // Index of the currently selected button
     private Stack<List<Button>> menuStack = new Stack<List<Button>>(); // Stack for managing menus
@@ -41,7 +42,7 @@ public class PlayerActionSelector : MonoBehaviour
         // Assign button actions
         AssignButtonActions(mainMenuButtons, PerformAttack, OpenItemMenu, OpenSkillMenu);
 
-        characterAttributes = PartyManager.Instance.GetCurrentParty();
+        characterAttributes = PartyManager.Instance.GetCurrentPartyComponent();
         inventoryManager = InventoryManager.instance;
 
         //hide the menu
@@ -92,7 +93,7 @@ public class PlayerActionSelector : MonoBehaviour
 
         // set the position of the menu to the left of the player
         Vector3 menuPosition = playerTransform.position + new Vector3(-2f, 0, 0); //adjust offset if needed
-        menuPanel.transform.position = Camera.main.WorldToScreenPoint(menuPosition);
+        menuPanel.transform.position = battleCamera.transform.position;
 
         menuPanel.SetActive(true); // enable the menu
     }
