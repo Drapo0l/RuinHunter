@@ -20,10 +20,17 @@ public class PlayerActionSelector : MonoBehaviour
     private List<Button> itemsMenuButtons = new List<Button>();         // Dynamically populated item buttons
     private List<Button> skillsMenuButtons = new List<Button>();        // Dynamically populated skill buttons
 
-    private CharacterAttributes characterAttributes; // references to character attributes
+    private playerController playerController;
+    private List<CharacterComponent> characterAttributes; // references to character attributes
     private InventoryManager inventoryManager;       // reference to inventory manager
 
+    private List<GameObject> enemies; //list of all enemies
+    private int selectedEnemyIndex = 0;
+    public GameObject targetIndicator;
+
     private Transform playerTransform; // track player position
+
+    private bool attacking = false;
 
     void Start()
     {
@@ -34,35 +41,60 @@ public class PlayerActionSelector : MonoBehaviour
         // Assign button actions
         AssignButtonActions(mainMenuButtons, PerformAttack, OpenItemMenu, OpenSkillMenu);
 
-        characterAttributes = GetComponent<playerController>().characterAttributes;
+        characterAttributes = PartyManager.Instance.GetCurrentParty();
         inventoryManager = InventoryManager.instance;
 
         //hide the menu
-        menuPanel.SetActive(false);
+        menuPanel.SetActive(false);       
     }
 
     void Update()
     {
         // Handle navigation and selection input
-        if (menuPanel.activeSelf)
+        if (menuPanel.activeSelf && !attacking)
         { 
             if (Input.GetKeyDown(KeyCode.W)) { Navigate(-1); }
             if (Input.GetKeyDown(KeyCode.S)) { Navigate(1); }
             if (Input.GetKeyDown(KeyCode.Return)) { ExecuteCurrentAction(); }
             if (Input.GetKeyDown(KeyCode.Backspace)) { HandleBackspace(); }
         }
+        else if(menuPanel.activeSelf && attacking)
+        {
+            if (Input.GetKeyDown(KeyCode.W)) 
+            {
+                selectedEnemyIndex--;
+                if(selectedEnemyIndex < 0) selectedEnemyIndex = enemies.Count - 1;
+                SelectEnemy(selectedEnemyIndex);
+            }
+            if (Input.GetKeyDown(KeyCode.S)) 
+            {
+                selectedEnemyIndex++;
+                if (selectedEnemyIndex >= 0) selectedEnemyIndex = 0;
+                SelectEnemy(selectedEnemyIndex);
+            }
+            if (Input.GetKeyDown(KeyCode.Return)) 
+            {
+                PerformAttack(); 
+            
+            }
+            if (Input.GetKeyDown(KeyCode.Backspace)) 
+            {
+                HandleBackspace();             
+            }
+        }
     }
 
-    public void ShowMenu(Transform player)
+    public void ShowMenu(Transform player, playerController _playerController)
     {
         playerTransform = player;
+        playerController = _playerController;
+        enemies = GameManager.Instance.enemyObj;
 
         // set the position of the menu to the left of the player
         Vector3 menuPosition = playerTransform.position + new Vector3(-2f, 0, 0); //adjust offset if needed
         menuPanel.transform.position = Camera.main.WorldToScreenPoint(menuPosition);
 
         menuPanel.SetActive(true); // enable the menu
-        UpdateHoverIndicator();
     }
 
     public void HideMenu()
@@ -80,7 +112,9 @@ public class PlayerActionSelector : MonoBehaviour
 
     private void UpdateHoverIndicator()
     {
-        hoverIndicator.transform.position = currentMenu[currentSelection].transform.position;
+        Vector3 buttonPosition = currentMenu[currentSelection].transform.position;
+
+        hoverIndicator.transform.position = new Vector3(buttonPosition.x - 150f, buttonPosition.y, buttonPosition.z);
     }
 
     private void ExecuteCurrentAction()
@@ -106,6 +140,22 @@ public class PlayerActionSelector : MonoBehaviour
         menuStack.Push(newMenu);
         currentSelection = 0;
         UpdateHoverIndicator();
+    }
+
+    void SelectEnemy(int index)
+    {
+        
+        
+        selectedEnemyIndex = index;
+
+        GameObject selectedEnemy = enemies[selectedEnemyIndex];
+
+        Vector3 enemyPosition = selectedEnemy.transform.position;
+        Vector3 indicatorPosition = new Vector3(enemyPosition.x, enemyPosition.y + 2f, enemyPosition.z);
+        targetIndicator.transform.position = Camera.main.WorldToScreenPoint(indicatorPosition);
+
+        targetIndicator.SetActive(true);
+        
     }
 
     private void AssignButtonActions(List<Button> buttons, params UnityAction[] actions)
@@ -147,6 +197,13 @@ public class PlayerActionSelector : MonoBehaviour
 
             itemsMenuButtons.Add(newButton);
         }
+
+        //enable scrolling
+        ScrollRect scrollRect = itemsMenuParent.GetComponentInParent<ScrollRect>();
+        if ( scrollRect != null ) 
+        {
+            scrollRect.verticalScrollbar.value = 1; //reset scroll at the top
+        }
     }
 
     private void PopulateSkillsMenu()
@@ -157,7 +214,7 @@ public class PlayerActionSelector : MonoBehaviour
         }
         skillsMenuButtons.Clear();
 
-        foreach (Skill skill in characterAttributes.skills )
+        foreach (Skill skill in characterAttributes[0].stats.skills )
         {
             GameObject newButtonOBj = Instantiate(buttonPrefab, skillsMenuParent);
             Button newButton = newButtonOBj.GetComponent<Button>();
@@ -170,7 +227,7 @@ public class PlayerActionSelector : MonoBehaviour
 
     private void UseItem(Item item)
     {
-
+        
     }
 
     private void UseSkill(Skill skill)
@@ -181,8 +238,17 @@ public class PlayerActionSelector : MonoBehaviour
     // Actions for main menu
     public void PerformAttack()
     {
+        attacking = true;
         
-        // Insert attack logic here
     }
-    
+
+    public void DamageEnemy()
+    {
+        enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeMeleeDamage(playerController.playerStats.attackDamage, playerController.playerWeapon);
+    }
+   
+    public void RemoveEnemy(GameObject enemy) 
+    {
+        enemies.Remove(enemy);
+    }
 }

@@ -8,16 +8,18 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance;
 
-    List<CharacterAttributes> playerParty; // list to hold player party
-    public List<CharacterAttributes> characters; //list to hold enmies and allies
+    private List<CharacterComponent> playerParty; // list to hold player party
+    private List<CharacterComponent> characters; //list to hold enmies and allies
     private int currentTurnIndex = 0; // index of the current character's turn
 
     public bool combat = false;
-    public List<CharacterAttributes> turnOrder;
+    private List<CharacterComponent> turnOrder;
 
     public List<RegionEnemyPool> enemyPools; //enemy pool for every region
-    public List<CharacterAttributes> currentEnemies; // current enemies in combat
+    private List<CharacterComponent> currentEnemies;// current enemies in combat
+    public List<GameObject> enemyObj;
 
+    private bool wasCombatInitialized = false;
     private void Awake ()
     {
         if (Instance == null)
@@ -30,24 +32,28 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void Start()
+    void Update()
     {
-        //begin combat if necessary
-        playerParty = PartyManager.Instance.GetCurrentParty();
-        StartCombat();   
+        if (combat && !wasCombatInitialized)
+        {
+            //begin combat if necessary
+            playerParty = PartyManager.Instance.GetCurrentParty();
+            StartCombat();
+            wasCombatInitialized = true;
+        }
     }
 
     void StartCombat()
     {
-        characters = new List<CharacterAttributes>();
+        characters = new List<CharacterComponent>();
         
         characters.AddRange(playerParty);
 
-        AddRandomEnemies(playerParty[0].regions);
+        AddRandomEnemies(playerParty[0].stats.regions);
 
         // Sort characters based on speed in descending order
-        turnOrder = new List<CharacterAttributes>(characters);
-        characters.Sort((a, b) => b.combatSpeed.CompareTo(a.combatSpeed));
+        turnOrder = new List<CharacterComponent>(characters);
+        characters.Sort((a, b) => b.stats.combatSpeed.CompareTo(a.stats.combatSpeed));
 
         currentTurnIndex = 0; // start at the first character
         StartTurn(); // start the first character's turn
@@ -56,21 +62,44 @@ public class GameManager : MonoBehaviour
     void AddRandomEnemies(PublicEnums.Regions region)
     {
         // clear enemy list
-        currentEnemies.Clear();
+        if (currentEnemies != null)
+        {  
+            currentEnemies.Clear(); 
+        }
+        
 
         //find the region
-        RegionEnemyPool pool = enemyPools.Find(r => r.region == region);
+        PublicEnums.Regions playerPool = playerParty[0].stats.regions;
+        RegionEnemyPool currentRegionPool = null;
 
-        if(pool != null)
+        foreach (var pool in enemyPools) 
         {
-            List<GameObject> enemies = pool.GetEnemies();
-
-            foreach (var enemy in enemies) 
+            if(pool.region == playerPool)
             {
-                enemy.transform.position = GetSpawnPosition();
-                characters.Add(enemy.GetComponent<CharacterAttributes>());
+                currentRegionPool = pool;
+                break;
             }
         }
+        if (currentEnemies == null) 
+        {
+            currentEnemies = new List<CharacterComponent> { };
+        }
+       
+        if (currentRegionPool != null)
+        {
+            enemyObj = currentRegionPool.GetEnemies();
+            foreach (var enemy in enemyObj) 
+            {
+                CharacterComponent currEnemy = new CharacterComponent(enemy.GetComponent<EnemyAI>().enemyStats);
+                currentEnemies.Add(currEnemy);
+            }          
+        }
+
+        foreach (CharacterComponent enemyObj in currentEnemies) 
+        {
+            characters.Add(enemyObj);
+        }
+       
     }
 
     Vector3 GetSpawnPosition()
@@ -83,9 +112,9 @@ public class GameManager : MonoBehaviour
     {
         combat = true;
 
-        CharacterAttributes currentCharacter = turnOrder[currentTurnIndex];
+        CharacterComponent currentCharacter = turnOrder[currentTurnIndex];
 
-        currentCharacter.isTurn = true;
+        currentCharacter.stats.isTurn = true;
     }
 
     public void EndTurn()

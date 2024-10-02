@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEditor.Progress;
 
-[System.Serializable]
-public class CharacterAttributes 
+[CreateAssetMenu(fileName = "NewCharacterAttributes", menuName = "Character/Attributes")]
+public class CharacterAttributes : ScriptableObject
 {
     public int health;
     public int maxHealth;
@@ -16,14 +16,14 @@ public class CharacterAttributes
     public PublicEnums.Regions regions;
     public bool isTurn;
 
-    public CharacterAttributes(string name)
+}
+
+public class CharacterComponent : MonoBehaviour
+{
+    public CharacterAttributes stats;
+    public CharacterComponent(CharacterAttributes _stats)
     {
-        nameOfCharacter = name;
-        health = 100;
-        maxHealth = 100;
-        skills = new List<Skill>();        
-        isTurn = false;
-        regions = PublicEnums.Regions.plains;
+        stats = _stats;
     }
 }
 

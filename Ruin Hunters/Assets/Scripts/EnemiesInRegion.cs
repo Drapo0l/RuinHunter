@@ -13,8 +13,9 @@ public class RegionEnemyPool : ScriptableObject
     public List<GameObject> GetEnemies()
     {
         List<GameObject> enemiesToSpawn = new List<GameObject>();
+        List<CharacterComponent> spawnedStats = new List<CharacterComponent>();
 
-        for(int i = 0; i < maxEnemies; i++)
+        for (int i = 0; i < maxEnemies; i++)
         {
             int randomIndex = Random.Range(0, enemyPrefabs.Count);
             GameObject enemy = GameObject.Instantiate(enemyPrefabs[randomIndex]);
