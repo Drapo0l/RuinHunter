@@ -8,7 +8,11 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance;
 
+    public GameObject playerCamera;
+    public GameObject battleCamera;
+
     private List<CharacterComponent> playerParty; // list to hold player party
+    private List<GameObject> battleParty;
     private List<CharacterComponent> characters; //list to hold enmies and allies
     private int currentTurnIndex = 0; // index of the current character's turn
 
@@ -37,7 +41,7 @@ public class GameManager : MonoBehaviour
         if (combat && !wasCombatInitialized)
         {
             //begin combat if necessary
-            playerParty = PartyManager.Instance.GetCurrentParty();
+            playerParty = PartyManager.Instance.GetCurrentPartyComponent();
             StartCombat();
             wasCombatInitialized = true;
         }
@@ -50,6 +54,8 @@ public class GameManager : MonoBehaviour
         characters.AddRange(playerParty);
 
         AddRandomEnemies(playerParty[0].stats.regions);
+
+        SetupBattleField();
 
         // Sort characters based on speed in descending order
         turnOrder = new List<CharacterComponent>(characters);
@@ -100,6 +106,30 @@ public class GameManager : MonoBehaviour
             characters.Add(enemyObj);
         }
        
+    }
+
+    void SetupBattleField()
+    {
+        battleCamera.SetActive(true);
+        playerCamera.SetActive(false);
+        battleParty = PartyManager.Instance.GetPlayeGameObj();
+        int pos = 0;
+        foreach (GameObject player in battleParty)
+        {           
+            player.SetActive(true);
+            player.transform.SetParent(battleCamera.transform);
+            player.transform.localPosition = new Vector3(4f + pos, -0.7f, 6.9f + pos);
+            pos++;
+        }
+        pos = 0;
+
+        foreach (GameObject enemy in enemyObj)
+        {
+            enemy.SetActive(true);
+            enemy.transform.SetParent(battleCamera.transform);
+            enemy.transform.localPosition = new Vector3(-4f + pos, -0.7f, 6.9f + pos);
+            pos++;
+        }
     }
 
     Vector3 GetSpawnPosition()

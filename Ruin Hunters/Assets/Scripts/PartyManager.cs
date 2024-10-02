@@ -81,9 +81,14 @@ public class PartyManager : MonoBehaviour
         }
     }
 
-    public List<CharacterComponent> GetCurrentParty()
+    public List<CharacterComponent> GetCurrentPartyComponent()
     {
         return playerParty;
+    }
+
+    public List<GameObject> GetPlayeGameObj() 
+    {
+        return startingPlayerParty;
     }
 
     public bool IsPartyFull()

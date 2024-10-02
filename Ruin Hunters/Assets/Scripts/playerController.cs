@@ -51,7 +51,6 @@ public class playerController : MonoBehaviour
             {
                 // when it's the player's turn, show the menu
                 actionSelector.ShowMenu(transform, this);
-                showedMenu = true;
             }
             //else
             //{
