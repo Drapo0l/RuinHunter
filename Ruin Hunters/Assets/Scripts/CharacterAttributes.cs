@@ -14,10 +14,12 @@ public class CharacterAttributes : ScriptableObject
     public int attackDamage;
     public int critChance;
     public int effectChance;
+    public int Defence;
     public List<Skill> skills; // List of skills specific to the character    
     public PublicEnums.Regions regions;
     public bool isTurn;
     public bool isStuned;
+   
 
 }
 

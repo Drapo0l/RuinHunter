@@ -32,7 +32,7 @@ public class PublicEnums : MonoBehaviour
         plains,
         caves,
     }
-    public enum Effects
+    public enum Effects // these are all of the effects attacks and skills can do
     {
         None,
         Crit,
@@ -42,5 +42,17 @@ public class PublicEnums : MonoBehaviour
         AttackDown,
         DefenceUp,
         DefenceDown,
+        SpeedUp,
+        SpeedDown,
+        SkillPDown,
+        SkillPUP,
+    }
+    public enum EnemyTypes // these are the enemy types 
+    {
+        Normal,
+        Agressive,
+        CasterA,
+        CasterS,
+
     }
 }
