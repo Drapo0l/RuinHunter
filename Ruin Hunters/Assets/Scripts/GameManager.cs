@@ -118,7 +118,7 @@ public class GameManager : MonoBehaviour
         {           
             player.SetActive(true);
             player.transform.SetParent(battleCamera.transform);
-            player.transform.localPosition = new Vector3(4f + pos, -0.7f, 6.9f + pos);
+            player.transform.localPosition = new Vector3(3f + pos, -1.5f, 10f + pos);
             pos++;
         }
         pos = 0;
@@ -127,7 +127,7 @@ public class GameManager : MonoBehaviour
         {
             enemy.SetActive(true);
             enemy.transform.SetParent(battleCamera.transform);
-            enemy.transform.localPosition = new Vector3(-4f + pos, -0.7f, 6.9f + pos);
+            enemy.transform.localPosition = new Vector3(-7.25f + pos, -1.5f, 10.5f + pos);
             pos++;
         }
     }

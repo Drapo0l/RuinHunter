@@ -8,6 +8,8 @@ public class CharacterAttributes : ScriptableObject
 {
     public int health;
     public int maxHealth;
+    public int maxMana;
+    public int mana;
     public string nameOfCharacter;
     public int combatSpeed;
     public int skillDamage;

@@ -87,7 +87,8 @@ public class EnemyAI : MonoBehaviour
         float multiplier = GetSkillMultiplier(elementType);
         damage = Mathf.FloorToInt(damage * multiplier);
         enemyAttributes.stats.health -= damage;
-       
+
+        GameManager.Instance.EndTurn();
 
         if (enemyAttributes.stats.health <= 0)
         {
@@ -101,6 +102,7 @@ public class EnemyAI : MonoBehaviour
         damage = Mathf.FloorToInt(damage * multiplier);
         enemyAttributes.stats.health -= damage;
 
+        GameManager.Instance.EndTurn();
 
         if (enemyAttributes.stats.health <= 0)
         {

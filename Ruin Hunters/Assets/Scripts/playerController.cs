@@ -104,6 +104,8 @@ public class playerController : MonoBehaviour
         damage = Mathf.FloorToInt(damage * multiplier);
         characterAttributes.stats.health -= damage;
 
+        GameManager.Instance.EndTurn();
+
         if (characterAttributes.stats.health <= 0)
         {
             //died
@@ -115,6 +117,8 @@ public class playerController : MonoBehaviour
         float multiplier = GetMeleeMultiplier(weaponType);
         damage = Mathf.FloorToInt(damage * multiplier);
         characterAttributes.stats.health -= damage;
+
+        GameManager.Instance.EndTurn();
 
         if (characterAttributes.stats.health <= 0)
         {
