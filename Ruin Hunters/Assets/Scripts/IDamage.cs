@@ -4,6 +4,7 @@ using UnityEngine;
 
 public interface IDamage 
 {
-    void TakeDamage(int damage, PublicEnums.ElementType elementType);
+    void TakeSkillDamage(int damage, PublicEnums.ElementType elementType);
+
     float GetDamageMultiplier(PublicEnums.ElementType elementType);
 }

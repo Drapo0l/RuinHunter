@@ -22,7 +22,7 @@ public class Skill
         IDamage targetHit = target.GetComponent<IDamage>();
         if (targetHit != null) 
         {
-            targetHit.TakeDamage(damage, elementType);
+            targetHit.TakeSkillDamage(damage, elementType);
         }
     }
 
@@ -35,7 +35,7 @@ public class Skill
         IDamage targetHit = target.GetComponent<IDamage>();
         if (targetHit != null)
         {
-            targetHit.TakeDamage(damage, PublicEnums.ElementType.None);
+            //targetHit.TakeDamage(damage, PublicEnums.ElementType.None);
         }
     }
 

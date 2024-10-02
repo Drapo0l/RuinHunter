@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class playerController : MonoBehaviour, IDamage
+public class playerController : MonoBehaviour 
 {
     public string characterName;
-    public CharacterAttributes characterAttributes;
+    public CharacterComponent characterAttributes;
+    public CharacterAttributes playerStats;
 
     public float speed;
     public float GroundDist;
@@ -16,20 +17,24 @@ public class playerController : MonoBehaviour, IDamage
 
     public LayerMask ignorePlayerLayer;
 
+    public PublicEnums.WeaponType playerWeapon;
+
     // Create List to hold strengths and weaknesses
     public List<WeaponCalc> weaponsWeakness = new List<WeaponCalc>();
     public List<ElementCalc> elementWeakness = new List<ElementCalc>();
 
     public PlayerActionSelector actionSelector; // refernece to action selector
+    private bool showedMenu;
 
     
 
     // Start is called before the first frame update
     void Start()
     {
+        characterAttributes = new CharacterComponent(playerStats);
         rb = gameObject.GetComponent<Rigidbody>();
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-        characterAttributes = new CharacterAttributes(characterName);
+        showedMenu = false;
     }
 
     // Update is called once per frame
@@ -42,15 +47,16 @@ public class playerController : MonoBehaviour, IDamage
         }
         else
         {
-            if(characterAttributes.isTurn) 
+            if(characterAttributes.stats.isTurn) 
             {
                 // when it's the player's turn, show the menu
-                actionSelector.ShowMenu(transform);
+                actionSelector.ShowMenu(transform, this);
+                showedMenu = true;
             }
-            else
-            {
-                actionSelector.HideMenu();
-            }
+            //else
+            //{
+            //    actionSelector.HideMenu();
+            //}
         }
         
 
@@ -91,31 +97,27 @@ public class playerController : MonoBehaviour, IDamage
         }
     }
 
-    private void HandleCombatActions()
-    {
-        // Turn-based combat logic (attacks, skills, etc.)
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            // Example combat action, like a basic attack
-            PerformBasicAttack();
-        }
+    
 
-        // Once the player finishes their turn, set isTurn to false
-       
-    }
-
-    private void PerformBasicAttack()
+    public void TakeSkillDamage(int damage, PublicEnums.ElementType elementType)
     {
-        // Handle basic attack logic here
-    }
-
-    public void TakeDamage(int damage, PublicEnums.ElementType elementType)
-    {
-        float multiplier = GetDamageMultiplier(elementType);
+        float multiplier = GetSkillMultiplier(elementType);
         damage = Mathf.FloorToInt(damage * multiplier);
-        characterAttributes.health -= damage;
+        characterAttributes.stats.health -= damage;
 
-        if (characterAttributes.health <= 0)
+        if (characterAttributes.stats.health <= 0)
+        {
+            //died
+        }
+    }
+
+    public void TakeMeleeDamage(int damage, PublicEnums.WeaponType weaponType)
+    {
+        float multiplier = GetMeleeMultiplier(weaponType);
+        damage = Mathf.FloorToInt(damage * multiplier);
+        characterAttributes.stats.health -= damage;
+
+        if (characterAttributes.stats.health <= 0)
         {
             //died
         }
@@ -135,20 +137,32 @@ public class playerController : MonoBehaviour, IDamage
 
     private void UseSkill(int index)
     {
-        if (index < characterAttributes.skills.Count)
+        if (index < characterAttributes.stats.skills.Count)
         {
-            Skill skillToUse = characterAttributes.skills[index];
+            Skill skillToUse = characterAttributes.stats.skills[index];
             // Implement logic for using the skill, e.g., apply damage
         }
     }
 
-    public float GetDamageMultiplier(PublicEnums.ElementType elementType)
+    public float GetSkillMultiplier(PublicEnums.ElementType elementType)
     {
         foreach (var weakness in elementWeakness)
         {
             if(weakness.elementType == elementType)
             {
                 return weakness.elementMultiplier;
+            }
+        }
+        return 1f;
+    }
+
+    public float GetMeleeMultiplier(PublicEnums.WeaponType weaponType)
+    {
+        foreach (var weakness in weaponsWeakness)
+        {
+            if (weakness.weaponType == weaponType)
+            {
+                return weakness.weaponMultiplier;
             }
         }
         return 1f;

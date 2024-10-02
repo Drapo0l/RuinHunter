@@ -27,6 +27,7 @@ public class PublicEnums : MonoBehaviour
 
     public enum Regions
     {
+        None,
         desert,
         plains,
         caves,
