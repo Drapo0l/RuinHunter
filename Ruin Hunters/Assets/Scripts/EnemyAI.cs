@@ -51,14 +51,28 @@ public class EnemyAI : MonoBehaviour
     private void UseSkill(Skill skill)
     {
         // Find the player to target
-        playerController player = FindObjectOfType<playerController>();
-        if (player != null)
+        int ran;
+        GameObject target;
+        while (true)
+        {
+            ran = Random.Range(1, PartyManager.Instance.startingPlayerParty.Count);
+            target = PartyManager.Instance.startingPlayerParty[ran];
+            if (target.GetComponent<CharacterAttributes>().health <= 0)
+            {
+
+            }
+            else
+            {
+                break;
+            }
+        }
+        if (target != null)
         {
             // Calculate skill damage using any multipliers
             float multiplier = GetSkillMultiplier(skill.elementType);
 
             // Activate the skill, passing the player as the target
-            skill.ActivateSkill(player.gameObject, enemyAttributes.stats.skillDamage, multiplier); // Attacker power is set to 10 for now
+            skill.ActivateSkill(target, enemyAttributes.stats.attackDamage, multiplier, enemyAttributes.stats.critChance, enemyAttributes.stats.effectChance); // Attacker power is set to 10 for now
         }
     }
 
@@ -70,29 +84,29 @@ public class EnemyAI : MonoBehaviour
 
     private void PerformBasicAttack()
     {
-        playerController player = FindObjectOfType<playerController>();
-        if (player != null)
+        int ran;
+        GameObject target;
+        while (true)
+        {
+             ran = Random.Range(1, PartyManager.Instance.startingPlayerParty.Count);
+             target = PartyManager.Instance.startingPlayerParty[ran];
+            if (target.GetComponent<CharacterAttributes>().health <= 0)
+            {
+
+            }
+            else
+            {
+                break;
+            }
+        }
+        if (target != null)
         {
             // Get the weapon weakness multiplier based on player's weaknesses
             float weaponMultiplier = GetWeaponMultiplier(PublicEnums.WeaponType.Sword); // Example weapon
-
+            
             // Activate the weapon attack
             Skill weaponAttack = new Skill(); 
-            weaponAttack.ActivateWeaponAttack(player.gameObject, enemyAttributes.stats.attackDamage, weaponMultiplier); // Example power 10
-        }
-    }
-
-    public void TakeSkillDamage(int damage, PublicEnums.ElementType elementType)
-    {
-        float multiplier = GetSkillMultiplier(elementType);
-        damage = Mathf.FloorToInt(damage * multiplier);
-        enemyAttributes.stats.health -= damage;
-
-        GameManager.Instance.EndTurn();
-
-        if (enemyAttributes.stats.health <= 0)
-        {
-            //dead
+            weaponAttack.ActivateWeaponAttack(target, enemyAttributes.stats.attackDamage, weaponMultiplier, enemyAttributes.stats.critChance, enemyAttributes.stats.effectChance); // Example power 10
         }
     }
 
@@ -102,7 +116,6 @@ public class EnemyAI : MonoBehaviour
         damage = Mathf.FloorToInt(damage * multiplier);
         enemyAttributes.stats.health -= damage;
 
-        GameManager.Instance.EndTurn();
 
         if (enemyAttributes.stats.health <= 0)
         {
