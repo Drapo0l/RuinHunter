@@ -35,5 +35,11 @@ public class PublicEnums : MonoBehaviour
     {
         None,
         Crit,
+        Heal,
+        Stun,
+        AttackUp,
+        AttackDown,
+        DefenceUp,
+        DefenceDown,
     }
 }
