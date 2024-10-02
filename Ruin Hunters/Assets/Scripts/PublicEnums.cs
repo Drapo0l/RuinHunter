@@ -31,4 +31,9 @@ public class PublicEnums : MonoBehaviour
         plains,
         caves,
     }
+    public enum Effects
+    {
+        None,
+        Crit,
+    }
 }

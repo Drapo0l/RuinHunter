@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
+//using static UnityEditor.Progress;
 
 [System.Serializable]
 public class CharacterAttributes 
@@ -12,9 +12,12 @@ public class CharacterAttributes
     public int combatSpeed;
     public int skillDamage;
     public int attackDamage;
+    public int critChance;
+    public int effectChance;
     public List<Skill> skills; // List of skills specific to the character    
     public PublicEnums.Regions regions;
     public bool isTurn;
+    public bool isStuned;
 
     public CharacterAttributes(string name)
     {

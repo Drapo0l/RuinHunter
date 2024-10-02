@@ -56,7 +56,7 @@ public class EnemyAI : MonoBehaviour, IDamage
             float multiplier = GetDamageMultiplier(skill.elementType);
 
             // Activate the skill, passing the player as the target
-            skill.ActivateSkill(player.gameObject, enemyAttributes.skillDamage, multiplier); // Attacker power is set to 10 for now
+            skill.ActivateSkill(player.gameObject, enemyAttributes.skillDamage, multiplier, enemyAttributes.critChance, enemyAttributes.effectChance); // Attacker power is set to 10 for now
         }
     }
 
@@ -76,7 +76,7 @@ public class EnemyAI : MonoBehaviour, IDamage
 
             // Activate the weapon attack
             Skill weaponAttack = new Skill(); 
-            weaponAttack.ActivateWeaponAttack(player.gameObject, enemyAttributes.attackDamage, weaponMultiplier); // Example power 10
+            weaponAttack.ActivateWeaponAttack(player.gameObject, enemyAttributes.attackDamage, weaponMultiplier, enemyAttributes.critChance, enemyAttributes.effectChance); // Example power 10
         }
     }
 
