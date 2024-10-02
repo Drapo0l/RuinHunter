@@ -55,7 +55,7 @@ public class EnemyAI : MonoBehaviour
         GameObject target;
         while (true)
         {
-            ran = Random.Range(1, PartyManager.Instance.maxPartySize);
+            ran = Random.Range(1, PartyManager.Instance.startingPlayerParty.Count);
             target = PartyManager.Instance.startingPlayerParty[ran];
             if (target.GetComponent<CharacterAttributes>().health <= 0)
             {
@@ -88,7 +88,7 @@ public class EnemyAI : MonoBehaviour
         GameObject target;
         while (true)
         {
-             ran = Random.Range(1, PartyManager.Instance.maxPartySize);
+             ran = Random.Range(1, PartyManager.Instance.startingPlayerParty.Count);
              target = PartyManager.Instance.startingPlayerParty[ran];
             if (target.GetComponent<CharacterAttributes>().health <= 0)
             {
