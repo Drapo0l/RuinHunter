@@ -5,6 +5,5 @@ using UnityEngine;
 public interface IDamage 
 {
     void TakeSkillDamage(int damage, PublicEnums.ElementType elementType);
-
-    float GetDamageMultiplier(PublicEnums.ElementType elementType);
+    void TakeMeleeDamage(int damage, PublicEnums.WeaponType weaponType);   
 }

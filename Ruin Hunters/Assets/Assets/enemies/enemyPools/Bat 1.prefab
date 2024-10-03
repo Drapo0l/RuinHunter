@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4779465317678816935}
   - component: {fileID: 2923211573087203824}
   m_Layer: 0
-  m_Name: Bat
+  m_Name: Bat 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,17 +52,6 @@ MonoBehaviour:
   - weaponType: 3
     weaponMultiplier: 2
   elementWeakness: []
-  availableSkills:
-  - skillName: Gust
-    elementType: 3
-    weaponType: 0
-    baseDamage: 50
-    manaCost: 0
-  - skillName: 
-    elementType: 0
-    weaponType: 0
-    baseDamage: 0
-    manaCost: 0
 --- !u!1 &8901848126954365125
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -16,6 +18,7 @@ public class PlayerActionSelector : MonoBehaviour
 
     private int currentSelection = 0;              // Index of the currently selected button
     private Stack<List<Button>> menuStack = new Stack<List<Button>>(); // Stack for managing menus
+    public List<GameObject> playerHealths;          // list of player health/mana
     private List<Button> currentMenu;               // Reference to the currently active menu
 
     private List<Button> itemsMenuButtons = new List<Button>();         // Dynamically populated item buttons
@@ -45,8 +48,7 @@ public class PlayerActionSelector : MonoBehaviour
         characterAttributes = PartyManager.Instance.GetCurrentPartyComponent();
         inventoryManager = InventoryManager.instance;
 
-        //hide the menu
-        menuPanel.SetActive(false);       
+        
     }
 
     void Update()
@@ -70,12 +72,12 @@ public class PlayerActionSelector : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.S)) 
             {
                 selectedEnemyIndex++;
-                if (selectedEnemyIndex >= 0) selectedEnemyIndex = 0;
+                if (selectedEnemyIndex > 0) selectedEnemyIndex = 0;
                 SelectEnemy(selectedEnemyIndex);
             }
             if (Input.GetKeyDown(KeyCode.Return)) 
             {
-                PerformAttack(); 
+                DamageEnemy(); 
             
             }
             if (Input.GetKeyDown(KeyCode.Backspace)) 
@@ -83,24 +85,43 @@ public class PlayerActionSelector : MonoBehaviour
                 HandleBackspace();             
             }
         }
+        //SetHealthBars();
     }
 
     public void ShowMenu(Transform player, playerController _playerController)
     {
         playerTransform = player;
         playerController = _playerController;
-        enemies = GameManager.Instance.enemyObj;
+        enemies = GameManager.Instance.enemyObj;        
 
         // set the position of the menu to the left of the player
         Vector3 menuPosition = playerTransform.position + new Vector3(-2f, 0, 0); //adjust offset if needed
         menuPanel.transform.position = battleCamera.transform.position;
 
         menuPanel.SetActive(true); // enable the menu
+
+        
     }
+
+    //private void SetHealthBars()
+    //{
+    //    List<GameObject> playerParty = PartyManager.Instance.GetPlayeGameObj();
+    //    int index = 0;
+    //    foreach (var playerChar in playerParty)
+    //    {
+    //        GameObject go = playerHealths[index].transform.GetChild(0).gameObject;
+    //        playerHealths[index].transform.GetChild(0).gameObject.GetComponent<Text>().text = playerChar.GetComponent<playerController>().playerStats.nameOfCharacter;
+    //        playerHealths[index].transform.GetChild(1).GetComponent<Text>().text = playerChar.GetComponent<playerController>().playerStats.health.ToString() + " / " + playerChar.GetComponent<playerController>().playerStats.maxHealth.ToString();
+    //        playerHealths[index].transform.GetChild(2).GetComponent<Text>().text = playerChar.GetComponent<playerController>().playerStats.mana.ToString() + " / " + playerChar.GetComponent<playerController>().playerStats.maxMana.ToString();
+    //        index++;
+    //    }
+    //}
 
     public void HideMenu()
     {
         menuPanel.SetActive(false);
+        targetIndicator.SetActive(false);
+        attacking = false;
     }
 
     private void Navigate(int direction)
@@ -144,19 +165,17 @@ public class PlayerActionSelector : MonoBehaviour
     }
 
     void SelectEnemy(int index)
-    {
-        
-        
+    {           
         selectedEnemyIndex = index;
 
         GameObject selectedEnemy = enemies[selectedEnemyIndex];
 
         Vector3 enemyPosition = selectedEnemy.transform.position;
         Vector3 indicatorPosition = new Vector3(enemyPosition.x, enemyPosition.y + 2f, enemyPosition.z);
-        targetIndicator.transform.position = Camera.main.WorldToScreenPoint(indicatorPosition);
 
-        targetIndicator.SetActive(true);
-        
+        targetIndicator.transform.position = indicatorPosition;
+
+        targetIndicator.SetActive(true);        
     }
 
     private void AssignButtonActions(List<Button> buttons, params UnityAction[] actions)
@@ -240,12 +259,14 @@ public class PlayerActionSelector : MonoBehaviour
     public void PerformAttack()
     {
         attacking = true;
-        
+        targetIndicator.SetActive(true);
+        SelectEnemy(0);
     }
 
     public void DamageEnemy()
     {
         enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeMeleeDamage(playerController.playerStats.attackDamage, playerController.playerWeapon);
+        HideMenu();
     }
    
     public void RemoveEnemy(GameObject enemy) 
