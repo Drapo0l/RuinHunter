@@ -54,7 +54,9 @@ public class PublicEnums : MonoBehaviour
         Normal,
         Agressive,
         CasterA,
-        CasterS,
+        CasterP,
+        Support,
+
 
     }
 }

@@ -11,6 +11,7 @@ public class Skill
     public int baseDamage;
     public int manaCost;
     public PublicEnums.Effects effect;
+    public int Ptargit; // set as 1 for enemys set as 0 for party members
    
 
     public void ActivateSkill(GameObject target, int attackerPower, float multiplier,int crit, int effectC)
