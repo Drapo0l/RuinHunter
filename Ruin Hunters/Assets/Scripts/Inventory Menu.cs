@@ -14,6 +14,8 @@ public class InventoryMenu : MonoBehaviour
     public bool Ispause;
     float scaleorginaltime;
     public static InventoryMenu Instance;
+
+
     void Start()
     {
         scaleorginaltime = Time.timeScale;
@@ -82,4 +84,6 @@ public class InventoryMenu : MonoBehaviour
         menuWeapon.SetActive(false);
         menuPause.SetActive(true);
     }
+
+
 }

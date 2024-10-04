@@ -14,10 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 300
   maxHealth: 300
+  maxMana: 0
+  mana: 0
   nameOfCharacter: Bat
   combatSpeed: 15
   skillDamage: 50
   attackDamage: 60
-  skills: []
+  critChance: 0
+  effectChance: 0
+  Defence: 0
+  skills:
+  - skillName: elekiattacki
+    elementType: 3
+    weaponType: 0
+    baseDamage: 150
+    manaCost: 0
+    effect: 0
   regions: 0
   isTurn: 0
+  isStuned: 0

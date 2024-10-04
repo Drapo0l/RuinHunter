@@ -12,12 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e337efe9978a8409654b2b05bb0c8c, type: 3}
   m_Name: Fenrir
   m_EditorClassIdentifier: 
-  health: 1000
+  health: 700
   maxHealth: 1000
+  maxMana: 100
+  mana: 80
   nameOfCharacter: Fenrir
   combatSpeed: 12
   skillDamage: 100
   attackDamage: 150
-  skills: []
+  critChance: 0
+  effectChance: 0
+  Defence: 0
+  skills:
+  - skillName: Giga Slash
+    elementType: 0
+    weaponType: 1
+    baseDamage: 350
+    manaCost: 10
+    effect: 0
+  - skillName: Mega Slash
+    elementType: 0
+    weaponType: 1
+    baseDamage: 350
+    manaCost: 10
+    effect: 0
   regions: 2
-  isTurn: 1
+  isTurn: 0
+  isStuned: 0

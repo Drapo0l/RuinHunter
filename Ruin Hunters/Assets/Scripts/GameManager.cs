@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,6 +16,7 @@ public class GameManager : MonoBehaviour
     private List<CharacterComponent> playerParty; // list to hold player party
     private List<GameObject> battleParty;
     private List<CharacterComponent> characters; //list to hold enmies and allies
+    public List<GameObject> playerHealths;          // list of player health/mana
     private int currentTurnIndex = 0; // index of the current character's turn
 
     public bool combat = false;
@@ -45,6 +48,10 @@ public class GameManager : MonoBehaviour
             StartCombat();
             wasCombatInitialized = true;
         }
+        else if (combat)
+        {
+            SetHealthBars();
+        }
     }
 
     void StartCombat()
@@ -52,6 +59,11 @@ public class GameManager : MonoBehaviour
         characters = new List<CharacterComponent>();
         
         characters.AddRange(playerParty);
+
+        for (int i = 0; i < playerParty.Count; i++)
+        {
+            playerHealths[i].SetActive(true);
+        }
 
         AddRandomEnemies(playerParty[0].stats.regions);
 
@@ -118,7 +130,7 @@ public class GameManager : MonoBehaviour
         {           
             player.SetActive(true);
             player.transform.SetParent(battleCamera.transform);
-            player.transform.localPosition = new Vector3(4f + pos, -0.7f, 6.9f + pos);
+            player.transform.localPosition = new Vector3(3f + pos, -1.5f, 10f + pos);
             pos++;
         }
         pos = 0;
@@ -127,8 +139,30 @@ public class GameManager : MonoBehaviour
         {
             enemy.SetActive(true);
             enemy.transform.SetParent(battleCamera.transform);
-            enemy.transform.localPosition = new Vector3(-4f + pos, -0.7f, 6.9f + pos);
+            enemy.transform.localPosition = new Vector3(-7.25f + pos, -1.5f, 10.5f + pos);
             pos++;
+        }
+    }
+    private void SetHealthBars()
+    {
+        List<GameObject> playerParty = PartyManager.Instance.GetPlayeGameObj();
+        int index = 0;
+        foreach (var playerChar in playerParty)
+        {
+            //ManaNumber
+            playerHealths[index].transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = playerChar.GetComponent<playerController>().playerStats.mana.ToString() + " / " + playerChar.GetComponent<playerController>().playerStats.maxMana.ToString();
+            //ManaBar
+            float manabar = (float)playerChar.GetComponent<playerController>().playerStats.mana / playerChar.GetComponent<playerController>().playerStats.maxMana;
+            playerHealths[index].transform.GetChild(0).gameObject.transform.GetChild(1).gameObject.transform.GetChild(0).GetComponent<Image>().fillAmount = manabar;
+            //HealthNumber            
+            playerHealths[index].transform.GetChild(1).gameObject.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = playerChar.GetComponent<playerController>().playerStats.health.ToString() + " / " + playerChar.GetComponent<playerController>().playerStats.maxHealth.ToString();
+            //HealthBar
+            float healthbar = (float)playerChar.GetComponent<playerController>().playerStats.health / playerChar.GetComponent<playerController>().playerStats.maxHealth;
+            playerHealths[index].transform.GetChild(1).gameObject.transform.GetChild(1).gameObject.transform.GetChild(0).GetComponent<Image>().fillAmount = healthbar;
+            //CharacterName
+            playerHealths[index].transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().text = playerChar.GetComponent<playerController>().playerStats.nameOfCharacter;
+
+            index++;
         }
     }
 
@@ -142,8 +176,17 @@ public class GameManager : MonoBehaviour
     {
         combat = true;
 
-        CharacterComponent currentCharacter = turnOrder[currentTurnIndex];
+        foreach (var chara in turnOrder)
+        {
+            chara.stats.isTurn = false;
+        }
 
+        CharacterComponent currentCharacter = turnOrder[currentTurnIndex];
+        if (currentCharacter.stats.isStuned == true) // you are stunned 
+        {
+            currentCharacter.stats.isStuned = false;
+            EndTurn();
+        }
         currentCharacter.stats.isTurn = true;
     }
 

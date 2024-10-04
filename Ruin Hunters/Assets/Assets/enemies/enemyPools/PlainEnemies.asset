@@ -15,4 +15,5 @@ MonoBehaviour:
   region: 2
   enemyPrefabs:
   - {fileID: 4835426206954640703, guid: 4cb726be268b5514c92f3693c9d265f5, type: 3}
+  - {fileID: 4835426206954640703, guid: 54debba2f60509a4bb9fe528694793be, type: 3}
   maxEnemies: 2
