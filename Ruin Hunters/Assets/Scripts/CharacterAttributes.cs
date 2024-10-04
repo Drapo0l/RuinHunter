@@ -34,40 +34,7 @@ public class CharacterComponent : MonoBehaviour
     }
 }
 
-public class InventoryManager : MonoBehaviour
-{
-    public static InventoryManager instance { get; private set; }
 
-    private List<Item> items = new List<Item>();
-
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject); //keep inventory manager acdross scenes
-        }
-        else
-        {
-            Destroy(gameObject); // no duplicates
-        }
-    }
-
-    public void AddItem(Item item)
-    {
-        items.Add(item);
-    }
-
-    public void RemoveItem(Item item)
-    {
-        items.Remove(item);
-    }
-
-    public List<Item> GetItems()
-    {
-        return items;
-    }
-}
 
 
 [CreateAssetMenu(fileName = "NewSkill", menuName = "Skill")]
@@ -79,10 +46,3 @@ public class AddSkill : ScriptableObject
     public int manaCost;
 }
 
-[CreateAssetMenu(fileName = "NewItem", menuName = "Item")]
-public class Item : ScriptableObject
-{
-    public string itemName;
-    public string description;
-    public int effectAmount; // For example, healing amount
-}

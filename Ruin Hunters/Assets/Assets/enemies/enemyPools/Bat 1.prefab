@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Bat
   enemyAttributes: {fileID: 0}
-  enemyStats: {fileID: 11400000, guid: 363411f2df8c9804b9880667972ffd4e, type: 2}
+  enemyStats: {fileID: 11400000, guid: d8290e5681d443147adc4a3ccb758264, type: 2}
   weaponsWeakness:
   - weaponType: 3
     weaponMultiplier: 2
