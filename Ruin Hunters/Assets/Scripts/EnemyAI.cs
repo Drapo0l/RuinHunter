@@ -80,7 +80,7 @@ public class EnemyAI : MonoBehaviour
             float multiplier = GetSkillMultiplier(skill.elementType);
 
             // Activate the skill, passing the player as the target
-            skill.ActivateSkill(target, enemyAttributes.stats.attackDamage, multiplier, enemyAttributes.stats.critChance, enemyAttributes.stats.effectChance); // Attacker power is set to 10 for now
+            skill.ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, enemyStats.effectChance); // Attacker power is set to 10 for now
         }
     }
     private void UseAttackSkill(Skill skill) // used for attacking the players
