@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e337efe9978a8409654b2b05bb0c8c, type: 3}
   m_Name: Bat
   m_EditorClassIdentifier: 
-  health: -1650
+  health: 300
   maxHealth: 300
   maxMana: 0
   mana: 0

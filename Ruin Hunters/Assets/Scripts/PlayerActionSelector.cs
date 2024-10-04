@@ -139,7 +139,8 @@ public class PlayerActionSelector : MonoBehaviour
             {
                 UseItem();
             }
-            if (Input.GetKeyDown(KeyCode.Backspace)) { HandleBackspace(); }
+            if (Input.GetKeyDown(KeyCode.Backspace)) 
+            { HandleBackspace(); }
         }
         
     }
@@ -228,6 +229,8 @@ public class PlayerActionSelector : MonoBehaviour
             currentSelection = 0;
             UpdateHoverIndicator();
             attacking = false;
+            targetingParty = false;
+            usingItem = false;
 
             if (skillsMenuButtons.Count > 0) 
             {
