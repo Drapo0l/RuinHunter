@@ -1,55 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public abstract class NPC : MonoBehaviour, NPCInteractable
+public class NPC : NPCManager, NPCTalkable, NPCShop
 {
-    [SerializeField]  SpriteRenderer interactSprite;
-    [SerializeField]  float interactDst;
+    [SerializeField] private Dialogue dialogue;
+    [SerializeField] private DialogueManager dialogueManager;
 
-    private Transform playerTransform;
+    [SerializeField] private ShopItem shopItemsHeld;
+    private ShopSystem shopSystem;
+
+    public bool isAShopNPC = false;
 
 
-    private void Start()
+    public override void Interact()
     {
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        Talk(dialogue);
+
+        if (isAShopNPC)
+        {
+            Shop(dialogue);
+        }
     }
 
-
-    // Update is called once per frame
-    void Update()
+    public void Shop(Dialogue dialogueText)
     {
-        if (Keyboard.current.eKey.wasPressedThisFrame && IsWithingInteractDistance())
-        {
-            //interact with NPC
-            Interact();
-        }
-        if (interactSprite.gameObject.activeSelf && !IsWithingInteractDistance())
-        {
-            //turn off sprite
-            interactSprite.gameObject.SetActive(false);
-        }
-        else if (!interactSprite.gameObject.activeSelf && IsWithingInteractDistance())
-        {
-            //turn on sprite
-            interactSprite.gameObject.SetActive(true);
-
-        }
+        throw new System.NotImplementedException();
     }
-    public abstract void Interact();//can be use for anithing 
 
-    private bool IsWithingInteractDistance()
+    public void Talk(Dialogue dialogueText)
     {
-        if (Vector3.Distance(playerTransform.position, transform.position) < interactDst)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-
+        //start conversation
+        dialogueManager.DisplayNextSentence(dialogueText);
     }
-   
 }

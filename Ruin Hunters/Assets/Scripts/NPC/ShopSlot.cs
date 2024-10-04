@@ -2,10 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Wraith : NPC
+public class ShopSlot : MonoBehaviour
 {
-    public override void Interact()
-    {
-       
-    }
+    
 }

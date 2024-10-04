@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface NPCTalkable 
 {
-    public void Talk();
+    public void Talk(Dialogue dialogueText);
 }

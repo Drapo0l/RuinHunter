@@ -25,7 +25,7 @@ public class playerController : MonoBehaviour
 
     public PlayerActionSelector actionSelector; // refernece to action selector
     private bool showedMenu;
-
+   // public bool isTalking;
     
 
     // Start is called before the first frame update
@@ -40,26 +40,26 @@ public class playerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        if(!GameManager.Instance.combat)
-        {
-            CharacterMovement();
-        }
-        else
-        {
-            if(characterAttributes.stats.isTurn) 
+       
+            if (!GameManager.Instance.combat)
             {
-                // when it's the player's turn, show the menu
-                actionSelector.ShowMenu(transform, this);
-                showedMenu = true;
+                CharacterMovement();
             }
-            //else
-            //{
-            //    actionSelector.HideMenu();
-            //}
-        }
-        
+            else
+            {
+                if (characterAttributes.stats.isTurn)
+                {
+                    // when it's the player's turn, show the menu
+                    actionSelector.ShowMenu(transform, this);
+                    showedMenu = true;
+                }
+                //else
+                //{
+                //    actionSelector.HideMenu();
+                //}
+            }
 
+        
     }
 
     private void CharacterMovement()

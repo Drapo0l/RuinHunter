@@ -4,6 +4,9 @@ using UnityEngine;
 
 public interface NPCInteractable
 {
-    public void Interact();
+    GameObject player { get; set; }
+
+    bool IsInteractable { get; set; }
+     void Interact();
 }
 
