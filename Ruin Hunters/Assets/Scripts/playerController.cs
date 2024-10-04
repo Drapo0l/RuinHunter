@@ -50,7 +50,7 @@ public class playerController : MonoBehaviour, IDamage
             if(characterAttributes.stats.isTurn) 
             {
                 // when it's the player's turn, show the menu
-                actionSelector.ShowMenu(transform, this);
+                actionSelector.ShowMenu(transform, this, playerStats.skills);
             }
             //else
             //{
