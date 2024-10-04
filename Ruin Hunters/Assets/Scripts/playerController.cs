@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class playerController : MonoBehaviour 
+public class playerController : MonoBehaviour, IDamage
 {
     public string characterName;
     public CharacterComponent characterAttributes;
@@ -25,7 +25,7 @@ public class playerController : MonoBehaviour
 
     public PlayerActionSelector actionSelector; // refernece to action selector
     private bool showedMenu;
-   // public bool isTalking;
+
     
 
     // Start is called before the first frame update
@@ -40,26 +40,25 @@ public class playerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
-            if (!GameManager.Instance.combat)
-            {
-                CharacterMovement();
-            }
-            else
-            {
-                if (characterAttributes.stats.isTurn)
-                {
-                    // when it's the player's turn, show the menu
-                    actionSelector.ShowMenu(transform, this);
-                    showedMenu = true;
-                }
-                //else
-                //{
-                //    actionSelector.HideMenu();
-                //}
-            }
-
         
+        if(!GameManager.Instance.combat)
+        {
+            CharacterMovement();
+        }
+        else
+        {
+            if(characterAttributes.stats.isTurn) 
+            {
+                // when it's the player's turn, show the menu
+                actionSelector.ShowMenu(transform, this, playerStats.skills);
+            }
+            //else
+            //{
+            //    actionSelector.HideMenu();
+            //}
+        }
+        
+
     }
 
     private void CharacterMovement()
@@ -105,6 +104,8 @@ public class playerController : MonoBehaviour
         damage = Mathf.FloorToInt(damage * multiplier);
         characterAttributes.stats.health -= damage;
 
+        GameManager.Instance.EndTurn();
+
         if (characterAttributes.stats.health <= 0)
         {
             //died
@@ -116,6 +117,8 @@ public class playerController : MonoBehaviour
         float multiplier = GetMeleeMultiplier(weaponType);
         damage = Mathf.FloorToInt(damage * multiplier);
         characterAttributes.stats.health -= damage;
+
+        GameManager.Instance.EndTurn();
 
         if (characterAttributes.stats.health <= 0)
         {
