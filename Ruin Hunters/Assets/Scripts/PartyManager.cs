@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,16 +7,19 @@ public class PartyManager : MonoBehaviour
 {
     public static PartyManager Instance; // singleton
 
+    public CinemachineVirtualCamera playerCamera;
+
     public List<GameObject> startingPlayerParty;
-    private List<CharacterComponent> playerParty = new List<CharacterComponent>();
+    private List<CharacterAttributes> playerParty = new List<CharacterAttributes>();
     public int maxPartySize = 4; //max num of members
+    public int selectedPartyMember = 0;
+    private int shownPartyMember; // holds the index of the party member that will be changed to get their position
 
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); //keep it accross scenes
             
         }
         else
@@ -24,8 +28,45 @@ public class PartyManager : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (!GameManager.Instance.combat) 
+        {
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                shownPartyMember = selectedPartyMember;
+                selectedPartyMember--;
+                if (selectedPartyMember < 0) selectedPartyMember = playerParty.Count - 1;
+                SwitchCharacter(selectedPartyMember);
+            }
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                shownPartyMember = selectedPartyMember;
+                selectedPartyMember++;
+                if (selectedPartyMember >= playerParty.Count) selectedPartyMember = 0;
+                SwitchCharacter(selectedPartyMember);
+            }
+        }
+    }
+
+    private void SwitchCharacter(int index)
+    {
+        foreach (GameObject characters in startingPlayerParty) 
+        {
+            characters.transform.GetChild(0).gameObject.SetActive(false);
+            characters.GetComponent<SphereCollider>().enabled = false;
+        }
+        startingPlayerParty[index].transform.GetChild(0).gameObject.SetActive(true);
+        startingPlayerParty[index].GetComponent<SphereCollider>().enabled = true;
+        startingPlayerParty[index].transform.position = startingPlayerParty[shownPartyMember].transform.position;
+        playerCamera.Follow = startingPlayerParty[index].transform;
+        playerCamera.LookAt = startingPlayerParty[index].transform;
+
+    }
+
     private void Start()
     {
+        SwitchCharacter(0);
         StartCoroutine(DelayForPartySetup());
     }
 
@@ -40,13 +81,14 @@ public class PartyManager : MonoBehaviour
     {
         foreach(GameObject playerObj in startingPlayerParty) 
         {
-            CharacterComponent characterAttributes = new CharacterComponent(playerObj.GetComponent<playerController>().playerStats);
+            CharacterAttributes characterAttributes = playerObj.GetComponent<playerController>().playerStats;
 
-            if (characterAttributes.stats != null) 
+            if (characterAttributes != null) 
             {
                 playerParty.Add(characterAttributes);
             }
         }
+       
     }
 
     public bool AddPartyMember(GameObject newMember)
@@ -58,7 +100,7 @@ public class PartyManager : MonoBehaviour
         else if (!startingPlayerParty.Contains(newMember))
         {
             startingPlayerParty.Add(newMember); // add char
-            playerParty.Add(newMember.GetComponent<CharacterComponent>());
+            playerParty.Add(newMember.GetComponent<CharacterAttributes>());
             return true;
         }
         else
@@ -72,7 +114,7 @@ public class PartyManager : MonoBehaviour
         if (startingPlayerParty.Contains(memberToMember))
         {
             startingPlayerParty.Add(memberToMember); // add char
-            playerParty.Add(memberToMember.GetComponent<CharacterComponent>());
+            playerParty.Add(memberToMember.GetComponent<CharacterAttributes>());
             return true;
         }
         else
@@ -81,7 +123,7 @@ public class PartyManager : MonoBehaviour
         }
     }
 
-    public List<CharacterComponent> GetCurrentPartyComponent()
+    public List<CharacterAttributes> GetCurrentPartyComponent()
     {
         return playerParty;
     }
@@ -96,10 +138,14 @@ public class PartyManager : MonoBehaviour
         return playerParty.Count >= maxPartySize;
     }
 
-    public bool IsCharacterInParty(CharacterComponent character) 
+    public bool IsCharacterInParty(CharacterAttributes character) 
     {
         return playerParty.Contains(character);
     }
 
+    public GameObject CurrentActiveCharacter()
+    {
+        return startingPlayerParty[selectedPartyMember];
+    }
 
 }

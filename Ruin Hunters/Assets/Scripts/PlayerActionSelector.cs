@@ -27,7 +27,7 @@ public class PlayerActionSelector : MonoBehaviour
     private List<Button> skillsMenuButtons = new List<Button>();        // Dynamically populated skill buttons
 
     private playerController playerController;
-    private List<CharacterComponent> characterAttributes; // references to character attributes
+    private List<CharacterAttributes> characterAttributes; // references to character attributes
     private InventoryManager inventoryManager;       // reference to inventory manager
 
     private List<GameObject> playerParty;
@@ -167,9 +167,15 @@ public class PlayerActionSelector : MonoBehaviour
 
     public void HideMenu()
     {
+        actionMenu.SetActive(true);
         menuPanel.SetActive(false);
         targetIndicator.SetActive(false);
         attacking = false;
+        targetingParty = false;
+        usingItem = false;
+        skillAttack = false;
+        HandleBackspace();
+        GameManager.Instance.EndTurn();
     }
 
     void HideActionMenu()
@@ -479,6 +485,7 @@ public class PlayerActionSelector : MonoBehaviour
         {
             InventoryManager.instance.RemoveItem(item);
         }
+        HideMenu();
     }
 
     public void RemoveEnemy(GameObject enemy) 

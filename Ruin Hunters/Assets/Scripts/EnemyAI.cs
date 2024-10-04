@@ -5,7 +5,6 @@ using UnityEngine;
 public class EnemyAI : MonoBehaviour
 {
     public string enemyName;
-    public CharacterComponent enemyAttributes;
     public CharacterAttributes enemyStats;
 
     // Weaknesses
@@ -15,15 +14,14 @@ public class EnemyAI : MonoBehaviour
 
     void Start()
     {
-        enemyAttributes = new CharacterComponent(enemyStats);
-        availableSkills = enemyAttributes.stats.skills;
+        
     }
 
     void Update()
     {
         if(GameManager.Instance.combat)
         {
-            if(enemyAttributes.stats.isTurn)
+            if(enemyStats.isTurn)
             {
                 HandleCombatActions();
             }
@@ -72,7 +70,7 @@ public class EnemyAI : MonoBehaviour
             float multiplier = GetSkillMultiplier(skill.elementType);
 
             // Activate the skill, passing the player as the target
-            skill.ActivateSkill(target, enemyAttributes.stats.attackDamage, multiplier, enemyAttributes.stats.critChance, enemyAttributes.stats.effectChance); // Attacker power is set to 10 for now
+            skill.ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, enemyStats.effectChance); // Attacker power is set to 10 for now
         }
     }
 
@@ -106,7 +104,7 @@ public class EnemyAI : MonoBehaviour
             
             // Activate the weapon attack
             Skill weaponAttack = new Skill(); 
-            weaponAttack.ActivateWeaponAttack(target, enemyAttributes.stats.attackDamage, weaponMultiplier, enemyAttributes.stats.critChance, enemyAttributes.stats.effectChance); // Example power 10
+            weaponAttack.ActivateWeaponAttack(target, enemyStats.attackDamage, weaponMultiplier, enemyStats.critChance, enemyStats.effectChance); // Example power 10
         }
     }
 
@@ -114,11 +112,11 @@ public class EnemyAI : MonoBehaviour
     {
         float multiplier = GetWeaponMultiplier(weaponType);
         damage = Mathf.FloorToInt(damage * multiplier);
-        enemyAttributes.stats.health -= damage;
+        enemyStats.health -= damage;
 
         GameManager.Instance.EndTurn();
 
-        if (enemyAttributes.stats.health <= 0)
+        if (enemyStats.health <= 0)
         {
             //dead
         }
@@ -128,11 +126,11 @@ public class EnemyAI : MonoBehaviour
     {
         float multiplier = GetSkillMultiplier(elementType);
         damage = Mathf.FloorToInt(damage * multiplier);
-        enemyAttributes.stats.health -= damage;
+        enemyStats.health -= damage;
 
         GameManager.Instance.EndTurn();
 
-        if (enemyAttributes.stats.health <= 0)
+        if (enemyStats.health <= 0)
         {
             //dead
         }
@@ -164,12 +162,12 @@ public class EnemyAI : MonoBehaviour
 
     public void StartTurn()
     {
-        enemyAttributes.stats.isTurn = true;
+        enemyStats.isTurn = true;
     }
 
     public void EndTurn()
     {
-        enemyAttributes.stats.isTurn = false;
+        enemyStats.isTurn = false;
     }
 }
 

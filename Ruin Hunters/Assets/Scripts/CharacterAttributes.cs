@@ -25,17 +25,6 @@ public class CharacterAttributes : ScriptableObject
 
 }
 
-public class CharacterComponent : MonoBehaviour
-{
-    public CharacterAttributes stats;
-    public CharacterComponent(CharacterAttributes _stats)
-    {
-        stats = _stats;
-    }
-}
-
-
-
 
 [CreateAssetMenu(fileName = "NewSkill", menuName = "Skill")]
 public class AddSkill : ScriptableObject

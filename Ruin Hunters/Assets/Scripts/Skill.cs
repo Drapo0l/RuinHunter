@@ -35,7 +35,7 @@ public class Skill
         IDamage targetHit = target.GetComponent<IDamage>();
         if (targetHit != null)
         {
-            //targetHit.TakeDamage(damage, PublicEnums.ElementType.None);
+            targetHit.TakeMeleeDamage(damage, PublicEnums.WeaponType.None);
         }
     }
 
