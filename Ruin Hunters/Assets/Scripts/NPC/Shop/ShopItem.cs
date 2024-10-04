@@ -12,6 +12,11 @@ public class ShopItem : ScriptableObject
     [SerializeField] private float sellMarkUp;
     [SerializeField] private float buyMarkUp;
 
+    public List<ShopInventoryItem> Items => items;
+    public int MaxAllowedGold => maxGold;
+    public float SellMarkUp => sellMarkUp;
+    public float BuyMarkUp => buyMarkUp;
+
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +33,6 @@ public class ShopItem : ScriptableObject
 [System.Serializable]
 public struct ShopInventoryItem
 {
-    //public InventoryItemData itemData;
+    public InventoryManager itemData;
     public int Amount;
 }

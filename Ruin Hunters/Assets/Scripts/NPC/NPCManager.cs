@@ -43,7 +43,7 @@ public abstract class NPCManager : MonoBehaviour, NPCInteractable
 
     private bool IsWithingInteractDistance()
     {
-        if (Vector2.Distance(playerTransform.position, transform.position) < interactDst)
+        if (Vector3.Distance(playerTransform.position, transform.position) < interactDst)
         {
             return true;
         }

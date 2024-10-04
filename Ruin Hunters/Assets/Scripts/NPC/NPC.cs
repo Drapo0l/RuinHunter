@@ -19,13 +19,17 @@ public class NPC : NPCManager, NPCTalkable, NPCShop
 
         if (isAShopNPC)
         {
-            Shop(dialogue);
+            Shop();
         }
     }
 
-    public void Shop(Dialogue dialogueText)
+    public void Shop()
     {
-        throw new System.NotImplementedException();
+            shopSystem = new ShopSystem(shopItemsHeld.Items.Count, shopItemsHeld.MaxAllowedGold, shopItemsHeld.BuyMarkUp, shopItemsHeld.SellMarkUp );
+        foreach ( var item in shopItemsHeld.Items )
+        {
+            shopSystem.AddToShop(item.itemData, item.Amount);
+        }
     }
 
     public void Talk(Dialogue dialogueText)
