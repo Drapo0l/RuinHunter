@@ -182,7 +182,11 @@ public class GameManager : MonoBehaviour
         }
 
         CharacterComponent currentCharacter = turnOrder[currentTurnIndex];
-
+        if (currentCharacter.stats.isStuned == true) // you are stunned 
+        {
+            currentCharacter.stats.isStuned = false;
+            EndTurn();
+        }
         currentCharacter.stats.isTurn = true;
     }
 
