@@ -12,6 +12,7 @@ public class EnemyAI : MonoBehaviour
     public List<WeaponCalc> weaponsWeakness = new List<WeaponCalc>();
     public List<ElementCalc> elementWeakness = new List<ElementCalc>();
     List<Skill> availableSkills;
+    public PublicEnums.EnemyTypes ty;
 
     void Start()
     {
@@ -33,22 +34,58 @@ public class EnemyAI : MonoBehaviour
     private void HandleCombatActions()
     {
         // Determine whether to use a skill or basic attack
-        if (ShouldUseSkill())
-        {
-            // Choose a random skill from available skills
-            Skill chosenSkill = availableSkills[Random.Range(0, availableSkills.Count)];
-            UseSkill(chosenSkill);
-        }
-        else
-        {
-            // Perform a basic attack
-            PerformBasicAttack();
-        }
+       
+        
 
+            if (ShouldUseSkill())
+            {
+                // Choose a random skill from available skills
+                Skill chosenSkill = availableSkills[Random.Range(0, availableSkills.Count)];
+            if (chosenSkill.Ptargit == 1)
+            {
+                UseAttackSkill(chosenSkill);
+            }
+            if(chosenSkill.Ptargit == 0)
+            {
+
+            }
+            }
+            else
+            {
+                // Perform a basic attack
+                PerformBasicAttack();
+            }
+            
+        
         EndTurn();
     }
+    private void UseSupportSkill(Skill skill) // used to target the enemys for buffs  and such
+    {
+        int ran;
+        GameObject target;
+        while (true)
+        {
+            ran = Random.Range(1, GameManager.Instance.enemyObj.Count) - 1;
+            target = GameManager.Instance.enemyObj[ran];
+            if (target.GetComponent<playerController>().playerStats.health <= 0)
+            {
 
-    private void UseSkill(Skill skill)
+            }
+            else
+            {
+                break;
+            }
+        }
+        if (target != null)
+        {
+            // Calculate skill damage using any multipliers
+            float multiplier = GetSkillMultiplier(skill.elementType);
+
+            // Activate the skill, passing the player as the target
+            skill.ActivateSkill(target, enemyAttributes.stats.attackDamage, multiplier, enemyAttributes.stats.critChance, enemyAttributes.stats.effectChance); // Attacker power is set to 10 for now
+        }
+    }
+    private void UseAttackSkill(Skill skill) // used for attacking the players
     {
         // Find the player to target
         int ran;
@@ -78,8 +115,25 @@ public class EnemyAI : MonoBehaviour
 
     private bool ShouldUseSkill()
     {
+
         // Randomly decide if the enemy should use a skill, for now it's 50/50
-        return Random.value > 0.5f;
+        if (ty == PublicEnums.EnemyTypes.Agressive)
+        {
+            return Random.value > 0.3f;
+        }
+        if (ty == PublicEnums.EnemyTypes.CasterA)
+        {
+            return Random.value > 0.6f;
+        }
+        if (ty == PublicEnums.EnemyTypes.CasterP)
+        {
+            return Random.value > 0.8f;
+        }
+        if (ty == PublicEnums.EnemyTypes.Support)
+        {
+            return Random.value > 1f;
+        }
+            return Random.value > 0.5f;
     }
 
     private void PerformBasicAttack()
