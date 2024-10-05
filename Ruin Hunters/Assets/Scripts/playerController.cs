@@ -5,7 +5,6 @@ using UnityEngine;
 public class playerController : MonoBehaviour, IDamage
 {
     public string characterName;
-    public CharacterComponent characterAttributes;
     public CharacterAttributes playerStats;
 
     public float speed;
@@ -24,17 +23,16 @@ public class playerController : MonoBehaviour, IDamage
     public List<ElementCalc> elementWeakness = new List<ElementCalc>();
 
     public PlayerActionSelector actionSelector; // refernece to action selector
-    private bool showedMenu;
 
-    
+    public FloatingNumberManager floatingNumberManager;
+
+    public Camera cam;
 
     // Start is called before the first frame update
     void Start()
     {
-        characterAttributes = new CharacterComponent(playerStats);
         rb = gameObject.GetComponent<Rigidbody>();
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-        showedMenu = false;
     }
 
     // Update is called once per frame
@@ -47,7 +45,7 @@ public class playerController : MonoBehaviour, IDamage
         }
         else
         {
-            if(characterAttributes.stats.isTurn) 
+            if(playerStats.isTurn) 
             {
                 // when it's the player's turn, show the menu
                 actionSelector.ShowMenu(transform, this, playerStats.skills);
@@ -102,11 +100,13 @@ public class playerController : MonoBehaviour, IDamage
     {
         float multiplier = GetSkillMultiplier(elementType);
         damage = Mathf.FloorToInt(damage * multiplier);
-        characterAttributes.stats.health -= damage;
+        playerStats.health -= damage;
+
+        //floatingNumberManager.ShowFloatingText(transform, damage, cam);
 
         GameManager.Instance.EndTurn();
 
-        if (characterAttributes.stats.health <= 0)
+        if (playerStats.health <= 0)
         {
             //died
         }
@@ -116,11 +116,13 @@ public class playerController : MonoBehaviour, IDamage
     {
         float multiplier = GetMeleeMultiplier(weaponType);
         damage = Mathf.FloorToInt(damage * multiplier);
-        characterAttributes.stats.health -= damage;
+        playerStats.health -= damage;
+
+        //floatingNumberManager.ShowFloatingText(transform, damage, cam);
 
         GameManager.Instance.EndTurn();
 
-        if (characterAttributes.stats.health <= 0)
+        if (playerStats.health <= 0)
         {
             //died
         }
@@ -140,9 +142,9 @@ public class playerController : MonoBehaviour, IDamage
 
     private void UseSkill(int index)
     {
-        if (index < characterAttributes.stats.skills.Count)
+        if (index < playerStats.skills.Count)
         {
-            Skill skillToUse = characterAttributes.stats.skills[index];
+            Skill skillToUse = playerStats.skills[index];
             // Implement logic for using the skill, e.g., apply damage
         }
     }

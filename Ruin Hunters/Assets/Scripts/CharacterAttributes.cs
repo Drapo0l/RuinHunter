@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events; 
 //using static UnityEditor.Progress;
 
 [CreateAssetMenu(fileName = "NewCharacterAttributes", menuName = "Character/Attributes")]
 public class CharacterAttributes : ScriptableObject
 {
+    public int level = 1;
+    public int currentXP = 0;
+    public int xpToNextLevel = 100;
+
     public int health;
     public int maxHealth;
     public int maxMana;
@@ -22,37 +25,36 @@ public class CharacterAttributes : ScriptableObject
     public PublicEnums.Regions regions;
     public bool isTurn = false;
     public bool isStuned = false;
-
-
-    //Polo Angel Equip weapon code
-    public InventoryItem equippedItem;
-
-    //polo angel's equip code func
-    public void Equip(InventoryItem item)
+   
+    public void AddExperience (int xpAmount)
     {
-        if (item == null)
+        currentXP += xpAmount;
+        CheckLevelUP();
+    }
+
+    private void CheckLevelUP()
+    {
+        if(currentXP >= xpToNextLevel)
         {
-            Debug.LogError("Cannot equip a null item!");
-            return;
+            LevelUp();
         }
-
-        equippedItem = item;
-        // Update player attributes, appearance, etc.
-        Debug.Log($"Equipped: {item.label}"); 
     }
-}
 
-
-public class CharacterComponent : MonoBehaviour
-{
-    public CharacterAttributes stats;
-    public CharacterComponent(CharacterAttributes _stats)
+    private void LevelUp()
     {
-        stats = _stats;
+        level++;
+        currentXP -= xpToNextLevel;
+        xpToNextLevel += 100;
+
+        maxHealth += 10;
+        health = maxHealth;
+        maxMana += 5;
+        mana = maxMana;
+        attackDamage += 5;
+        Defence += 5;
+        combatSpeed += 5;
     }
 }
-
-
 
 
 [CreateAssetMenu(fileName = "NewSkill", menuName = "Skill")]

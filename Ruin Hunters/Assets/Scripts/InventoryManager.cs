@@ -13,7 +13,6 @@ public class InventoryManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject); //keep inventory manager acdross scenes
         }
         else
         {
