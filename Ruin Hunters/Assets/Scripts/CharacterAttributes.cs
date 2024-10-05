@@ -6,6 +6,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewCharacterAttributes", menuName = "Character/Attributes")]
 public class CharacterAttributes : ScriptableObject
 {
+    public int level = 1;
+    public int currentXP = 0;
+    public int xpToNextLevel = 100;
+
     public int health;
     public int maxHealth;
     public int maxMana;
@@ -22,19 +26,35 @@ public class CharacterAttributes : ScriptableObject
     public bool isTurn = false;
     public bool isStuned = false;
    
-
-}
-
-public class CharacterComponent : MonoBehaviour
-{
-    public CharacterAttributes stats;
-    public CharacterComponent(CharacterAttributes _stats)
+    public void AddExperience (int xpAmount)
     {
-        stats = _stats;
+        currentXP += xpAmount;
+        CheckLevelUP();
+    }
+
+    private void CheckLevelUP()
+    {
+        if(currentXP >= xpToNextLevel)
+        {
+            LevelUp();
+        }
+    }
+
+    private void LevelUp()
+    {
+        level++;
+        currentXP -= xpToNextLevel;
+        xpToNextLevel += 100;
+
+        maxHealth += 10;
+        health = maxHealth;
+        maxMana += 5;
+        mana = maxMana;
+        attackDamage += 5;
+        Defence += 5;
+        combatSpeed += 5;
     }
 }
-
-
 
 
 [CreateAssetMenu(fileName = "NewSkill", menuName = "Skill")]

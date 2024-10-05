@@ -6,6 +6,7 @@ using UnityEngine;
 public class RegionEnemyPool : ScriptableObject
 {
     public PublicEnums.Regions region; // region for the enemy pool
+    public GameObject collidingEnemy; // make sure to spawn enemy player collides with
     public List<GameObject> enemyPrefabs; // list of enemies
     public int maxEnemies = 3;
 
@@ -13,9 +14,14 @@ public class RegionEnemyPool : ScriptableObject
     public List<GameObject> GetEnemies()
     {
         List<GameObject> enemiesToSpawn = new List<GameObject>();
-        List<CharacterComponent> spawnedStats = new List<CharacterComponent>();
 
-        for (int i = 0; i < maxEnemies; i++)
+        if (collidingEnemy != null) 
+        {
+            GameObject collidingInstance = GameObject.Instantiate(collidingEnemy);
+            enemiesToSpawn.Add(collidingInstance);
+        }
+
+        for (int i = 0; i < maxEnemies - 1; i++)
         {
             int randomIndex = Random.Range(0, enemyPrefabs.Count);
             GameObject enemy = GameObject.Instantiate(enemyPrefabs[randomIndex]);

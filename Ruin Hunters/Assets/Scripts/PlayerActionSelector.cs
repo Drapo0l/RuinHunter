@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using TMPro;
+using UnityEditor.Experimental.GraphView;
 
 public class PlayerActionSelector : MonoBehaviour
 {
@@ -13,21 +14,19 @@ public class PlayerActionSelector : MonoBehaviour
     public GameObject hoverIndicator;             // Visual indicator for current selection
     public Transform itemsMenuParent;             // Parent where item buttons will be added
     public Transform skillsMenuParent;            // Parent where SKILL buttons will be added
-    public GameObject buttonPrefab;               // Prefab for dynamically created buttons
     public GameObject menuPanel;                  //Panel for the menu UI
-    public GameObject battleCamera;               // battle cam
+    public Camera battleCamera;               // battle cam
     public GameObject actionMenu;                 //action menu buttons
+    public List<Button> subMenuButtons;           //buttons for skill/item menu
+    public GameObject subMenuParent;
 
     private int currentSelection = 0;              // Index of the currently selected button
     private Stack<List<Button>> menuStack = new Stack<List<Button>>(); // Stack for managing menus
     public List<GameObject> playerHealths;          // list of player health/mana
     private List<Button> currentMenu;               // Reference to the currently active menu
 
-    private List<Button> itemsMenuButtons = new List<Button>();         // Dynamically populated item buttons
-    private List<Button> skillsMenuButtons = new List<Button>();        // Dynamically populated skill buttons
-
     private playerController playerController;
-    private List<CharacterComponent> characterAttributes; // references to character attributes
+    private List<CharacterAttributes> characterAttributes; // references to character attributes
     private InventoryManager inventoryManager;       // reference to inventory manager
 
     private List<GameObject> playerParty;
@@ -133,8 +132,8 @@ public class PlayerActionSelector : MonoBehaviour
         }
         else if (menuPanel.activeSelf && usingItem)
         {
-            if (Input.GetKeyDown(KeyCode.W)) { NavigateSkills(-1); }
-            if (Input.GetKeyDown(KeyCode.S)) { NavigateSkills(1); }
+            if (Input.GetKeyDown(KeyCode.W)) { NavigateItems(-1); }
+            if (Input.GetKeyDown(KeyCode.S)) { NavigateItems(1); }
             if (Input.GetKeyDown(KeyCode.Return))
             {
                 UseItem();
@@ -154,9 +153,15 @@ public class PlayerActionSelector : MonoBehaviour
         playerController = _playerController;
         enemies = GameManager.Instance.enemyObj;        
 
+        //does not work idk why AHHHHHHHHHHHH
         // set the position of the menu to the left of the player
-        Vector3 menuPosition = playerTransform.position + new Vector3(-2f, 0, 0); //adjust offset if needed
-        menuPanel.transform.position = battleCamera.transform.position;
+        //battleCamera.gameObject.SetActive(true);
+
+        //Vector3 worldPosition = playerTransform.position + new Vector3(-2f, 0, 0); //adjust offset if needed
+
+        //Vector3 screenPosition = battleCamera.WorldToScreenPoint(worldPosition);
+
+        //menuPanel.transform.position = screenPosition;
 
         menuPanel.SetActive(true); // enable the menu
 
@@ -167,14 +172,21 @@ public class PlayerActionSelector : MonoBehaviour
 
     public void HideMenu()
     {
+        actionMenu.SetActive(true);
         menuPanel.SetActive(false);
         targetIndicator.SetActive(false);
         attacking = false;
+        targetingParty = false;
+        usingItem = false;
+        skillAttack = false;
+        HandleBackspace();
+        GameManager.Instance.EndTurn();
     }
 
     void HideActionMenu()
     {
         actionMenu.SetActive(false);
+        subMenuParent.SetActive(false);
     }
 
     private void Navigate(int direction)
@@ -189,19 +201,81 @@ public class PlayerActionSelector : MonoBehaviour
     {
         currentSelection += direction;
 
-        if (currentSelection < 0) currentSelection = currentMenu.Count - 1; // Loop to end
-        if (currentSelection >= currentMenu.Count) currentSelection = 0;      // Loop to start
-
-        //check if need to scroll
-        if(currentSelection == 0 && direction == -1 && skillScrollIndex > 0)
+        if (currentSelection < 0)
         {
-            skillScrollIndex--; //scroll up
+            // go to the last skill
+            currentSelection = playerSkills.Count - 1;
+            skillScrollIndex = Mathf.Max(0, playerSkills.Count - 5);
             PopulateSkillsMenu();
         }
-        else if(currentSelection == currentMenu.Count - 1 && direction == 1  && skillScrollIndex + visibleSkillCount < playerSkills.Count)
+        else if (currentSelection >= playerSkills.Count)
         {
-            skillScrollIndex++; //scroll up
+            //if player is at the bottom go to first skill
+            currentSelection = 0; 
+            skillScrollIndex = 0;
             PopulateSkillsMenu();
+        }
+
+        //check if need to scroll
+        if(currentSelection < skillScrollIndex)
+        {
+            skillScrollIndex = Mathf.Max(0, skillScrollIndex - 1); //scroll up
+            PopulateSkillsMenu();
+        }
+        else if(currentSelection >= skillScrollIndex + 5)
+        {
+            skillScrollIndex = Mathf.Min(playerSkills.Count - 5, skillScrollIndex + 1); //scroll down
+            PopulateSkillsMenu();
+        }
+
+        while (!subMenuButtons[currentSelection % subMenuButtons.Count].interactable)
+        {
+            currentSelection += direction;
+            if (currentSelection < 0) currentSelection = currentMenu.Count - 1;
+            if (currentSelection >= currentMenu.Count) currentSelection = 0;
+        }
+
+        UpdateHoverIndicator();
+    }
+
+    private void NavigateItems(int direction)
+    {
+        currentSelection += direction;
+
+        List<Item> playerItems = InventoryManager.instance.GetItems();
+
+        if (currentSelection < 0)
+        {
+            // go to the last skill
+            currentSelection = playerItems.Count - 1;
+            itemScrollIndex = Mathf.Max(0, playerItems.Count - 5);
+            PopulateItemMenu();
+        }
+        else if (currentSelection >= playerSkills.Count)
+        {
+            //if player is at the bottom go to first skill
+            currentSelection = 0;
+            itemScrollIndex = 0;
+            PopulateItemMenu();
+        }
+
+        //check if need to scroll
+        if (currentSelection < itemScrollIndex)
+        {
+            itemScrollIndex = Mathf.Max(0, itemScrollIndex - 1); //scroll up
+            PopulateItemMenu();
+        }
+        else if (currentSelection >= itemScrollIndex + 5)
+        {
+            itemScrollIndex = Mathf.Min(playerSkills.Count - 5, itemScrollIndex + 1); //scroll down
+            PopulateItemMenu();
+        }
+
+        while (!subMenuButtons[currentSelection % subMenuButtons.Count].interactable)
+        {
+            currentSelection += direction;
+            if (currentSelection < 0) currentSelection = currentMenu.Count - 1;
+            if (currentSelection >= currentMenu.Count) currentSelection = 0;
         }
 
         UpdateHoverIndicator();
@@ -209,7 +283,31 @@ public class PlayerActionSelector : MonoBehaviour
 
     private void UpdateHoverIndicator()
     {
-        Vector3 buttonPosition = currentMenu[currentSelection].transform.position;
+        Vector3 buttonPosition = Vector3.zero;
+        if (skillAttack)
+        {
+            int visibleIndex = currentSelection - skillScrollIndex;
+
+            if (visibleIndex >= 0 && visibleIndex < currentMenu.Count)
+            {
+                buttonPosition = currentMenu[visibleIndex].transform.position;                
+            }
+        }
+        else if (usingItem)
+        {
+            int visibleIndex = currentSelection - itemScrollIndex;
+
+            if (visibleIndex >= 0 && visibleIndex < currentMenu.Count)
+            {
+                buttonPosition = currentMenu[visibleIndex].transform.position;
+            }
+        }
+        else
+        {
+            if (currentSelection > currentMenu.Count - 1)
+            { currentSelection = currentMenu.Count - 1; }
+            buttonPosition = currentMenu[currentSelection].transform.position;
+        }
 
         hoverIndicator.transform.position = new Vector3(buttonPosition.x - 150f, buttonPosition.y, buttonPosition.z);
     }
@@ -227,27 +325,33 @@ public class PlayerActionSelector : MonoBehaviour
             menuStack.Pop();
             currentMenu = menuStack.Peek();
             currentSelection = 0;
-            UpdateHoverIndicator();
             attacking = false;
             targetingParty = false;
             usingItem = false;
+            skillAttack = false;
+            skillScrollIndex = 0;
+            itemScrollIndex = 0;
+            subMenuButtons[0].transform.parent.gameObject.SetActive(false);
 
-            if (skillsMenuButtons.Count > 0) 
-            {
-                ClearSkillMenu();
-            }
-            else if (itemsMenuButtons.Count > 0) 
-            {
-                ClearItemsMenu();
-            }
+            UpdateHoverIndicator();
 
         }
     }
 
     private void HandleAttackBackspace()
     {
+        if (skillAttack)
+        {
+            subMenuParent.SetActive(true);
+            usingItem = false;
+        }
+        else if(usingItem)
+        {
+            subMenuParent.SetActive(true);
+            skillAttack = false;
+        }  
+        else { subMenuParent.SetActive(false); }       
         attacking = false;
-        skillAttack = false;
         targetingParty = false;
         targetIndicator.SetActive(false);
         actionMenu.SetActive(true);
@@ -286,49 +390,39 @@ public class PlayerActionSelector : MonoBehaviour
     public void OpenItemMenu()
     {
         PopulateItemMenu();
-        SwitchToMenu(itemsMenuButtons);
+        SwitchToMenu(subMenuButtons);
     }
 
     public void OpenSkillMenu()
     {
         PopulateSkillsMenu();
-        SwitchToMenu(skillsMenuButtons);
+        SwitchToMenu(subMenuButtons);
     }
 
     private void PopulateItemMenu()
     {
         usingItem = true;
 
-        foreach (Button button in itemsMenuButtons)
+        subMenuButtons[0].transform.parent.gameObject.SetActive(true);
+
+        List<Item> playerItems = InventoryManager.instance.GetItems();
+
+        //update buttons
+        for (int i = 0; i < subMenuButtons.Count; i++)
         {
-            Destroy(button.gameObject);
-        }
-        itemsMenuButtons.Clear();
+            int itemIndex = itemScrollIndex + i;
 
-        float horizontalOffset = 65f; //distance between buttons in x axis
-
-        RectTransform itemsMenuParentRect = itemsMenuParent.GetComponent<RectTransform>();
-        Vector3 initialPosition = itemsMenuParentRect.position;
-
-        //create visible buttons
-        for (int i = itemScrollIndex; i < Mathf.Min(itemScrollIndex + visibleItemCount, inventoryManager.GetItems().Count); i++)
-        {
-            //instantiate the button
-            GameObject newButtonOBj = Instantiate(buttonPrefab, itemsMenuParent);
-            Button newButton = newButtonOBj.GetComponent<Button>();
-            RectTransform newButtonRect = newButtonOBj.GetComponent<RectTransform>();
-
-            //set the text
-            newButton.GetComponentInChildren<TextMeshProUGUI>().text = inventoryManager.GetItems()[i].itemName;
-
-            //adjust position
-            Vector3 newPosition = new Vector3(
-                initialPosition.x + 180f,
-                initialPosition.y + (i * -horizontalOffset),
-                initialPosition.z);
-            newButtonRect.localPosition = newPosition;
-
-            itemsMenuButtons.Add(newButton);
+            if (itemIndex < playerItems.Count)
+            {
+                subMenuButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = playerItems[itemIndex].itemName;
+                subMenuButtons[i].interactable = true;
+                itemIndex++;
+            }
+            else
+            {
+                subMenuButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = "";
+                subMenuButtons[i].interactable = false;
+            }
         }
 
         //enable scrolling
@@ -345,37 +439,27 @@ public class PlayerActionSelector : MonoBehaviour
     {
         skillAttack = true;
 
-        foreach ( Button button in skillsMenuButtons )
+        subMenuButtons[0].transform.parent.gameObject.SetActive(true);
+        
+        //update buttons
+        for (int i = 0; i < subMenuButtons.Count; i++) 
         {
-            Destroy(button.gameObject );
+            int skillIndex = skillScrollIndex + i;
+
+            if (skillIndex < playerSkills.Count)
+            {
+                subMenuButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = playerSkills[skillIndex].skillName;
+                subMenuButtons[i].interactable = true;
+                skillIndex++;
+            }
+            else
+            {
+                subMenuButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = "";
+                subMenuButtons[i].interactable = false;
+            }
         }
-        skillsMenuButtons.Clear();
 
-        float horizontalOffset = 65f; //distance between buttons in x axis
-
-        RectTransform skillsMenuParentRect = skillsMenuParent.GetComponent<RectTransform>();
-        Vector3 initialPosition = skillsMenuParentRect.position;
-
-        //create visible buttons
-        for ( int i = skillScrollIndex; i < Mathf.Min(skillScrollIndex + visibleSkillCount, playerSkills.Count); i++ )
-        {
-            //instantiate the button
-            GameObject newButtonOBj = Instantiate(buttonPrefab, skillsMenuParent);
-            Button newButton = newButtonOBj.GetComponent<Button>();
-            RectTransform newButtonRect = newButtonOBj.GetComponent<RectTransform>();
-
-            //set the text
-            newButton.GetComponentInChildren<TextMeshProUGUI>().text = playerSkills[i].skillName;
-
-            //adjust position
-            Vector3 newPosition = new Vector3(
-                initialPosition.x + 180f,
-                initialPosition.y + (i * -horizontalOffset),
-                initialPosition.z);
-            newButtonRect.localPosition = newPosition;
-
-            skillsMenuButtons.Add(newButton);
-        }
+        currentMenu = subMenuButtons;
 
         //enable scrolling
         ScrollRect scrollRect = skillsMenuParent.GetComponentInParent<ScrollRect>();
@@ -385,25 +469,6 @@ public class PlayerActionSelector : MonoBehaviour
         }
 
         UpdateHoverIndicator();
-    }
-
-    void ClearSkillMenu()
-    {
-        foreach (Button button in skillsMenuButtons) 
-        {
-            Destroy(button.gameObject);
-        }
-        skillsMenuButtons.Clear();
-        skillAttack = false;
-    }
-
-    void ClearItemsMenu()
-    {
-        foreach (Button button in itemsMenuButtons)
-        {
-            Destroy (button.gameObject);
-        }
-        itemsMenuButtons.Clear();
     }
 
     private void UseItem()
@@ -479,6 +544,7 @@ public class PlayerActionSelector : MonoBehaviour
         {
             InventoryManager.instance.RemoveItem(item);
         }
+        HideMenu();
     }
 
     public void RemoveEnemy(GameObject enemy) 

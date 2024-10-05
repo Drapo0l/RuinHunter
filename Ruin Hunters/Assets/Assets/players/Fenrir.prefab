@@ -264,8 +264,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterName: Fenrir
-  characterAttributes: {fileID: 11400000, guid: 4ab0cd10a680bb04185eb198290934a0,
-    type: 2}
   playerStats: {fileID: 11400000, guid: 91d6a34a6ed245a4d9f6ea5145fdb49f, type: 2}
   speed: 10
   GroundDist: 0.67
@@ -277,6 +275,9 @@ MonoBehaviour:
   ignorePlayerLayer:
     serializedVersion: 2
     m_Bits: 8
+  playerWeapon: 0
   weaponsWeakness: []
   elementWeakness: []
   actionSelector: {fileID: 0}
+  floatingNumberManager: {fileID: 1812020603775166005, guid: ac2a7f03dd8b4a84eabeb5a8d26e16e2,
+    type: 3}
