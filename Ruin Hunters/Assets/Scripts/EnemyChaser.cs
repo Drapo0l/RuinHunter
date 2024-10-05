@@ -28,10 +28,9 @@ public class EnemyChaser : MonoBehaviour
     [SerializeField] float Sightrange;
     bool isinSight;
 
-    bool isPlayingStop;
     void Start()
     {
-        isPlayingStop = false;
+       
         flipTransform = enemyTransform;
         flipTransform.transform.localScale = new Vector3(-enemyTransform.localScale.x, enemyTransform.localScale.y, enemyTransform.localScale.z);
     }

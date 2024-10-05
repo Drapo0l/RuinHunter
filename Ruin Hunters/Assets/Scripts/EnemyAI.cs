@@ -12,6 +12,8 @@ public class EnemyAI : MonoBehaviour
     public List<ElementCalc> elementWeakness = new List<ElementCalc>();
     List<Skill> availableSkills;
     public PublicEnums.EnemyTypes ty;
+    public FloatingNumberManager floatingNumberManager;
+    public Camera cam;
 
     void Start()
     {
@@ -168,6 +170,8 @@ public class EnemyAI : MonoBehaviour
         damage = Mathf.FloorToInt(damage * multiplier);
         enemyStats.health -= damage;
 
+        //floatingNumberManager.ShowFloatingText(transform, damage, cam);
+
         GameManager.Instance.EndTurn();
 
         if (enemyStats.health <= 0)
@@ -181,6 +185,8 @@ public class EnemyAI : MonoBehaviour
         float multiplier = GetSkillMultiplier(elementType);
         damage = Mathf.FloorToInt(damage * multiplier);
         enemyStats.health -= damage;
+
+        //floatingNumberManager.ShowFloatingText(transform, damage, cam);
 
         GameManager.Instance.EndTurn();
 

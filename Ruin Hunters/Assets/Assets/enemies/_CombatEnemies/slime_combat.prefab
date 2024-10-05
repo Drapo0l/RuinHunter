@@ -121,7 +121,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyName: Slime
-  enemyAttributes: {fileID: 0}
   enemyStats: {fileID: 11400000, guid: d8290e5681d443147adc4a3ccb758264, type: 2}
   weaponsWeakness: []
   elementWeakness: []
+  ty: 0
+  floatingNumberManager: {fileID: 1812020603775166005, guid: ac2a7f03dd8b4a84eabeb5a8d26e16e2,
+    type: 3}
+  cam: {fileID: 2793435810526664582, guid: f7590eb4013331c4baab59ec332962fc, type: 3}

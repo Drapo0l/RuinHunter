@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e337efe9978a8409654b2b05bb0c8c, type: 3}
   m_Name: Test
   m_EditorClassIdentifier: 
-  health: 3250
+  health: 3500
   maxHealth: 3500
   maxMana: 200
   mana: 150
@@ -30,12 +30,56 @@ MonoBehaviour:
     baseDamage: 400
     manaCost: 20
     effect: 0
+    Ptargit: 0
   - skillName: Giga Slash
     elementType: 0
     weaponType: 1
     baseDamage: 300
     manaCost: 10
     effect: 0
+    Ptargit: 0
+  - skillName: Giga Slash
+    elementType: 0
+    weaponType: 1
+    baseDamage: 300
+    manaCost: 10
+    effect: 0
+    Ptargit: 0
+  - skillName: Giga Slash
+    elementType: 0
+    weaponType: 1
+    baseDamage: 300
+    manaCost: 10
+    effect: 0
+    Ptargit: 0
+  - skillName: Giga Slash
+    elementType: 0
+    weaponType: 1
+    baseDamage: 300
+    manaCost: 10
+    effect: 0
+    Ptargit: 0
+  - skillName: Giga Slash
+    elementType: 0
+    weaponType: 1
+    baseDamage: 300
+    manaCost: 10
+    effect: 0
+    Ptargit: 0
+  - skillName: Giga Slash
+    elementType: 0
+    weaponType: 1
+    baseDamage: 300
+    manaCost: 10
+    effect: 0
+    Ptargit: 0
+  - skillName: hopeWork
+    elementType: 0
+    weaponType: 1
+    baseDamage: 300
+    manaCost: 10
+    effect: 0
+    Ptargit: 0
   regions: 2
   isTurn: 1
   isStuned: 0

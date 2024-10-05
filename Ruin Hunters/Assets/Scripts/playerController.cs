@@ -23,16 +23,16 @@ public class playerController : MonoBehaviour, IDamage
     public List<ElementCalc> elementWeakness = new List<ElementCalc>();
 
     public PlayerActionSelector actionSelector; // refernece to action selector
-    private bool showedMenu;
 
-    
+    public FloatingNumberManager floatingNumberManager;
+
+    public Camera cam;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody>();
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-        showedMenu = false;
     }
 
     // Update is called once per frame
@@ -102,6 +102,8 @@ public class playerController : MonoBehaviour, IDamage
         damage = Mathf.FloorToInt(damage * multiplier);
         playerStats.health -= damage;
 
+        //floatingNumberManager.ShowFloatingText(transform, damage, cam);
+
         GameManager.Instance.EndTurn();
 
         if (playerStats.health <= 0)
@@ -115,6 +117,8 @@ public class playerController : MonoBehaviour, IDamage
         float multiplier = GetMeleeMultiplier(weaponType);
         damage = Mathf.FloorToInt(damage * multiplier);
         playerStats.health -= damage;
+
+        //floatingNumberManager.ShowFloatingText(transform, damage, cam);
 
         GameManager.Instance.EndTurn();
 
