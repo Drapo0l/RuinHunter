@@ -43,11 +43,17 @@ public class EnemyAI : MonoBehaviour
                 Skill chosenSkill = availableSkills[Random.Range(0, availableSkills.Count)];
             if (chosenSkill.Ptargit == 1)
             {
-                UseAttackSkill(chosenSkill);
+                
+                
+                    UseAttackSkill(chosenSkill);
+                
+               
             }
             if(chosenSkill.Ptargit == 0)
             {
-
+                
+                    UseAttackSkill(chosenSkill);
+                
             }
             }
             else
@@ -63,53 +69,111 @@ public class EnemyAI : MonoBehaviour
     {
         int ran;
         GameObject target;
-        while (true)
+        if(skill.AOE == true)
         {
-            ran = Random.Range(1, GameManager.Instance.enemyObj.Count) - 1;
-            target = GameManager.Instance.enemyObj[ran];
-            if (target.GetComponent<playerController>().playerStats.health <= 0)
+            for(int i = 0; i < GameManager.Instance.enemyObj.Count; i++)
             {
+                target = GameManager.Instance.enemyObj[i];
+                if (target.GetComponent<playerController>().playerStats.health <= 0)
+                {
+                    if (target != null)
+                    {
+                        // Calculate skill damage using any multipliers
+                        float multiplier = GetSkillMultiplier(skill.elementType);
 
+                        // Activate the skill, passing the player as the target
+                        skill.ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, enemyStats.effectChance); // Attacker power is set to 10 for now
+                    }
+                }
+                else
+                {
+                   
+                }
+               
             }
-            else
-            {
-                break;
-            }
+           
         }
-        if (target != null)
+        else
         {
-            // Calculate skill damage using any multipliers
-            float multiplier = GetSkillMultiplier(skill.elementType);
+            while (true)
+            {
+                ran = Random.Range(1, GameManager.Instance.enemyObj.Count) - 1;
+                target = GameManager.Instance.enemyObj[ran];
+                if (target.GetComponent<playerController>().playerStats.health <= 0)
+                {
 
-            // Activate the skill, passing the player as the target
-            skill.ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, enemyStats.effectChance); // Attacker power is set to 10 for now
+                }
+                else
+                {
+                    break;
+                }
+            }
+            if (target != null)
+            {
+                // Calculate skill damage using any multipliers
+                float multiplier = GetSkillMultiplier(skill.elementType);
+
+                // Activate the skill, passing the player as the target
+                skill.ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, enemyStats.effectChance); // Attacker power is set to 10 for now
+            }
+
         }
+       
+       
     }
     private void UseAttackSkill(Skill skill) // used for attacking the players
     {
         // Find the player to target
         int ran;
         GameObject target;
-        while (true)
+        if (skill.AOE == true)
         {
-            ran = Random.Range(1, PartyManager.Instance.startingPlayerParty.Count) - 1;
-            target = PartyManager.Instance.startingPlayerParty[ran];
-            if (target.GetComponent<playerController>().playerStats.health <= 0)
+            for (int i = 0; i < GameManager.Instance.enemyObj.Count; i++)
             {
+                target = GameManager.Instance.enemyObj[i];
+                if (target.GetComponent<playerController>().playerStats.health <= 0)
+                {
+                    if (target != null)
+                    {
+                        // Calculate skill damage using any multipliers
+                        float multiplier = GetSkillMultiplier(skill.elementType);
+
+                        // Activate the skill, passing the player as the target
+                        skill.ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, enemyStats.effectChance); // Attacker power is set to 10 for now
+                    }
+                }
+                else
+                {
+
+                }
 
             }
-            else
-            {
-                break;
-            }
+
         }
-        if (target != null)
+        else
         {
-            // Calculate skill damage using any multipliers
-            float multiplier = GetSkillMultiplier(skill.elementType);
+            while (true)
+            {
+                ran = Random.Range(1, GameManager.Instance.enemyObj.Count) - 1;
+                target = GameManager.Instance.enemyObj[ran];
+                if (target.GetComponent<playerController>().playerStats.health <= 0)
+                {
 
-            // Activate the skill, passing the player as the target
-            skill.ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, enemyStats.effectChance); // Attacker power is set to 10 for now
+                }
+                else
+                {
+                    break;
+                }
+            }
+            if (target != null)
+            {
+                // Calculate skill damage using any multipliers
+                float multiplier = GetSkillMultiplier(skill.elementType);
+
+                // Activate the skill, passing the player as the target
+                skill.ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, enemyStats.effectChance); // Attacker power is set to 10 for now
+            }
+
         }
     }
 
@@ -119,19 +183,19 @@ public class EnemyAI : MonoBehaviour
         // Randomly decide if the enemy should use a skill, for now it's 50/50
         if (ty == PublicEnums.EnemyTypes.Agressive)
         {
-            return Random.value > 0.3f;
+            return Random.value > 0.7f;
         }
         if (ty == PublicEnums.EnemyTypes.CasterA)
         {
-            return Random.value > 0.6f;
+            return Random.value > 0.4f;
         }
         if (ty == PublicEnums.EnemyTypes.CasterP)
         {
-            return Random.value > 0.8f;
+            return Random.value > 0.2f;
         }
         if (ty == PublicEnums.EnemyTypes.Support)
         {
-            return Random.value > 1f;
+            return Random.value > 0f;
         }
             return Random.value > 0.5f;
     }

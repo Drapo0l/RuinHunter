@@ -67,14 +67,24 @@ public class GameManager : MonoBehaviour
         characters = new List<CharacterAttributes>();
         
         characters.AddRange(playerParty);
-
+       
         for (int i = 0; i < playerParty.Count; i++)
         {
             playerHealths[i].SetActive(true);
         }
 
         AddRandomEnemies();
-
+        for (int i = 0; i < characters.Count; i++) // makes it so that your og stats are now saved 
+        {
+            characters[i].maxMana = characters[i].maxManaOG;
+            characters[i].maxHealth = characters[i].maxHealthOG;
+            characters[i].Defence = characters[i].DefenceOG;
+            characters[i].combatSpeed = characters[i].combatSpeedOG;
+            characters[i].skillDamage = characters[i].skillDamageOG;
+            characters[i].attackDamage = characters[i].attackDamageOG;
+            characters[i].critChance = characters[i].critChanceOG;
+            characters[i].effectChance = characters[i].effectChanceOG;
+        }
         SetupBattleField();
 
         // Sort characters based on speed in descending order
@@ -190,9 +200,26 @@ public class GameManager : MonoBehaviour
     {
         //move to the next character in the list
         currentTurnIndex = (currentTurnIndex + 1) % characters.Count;
-
-        //start the next character's turn
-        StartTurn();
+        if (currentEnemies.Count <= 0)
+        {
+            for (int i = 0; i < characters.Count; i++) // makes it so that your og stats are now saved 
+            {
+                characters[i].maxManaOG = characters[i].maxMana;
+                characters[i].maxHealthOG = characters[i].maxHealth;
+                characters[i].DefenceOG = characters[i].Defence;
+                characters[i].combatSpeedOG = characters[i].combatSpeed;
+                characters[i].skillDamageOG = characters[i].skillDamage;
+                characters[i].attackDamageOG = characters[i].attackDamage;
+                characters[i].critChanceOG = characters[i].critChance;
+                characters[i].effectChanceOG = characters[i].effectChance;
+            }
+        }
+        else
+        {
+            //start the next character's turn
+            StartTurn();
+        }
+       
     }
 
 }
