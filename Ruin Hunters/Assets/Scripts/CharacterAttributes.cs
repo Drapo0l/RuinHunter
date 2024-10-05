@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events; 
 //using static UnityEditor.Progress;
 
 [CreateAssetMenu(fileName = "NewCharacterAttributes", menuName = "Character/Attributes")]
@@ -21,9 +22,26 @@ public class CharacterAttributes : ScriptableObject
     public PublicEnums.Regions regions;
     public bool isTurn = false;
     public bool isStuned = false;
-   
 
+
+    //Polo Angel Equip weapon code
+    public InventoryItem equippedItem;
+
+    //polo angel's equip code func
+    public void Equip(InventoryItem item)
+    {
+        if (item == null)
+        {
+            Debug.LogError("Cannot equip a null item!");
+            return;
+        }
+
+        equippedItem = item;
+        // Update player attributes, appearance, etc.
+        Debug.Log($"Equipped: {item.label}"); 
+    }
 }
+
 
 public class CharacterComponent : MonoBehaviour
 {

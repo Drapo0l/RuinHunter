@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
+
 
 public class InventoryItemLists : MonoBehaviour
 {
@@ -12,15 +14,15 @@ public class InventoryItemLists : MonoBehaviour
     private GameObject _menuItemTemplate = default;
     [SerializeField]
     private List<InventoryItem> inventoryItems = default;
-
-  
-
-
+    [SerializeField]
+    private ActiveInventoryItemChangeEvent AIICE = default;
 
     void Awake()
     {
         AddMenuItems();
- 
+        ActivateFirstItem();
+
+
     }
 
     void AddMenuItems()
@@ -33,29 +35,23 @@ public class InventoryItemLists : MonoBehaviour
 
     void AddMenuItem(InventoryItem item)
     {
-        if (item == null || _menuItemTemplate == null || _content == null)
-        {
-            Debug.LogError("AddMenuItem: Missing item, template, or content!");
-            return;
-        }
-
-        GameObject newMenuItem = Instantiate(_menuItemTemplate);
-        string label = $"  {item.label}";
+        GameObject newMenuItem;
+        string label = $"   {item.label}";
+        newMenuItem = Instantiate(_menuItemTemplate, transform.position, transform.rotation);
         newMenuItem.name = label;
-
-        // Set parent to content and reset local position/rotation
-        newMenuItem.transform.SetParent(_content.transform, false); // false to maintain local scale
+        newMenuItem.transform.SetParent(_content.transform, true);
         newMenuItem.SetActive(true);
+        newMenuItem.GetComponentInChildren<TextMeshProUGUI>().text = label;
+        newMenuItem.GetComponent<ItemEquiper>().Item = item;    
+    }
 
-        if (newMenuItem.TryGetComponent<TextMeshProUGUI>(out var textComponent))
+    void ActivateFirstItem()
+    {
+        InventoryItem Activeitem = inventoryItems[0];
+
+        if (Activeitem != null)
         {
-            textComponent.text = label;
+            AIICE.Invoke(Activeitem);   
         }
-        else
-        {
-            Debug.LogError("Text component not found in the new menu item!");
-        }
-
-
     }
 }
