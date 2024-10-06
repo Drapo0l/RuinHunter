@@ -5,5 +5,5 @@ using UnityEngine;
 //[RequireComponent(typeof(UniqueID))]
 public interface NPCShop
 {
-    public void Shop(Dialogue dialogueText);
+    public void Shop();
 }

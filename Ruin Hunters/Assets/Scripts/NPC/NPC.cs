@@ -16,7 +16,15 @@ public class NPC : NPCManager, NPCTalkable, NPCShop
     public override void Interact()
     {
         Talk(dialogue);
+    }
+    public void Talk(Dialogue dialogueText)
+    {
+        //start conversation
+        dialogueManager.DisplayNextSentence(dialogueText);
+    }
 
+    private void OnDialogueEnd()
+    {
         if (isAShopNPC)
         {
             Shop();
@@ -25,16 +33,13 @@ public class NPC : NPCManager, NPCTalkable, NPCShop
 
     public void Shop()
     {
-            shopSystem = new ShopSystem(shopItemsHeld.Items.Count, shopItemsHeld.MaxAllowedGold, shopItemsHeld.BuyMarkUp, shopItemsHeld.SellMarkUp );
-        foreach ( var item in shopItemsHeld.Items )
+        shopSystem = new ShopSystem(shopItemsHeld.Items.Count, shopItemsHeld.MaxAllowedGold, shopItemsHeld.BuyMarkUp, shopItemsHeld.SellMarkUp);
+        foreach (var item in shopItemsHeld.Items)
         {
-            shopSystem.AddToShop(item.itemData, item.Amount);
+            shopSystem.AddToShop(item.itemData, item.Amount); // No need for 'as Item' since itemData is already of type Item
         }
+
+        OpenShopUI();
     }
 
-    public void Talk(Dialogue dialogueText)
-    {
-        //start conversation
-        dialogueManager.DisplayNextSentence(dialogueText);
-    }
 }

@@ -33,6 +33,6 @@ public class ShopItem : ScriptableObject
 [System.Serializable]
 public struct ShopInventoryItem
 {
-    public InventoryManager itemData;
+    public Item itemData;
     public int Amount;
 }

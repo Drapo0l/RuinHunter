@@ -1,17 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public abstract class NPCManager : MonoBehaviour, NPCInteractable
 {
-    [SerializeField]  SpriteRenderer interactSprite;
-    [SerializeField]  float interactDst;
+    [SerializeField] SpriteRenderer interactSprite;
+    [SerializeField] float interactDst;
 
     private Transform playerTransform;
 
-    public GameObject player { get; set ; }
+    public GameObject player { get; set; }
     public bool IsInteractable { get; set; }
+
+    public static UnityAction<ShopSystem, InventoryItemLists> OnShoWindowRequest;
 
     private void Start()
     {
@@ -53,5 +56,16 @@ public abstract class NPCManager : MonoBehaviour, NPCInteractable
         }
 
     }
-   
+
+    public void OpenShopUI()
+    {
+        //ShopUI shopUI = FindObjectOfType<ShopUI>(); // Find the ShopUI component in the scene
+        //if (shopUI != null)
+        //{
+        //    // Pass the shop items and player gold to the UI
+        //    shopUI.Initialize(shopSystem, InventoryManager.instance.GetCurrentGold());
+        //    shopUI.gameObject.SetActive(true); // Show the shop UI
+        //}
+    }
+
 }
