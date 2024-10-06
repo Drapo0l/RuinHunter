@@ -26,8 +26,6 @@ public class playerController : MonoBehaviour, IDamage
 
     public PlayerActionSelector actionSelector; // refernece to action selector
 
-    public FloatingNumberManager floatingNumberManager;
-
     public Camera cam;
 
     public int defended = 0;
@@ -53,9 +51,11 @@ public class playerController : MonoBehaviour, IDamage
             {
                 if (defended != 0)
                 {
+                   
                     playerStats.Defence = defended;
                     defended = 0;
                 }
+                
                 // when it's the player's turn, show the menu
                 actionSelector.ShowMenu(transform, this, playerStats.skills);                
             }
@@ -109,7 +109,7 @@ public class playerController : MonoBehaviour, IDamage
 
         FloatingNumberManager.Instance.ShowFloatingText(transform, damage, cam);
 
-        GameManager.Instance.EndTurn();
+        
 
         if (playerStats.health <= 0)
         {
@@ -125,7 +125,7 @@ public class playerController : MonoBehaviour, IDamage
 
         FloatingNumberManager.Instance.ShowFloatingText(transform, damage, cam);
 
-        GameManager.Instance.EndTurn();
+       
 
         if (playerStats.health <= 0)
         {

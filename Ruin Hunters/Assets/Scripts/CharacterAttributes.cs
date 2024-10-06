@@ -53,7 +53,6 @@ public class CharacterAttributes : ScriptableObject
         level++;
         currentXP -= xpToNextLevel;
         xpToNextLevel += 100;
-
         maxHealth += 10;
         health = maxHealth;
         maxMana += 5;

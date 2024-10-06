@@ -20,7 +20,7 @@ public class Skill
         // Simple damage calculation (adjust as necessary)
         int damage = Mathf.FloorToInt(baseDamage * multiplier) + attackerPower;
         damage = Seffect(target, crit, effectC, damage, effect);
-        damage = damage - target.GetComponent<CharacterAttributes>().Defence;
+        damage = damage - target.GetComponent<playerController>().playerStats.Defence;
         // Apply damage to the target, e.g., calling the target's TakeDamage() method.
         IDamage targetHit = target.GetComponent<IDamage>();
         if (targetHit != null) 
@@ -34,7 +34,7 @@ public class Skill
         // Simple damage calculation (adjust as necessary)
         int damage = Mathf.FloorToInt(baseDamage * multiplier) + attackerPower;
         damage = Seffect(target, crit, effectC, damage, effect);
-        damage = damage - target.GetComponent<CharacterAttributes>().Defence;
+        damage = damage - target.GetComponent<playerController>().playerStats.Defence;
         // Apply damage to the target, e.g., calling the target's TakeDamage() method.
         IDamage targetHit = target.GetComponent<IDamage>();
         if (targetHit != null)

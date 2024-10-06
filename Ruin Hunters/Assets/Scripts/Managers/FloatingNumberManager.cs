@@ -9,8 +9,6 @@ public class FloatingNumberManager : MonoBehaviour
     public static FloatingNumberManager Instance;
 
     public GameObject floatingTextPrefab;
-    public GameObject canvas;
-    public Transform canvasTransform;
 
     private void Awake()
     {
@@ -28,20 +26,16 @@ public class FloatingNumberManager : MonoBehaviour
     {
         //create the floating txt object
         GameObject floatingText = Instantiate(floatingTextPrefab);
-        floatingText.transform.SetParent(canvas.transform);
+        floatingText.SetActive(true);
 
         //set the text to the damage amount
-        TextMeshProUGUI damageText = floatingText.GetComponent<TextMeshProUGUI>();
+        TextMeshPro damageText = floatingText.GetComponent<TextMeshPro>();
         damageText.text = damageAmount.ToString();
 
         //position it above the target
-        Vector3 worldPosition = target.position + new Vector3(0, 2f, 0);
-        Vector3 screenPosition = cam.WorldToScreenPoint(worldPosition);
-
-        //set the floating text position on canvas
-        floatingText.transform.position = screenPosition;
+        floatingText.transform.position = target.position + new Vector3(0, 0f, 0);
 
         //destroy after x time
-        Destroy(floatingText, 1.5f);
+        Destroy(floatingText, 0.5f);
     }
 }

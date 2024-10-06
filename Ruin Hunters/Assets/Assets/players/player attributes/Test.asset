@@ -15,17 +15,26 @@ MonoBehaviour:
   level: 1
   currentXP: 0
   xpToNextLevel: 100
+  nameOfCharacter: Testing
   health: 3500
   maxHealth: 3500
   maxMana: 200
   mana: 150
-  nameOfCharacter: Testing
-  combatSpeed: 20
-  skillDamage: 300
-  attackDamage: 350
+  combatSpeed: 0
+  skillDamage: 0
+  attackDamage: 0
   critChance: 0
   effectChance: 0
-  Defence: 100
+  Defence: 0
+  maxHealthOG: 3500
+  maxManaOG: 0
+  combatSpeedOG: 0
+  skillDamageOG: 0
+  attackDamageOG: 0
+  critChanceOG: 0
+  effectChanceOG: 0
+  DefenceOG: 0
+  expGive: 0
   skills:
   - skillName: Fire Bolt
     elementType: 1
@@ -34,6 +43,7 @@ MonoBehaviour:
     manaCost: 20
     effect: 0
     Ptargit: 0
+    AOE: 0
   - skillName: Giga Slash
     elementType: 0
     weaponType: 1
@@ -41,6 +51,7 @@ MonoBehaviour:
     manaCost: 10
     effect: 0
     Ptargit: 0
+    AOE: 0
   - skillName: Giga Slash
     elementType: 0
     weaponType: 1
@@ -48,6 +59,7 @@ MonoBehaviour:
     manaCost: 10
     effect: 0
     Ptargit: 0
+    AOE: 0
   - skillName: Giga Slash
     elementType: 0
     weaponType: 1
@@ -55,6 +67,7 @@ MonoBehaviour:
     manaCost: 10
     effect: 0
     Ptargit: 0
+    AOE: 0
   - skillName: Giga Slash
     elementType: 0
     weaponType: 1
@@ -62,6 +75,7 @@ MonoBehaviour:
     manaCost: 10
     effect: 0
     Ptargit: 0
+    AOE: 0
   - skillName: Giga Slash
     elementType: 0
     weaponType: 1
@@ -69,6 +83,7 @@ MonoBehaviour:
     manaCost: 10
     effect: 0
     Ptargit: 0
+    AOE: 0
   - skillName: Giga Slash
     elementType: 0
     weaponType: 1
@@ -76,6 +91,7 @@ MonoBehaviour:
     manaCost: 10
     effect: 0
     Ptargit: 0
+    AOE: 0
   - skillName: hopeWork
     elementType: 0
     weaponType: 1
@@ -83,6 +99,7 @@ MonoBehaviour:
     manaCost: 10
     effect: 0
     Ptargit: 0
+    AOE: 0
   regions: 2
   isTurn: 0
   isStuned: 0
