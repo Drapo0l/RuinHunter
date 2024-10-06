@@ -33,7 +33,7 @@ public class EnemyAI : MonoBehaviour
                 HandleCombatActions();
                 StartCoroutine(combatpause());
                 enemyModel.transform.position = postionOG;
-
+                GameManager.Instance.EndTurn();
 
 
 
@@ -42,11 +42,11 @@ public class EnemyAI : MonoBehaviour
     }
     IEnumerator combatpause()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
 
-        enemyModel.transform.position = new Vector3(enemyModel.transform.position.x - 2, enemyModel.transform.position.y, enemyModel.transform.position.z);
+        
 
-        GameManager.Instance.EndTurn();
+       
     }
     private void HandleCombatActions()
     {
