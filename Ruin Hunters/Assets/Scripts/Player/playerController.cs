@@ -107,9 +107,7 @@ public class playerController : MonoBehaviour, IDamage
         damage = Mathf.FloorToInt(damage * multiplier);
         playerStats.health -= damage;
 
-        FloatingNumberManager.Instance.ShowFloatingText(transform, damage, cam);
-
-        
+        FloatingNumberManager.Instance.ShowFloatingText(transform, damage, cam);        
 
         if (playerStats.health <= 0)
         {
@@ -123,9 +121,7 @@ public class playerController : MonoBehaviour, IDamage
         damage = Mathf.FloorToInt(damage * multiplier);
         playerStats.health -= damage;
 
-        FloatingNumberManager.Instance.ShowFloatingText(transform, damage, cam);
-
-       
+        FloatingNumberManager.Instance.ShowFloatingText(transform, damage, cam);      
 
         if (playerStats.health <= 0)
         {
