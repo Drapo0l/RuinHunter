@@ -6,14 +6,29 @@ using UnityEngine.UI;
 
 public class FloatingNumberManager : MonoBehaviour
 {
+    public static FloatingNumberManager Instance;
+
     public GameObject floatingTextPrefab;
+    public GameObject canvas;
     public Transform canvasTransform;
-    
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject); 
+        }
+    }
 
     public void ShowFloatingText(Transform target, int damageAmount, Camera cam)
     {
         //create the floating txt object
-        GameObject floatingText = Instantiate(floatingTextPrefab, canvasTransform);
+        GameObject floatingText = Instantiate(floatingTextPrefab);
+        floatingText.transform.SetParent(canvas.transform);
 
         //set the text to the damage amount
         TextMeshProUGUI damageText = floatingText.GetComponent<TextMeshProUGUI>();

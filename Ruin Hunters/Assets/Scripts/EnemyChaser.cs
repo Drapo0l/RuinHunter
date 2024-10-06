@@ -62,6 +62,7 @@ public class EnemyChaser : MonoBehaviour
         {
             Destroy(gameObject);
             GameManager.Instance.SetEnemyPool(colliderPool);
+            GameManager.Instance.lastPlayerPosition = collision.transform.position;
             GameManager.Instance.combat = true;            
         }
     }
