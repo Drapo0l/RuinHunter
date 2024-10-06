@@ -14,10 +14,11 @@ public class EnemyAI : MonoBehaviour
     public PublicEnums.EnemyTypes ty;
     public FloatingNumberManager floatingNumberManager;
     public Camera cam;
-
+    public GameObject enemyModel;
+    public GameObject targetIndicatorE;
     void Start()
     {
-        
+        targetIndicatorE.SetActive(false);
     }
 
     void Update()
@@ -26,11 +27,17 @@ public class EnemyAI : MonoBehaviour
         {
             if(enemyStats.isTurn)
             {
+                combatpause();
+                enemyModel.transform.position = new Vector3(enemyModel.transform.position.x + 4, enemyModel.transform.position.y, enemyModel.transform.position.z);
                 HandleCombatActions();
+                enemyModel.transform.position = new Vector3(enemyModel.transform.position.x -4, enemyModel.transform.position.y, enemyModel.transform.position.z);
             }
         }
     }
-
+    IEnumerator combatpause()
+    {
+        yield return new WaitForSeconds(1f);
+    }
     private void HandleCombatActions()
     {
         // Determine whether to use a skill or basic attack
@@ -78,11 +85,16 @@ public class EnemyAI : MonoBehaviour
                 {
                     if (target != null)
                     {
+                        targetIndicatorE.transform.position = target.transform.position;
+                        targetIndicatorE.transform.position = new Vector3(targetIndicatorE.transform.position.x, targetIndicatorE.transform.position.y + 9, targetIndicatorE.transform.position.x);
+                        targetIndicatorE.SetActive(true);
+                        combatpause();
                         // Calculate skill damage using any multipliers
                         float multiplier = GetSkillMultiplier(skill.elementType);
 
                         // Activate the skill, passing the player as the target
                         skill.ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, enemyStats.effectChance); // Attacker power is set to 10 for now
+                        targetIndicatorE.SetActive(false);
                     }
                 }
                 else
@@ -108,6 +120,10 @@ public class EnemyAI : MonoBehaviour
                     break;
                 }
             }
+            targetIndicatorE.transform.position = target.transform.position;
+            targetIndicatorE.transform.position = new Vector3(targetIndicatorE.transform.position.x, targetIndicatorE.transform.position.y + 9, targetIndicatorE.transform.position.x);
+            targetIndicatorE.SetActive(true);
+            combatpause();
             if (target != null)
             {
                 // Calculate skill damage using any multipliers
@@ -115,6 +131,7 @@ public class EnemyAI : MonoBehaviour
 
                 // Activate the skill, passing the player as the target
                 skill.ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, enemyStats.effectChance); // Attacker power is set to 10 for now
+                targetIndicatorE.SetActive(false);
             }
 
         }
@@ -133,6 +150,10 @@ public class EnemyAI : MonoBehaviour
                 target = GameManager.Instance.enemyObj[i];
                 if (target.GetComponent<playerController>().playerStats.health <= 0)
                 {
+                    targetIndicatorE.transform.position = target.transform.position;
+                    targetIndicatorE.transform.position = new Vector3(targetIndicatorE.transform.position.x, targetIndicatorE.transform.position.y + 9, targetIndicatorE.transform.position.x);
+                    targetIndicatorE.SetActive(true);
+                    combatpause();
                     if (target != null)
                     {
                         // Calculate skill damage using any multipliers
@@ -140,6 +161,7 @@ public class EnemyAI : MonoBehaviour
 
                         // Activate the skill, passing the player as the target
                         skill.ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, enemyStats.effectChance); // Attacker power is set to 10 for now
+                        targetIndicatorE.SetActive(false);
                     }
                 }
                 else
@@ -165,6 +187,10 @@ public class EnemyAI : MonoBehaviour
                     break;
                 }
             }
+            targetIndicatorE.transform.position = target.transform.position;
+            targetIndicatorE.transform.position = new Vector3(targetIndicatorE.transform.position.x, targetIndicatorE.transform.position.y + 9, targetIndicatorE.transform.position.x);
+            targetIndicatorE.SetActive(true);
+            combatpause();
             if (target != null)
             {
                 // Calculate skill damage using any multipliers
@@ -172,6 +198,7 @@ public class EnemyAI : MonoBehaviour
 
                 // Activate the skill, passing the player as the target
                 skill.ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, enemyStats.effectChance); // Attacker power is set to 10 for now
+                targetIndicatorE.SetActive(false);
             }
 
         }
@@ -217,6 +244,10 @@ public class EnemyAI : MonoBehaviour
                 break;
             }
         }
+        targetIndicatorE.transform.position = target.transform.position;
+        targetIndicatorE.transform.position = new Vector3(targetIndicatorE.transform.position.x, targetIndicatorE.transform.position.y + 9, targetIndicatorE.transform.position.x);
+        targetIndicatorE.SetActive(true);
+        combatpause();
         if (target != null)
         {
             // Get the weapon weakness multiplier based on player's weaknesses
@@ -225,6 +256,7 @@ public class EnemyAI : MonoBehaviour
             // Activate the weapon attack
             Skill weaponAttack = new Skill(); 
             weaponAttack.ActivateWeaponAttack(target, enemyStats.attackDamage, weaponMultiplier, enemyStats.critChance, enemyStats.effectChance); // Example power 10
+            targetIndicatorE.SetActive(false);
         }
     }
 

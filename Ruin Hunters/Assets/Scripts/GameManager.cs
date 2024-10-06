@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject playerCamera;
     public GameObject battleCamera;
-
+    public int expTotal;
     private List<CharacterAttributes> playerParty; // list to hold player party
     private List<GameObject> battleParty;
     private List<CharacterAttributes> characters; //list to hold enmies and allies
@@ -84,6 +84,7 @@ public class GameManager : MonoBehaviour
             characters[i].attackDamage = characters[i].attackDamageOG;
             characters[i].critChance = characters[i].critChanceOG;
             characters[i].effectChance = characters[i].effectChanceOG;
+            expTotal = characters[i].expGive + expTotal;
         }
         SetupBattleField();
 
@@ -212,6 +213,7 @@ public class GameManager : MonoBehaviour
                 characters[i].attackDamageOG = characters[i].attackDamage;
                 characters[i].critChanceOG = characters[i].critChance;
                 characters[i].effectChanceOG = characters[i].effectChance;
+                characters[i].AddExperience(expTotal);
             }
         }
         else

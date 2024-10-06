@@ -28,6 +28,7 @@ public class CharacterAttributes : ScriptableObject
     public int critChanceOG;
     public int effectChanceOG;
     public int DefenceOG;
+    public int expGive;
     public List<Skill> skills; // List of skills specific to the character    
     public PublicEnums.Regions regions;
     public bool isTurn = false;
