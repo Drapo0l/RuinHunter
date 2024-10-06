@@ -96,14 +96,14 @@ public class Skill
         }
         if (EN == PublicEnums.Effects.Clense)
         {
-            T.GetComponent<CharacterAttributes>().maxManaOG = T.GetComponent<CharacterAttributes>().maxMana;
-            T.GetComponent<CharacterAttributes>().maxHealthOG =  T.GetComponent<CharacterAttributes>().maxHealth;
-            T.GetComponent<CharacterAttributes>().DefenceOG = T.GetComponent<CharacterAttributes>().Defence;
-            T.GetComponent<CharacterAttributes>().combatSpeedOG = T.GetComponent<CharacterAttributes>().combatSpeed;
-            T.GetComponent<CharacterAttributes>().skillDamageOG = T.GetComponent<CharacterAttributes>().skillDamage;
-            T.GetComponent<CharacterAttributes>().attackDamageOG = T.GetComponent<CharacterAttributes>().attackDamage;
-            T.GetComponent<CharacterAttributes>().critChanceOG = T.GetComponent<CharacterAttributes>().critChance;
-            T.GetComponent<CharacterAttributes>().effectChanceOG = T.GetComponent<CharacterAttributes>().effectChance;
+            T.GetComponent<CharacterAttributes>().maxMana = T.GetComponent<CharacterAttributes>().maxManaOG;
+            T.GetComponent<CharacterAttributes>().maxHealth = T.GetComponent<CharacterAttributes>().maxHealthOG;
+            T.GetComponent<CharacterAttributes>().Defence =  T.GetComponent<CharacterAttributes>().DefenceOG;
+             T.GetComponent<CharacterAttributes>().combatSpeed = T.GetComponent<CharacterAttributes>().combatSpeedOG;
+             T.GetComponent<CharacterAttributes>().skillDamage = T.GetComponent<CharacterAttributes>().skillDamageOG;
+              T.GetComponent<CharacterAttributes>().attackDamage = T.GetComponent<CharacterAttributes>().attackDamageOG;
+             T.GetComponent<CharacterAttributes>().critChance = T.GetComponent<CharacterAttributes>().critChanceOG;
+              T.GetComponent<CharacterAttributes>().effectChance = T.GetComponent<CharacterAttributes>().effectChanceOG;
           
         }
         return D;
