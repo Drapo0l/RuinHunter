@@ -6,7 +6,7 @@ public class ItemDetails : MonoBehaviour
     private InventoryItem Item = default;
     [SerializeField]
     private UnityEngine.UI.Text Text = default;
-    public void SetItem(InventoryItem item)
+    public void SetItem(InventoryItem item)  // tells what item you selected and the details for it
     {
         Item = item;
         Text.text = Item.label;

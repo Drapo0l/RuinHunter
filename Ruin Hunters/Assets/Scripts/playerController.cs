@@ -17,6 +17,8 @@ public class playerController : MonoBehaviour, IDamage
     public LayerMask ignorePlayerLayer;
 
     public PublicEnums.WeaponType playerWeapon;
+    // Angel's polo angel equip Item
+    public InventoryItem equippedItem;  // to show if the player has the equpied item or not and have it be equpied
 
     // Create List to hold strengths and weaknesses
     public List<WeaponCalc> weaponsWeakness = new List<WeaponCalc>();
@@ -173,4 +175,16 @@ public class playerController : MonoBehaviour, IDamage
         return 1f;
     }
 
+    // Polo Angel's code
+    public void Equip(InventoryItem item)  
+    {
+        if (item == null) // if null, you can't equip it and gives a error message
+        {
+            Debug.LogError("Cannot equip a null item!");
+            return;
+        }
+        // equips the item on the player
+        equippedItem = item;
+        Debug.Log($"Equipped: {item.label}");
+    }
 }

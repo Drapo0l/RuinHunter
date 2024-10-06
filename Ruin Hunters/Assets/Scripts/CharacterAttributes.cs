@@ -54,6 +54,11 @@ public class CharacterAttributes : ScriptableObject
         Defence += 5;
         combatSpeed += 5;
     }
+
+
+
+
+
 }
 
 

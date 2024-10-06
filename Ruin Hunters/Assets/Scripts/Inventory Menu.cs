@@ -80,25 +80,25 @@ public class InventoryMenu : MonoBehaviour
         menuActive = null;
     }
 
-    public void Weaponmenu()
+    public void Weaponmenu() // turns off the Party Info menu and switches and turns on the weapon menu
     {
         menuWeapon.SetActive(true);
         menuPause.SetActive(false);
     }
 
-    public void Amourmenu()
+    public void Amourmenu() // turns off the Party Info menu and switches and turns on the Amour menu
     {
         menuAmour.SetActive(true);
         menuPause.SetActive(false);
     }
 
-    public void Accessoryymenu()
+    public void Accessoryymenu() // turns off the Party Info menu and switches and turns on the Accessory menu
     {
         menuAccessory.SetActive(true);
         menuPause.SetActive(false);
     }
 
-    public void returnToPartyInfo()
+    public void returnToPartyInfo()  // turns off the other menus and goes back to the party info menu once you press the back button
     {
         menuAccessory.SetActive(false);
         menuAmour.SetActive(false);
