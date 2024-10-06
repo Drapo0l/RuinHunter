@@ -12,17 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e337efe9978a8409654b2b05bb0c8c, type: 3}
   m_Name: Fenrir
   m_EditorClassIdentifier: 
+  level: 1
+  currentXP: 0
+  xpToNextLevel: 100
+  nameOfCharacter: Fenrir
   health: 1000
   maxHealth: 1000
   maxMana: 100
   mana: 80
-  nameOfCharacter: Fenrir
-  combatSpeed: 12
-  skillDamage: 100
-  attackDamage: 150
+  combatSpeed: 0
+  skillDamage: 0
+  attackDamage: 0
   critChance: 0
   effectChance: 0
   Defence: 0
+  maxHealthOG: 1000
+  maxManaOG: 0
+  combatSpeedOG: 0
+  skillDamageOG: 0
+  attackDamageOG: 0
+  critChanceOG: 0
+  effectChanceOG: 0
+  DefenceOG: 0
+  expGive: 0
   skills:
   - skillName: Giga Slash
     elementType: 0
@@ -30,12 +42,16 @@ MonoBehaviour:
     baseDamage: 350
     manaCost: 10
     effect: 0
+    Ptargit: 0
+    AOE: 0
   - skillName: Mega Slash
     elementType: 0
     weaponType: 1
     baseDamage: 350
     manaCost: 10
     effect: 0
+    Ptargit: 0
+    AOE: 0
   regions: 2
-  isTurn: 0
+  isTurn: 1
   isStuned: 0

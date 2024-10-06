@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
+using static UnityEditor.PlayerSettings;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,8 +19,9 @@ public class GameManager : MonoBehaviour
     private List<CharacterAttributes> playerParty; // list to hold player party
     private List<GameObject> battleParty;
     private List<CharacterAttributes> characters; //list to hold enmies and allies
-    private List<CharacterAttributes> characterAttributes;
+    
     public List<GameObject> playerHealths;          // list of player health/mana
+    public GameObject playerHealthsParent;
     private int currentTurnIndex = 0; // index of the current character's turn
 
     [Header("Dependencies - No touching")]
@@ -27,6 +31,10 @@ public class GameManager : MonoBehaviour
     private List<CharacterAttributes> currentEnemies;// current enemies in combat
     public List<GameObject> enemyObj;
     private RegionEnemyPool colliderPool;
+
+    private int deadParty;
+
+    public Vector3 lastPlayerPosition;
 
     private bool collisionEnemy;
     private bool wasCombatInitialized = false;
@@ -45,8 +53,8 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         if (combat && !wasCombatInitialized)
-        {
-            //begin combat if necessary
+        {            
+            playerHealthsParent.SetActive(true);
             playerParty = PartyManager.Instance.GetCurrentPartyComponent();
             StartCombat();
             wasCombatInitialized = true;
@@ -76,14 +84,14 @@ public class GameManager : MonoBehaviour
         AddRandomEnemies();
         for (int i = 0; i < characters.Count; i++) // makes it so that your og stats are now saved 
         {
-            characters[i].maxMana = characters[i].maxManaOG;
-            characters[i].maxHealth = characters[i].maxHealthOG;
-            characters[i].Defence = characters[i].DefenceOG;
-            characters[i].combatSpeed = characters[i].combatSpeedOG;
-            characters[i].skillDamage = characters[i].skillDamageOG;
-            characters[i].attackDamage = characters[i].attackDamageOG;
-            characters[i].critChance = characters[i].critChanceOG;
-            characters[i].effectChance = characters[i].effectChanceOG;
+            characters[i].maxManaOG = characters[i].maxMana;
+            characters[i].maxHealthOG = characters[i].maxHealth;
+            characters[i].DefenceOG = characters[i].Defence;
+            characters[i].combatSpeedOG = characters[i].combatSpeed;
+            characters[i].skillDamageOG = characters[i].skillDamage;
+            characters[i].attackDamageOG = characters[i].attackDamage;
+            characters[i].critChanceOG = characters[i].critChance;
+            characters[i].effectChanceOG = characters[i].effectChance;
             expTotal = characters[i].expGive + expTotal;
         }
         SetupBattleField();
@@ -103,11 +111,6 @@ public class GameManager : MonoBehaviour
         {  
             currentEnemies.Clear(); 
         }
-        if (characterAttributes == null)
-        {
-            characterAttributes = new List<CharacterAttributes>();
-        }
-
 
         if (currentEnemies == null) 
         {
@@ -120,6 +123,7 @@ public class GameManager : MonoBehaviour
             foreach (var enemy in enemyObj) 
             {
                 characters.Add(enemy.GetComponent<EnemyAI>().enemyStats);
+               
             }          
         }
 
@@ -137,10 +141,11 @@ public class GameManager : MonoBehaviour
         battleParty = PartyManager.Instance.GetPlayeGameObj();
         int pos = 0;
         foreach (GameObject player in battleParty)
-        {           
+        {
+            player.GetComponent<Rigidbody>().velocity = Vector3.zero * 0;
             player.SetActive(true);
             player.transform.SetParent(battleCamera.transform);
-            player.transform.localPosition = new Vector3(3f + pos, -1.5f, 10f + pos);
+            player.transform.localPosition = new Vector3(3f + pos, -1.28f, 10f + pos);
             pos++;
         }
         pos = 0;
@@ -149,7 +154,7 @@ public class GameManager : MonoBehaviour
         {
             enemy.SetActive(true);
             enemy.transform.SetParent(battleCamera.transform);
-            enemy.transform.localPosition = new Vector3(-7.25f + pos, -1.5f, 10.5f + pos);
+            enemy.transform.localPosition = new Vector3(-7.25f + pos, -1.28f, 10.5f + pos);
             pos++;
         }
     }
@@ -195,24 +200,94 @@ public class GameManager : MonoBehaviour
         CharacterAttributes currentCharacter = turnOrder[currentTurnIndex];
 
         currentCharacter.isTurn = true;
+        
     }
 
     public void EndTurn()
     {
+
+        deadParty = 0;
+        for (int i = 0; i < turnOrder.Count;)
+        {
+            if (turnOrder[i].health <= 0)
+            {
+                turnOrder.RemoveAt(i);
+            }
+            else { i++; }
+        }
+        for (int i = 0; i < enemyObj.Count;)
+        { 
+            if (enemyObj[i].GetComponent<EnemyAI>().enemyStats.health <= 0)
+            {
+                enemyObj.RemoveAt(i);
+            }
+            else
+            {
+                i++;
+            }
+            
+        }
+        for (int i = 0; i < battleParty.Count; i++)
+        {
+            if (battleParty[i].GetComponent<playerController>().playerStats.health <= 0)
+            {
+                deadParty++;
+            }
+            else
+            {
+                deadParty--;                
+            }
+        }
+        if (enemyObj.Count == 0 || deadParty == battleParty.Count)
+        {
+            EndCombat();
+            
+        }
+        else
+        {
+            //move to the next character in the list
+            currentTurnIndex = (currentTurnIndex + 1) % characters.Count;
+
+            //start the next character's turn
+            StartTurn();
+        }
+
+        
+    }
+
+    public void EndCombat()
+    {
+        characters.Clear();
+        playerParty.Clear();
+        wasCombatInitialized = false;
+        combat = false;
+        battleCamera.SetActive(false);
+        playerCamera.SetActive(true);
+        playerHealthsParent.SetActive(false);
+
+        foreach (GameObject player in battleParty)
+        {
+            player.SetActive(false);
+            player.transform.localPosition = lastPlayerPosition;
+            player.transform.SetParent(playerCamera.transform);
+            
+        }
+        battleParty[0].SetActive(true);
+
         //move to the next character in the list
         currentTurnIndex = (currentTurnIndex + 1) % characters.Count;
         if (currentEnemies.Count <= 0)
         {
             for (int i = 0; i < characters.Count; i++) // makes it so that your og stats are now saved 
             {
-                characters[i].maxManaOG = characters[i].maxMana;
-                characters[i].maxHealthOG = characters[i].maxHealth;
-                characters[i].DefenceOG = characters[i].Defence;
-                characters[i].combatSpeedOG = characters[i].combatSpeed;
-                characters[i].skillDamageOG = characters[i].skillDamage;
-                characters[i].attackDamageOG = characters[i].attackDamage;
-                characters[i].critChanceOG = characters[i].critChance;
-                characters[i].effectChanceOG = characters[i].effectChance;
+                characters[i].maxMana = characters[i].maxManaOG;
+                characters[i].maxHealth = characters[i].maxHealthOG;
+                characters[i].Defence = characters[i].DefenceOG;
+                characters[i].combatSpeed = characters[i].combatSpeedOG;
+                characters[i].skillDamage = characters[i].skillDamageOG;
+                characters[i].attackDamage = characters[i].attackDamageOG;
+                characters[i].critChance = characters[i].critChanceOG;
+                characters[i].effectChance = characters[i].effectChanceOG;
                 characters[i].AddExperience(expTotal);
             }
         }

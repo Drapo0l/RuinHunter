@@ -277,8 +277,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1657174069739799732}
   - component: {fileID: 2131806933855013617}
-  - component: {fileID: 7173920860830497314}
-  - component: {fileID: 4372350920444662681}
+  - component: {fileID: 8802727554165115509}
+  - component: {fileID: 7906529172733256710}
   m_Layer: 5
   m_Name: WeaponPanelMenu
   m_TagString: Untagged
@@ -303,9 +303,9 @@ RectTransform:
   - {fileID: 5551518480471580897}
   m_Father: {fileID: 6102265946525529379}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 960, y: -540}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2131806933855013617
@@ -350,7 +350,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &7173920860830497314
+--- !u!114 &8802727554165115509
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -380,7 +380,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &4372350920444662681
+--- !u!114 &7906529172733256710
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -440,6 +440,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcc6b5034668fc142821f282c5d1bd5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wButton: {fileID: 0}
+  sButton: {fileID: 0}
 --- !u!1 &569324451094285933
 GameObject:
   m_ObjectHideFlags: 0
@@ -1063,7 +1065,7 @@ RectTransform:
   m_Father: {fileID: 107027247543240725}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1657,7 +1659,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 0.2525216, g: 0.6037736, b: 0.4145866, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -4767,7 +4769,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 0.24335578, g: 0.57861626, b: 0.2092479, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -4789,7 +4791,19 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2102227861054053642}
         m_TargetAssemblyTypeName: ButtonsFuncsForInventory, Assembly-CSharp
-        m_MethodName: OpenAmourmenu
+        m_MethodName: UsingWandSKey
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2102227861054053642}
+        m_TargetAssemblyTypeName: ButtonsFuncsForInventory, Assembly-CSharp
+        m_MethodName: UsingWandSKey
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5784,7 +5798,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 0.11405789, g: 0.49685526, b: 0.15818428, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -5807,6 +5821,18 @@ MonoBehaviour:
       - m_Target: {fileID: 2102227861054053642}
         m_TargetAssemblyTypeName: ButtonsFuncsForInventory, Assembly-CSharp
         m_MethodName: OpenAccessoryymenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2102227861054053642}
+        m_TargetAssemblyTypeName: ButtonsFuncsForInventory, Assembly-CSharp
+        m_MethodName: UsingWandSKey
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7075,9 +7101,9 @@ RectTransform:
   - {fileID: 233525614303123481}
   m_Father: {fileID: 790420372761378647}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 54.000237, y: -0.0007171631}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 209.00024, y: -104.00072}
   m_SizeDelta: {x: 201.67, y: 208.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3370383107188560393
@@ -7144,7 +7170,7 @@ GameObject:
   - component: {fileID: 5803862438235583996}
   - component: {fileID: 9218561936563332246}
   m_Layer: 5
-  m_Name: Inventory menu backup
+  m_Name: Inventory menu Backup1 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7983,7 +8009,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 0.1983271, g: 0.57232696, b: 0.11698503, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -8006,6 +8032,18 @@ MonoBehaviour:
       - m_Target: {fileID: 2102227861054053642}
         m_TargetAssemblyTypeName: ButtonsFuncsForInventory, Assembly-CSharp
         m_MethodName: OpenWeaponmenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2102227861054053642}
+        m_TargetAssemblyTypeName: ButtonsFuncsForInventory, Assembly-CSharp
+        m_MethodName: UsingWandSKey
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

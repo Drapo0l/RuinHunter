@@ -56,7 +56,7 @@ public class PlayerActionSelector : MonoBehaviour
         UpdateHoverIndicator();
 
         // Assign button actions
-        AssignButtonActions(mainMenuButtons, PerformAttack, OpenSkillMenu, OpenItemMenu);
+        AssignButtonActions(mainMenuButtons, PerformAttack, OpenSkillMenu, OpenItemMenu, DefendFunc, FleeFunc);
 
         characterAttributes = PartyManager.Instance.GetCurrentPartyComponent();
         
@@ -547,6 +547,22 @@ public class PlayerActionSelector : MonoBehaviour
         }
         HideMenu();
     }
+    private void DefendFunc()
+    {
+        playerController.defended = playerController.playerStats.Defence;
+        playerController.playerStats.Defence = playerController.playerStats.Defence * 2;
+        HideMenu();
+        GameManager.Instance.EndTurn();
+    }
+
+    private void FleeFunc()
+    {
+        if(Random.value > 0.5f)
+        {
+            GameManager.Instance.EndCombat();
+        }
+    }
+
 
     public void RemoveEnemy(GameObject enemy) 
     {

@@ -12,13 +12,13 @@ public class EnemyAI : MonoBehaviour
     public List<ElementCalc> elementWeakness = new List<ElementCalc>();
     List<Skill> availableSkills;
     public PublicEnums.EnemyTypes ty;
-    public FloatingNumberManager floatingNumberManager;
+   
     public Camera cam;
     public GameObject enemyModel;
     public GameObject targetIndicatorE;
     void Start()
     {
-        targetIndicatorE.SetActive(false);
+        
     }
 
     void Update()
@@ -28,15 +28,22 @@ public class EnemyAI : MonoBehaviour
             if(enemyStats.isTurn)
             {
                 combatpause();
-                enemyModel.transform.position = new Vector3(enemyModel.transform.position.x + 4, enemyModel.transform.position.y, enemyModel.transform.position.z);
+                enemyModel.transform.position = new Vector3(enemyModel.transform.position.x + 2, enemyModel.transform.position.y, enemyModel.transform.position.z);
                 HandleCombatActions();
-                enemyModel.transform.position = new Vector3(enemyModel.transform.position.x -4, enemyModel.transform.position.y, enemyModel.transform.position.z);
+                StartCoroutine(combatpause());
+               
+                
+               
             }
         }
     }
     IEnumerator combatpause()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
+
+        enemyModel.transform.position = new Vector3(enemyModel.transform.position.x - 2, enemyModel.transform.position.y, enemyModel.transform.position.z);
+
+        GameManager.Instance.EndTurn();
     }
     private void HandleCombatActions()
     {
@@ -187,10 +194,12 @@ public class EnemyAI : MonoBehaviour
                     break;
                 }
             }
+
             targetIndicatorE.transform.position = target.transform.position;
             targetIndicatorE.transform.position = new Vector3(targetIndicatorE.transform.position.x, targetIndicatorE.transform.position.y + 9, targetIndicatorE.transform.position.x);
             targetIndicatorE.SetActive(true);
             combatpause();
+
             if (target != null)
             {
                 // Calculate skill damage using any multipliers
@@ -203,6 +212,8 @@ public class EnemyAI : MonoBehaviour
 
         }
     }
+
+    
 
     private bool ShouldUseSkill()
     {
@@ -266,13 +277,13 @@ public class EnemyAI : MonoBehaviour
         damage = Mathf.FloorToInt(damage * multiplier);
         enemyStats.health -= damage;
 
-        //floatingNumberManager.ShowFloatingText(transform, damage, cam);
+        FloatingNumberManager.Instance.ShowFloatingText(transform, damage, cam);
 
         GameManager.Instance.EndTurn();
 
         if (enemyStats.health <= 0)
         {
-            //dead
+            Destroy(gameObject);
         }
     }
 
@@ -282,13 +293,13 @@ public class EnemyAI : MonoBehaviour
         damage = Mathf.FloorToInt(damage * multiplier);
         enemyStats.health -= damage;
 
-        //floatingNumberManager.ShowFloatingText(transform, damage, cam);
+        FloatingNumberManager.Instance.ShowFloatingText(transform, damage, cam);
 
         GameManager.Instance.EndTurn();
-
+        
         if (enemyStats.health <= 0)
         {
-            //dead
+            Destroy(gameObject);
         }
     }
 
