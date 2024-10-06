@@ -14,10 +14,11 @@ public class EnemyAI : MonoBehaviour
     public PublicEnums.EnemyTypes ty;
    
     public Camera cam;
-
+    public GameObject enemyModel;
+    public GameObject targetIndicatorE;
     void Start()
     {
-        availableSkills = enemyStats.skills;
+        
     }
 
     void Update()
@@ -26,11 +27,17 @@ public class EnemyAI : MonoBehaviour
         {
             if(enemyStats.isTurn)
             {
+                combatpause();
+                enemyModel.transform.position = new Vector3(enemyModel.transform.position.x + 4, enemyModel.transform.position.y, enemyModel.transform.position.z);
                 HandleCombatActions();
+                enemyModel.transform.position = new Vector3(enemyModel.transform.position.x -4, enemyModel.transform.position.y, enemyModel.transform.position.z);
             }
         }
     }
-
+    IEnumerator combatpause()
+    {
+        yield return new WaitForSeconds(1f);
+    }
     private void HandleCombatActions()
     {
         // Determine whether to use a skill or basic attack
@@ -43,11 +50,17 @@ public class EnemyAI : MonoBehaviour
                 Skill chosenSkill = availableSkills[Random.Range(0, availableSkills.Count)];
             if (chosenSkill.Ptargit == 1)
             {
-                UseAttackSkill(chosenSkill);
+                
+                
+                    UseAttackSkill(chosenSkill);
+                
+               
             }
             if(chosenSkill.Ptargit == 0)
             {
-
+                
+                    UseAttackSkill(chosenSkill);
+                
             }
             }
             else
@@ -63,53 +76,131 @@ public class EnemyAI : MonoBehaviour
     {
         int ran;
         GameObject target;
-        while (true)
+        if(skill.AOE == true)
         {
-            ran = Random.Range(1, GameManager.Instance.enemyObj.Count) - 1;
-            target = GameManager.Instance.enemyObj[ran];
-            if (target.GetComponent<playerController>().playerStats.health <= 0)
+            for(int i = 0; i < GameManager.Instance.enemyObj.Count; i++)
             {
+                target = GameManager.Instance.enemyObj[i];
+                if (target.GetComponent<playerController>().playerStats.health <= 0)
+                {
+                    if (target != null)
+                    {
+                        targetIndicatorE.transform.position = target.transform.position;
+                        targetIndicatorE.transform.position = new Vector3(targetIndicatorE.transform.position.x, targetIndicatorE.transform.position.y + 9, targetIndicatorE.transform.position.x);
+                        targetIndicatorE.SetActive(true);
+                        combatpause();
+                        // Calculate skill damage using any multipliers
+                        float multiplier = GetSkillMultiplier(skill.elementType);
 
+                        // Activate the skill, passing the player as the target
+                        skill.ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, enemyStats.effectChance); // Attacker power is set to 10 for now
+                        targetIndicatorE.SetActive(false);
+                    }
+                }
+                else
+                {
+                   
+                }
+               
             }
-            else
-            {
-                break;
-            }
+           
         }
-        if (target != null)
+        else
         {
-            // Calculate skill damage using any multipliers
-            float multiplier = GetSkillMultiplier(skill.elementType);
+            while (true)
+            {
+                ran = Random.Range(1, GameManager.Instance.enemyObj.Count) - 1;
+                target = GameManager.Instance.enemyObj[ran];
+                if (target.GetComponent<playerController>().playerStats.health <= 0)
+                {
 
-            // Activate the skill, passing the player as the target
-            skill.ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, enemyStats.effectChance); // Attacker power is set to 10 for now
+                }
+                else
+                {
+                    break;
+                }
+            }
+            targetIndicatorE.transform.position = target.transform.position;
+            targetIndicatorE.transform.position = new Vector3(targetIndicatorE.transform.position.x, targetIndicatorE.transform.position.y + 9, targetIndicatorE.transform.position.x);
+            targetIndicatorE.SetActive(true);
+            combatpause();
+            if (target != null)
+            {
+                // Calculate skill damage using any multipliers
+                float multiplier = GetSkillMultiplier(skill.elementType);
+
+                // Activate the skill, passing the player as the target
+                skill.ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, enemyStats.effectChance); // Attacker power is set to 10 for now
+                targetIndicatorE.SetActive(false);
+            }
+
         }
+       
+       
     }
     private void UseAttackSkill(Skill skill) // used for attacking the players
     {
         // Find the player to target
         int ran;
         GameObject target;
-        while (true)
+        if (skill.AOE == true)
         {
-            ran = Random.Range(1, PartyManager.Instance.startingPlayerParty.Count) - 1;
-            target = PartyManager.Instance.startingPlayerParty[ran];
-            if (target.GetComponent<playerController>().playerStats.health <= 0)
+            for (int i = 0; i < GameManager.Instance.enemyObj.Count; i++)
             {
+                target = GameManager.Instance.enemyObj[i];
+                if (target.GetComponent<playerController>().playerStats.health <= 0)
+                {
+                    targetIndicatorE.transform.position = target.transform.position;
+                    targetIndicatorE.transform.position = new Vector3(targetIndicatorE.transform.position.x, targetIndicatorE.transform.position.y + 9, targetIndicatorE.transform.position.x);
+                    targetIndicatorE.SetActive(true);
+                    combatpause();
+                    if (target != null)
+                    {
+                        // Calculate skill damage using any multipliers
+                        float multiplier = GetSkillMultiplier(skill.elementType);
+
+                        // Activate the skill, passing the player as the target
+                        skill.ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, enemyStats.effectChance); // Attacker power is set to 10 for now
+                        targetIndicatorE.SetActive(false);
+                    }
+                }
+                else
+                {
+
+                }
 
             }
-            else
-            {
-                break;
-            }
+
         }
-        if (target != null)
+        else
         {
-            // Calculate skill damage using any multipliers
-            float multiplier = GetSkillMultiplier(skill.elementType);
+            while (true)
+            {
+                ran = Random.Range(1, GameManager.Instance.enemyObj.Count) - 1;
+                target = GameManager.Instance.enemyObj[ran];
+                if (target.GetComponent<playerController>().playerStats.health <= 0)
+                {
 
-            // Activate the skill, passing the player as the target
-            skill.ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, enemyStats.effectChance); // Attacker power is set to 10 for now
+                }
+                else
+                {
+                    break;
+                }
+            }
+            targetIndicatorE.transform.position = target.transform.position;
+            targetIndicatorE.transform.position = new Vector3(targetIndicatorE.transform.position.x, targetIndicatorE.transform.position.y + 9, targetIndicatorE.transform.position.x);
+            targetIndicatorE.SetActive(true);
+            combatpause();
+            if (target != null)
+            {
+                // Calculate skill damage using any multipliers
+                float multiplier = GetSkillMultiplier(skill.elementType);
+
+                // Activate the skill, passing the player as the target
+                skill.ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, enemyStats.effectChance); // Attacker power is set to 10 for now
+                targetIndicatorE.SetActive(false);
+            }
+
         }
     }
 
@@ -119,19 +210,19 @@ public class EnemyAI : MonoBehaviour
         // Randomly decide if the enemy should use a skill, for now it's 50/50
         if (ty == PublicEnums.EnemyTypes.Agressive)
         {
-            return Random.value > 0.3f;
+            return Random.value > 0.7f;
         }
         if (ty == PublicEnums.EnemyTypes.CasterA)
         {
-            return Random.value > 0.6f;
+            return Random.value > 0.4f;
         }
         if (ty == PublicEnums.EnemyTypes.CasterP)
         {
-            return Random.value > 0.8f;
+            return Random.value > 0.2f;
         }
         if (ty == PublicEnums.EnemyTypes.Support)
         {
-            return Random.value > 1f;
+            return Random.value > 0f;
         }
             return Random.value > 0.5f;
     }
@@ -153,6 +244,10 @@ public class EnemyAI : MonoBehaviour
                 break;
             }
         }
+        targetIndicatorE.transform.position = target.transform.position;
+        targetIndicatorE.transform.position = new Vector3(targetIndicatorE.transform.position.x, targetIndicatorE.transform.position.y + 9, targetIndicatorE.transform.position.x);
+        targetIndicatorE.SetActive(true);
+        combatpause();
         if (target != null)
         {
             // Get the weapon weakness multiplier based on player's weaknesses
@@ -161,6 +256,7 @@ public class EnemyAI : MonoBehaviour
             // Activate the weapon attack
             Skill weaponAttack = new Skill(); 
             weaponAttack.ActivateWeaponAttack(target, enemyStats.attackDamage, weaponMultiplier, enemyStats.critChance, enemyStats.effectChance); // Example power 10
+            targetIndicatorE.SetActive(false);
         }
     }
 

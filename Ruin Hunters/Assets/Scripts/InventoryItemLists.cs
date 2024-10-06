@@ -3,27 +3,29 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
+
 
 public class InventoryItemLists : MonoBehaviour
 {
     [SerializeField]
-    private GameObject _content = default;
+    private GameObject _content = default; // where the items being stored in
     [SerializeField]
-    private GameObject _menuItemTemplate = default;
+    private GameObject _menuItemTemplate = default; // for what format the new items take in the menu list of the item, like a button for example
     [SerializeField]
-    private List<InventoryItem> inventoryItems = default;
-
-  
-
-
+    private List<InventoryItem> inventoryItems = default;  // list for the items and how much you want in the menu for it
+    [SerializeField]
+    private ActiveInventoryItemChangeEvent AIICE = default; // to be able communicate with item details and shows what item you selected and what else
 
     void Awake()
     {
         AddMenuItems();
- 
+        ActivateFirstItem();
+
+
     }
 
-    void AddMenuItems()
+    void AddMenuItems() // to add new items in the list 
     {
         for (int index = 0; index < inventoryItems.Count; index++)
         {
@@ -31,31 +33,25 @@ public class InventoryItemLists : MonoBehaviour
         }
     }
 
-    void AddMenuItem(InventoryItem item)
+    void AddMenuItem(InventoryItem item) // Makes the new button for the item and sets it in the content and gets the name for the new item too
     {
-        if (item == null || _menuItemTemplate == null || _content == null)
-        {
-            Debug.LogError("AddMenuItem: Missing item, template, or content!");
-            return;
-        }
-
-        GameObject newMenuItem = Instantiate(_menuItemTemplate);
-        string label = $"  {item.label}";
+        GameObject newMenuItem;
+        string label = $"   {item.label}";
+        newMenuItem = Instantiate(_menuItemTemplate, transform.position, transform.rotation);
         newMenuItem.name = label;
-
-        // Set parent to content and reset local position/rotation
-        newMenuItem.transform.SetParent(_content.transform, false); // false to maintain local scale
+        newMenuItem.transform.SetParent(_content.transform, true);
         newMenuItem.SetActive(true);
+        newMenuItem.GetComponentInChildren<TextMeshProUGUI>().text = label;
+        newMenuItem.GetComponent<ItemEquiper>().Item = item;    
+    }
 
-        if (newMenuItem.TryGetComponent<TextMeshProUGUI>(out var textComponent))
+    void ActivateFirstItem() // always starts with the first item in the list and shows the name and details of the item on top
+    {
+        InventoryItem Activeitem = inventoryItems[0];
+
+        if (Activeitem != null)
         {
-            textComponent.text = label;
+            AIICE.Invoke(Activeitem);   
         }
-        else
-        {
-            Debug.LogError("Text component not found in the new menu item!");
-        }
-
-
     }
 }

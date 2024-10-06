@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82e337efe9978a8409654b2b05bb0c8c, type: 3}
+  m_Name: Wolf1
+  m_EditorClassIdentifier: 
+  health: 500
+  maxHealth: 500
+  maxMana: 0
+  mana: 0
+  nameOfCharacter: Wolf_1
+  combatSpeed: 20
+  skillDamage: 5
+  attackDamage: 80
+  critChance: 20
+  effectChance: 20
+  Defence: 40
+  skills:
+  - skillName: 'howl '
+    elementType: 0
+    weaponType: 0
+    baseDamage: 0
+    manaCost: 0
+    effect: 4
+    Ptargit: 0
+  - skillName: Fang
+    elementType: 0
+    weaponType: 2
+    baseDamage: 200
+    manaCost: 0
+    effect: 1
+    Ptargit: 1
+  regions: 0
+  isTurn: 0
+  isStuned: 0
