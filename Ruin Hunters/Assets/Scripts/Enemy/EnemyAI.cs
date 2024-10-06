@@ -12,7 +12,7 @@ public class EnemyAI : MonoBehaviour
     public List<ElementCalc> elementWeakness = new List<ElementCalc>();
     List<Skill> availableSkills;
     public PublicEnums.EnemyTypes ty;
-   
+    Vector3 postionOG;
     public Camera cam;
     public GameObject enemyModel;
     public GameObject targetIndicatorE;
@@ -27,23 +27,26 @@ public class EnemyAI : MonoBehaviour
         {
             if(enemyStats.isTurn)
             {
-                combatpause();
+                postionOG = enemyModel.transform.position;
+                StartCoroutine(combatpause());
                 enemyModel.transform.position = new Vector3(enemyModel.transform.position.x + 2, enemyModel.transform.position.y, enemyModel.transform.position.z);
                 HandleCombatActions();
                 StartCoroutine(combatpause());
-               
-                
-               
+                enemyModel.transform.position = postionOG;
+                GameManager.Instance.EndTurn();
+
+
+
             }
         }
     }
     IEnumerator combatpause()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
 
-        enemyModel.transform.position = new Vector3(enemyModel.transform.position.x - 2, enemyModel.transform.position.y, enemyModel.transform.position.z);
+        
 
-        GameManager.Instance.EndTurn();
+       
     }
     private void HandleCombatActions()
     {
@@ -130,7 +133,7 @@ public class EnemyAI : MonoBehaviour
             targetIndicatorE.transform.position = target.transform.position;
             targetIndicatorE.transform.position = new Vector3(targetIndicatorE.transform.position.x, targetIndicatorE.transform.position.y + 9, targetIndicatorE.transform.position.x);
             targetIndicatorE.SetActive(true);
-            combatpause();
+            StartCoroutine(combatpause());
             if (target != null)
             {
                 // Calculate skill damage using any multipliers
@@ -160,7 +163,7 @@ public class EnemyAI : MonoBehaviour
                     targetIndicatorE.transform.position = target.transform.position;
                     targetIndicatorE.transform.position = new Vector3(targetIndicatorE.transform.position.x, targetIndicatorE.transform.position.y + 9, targetIndicatorE.transform.position.x);
                     targetIndicatorE.SetActive(true);
-                    combatpause();
+                    StartCoroutine(combatpause());
                     if (target != null)
                     {
                         // Calculate skill damage using any multipliers
@@ -198,7 +201,7 @@ public class EnemyAI : MonoBehaviour
             targetIndicatorE.transform.position = target.transform.position;
             targetIndicatorE.transform.position = new Vector3(targetIndicatorE.transform.position.x, targetIndicatorE.transform.position.y + 9, targetIndicatorE.transform.position.x);
             targetIndicatorE.SetActive(true);
-            combatpause();
+            StartCoroutine(combatpause());
 
             if (target != null)
             {
@@ -258,7 +261,7 @@ public class EnemyAI : MonoBehaviour
         targetIndicatorE.transform.position = target.transform.position;
         targetIndicatorE.transform.position = new Vector3(targetIndicatorE.transform.position.x, targetIndicatorE.transform.position.y + 9, targetIndicatorE.transform.position.x);
         targetIndicatorE.SetActive(true);
-        combatpause();
+        StartCoroutine(combatpause());
         if (target != null)
         {
             // Get the weapon weakness multiplier based on player's weaknesses
