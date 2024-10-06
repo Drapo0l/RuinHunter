@@ -47,6 +47,7 @@ public class PublicEnums : MonoBehaviour
         SpeedDown,
         SkillPDown,
         SkillPUP,
+        Clense,
     }
 
     public enum EnemyTypes // these are the enemy types 

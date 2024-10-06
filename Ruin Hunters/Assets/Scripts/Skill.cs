@@ -12,13 +12,15 @@ public class Skill
     public int manaCost;
     public PublicEnums.Effects effect;
     public int Ptargit; // set as 1 for enemys set as 0 for party members
-   
+    public bool AOE; // is it an aoe
+
 
     public void ActivateSkill(GameObject target, int attackerPower, float multiplier,int crit, int effectC)
     {
         // Simple damage calculation (adjust as necessary)
         int damage = Mathf.FloorToInt(baseDamage * multiplier) + attackerPower;
         damage = Seffect(target, crit, effectC, damage, effect);
+        damage = damage - target.GetComponent<CharacterAttributes>().Defence;
         // Apply damage to the target, e.g., calling the target's TakeDamage() method.
         IDamage targetHit = target.GetComponent<IDamage>();
         if (targetHit != null) 
@@ -32,6 +34,7 @@ public class Skill
         // Simple damage calculation (adjust as necessary)
         int damage = Mathf.FloorToInt(baseDamage * multiplier) + attackerPower;
         damage = Seffect(target, crit, effectC, damage, effect);
+        damage = damage - target.GetComponent<CharacterAttributes>().Defence;
         // Apply damage to the target, e.g., calling the target's TakeDamage() method.
         IDamage targetHit = target.GetComponent<IDamage>();
         if (targetHit != null)
@@ -90,6 +93,18 @@ public class Skill
         if (EN == PublicEnums.Effects.SkillPUP)
         {
             T.GetComponent<CharacterAttributes>().skillDamage = T.GetComponent<CharacterAttributes>().skillDamage * 2;
+        }
+        if (EN == PublicEnums.Effects.Clense)
+        {
+            T.GetComponent<CharacterAttributes>().maxManaOG = T.GetComponent<CharacterAttributes>().maxMana;
+            T.GetComponent<CharacterAttributes>().maxHealthOG =  T.GetComponent<CharacterAttributes>().maxHealth;
+            T.GetComponent<CharacterAttributes>().DefenceOG = T.GetComponent<CharacterAttributes>().Defence;
+            T.GetComponent<CharacterAttributes>().combatSpeedOG = T.GetComponent<CharacterAttributes>().combatSpeed;
+            T.GetComponent<CharacterAttributes>().skillDamageOG = T.GetComponent<CharacterAttributes>().skillDamage;
+            T.GetComponent<CharacterAttributes>().attackDamageOG = T.GetComponent<CharacterAttributes>().attackDamage;
+            T.GetComponent<CharacterAttributes>().critChanceOG = T.GetComponent<CharacterAttributes>().critChance;
+            T.GetComponent<CharacterAttributes>().effectChanceOG = T.GetComponent<CharacterAttributes>().effectChance;
+          
         }
         return D;
     }
