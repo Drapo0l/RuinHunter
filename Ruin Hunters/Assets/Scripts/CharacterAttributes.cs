@@ -6,35 +6,68 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewCharacterAttributes", menuName = "Character/Attributes")]
 public class CharacterAttributes : ScriptableObject
 {
+    public int level = 1;
+    public int currentXP = 0;
+    public int xpToNextLevel = 100;
+    public string nameOfCharacter;
     public int health;
     public int maxHealth;
     public int maxMana;
     public int mana;
-    public string nameOfCharacter;
     public int combatSpeed;
     public int skillDamage;
     public int attackDamage;
     public int critChance;
     public int effectChance;
     public int Defence;
+    public int maxHealthOG;
+    public int maxManaOG;
+    public int combatSpeedOG;
+    public int skillDamageOG;
+    public int attackDamageOG;
+    public int critChanceOG;
+    public int effectChanceOG;
+    public int DefenceOG;
+    public int expGive;
     public List<Skill> skills; // List of skills specific to the character    
     public PublicEnums.Regions regions;
     public bool isTurn = false;
     public bool isStuned = false;
    
-
-}
-
-public class CharacterComponent : MonoBehaviour
-{
-    public CharacterAttributes stats;
-    public CharacterComponent(CharacterAttributes _stats)
+    public void AddExperience (int xpAmount)
     {
-        stats = _stats;
+        currentXP += xpAmount;
+        CheckLevelUP();
     }
+
+    private void CheckLevelUP()
+    {
+        if(currentXP >= xpToNextLevel)
+        {
+            LevelUp();
+        }
+    }
+
+    private void LevelUp()
+    {
+        level++;
+        currentXP -= xpToNextLevel;
+        xpToNextLevel += 100;
+
+        maxHealth += 10;
+        health = maxHealth;
+        maxMana += 5;
+        mana = maxMana;
+        attackDamage += 5;
+        Defence += 5;
+        combatSpeed += 5;
+    }
+
+
+
+
+
 }
-
-
 
 
 [CreateAssetMenu(fileName = "NewSkill", menuName = "Skill")]

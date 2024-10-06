@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 954c882b31a220c42a20fe33651b227b, type: 3}
-  m_Name: PlainEnemies
+  m_Name: SlimeEnemies
   m_EditorClassIdentifier: 
   region: 2
+  collidingEnemy: {fileID: 311668302726844699, guid: 3fc44cadc2e58d842befd63a46e7fd26,
+    type: 3}
   enemyPrefabs:
   - {fileID: 4835426206954640703, guid: 4cb726be268b5514c92f3693c9d265f5, type: 3}
-  - {fileID: 4835426206954640703, guid: 54debba2f60509a4bb9fe528694793be, type: 3}
   maxEnemies: 2

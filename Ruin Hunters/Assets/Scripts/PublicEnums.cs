@@ -47,6 +47,7 @@ public class PublicEnums : Item
         SpeedDown,
         SkillPDown,
         SkillPUP,
+        Clense,
     }
 
     public enum EnemyTypes // these are the enemy types 

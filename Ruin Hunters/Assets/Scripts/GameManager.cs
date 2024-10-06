@@ -12,20 +12,23 @@ public class GameManager : MonoBehaviour
 
     public GameObject playerCamera;
     public GameObject battleCamera;
-
-    private List<CharacterComponent> playerParty; // list to hold player party
+    public int expTotal;
+    private List<CharacterAttributes> playerParty; // list to hold player party
     private List<GameObject> battleParty;
-    private List<CharacterComponent> characters; //list to hold enmies and allies
+    private List<CharacterAttributes> characters; //list to hold enmies and allies
+    private List<CharacterAttributes> characterAttributes;
     public List<GameObject> playerHealths;          // list of player health/mana
     private int currentTurnIndex = 0; // index of the current character's turn
 
+    [Header("Dependencies - No touching")]
     public bool combat = false;
-    private List<CharacterComponent> turnOrder;
+    private List<CharacterAttributes> turnOrder;
 
-    public List<RegionEnemyPool> enemyPools; //enemy pool for every region
-    private List<CharacterComponent> currentEnemies;// current enemies in combat
+    private List<CharacterAttributes> currentEnemies;// current enemies in combat
     public List<GameObject> enemyObj;
+    private RegionEnemyPool colliderPool;
 
+    private bool collisionEnemy;
     private bool wasCombatInitialized = false;
     private void Awake ()
     {
@@ -54,66 +57,73 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void SetEnemyPool(RegionEnemyPool _colliderPool)
+    {
+        colliderPool = _colliderPool;
+    }
+
     void StartCombat()
     {
-        characters = new List<CharacterComponent>();
+        characters = new List<CharacterAttributes>();
         
         characters.AddRange(playerParty);
-
+       
         for (int i = 0; i < playerParty.Count; i++)
         {
             playerHealths[i].SetActive(true);
         }
 
-        AddRandomEnemies(playerParty[0].stats.regions);
-
+        AddRandomEnemies();
+        for (int i = 0; i < characters.Count; i++) // makes it so that your og stats are now saved 
+        {
+            characters[i].maxMana = characters[i].maxManaOG;
+            characters[i].maxHealth = characters[i].maxHealthOG;
+            characters[i].Defence = characters[i].DefenceOG;
+            characters[i].combatSpeed = characters[i].combatSpeedOG;
+            characters[i].skillDamage = characters[i].skillDamageOG;
+            characters[i].attackDamage = characters[i].attackDamageOG;
+            characters[i].critChance = characters[i].critChanceOG;
+            characters[i].effectChance = characters[i].effectChanceOG;
+            expTotal = characters[i].expGive + expTotal;
+        }
         SetupBattleField();
 
         // Sort characters based on speed in descending order
-        turnOrder = new List<CharacterComponent>(characters);
-        characters.Sort((a, b) => b.stats.combatSpeed.CompareTo(a.stats.combatSpeed));
-
+        turnOrder = new List<CharacterAttributes>(characters);
+        characters.Sort((a, b) => b.combatSpeed.CompareTo(a.combatSpeed));
+        turnOrder = characters;
         currentTurnIndex = 0; // start at the first character
         StartTurn(); // start the first character's turn
     }
 
-    void AddRandomEnemies(PublicEnums.Regions region)
+    void AddRandomEnemies()
     {
         // clear enemy list
         if (currentEnemies != null)
         {  
             currentEnemies.Clear(); 
         }
-        
-
-        //find the region
-        PublicEnums.Regions playerPool = playerParty[0].stats.regions;
-        RegionEnemyPool currentRegionPool = null;
-
-        foreach (var pool in enemyPools) 
+        if (characterAttributes == null)
         {
-            if(pool.region == playerPool)
-            {
-                currentRegionPool = pool;
-                break;
-            }
+            characterAttributes = new List<CharacterAttributes>();
         }
+
+
         if (currentEnemies == null) 
         {
-            currentEnemies = new List<CharacterComponent> { };
+            currentEnemies = new List<CharacterAttributes> { };
         }
        
-        if (currentRegionPool != null)
+        if (colliderPool != null)
         {
-            enemyObj = currentRegionPool.GetEnemies();
+            enemyObj = colliderPool.GetEnemies();
             foreach (var enemy in enemyObj) 
             {
-                CharacterComponent currEnemy = new CharacterComponent(enemy.GetComponent<EnemyAI>().enemyStats);
-                currentEnemies.Add(currEnemy);
+                characters.Add(enemy.GetComponent<EnemyAI>().enemyStats);
             }          
         }
 
-        foreach (CharacterComponent enemyObj in currentEnemies) 
+        foreach (CharacterAttributes enemyObj in currentEnemies) 
         {
             characters.Add(enemyObj);
         }
@@ -149,6 +159,7 @@ public class GameManager : MonoBehaviour
         int index = 0;
         foreach (var playerChar in playerParty)
         {
+            playerChar.transform.GetChild(0).gameObject.SetActive(true);
             //ManaNumber
             playerHealths[index].transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = playerChar.GetComponent<playerController>().playerStats.mana.ToString() + " / " + playerChar.GetComponent<playerController>().playerStats.maxMana.ToString();
             //ManaBar
@@ -178,25 +189,39 @@ public class GameManager : MonoBehaviour
 
         foreach (var chara in turnOrder)
         {
-            chara.stats.isTurn = false;
+            chara.isTurn = false;
         }
 
-        CharacterComponent currentCharacter = turnOrder[currentTurnIndex];
-        if (currentCharacter.stats.isStuned == true) // you are stunned 
-        {
-            currentCharacter.stats.isStuned = false;
-            EndTurn();
-        }
-        currentCharacter.stats.isTurn = true;
+        CharacterAttributes currentCharacter = turnOrder[currentTurnIndex];
+
+        currentCharacter.isTurn = true;
     }
 
     public void EndTurn()
     {
         //move to the next character in the list
         currentTurnIndex = (currentTurnIndex + 1) % characters.Count;
-
-        //start the next character's turn
-        StartTurn();
+        if (currentEnemies.Count <= 0)
+        {
+            for (int i = 0; i < characters.Count; i++) // makes it so that your og stats are now saved 
+            {
+                characters[i].maxManaOG = characters[i].maxMana;
+                characters[i].maxHealthOG = characters[i].maxHealth;
+                characters[i].DefenceOG = characters[i].Defence;
+                characters[i].combatSpeedOG = characters[i].combatSpeed;
+                characters[i].skillDamageOG = characters[i].skillDamage;
+                characters[i].attackDamageOG = characters[i].attackDamage;
+                characters[i].critChanceOG = characters[i].critChance;
+                characters[i].effectChanceOG = characters[i].effectChance;
+                characters[i].AddExperience(expTotal);
+            }
+        }
+        else
+        {
+            //start the next character's turn
+            StartTurn();
+        }
+       
     }
 
 }
