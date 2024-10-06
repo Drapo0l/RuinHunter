@@ -145,8 +145,8 @@ public class EnemyAI : MonoBehaviour
             }
 
         }
-       
-       
+        EndTurn();
+
     }
     private void UseAttackSkill(Skill skill) // used for attacking the players
     {
@@ -214,6 +214,7 @@ public class EnemyAI : MonoBehaviour
             }
 
         }
+        EndTurn();
     }
 
     
@@ -272,6 +273,7 @@ public class EnemyAI : MonoBehaviour
             weaponAttack.ActivateWeaponAttack(target, enemyStats.attackDamage, weaponMultiplier, enemyStats.critChance, enemyStats.effectChance); // Example power 10
             targetIndicatorE.SetActive(false);
         }
+        EndTurn();
     }
 
     public void TakeMeleeDamage(int damage, PublicEnums.WeaponType weaponType)
