@@ -18,7 +18,8 @@ public class FloatingNumberManager : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject); 
+            Destroy(gameObject);
+           
         }
     }
 

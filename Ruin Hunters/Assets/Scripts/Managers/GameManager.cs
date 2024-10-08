@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
-using static UnityEditor.PlayerSettings;
+//using static UnityEditor.PlayerSettings;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     public GameObject battleCamera;
     public int expTotal;
     private List<CharacterAttributes> playerParty; // list to hold player party
-    private List<GameObject> battleParty;
+    public List<GameObject> battleParty;
     private List<CharacterAttributes> characters; //list to hold enmies and allies
     
     public List<GameObject> playerHealths;          // list of player health/mana
@@ -123,7 +123,7 @@ public class GameManager : MonoBehaviour
             foreach (var enemy in enemyObj) 
             {
                 characters.Add(enemy.GetComponent<EnemyAI>().enemyStats);
-               
+               enemy.GetComponent<EnemyAI>().postionOG = enemy.transform.position;
             }          
         }
 
@@ -257,6 +257,19 @@ public class GameManager : MonoBehaviour
 
     public void EndCombat()
     {
+        for (int i = 0; i < characters.Count; i++)
+        {
+            characters[i].maxMana = characters[i].maxManaOG;
+            characters[i].maxHealth = characters[i].maxHealthOG;
+            characters[i].Defence = characters[i].DefenceOG;
+            characters[i].combatSpeed = characters[i].combatSpeedOG;
+            characters[i].skillDamage = characters[i].skillDamageOG;
+            characters[i].attackDamage = characters[i].attackDamageOG;
+            characters[i].critChance = characters[i].critChanceOG;
+            characters[i].effectChance = characters[i].effectChanceOG;
+            characters[i].AddExperience(expTotal);
+        }
+
         characters.Clear();
         playerParty.Clear();
         wasCombatInitialized = false;
@@ -275,27 +288,11 @@ public class GameManager : MonoBehaviour
         battleParty[0].SetActive(true);
 
         //move to the next character in the list
-        currentTurnIndex = (currentTurnIndex + 1) % characters.Count;
-        if (currentEnemies.Count <= 0)
-        {
-            for (int i = 0; i < characters.Count; i++) // makes it so that your og stats are now saved 
-            {
-                characters[i].maxMana = characters[i].maxManaOG;
-                characters[i].maxHealth = characters[i].maxHealthOG;
-                characters[i].Defence = characters[i].DefenceOG;
-                characters[i].combatSpeed = characters[i].combatSpeedOG;
-                characters[i].skillDamage = characters[i].skillDamageOG;
-                characters[i].attackDamage = characters[i].attackDamageOG;
-                characters[i].critChance = characters[i].critChanceOG;
-                characters[i].effectChance = characters[i].effectChanceOG;
-                characters[i].AddExperience(expTotal);
-            }
-        }
-        else
-        {
-            //start the next character's turn
-            StartTurn();
-        }
+      
+        
+        
+           
+       
        
     }
 
