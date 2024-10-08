@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -190,6 +191,8 @@ public class GameManager : MonoBehaviour
 
     public void StartTurn()
     {
+
+
         combat = true;
 
         foreach (var chara in turnOrder)

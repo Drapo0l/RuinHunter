@@ -22,20 +22,21 @@ public class FloatingNumberManager : MonoBehaviour
         }
     }
 
-    public void ShowFloatingText(Transform target, int damageAmount, Camera cam)
+    public IEnumerator ShowFloatingText(Transform target, int damageAmount, Camera cam)
     {
         //create the floating txt object
-        GameObject floatingText = Instantiate(floatingTextPrefab);
-        floatingText.SetActive(true);
+        floatingTextPrefab.SetActive(true);
+        
 
         //set the text to the damage amount
-        TextMeshPro damageText = floatingText.GetComponent<TextMeshPro>();
+        TextMeshPro damageText = floatingTextPrefab.GetComponent<TextMeshPro>();
         damageText.text = damageAmount.ToString();
 
         //position it above the target
-        floatingText.transform.position = target.position + new Vector3(0, 0f, 0);
+        floatingTextPrefab.transform.position = target.position + new Vector3(0, 0f, 0);
 
         //destroy after x time
-        Destroy(floatingText, 0.5f);
+        yield return new WaitForSeconds(0.5f);
+        floatingTextPrefab.SetActive(false);
     }
 }

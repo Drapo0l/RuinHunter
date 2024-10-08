@@ -18,7 +18,7 @@ public class EnemyAI : MonoBehaviour
     public GameObject targetIndicatorE;
     void Start()
     {
-        
+        availableSkills = enemyStats.skills;
     }
 
     void Update()
@@ -33,7 +33,7 @@ public class EnemyAI : MonoBehaviour
                 HandleCombatActions();
                 StartCoroutine(combatpause());
                 enemyModel.transform.position = postionOG;
-                GameManager.Instance.EndTurn();
+                
 
 
 
@@ -80,7 +80,7 @@ public class EnemyAI : MonoBehaviour
             }
             
         
-        EndTurn();
+        GameManager.Instance.EndTurn();
     }
     private void UseSupportSkill(Skill skill) // used to target the enemys for buffs  and such
     {
@@ -145,8 +145,8 @@ public class EnemyAI : MonoBehaviour
             }
 
         }
-        EndTurn();
-
+       
+       
     }
     private void UseAttackSkill(Skill skill) // used for attacking the players
     {
@@ -214,7 +214,6 @@ public class EnemyAI : MonoBehaviour
             }
 
         }
-        EndTurn();
     }
 
     
@@ -273,7 +272,6 @@ public class EnemyAI : MonoBehaviour
             weaponAttack.ActivateWeaponAttack(target, enemyStats.attackDamage, weaponMultiplier, enemyStats.critChance, enemyStats.effectChance); // Example power 10
             targetIndicatorE.SetActive(false);
         }
-        EndTurn();
     }
 
     public void TakeMeleeDamage(int damage, PublicEnums.WeaponType weaponType)
@@ -337,9 +335,6 @@ public class EnemyAI : MonoBehaviour
         enemyStats.isTurn = true;
     }
 
-    public void EndTurn()
-    {
-        enemyStats.isTurn = false;
-    }
+    
 }
 
