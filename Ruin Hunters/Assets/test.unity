@@ -121,7 +121,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: a31ba339cf898f941825ac833098d0ef, type: 2}
 --- !u!1001 &105543357
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -135,6 +135,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: -------------------Managers-------------------- 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2012450649381457999, guid: c0afcd035f36ffb459c5bed920d68260,
+        type: 3}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 838365187}
     - target: {fileID: 2012450649381457999, guid: c0afcd035f36ffb459c5bed920d68260,
         type: 3}
       propertyPath: startingPlayerParty.Array.data[0]
@@ -416,6 +421,30 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b157574814790ec4286f881185d1e356, type: 3}
+--- !u!114 &512017764 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8232356474701320694, guid: 028171be9adac87478589bf8257f6749,
+    type: 3}
+  m_PrefabInstance: {fileID: 112262343}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e236fe6aa7ffff34cb77dfd76aa0df72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &838365187 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1763654949694937328, guid: 3869831453e996449b23baf18453fccb,
+    type: 3}
+  m_PrefabInstance: {fileID: 1418477249}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1418477251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1255624445
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -492,6 +521,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 410922051986033179, guid: 3869831453e996449b23baf18453fccb,
+        type: 3}
+      propertyPath: actionSelector
+      value: 
+      objectReference: {fileID: 512017764}
+    - target: {fileID: 1122806391385263202, guid: 3869831453e996449b23baf18453fccb,
+        type: 3}
+      propertyPath: actionSelector
+      value: 
+      objectReference: {fileID: 512017764}
     - target: {fileID: 3448329374808846086, guid: 3869831453e996449b23baf18453fccb,
         type: 3}
       propertyPath: m_Name

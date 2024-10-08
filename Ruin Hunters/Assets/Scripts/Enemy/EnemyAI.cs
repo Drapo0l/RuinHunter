@@ -12,49 +12,66 @@ public class EnemyAI : MonoBehaviour
     public List<ElementCalc> elementWeakness = new List<ElementCalc>();
     List<Skill> availableSkills;
     public PublicEnums.EnemyTypes ty;
-    Vector3 postionOG;
+    public Vector3 postionOG;
     public Camera cam;
     public GameObject enemyModel;
     public GameObject targetIndicatorE;
+    private bool animatingAttack;
     void Start()
     {
         availableSkills = enemyStats.skills;
+        animatingAttack = false;
     }
 
     void Update()
     {
-        if(GameManager.Instance.combat)
+        if(GameManager.Instance.combat && enemyStats.isTurn && !animatingAttack)
         {
-            if(enemyStats.isTurn)
-            {
-                postionOG = enemyModel.transform.position;
-                StartCoroutine(combatpause());
-                enemyModel.transform.position = new Vector3(enemyModel.transform.position.x + 2, enemyModel.transform.position.y, enemyModel.transform.position.z);
-                HandleCombatActions();
-                StartCoroutine(combatpause());
-                enemyModel.transform.position = postionOG;
-                
-
-
-
-            }
+            StartCoroutine(HandleTurnSequence());
         }
     }
-    IEnumerator combatpause()
+    IEnumerator HandleTurnSequence()
     {
+       
+        //move forward
+        animatingAttack = true;
+        postionOG = enemyModel.transform.position;
+        Vector3 attackPosition = new Vector3(postionOG.x + 2, postionOG.y, postionOG.z);
+        yield return StartCoroutine(MoveToPosition(attackPosition, 1f));
+
+        //attack
+        HandleCombatActions();
         yield return new WaitForSeconds(1f);
 
-        
+        //move back
+        yield return StartCoroutine(MoveToPosition(postionOG, 1f));
 
-       
+        animatingAttack = false;
+        GameManager.Instance.EndTurn();
     }
+
+    IEnumerator MoveToPosition(Vector3 targetPosition, float duration)
+    {
+        float timeElapsed = 0f;
+        Vector3 startPosition = enemyModel.transform.position;
+
+        while(timeElapsed < duration) 
+        {
+            enemyModel.transform.position = Vector3.Lerp(startPosition, targetPosition, timeElapsed / duration);
+            timeElapsed += duration;
+            yield return null;
+        }
+
+        enemyModel.transform.position = targetPosition;
+    }
+
     private void HandleCombatActions()
     {
         // Determine whether to use a skill or basic attack
        
         
 
-            if (ShouldUseSkill())
+            if (ShouldUseSkill() && availableSkills.Count > 0)
             {
                 // Choose a random skill from available skills
                 Skill chosenSkill = availableSkills[Random.Range(0, availableSkills.Count)];
@@ -80,7 +97,7 @@ public class EnemyAI : MonoBehaviour
             }
             
         
-        GameManager.Instance.EndTurn();
+        
     }
     private void UseSupportSkill(Skill skill) // used to target the enemys for buffs  and such
     {
@@ -95,10 +112,6 @@ public class EnemyAI : MonoBehaviour
                 {
                     if (target != null)
                     {
-                        targetIndicatorE.transform.position = target.transform.position;
-                        targetIndicatorE.transform.position = new Vector3(targetIndicatorE.transform.position.x, targetIndicatorE.transform.position.y + 9, targetIndicatorE.transform.position.x);
-                        targetIndicatorE.SetActive(true);
-                        combatpause();
                         // Calculate skill damage using any multipliers
                         float multiplier = GetSkillMultiplier(skill.elementType);
 
@@ -130,10 +143,6 @@ public class EnemyAI : MonoBehaviour
                     break;
                 }
             }
-            targetIndicatorE.transform.position = target.transform.position;
-            targetIndicatorE.transform.position = new Vector3(targetIndicatorE.transform.position.x, targetIndicatorE.transform.position.y + 9, targetIndicatorE.transform.position.x);
-            targetIndicatorE.SetActive(true);
-            StartCoroutine(combatpause());
             if (target != null)
             {
                 // Calculate skill damage using any multipliers
@@ -145,8 +154,6 @@ public class EnemyAI : MonoBehaviour
             }
 
         }
-       
-       
     }
     private void UseAttackSkill(Skill skill) // used for attacking the players
     {
@@ -155,15 +162,11 @@ public class EnemyAI : MonoBehaviour
         GameObject target;
         if (skill.AOE == true)
         {
-            for (int i = 0; i < GameManager.Instance.enemyObj.Count; i++)
+            for (int i = 0; i < GameManager.Instance.battleParty.Count; i++)
             {
-                target = GameManager.Instance.enemyObj[i];
+                target = GameManager.Instance.battleParty[i];
                 if (target.GetComponent<playerController>().playerStats.health <= 0)
                 {
-                    targetIndicatorE.transform.position = target.transform.position;
-                    targetIndicatorE.transform.position = new Vector3(targetIndicatorE.transform.position.x, targetIndicatorE.transform.position.y + 9, targetIndicatorE.transform.position.x);
-                    targetIndicatorE.SetActive(true);
-                    StartCoroutine(combatpause());
                     if (target != null)
                     {
                         // Calculate skill damage using any multipliers
@@ -186,8 +189,8 @@ public class EnemyAI : MonoBehaviour
         {
             while (true)
             {
-                ran = Random.Range(1, GameManager.Instance.enemyObj.Count) - 1;
-                target = GameManager.Instance.enemyObj[ran];
+                ran = Random.Range(1, GameManager.Instance.battleParty.Count) - 1;
+                target = GameManager.Instance.battleParty[ran];
                 if (target.GetComponent<playerController>().playerStats.health <= 0)
                 {
 
@@ -197,12 +200,6 @@ public class EnemyAI : MonoBehaviour
                     break;
                 }
             }
-
-            targetIndicatorE.transform.position = target.transform.position;
-            targetIndicatorE.transform.position = new Vector3(targetIndicatorE.transform.position.x, targetIndicatorE.transform.position.y + 9, targetIndicatorE.transform.position.x);
-            targetIndicatorE.SetActive(true);
-            StartCoroutine(combatpause());
-
             if (target != null)
             {
                 // Calculate skill damage using any multipliers
@@ -258,10 +255,6 @@ public class EnemyAI : MonoBehaviour
                 break;
             }
         }
-        targetIndicatorE.transform.position = target.transform.position;
-        targetIndicatorE.transform.position = new Vector3(targetIndicatorE.transform.position.x, targetIndicatorE.transform.position.y + 9, targetIndicatorE.transform.position.x);
-        targetIndicatorE.SetActive(true);
-        StartCoroutine(combatpause());
         if (target != null)
         {
             // Get the weapon weakness multiplier based on player's weaknesses
@@ -280,12 +273,13 @@ public class EnemyAI : MonoBehaviour
         damage = Mathf.FloorToInt(damage * multiplier);
         enemyStats.health -= damage;
 
-        FloatingNumberManager.Instance.ShowFloatingText(transform, damage, cam);
+        //FloatingNumberManager.Instance.ShowFloatingText(transform, damage, cam);
 
         GameManager.Instance.EndTurn();
 
         if (enemyStats.health <= 0)
         {
+            GameManager.Instance.EnemyDeath(gameObject);
             Destroy(gameObject);
         }
     }
@@ -296,12 +290,13 @@ public class EnemyAI : MonoBehaviour
         damage = Mathf.FloorToInt(damage * multiplier);
         enemyStats.health -= damage;
 
-        FloatingNumberManager.Instance.ShowFloatingText(transform, damage, cam);
+        //FloatingNumberManager.Instance.ShowFloatingText(transform, damage, cam);
 
         GameManager.Instance.EndTurn();
-        
+
         if (enemyStats.health <= 0)
         {
+            GameManager.Instance.EnemyDeath(gameObject);
             Destroy(gameObject);
         }
     }
