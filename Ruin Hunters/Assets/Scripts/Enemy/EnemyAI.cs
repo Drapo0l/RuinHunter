@@ -51,34 +51,39 @@ public class EnemyAI : MonoBehaviour
     private void HandleCombatActions()
     {
         // Determine whether to use a skill or basic attack
-       
-        
 
+
+        if (ty == PublicEnums.EnemyTypes.Agressive | ty == PublicEnums.EnemyTypes.CasterA | ty == PublicEnums.EnemyTypes.CasterP | ty == PublicEnums.EnemyTypes.Normal | ty == PublicEnums.EnemyTypes.Support)
+        {
             if (ShouldUseSkill())
             {
                 // Choose a random skill from available skills
                 Skill chosenSkill = availableSkills[Random.Range(0, availableSkills.Count)];
-            if (chosenSkill.Ptargit == 1)
-            {
-                
-                
+                if (chosenSkill.Ptargit == 1)
+                {
+
+
                     UseSupportSkill(chosenSkill);
-                
-               
-            }
-            if(chosenSkill.Ptargit == 0)
-            {
-                
+
+
+                }
+                if (chosenSkill.Ptargit == 0)
+                {
+
                     UseAttackSkill(chosenSkill);
-                
-            }
+
+                }
             }
             else
             {
                 // Perform a basic attack
                 PerformBasicAttack();
             }
-            
+        }
+        else
+        {
+            Elite_AI();
+        }
         
         EndTurn();
     }
@@ -296,6 +301,53 @@ public class EnemyAI : MonoBehaviour
         StartCoroutine(combatpause());
         enemyModel.transform.position = postionOG;
         GameManager.Instance.EndTurn();
+    }
+    private void Elite_AI()
+    {
+        if(ty== PublicEnums.EnemyTypes.Elite_forest_1)
+        {
+            if(enemyStats.special_count == 0)
+            {
+                enemyStats.special_count = 3;
+                enemyStats.special = true;
+            }
+            if (enemyStats.special == true)
+            {
+
+            }
+            Skill chosenSkill = availableSkills[Random.Range(0, availableSkills.Count)];
+        }
+        if (ty == PublicEnums.EnemyTypes.Elite_dessert_1)
+        {
+            if (enemyStats.special_count == 0)
+            {
+                enemyStats.special_count = 4;
+                enemyStats.special = true;
+            }
+            Skill chosenSkill = availableSkills[Random.Range(0, availableSkills.Count)];
+        }
+        if (ty == PublicEnums.EnemyTypes.Elite_ice_1)
+        {
+            if (enemyStats.special_count == 0)
+            {
+                enemyStats.special_count = 2;
+                enemyStats.special = true;
+            }
+            Skill chosenSkill = availableSkills[Random.Range(0, availableSkills.Count)];
+        }
+        if (ty == PublicEnums.EnemyTypes.Elite_ruin_1)
+        {
+            if (enemyStats.special_count == 0)
+            {
+                enemyStats.special_count = 10;
+                enemyStats.special = true;
+                if (enemyStats.special == true)
+                {
+
+                }
+            }
+            Skill chosenSkill = availableSkills[Random.Range(0, availableSkills.Count)];
+        }
     }
 
     public void TakeMeleeDamage(int damage, PublicEnums.WeaponType weaponType)

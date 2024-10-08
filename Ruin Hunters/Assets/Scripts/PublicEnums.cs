@@ -57,6 +57,13 @@ public class PublicEnums : Item
         CasterA,
         CasterP,
         Support,
+        Elite_dessert_1,
+        Elite_forest_1,
+        Elite_ice_1,
+        Elite_ruin_1,
+        Boss_1_Main,
+        Boss_1_R_arm,
+        Boss_1_L_arm,
 
 
     }

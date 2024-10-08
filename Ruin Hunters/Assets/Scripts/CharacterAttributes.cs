@@ -33,7 +33,8 @@ public class CharacterAttributes : ScriptableObject
     public PublicEnums.Regions regions;
     public bool isTurn = false;
     public bool isStuned = false;
-   
+    public bool special = false;
+    public int special_count = 0;
     public void AddExperience (int xpAmount)
     {
         currentXP += xpAmount;
