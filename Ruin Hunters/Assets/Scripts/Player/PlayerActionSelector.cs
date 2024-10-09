@@ -181,7 +181,6 @@ public class PlayerActionSelector : MonoBehaviour
         usingItem = false;
         skillAttack = false;
         HandleBackspace();
-        GameManager.Instance.EndTurn();
     }
 
     void HideActionMenu()

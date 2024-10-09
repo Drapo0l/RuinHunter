@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: SlimeEnemies
   m_EditorClassIdentifier: 
   region: 2
-  collidingEnemy: {fileID: 311668302726844699, guid: 3fc44cadc2e58d842befd63a46e7fd26,
+  collidingEnemy: {fileID: 2074794736699707982, guid: 3fc44cadc2e58d842befd63a46e7fd26,
     type: 3}
   enemyPrefabs:
   - {fileID: 4835426206954640703, guid: 4cb726be268b5514c92f3693c9d265f5, type: 3}
+  - {fileID: 2074794736699707982, guid: 3fc44cadc2e58d842befd63a46e7fd26, type: 3}
+  - {fileID: 8641859716527120936, guid: 92057bed12ff73443bfe0e6e37ace936, type: 3}
   maxEnemies: 2

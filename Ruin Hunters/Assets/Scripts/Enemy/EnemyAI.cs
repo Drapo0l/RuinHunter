@@ -12,7 +12,7 @@ public class EnemyAI : MonoBehaviour
     public List<ElementCalc> elementWeakness = new List<ElementCalc>();
     List<Skill> availableSkills;
     public PublicEnums.EnemyTypes ty;
-    Vector3 postionOG;
+   public Vector3 postionOG;
     public Camera cam;
     public GameObject enemyModel;
     public GameObject targetIndicatorE;
@@ -27,13 +27,13 @@ public class EnemyAI : MonoBehaviour
         {
             if(enemyStats.isTurn)
             {
+                EndTurn();
+                availableSkills = enemyStats.skills;
                 postionOG = enemyModel.transform.position;
                 StartCoroutine(combatpause());
                 enemyModel.transform.position = new Vector3(enemyModel.transform.position.x + 2, enemyModel.transform.position.y, enemyModel.transform.position.z);
                 HandleCombatActions();
-                StartCoroutine(combatpause());
-                enemyModel.transform.position = postionOG;
-                GameManager.Instance.EndTurn();
+                
 
 
 
@@ -51,41 +51,46 @@ public class EnemyAI : MonoBehaviour
     private void HandleCombatActions()
     {
         // Determine whether to use a skill or basic attack
-       
-        
 
+
+        if (ty == PublicEnums.EnemyTypes.Agressive | ty == PublicEnums.EnemyTypes.CasterA | ty == PublicEnums.EnemyTypes.CasterP | ty == PublicEnums.EnemyTypes.Normal | ty == PublicEnums.EnemyTypes.Support)
+        {
             if (ShouldUseSkill())
             {
                 // Choose a random skill from available skills
                 Skill chosenSkill = availableSkills[Random.Range(0, availableSkills.Count)];
-            if (chosenSkill.Ptargit == 1)
-            {
-                
-                
+                if (chosenSkill.Ptargit == 1)
+                {
+
+
+                    UseSupportSkill(chosenSkill);
+
+
+                }
+                if (chosenSkill.Ptargit == 0)
+                {
+
                     UseAttackSkill(chosenSkill);
-                
-               
-            }
-            if(chosenSkill.Ptargit == 0)
-            {
-                
-                    UseAttackSkill(chosenSkill);
-                
-            }
+
+                }
             }
             else
             {
                 // Perform a basic attack
                 PerformBasicAttack();
             }
-            
+        }
+        else
+        {
+            Elite_AI();
+        }
         
         EndTurn();
     }
     private void UseSupportSkill(Skill skill) // used to target the enemys for buffs  and such
     {
         int ran;
-        GameObject target;
+        GameObject target = null;
         if(skill.AOE == true)
         {
             for(int i = 0; i < GameManager.Instance.enemyObj.Count; i++)
@@ -98,7 +103,7 @@ public class EnemyAI : MonoBehaviour
                         targetIndicatorE.transform.position = target.transform.position;
                         targetIndicatorE.transform.position = new Vector3(targetIndicatorE.transform.position.x, targetIndicatorE.transform.position.y + 9, targetIndicatorE.transform.position.x);
                         targetIndicatorE.SetActive(true);
-                        combatpause();
+                        StartCoroutine(combatpause());
                         // Calculate skill damage using any multipliers
                         float multiplier = GetSkillMultiplier(skill.elementType);
 
@@ -117,17 +122,22 @@ public class EnemyAI : MonoBehaviour
         }
         else
         {
-            while (true)
+            bool pick = true;
+            while (pick == true)
             {
-                ran = Random.Range(1, GameManager.Instance.enemyObj.Count) - 1;
-                target = GameManager.Instance.enemyObj[ran];
+                ran = Random.Range(0, GameManager.Instance.battleParty.Count) - 1;
+                if (ran < 0)
+                {
+                    ran = 0;
+                }
+                target = GameManager.Instance.battleParty[ran];
                 if (target.GetComponent<playerController>().playerStats.health <= 0)
                 {
 
                 }
                 else
                 {
-                    break;
+                    pick = false;
                 }
             }
             targetIndicatorE.transform.position = target.transform.position;
@@ -145,19 +155,22 @@ public class EnemyAI : MonoBehaviour
             }
 
         }
-        EndTurn();
+        StartCoroutine(combatpause());
+        enemyModel.transform.position = postionOG;
+        GameManager.Instance.EndTurn();
+        
 
     }
     private void UseAttackSkill(Skill skill) // used for attacking the players
     {
         // Find the player to target
         int ran;
-        GameObject target;
+        GameObject target = null;
         if (skill.AOE == true)
         {
-            for (int i = 0; i < GameManager.Instance.enemyObj.Count; i++)
+            for (int i = 0; i < GameManager.Instance.battleParty.Count; i++)
             {
-                target = GameManager.Instance.enemyObj[i];
+                target = GameManager.Instance.battleParty[i]; 
                 if (target.GetComponent<playerController>().playerStats.health <= 0)
                 {
                     targetIndicatorE.transform.position = target.transform.position;
@@ -184,17 +197,22 @@ public class EnemyAI : MonoBehaviour
         }
         else
         {
-            while (true)
+            bool pick = true;
+            while (pick == true)
             {
-                ran = Random.Range(1, GameManager.Instance.enemyObj.Count) - 1;
-                target = GameManager.Instance.enemyObj[ran];
+                ran = Random.Range(0, GameManager.Instance.battleParty.Count) - 1;
+                if(ran < 0)
+                {
+                    ran = 0;
+                }
+                target = GameManager.Instance.battleParty[ran];
                 if (target.GetComponent<playerController>().playerStats.health <= 0)
                 {
 
                 }
                 else
                 {
-                    break;
+                    pick = false;
                 }
             }
 
@@ -214,7 +232,9 @@ public class EnemyAI : MonoBehaviour
             }
 
         }
-        EndTurn();
+        StartCoroutine(combatpause());
+        enemyModel.transform.position = postionOG;
+        GameManager.Instance.EndTurn();
     }
 
     
@@ -245,18 +265,23 @@ public class EnemyAI : MonoBehaviour
     private void PerformBasicAttack()
     {
         int ran;
-        GameObject target;
-        while (true)
+        GameObject target = null;
+        bool pick = true;
+        while (pick == true)
         {
-             ran = Random.Range(1, PartyManager.Instance.startingPlayerParty.Count) - 1;
-             target = PartyManager.Instance.startingPlayerParty[ran];
+             ran = Random.Range(0, GameManager.Instance.battleParty.Count) - 1;
+            if (ran < 0)
+            {
+                ran = 0;
+            }
+            target = GameManager.Instance.battleParty[ran];
             if (target.GetComponent<playerController>().playerStats.health <= 0)
             {
 
             }
             else
             {
-                break;
+                pick = false;
             }
         }
         targetIndicatorE.transform.position = target.transform.position;
@@ -270,10 +295,59 @@ public class EnemyAI : MonoBehaviour
             
             // Activate the weapon attack
             Skill weaponAttack = new Skill(); 
-            weaponAttack.ActivateWeaponAttack(target, enemyStats.attackDamage, weaponMultiplier, enemyStats.critChance, enemyStats.effectChance); // Example power 10
+            weaponAttack.ActivateWeaponAttack(target, enemyStats.attackDamage, weaponMultiplier, enemyStats.critChance, enemyStats.effectChance); 
             targetIndicatorE.SetActive(false);
         }
-        EndTurn();
+        StartCoroutine(combatpause());
+        enemyModel.transform.position = postionOG;
+        GameManager.Instance.EndTurn();
+    }
+    private void Elite_AI()
+    {
+        if(ty== PublicEnums.EnemyTypes.Elite_forest_1)
+        {
+            if(enemyStats.special_count == 0)
+            {
+                enemyStats.special_count = 3;
+                enemyStats.special = true;
+            }
+            if (enemyStats.special == true)
+            {
+
+            }
+            Skill chosenSkill = availableSkills[Random.Range(0, availableSkills.Count)];
+        }
+        if (ty == PublicEnums.EnemyTypes.Elite_dessert_1)
+        {
+            if (enemyStats.special_count == 0)
+            {
+                enemyStats.special_count = 4;
+                enemyStats.special = true;
+            }
+            Skill chosenSkill = availableSkills[Random.Range(0, availableSkills.Count)];
+        }
+        if (ty == PublicEnums.EnemyTypes.Elite_ice_1)
+        {
+            if (enemyStats.special_count == 0)
+            {
+                enemyStats.special_count = 2;
+                enemyStats.special = true;
+            }
+            Skill chosenSkill = availableSkills[Random.Range(0, availableSkills.Count)];
+        }
+        if (ty == PublicEnums.EnemyTypes.Elite_ruin_1)
+        {
+            if (enemyStats.special_count == 0)
+            {
+                enemyStats.special_count = 10;
+                enemyStats.special = true;
+                if (enemyStats.special == true)
+                {
+
+                }
+            }
+            Skill chosenSkill = availableSkills[Random.Range(0, availableSkills.Count)];
+        }
     }
 
     public void TakeMeleeDamage(int damage, PublicEnums.WeaponType weaponType)

@@ -32,14 +32,14 @@ public class PartyManager : MonoBehaviour
     {
         if (!GameManager.Instance.combat) 
         {
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetKeyDown(KeyCode.Z))
             {
                 shownPartyMember = selectedPartyMember;
                 selectedPartyMember--;
                 if (selectedPartyMember < 0) selectedPartyMember = playerParty.Count - 1;
                 SwitchCharacter(selectedPartyMember);
             }
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.X))
             {
                 shownPartyMember = selectedPartyMember;
                 selectedPartyMember++;
