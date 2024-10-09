@@ -33,7 +33,8 @@ public class CharacterAttributes : ScriptableObject
     public PublicEnums.Regions regions;
     public bool isTurn = false;
     public bool isStuned = false;
-   
+
+
     public void AddExperience (int xpAmount)
     {
         currentXP += xpAmount;
@@ -61,12 +62,8 @@ public class CharacterAttributes : ScriptableObject
         Defence += 5;
         combatSpeed += 5;
     }
-
-
-
-
-
 }
+
 
 
 [CreateAssetMenu(fileName = "NewSkill", menuName = "Skill")]

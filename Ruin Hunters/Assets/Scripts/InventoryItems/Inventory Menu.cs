@@ -52,14 +52,6 @@ public class InventoryMenu : MonoBehaviour
 
         }
 
-        //// Handle navigation and selection input
-        //if (menuPanel.activeSelf && !EquipingArmour && !EquipingWeaon && !EquipingAccessory)
-        //{
-        //    if (Input.GetKeyDown(KeyCode.W)) { Navigate(-1); }
-        //    if (Input.GetKeyDown(KeyCode.S)) { Navigate(1); }
-        //    if (Input.GetKeyDown(KeyCode.Return)) { ExecuteCurrentAction(); }
-        //    if (Input.GetKeyDown(KeyCode.Backspace)) { HandleBackspace(); }
-        //}
     }
 
     public void startPause()
@@ -106,41 +98,4 @@ public class InventoryMenu : MonoBehaviour
         menuPause.SetActive(true);
     }
 
-//    private void Navigate(int direction)
-//    {
-//        currentSelection += direction;
-//        if (currentSelection < 0) currentSelection = currentMenu.Count - 1; // Loop to end
-//        if (currentSelection >= currentMenu.Count) currentSelection = 0;      // Loop to start
-//        UpdateHoverIndicator();
-//    }
-
-//    private void ExecuteCurrentAction()
-//    {
-//        // Trigger the onClick event for the currently selected button
-//        currentMenu[currentSelection].onClick.Invoke();
-//    }
-
-//    private void UpdateHoverIndicator()
-//    {
-//        Vector3 buttonPosition = currentMenu[currentSelection].transform.position;
-
-//        hoverIndicator.transform.position = new Vector3(buttonPosition.x - 150f, buttonPosition.y, buttonPosition.z);
-//    }
-
-//    private void HandleBackspace()
-//    {
-//        if (menuStack.Count > 1)
-//        {
-//            menuStack.Pop();
-//            currentMenu = menuStack.Peek();
-//            currentSelection = 0;
-//            UpdateHoverIndicator();
-//                 EquipingArmour = false;
-//          EquipingWeaon = false;
-//          EquipingAccessory = false;
-
-
-
-//}
-//    }
 }

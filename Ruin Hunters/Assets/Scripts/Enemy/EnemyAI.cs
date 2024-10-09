@@ -18,7 +18,7 @@ public class EnemyAI : MonoBehaviour
     public GameObject targetIndicatorE;
     void Start()
     {
-        
+        availableSkills = enemyStats.skills;
     }
 
     void Update()

@@ -64,6 +64,19 @@ public class playerController : MonoBehaviour, IDamage
 
     }
 
+    // Polo Angel's code
+    public void Equip(InventoryItem item)
+    {
+        if (item == null) // if null, you can't equip it and gives a error message
+        {
+            Debug.LogError("Cannot equip a null item!");
+            return;
+        }
+        // equips the item on the player
+        equippedItem = item;
+       Debug.Log($"Equipped: {item.label}");
+    }
+
     private void CharacterMovement()
     {
         // raycast to check ground
@@ -178,16 +191,5 @@ public class playerController : MonoBehaviour, IDamage
         return 1f;
     }
 
-    // Polo Angel's code
-    public void Equip(InventoryItem item)  
-    {
-        if (item == null) // if null, you can't equip it and gives a error message
-        {
-            Debug.LogError("Cannot equip a null item!");
-            return;
-        }
-        // equips the item on the player
-        equippedItem = item;
-        Debug.Log($"Equipped: {item.label}");
-    }
+   
 }
