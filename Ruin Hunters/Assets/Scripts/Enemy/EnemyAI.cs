@@ -306,22 +306,85 @@ public class EnemyAI : MonoBehaviour
     {
         if(ty== PublicEnums.EnemyTypes.Elite_forest_1) // forest elite will be a blue cloaked assassin 
         {
-            if(enemyStats.special_count == 0)
+            if(enemyStats.special_count == 0) // will start the match with 1 of 4 diffrent special moves and will do so every 3 turns after 
             {
                 enemyStats.special_count = 3;
                 enemyStats.special = true;
             }
             if (enemyStats.special == true)
             {
-                Skill chosenSkill = availableSkills[0];
+                Skill chosenSkill = availableSkills[Random.Range(0, 3)];
+                if(chosenSkill == availableSkills[0] | chosenSkill == availableSkills[1])
+                {
+                    for (int i = 0; i < GameManager.Instance.battleParty.Count; i++) // the first 2 will be aoe attacks on the party doing a debuff and some dmg 
+                    {
+                        GameObject target = null;
+                        target = GameManager.Instance.battleParty[i];
+                        if (target.GetComponent<playerController>().playerStats.health <= 0)
+                        {
+                            targetIndicatorE.transform.position = target.transform.position;
+                            targetIndicatorE.transform.position = new Vector3(targetIndicatorE.transform.position.x, targetIndicatorE.transform.position.y + 9, targetIndicatorE.transform.position.x);
+                            targetIndicatorE.SetActive(true);
+                            StartCoroutine(combatpause());
+                            if (target != null)
+                            {
+                                // Calculate skill damage using any multipliers
+                                float multiplier = GetSkillMultiplier(availableSkills[3].elementType);
 
+                                // Activate the skill, passing the player as the target
+                                availableSkills[3].ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, enemyStats.effectChance); // Attacker power is set to 10 for now
+                                targetIndicatorE.SetActive(false);
+                            }
+                        }
+                        else
+                        {
+
+                        }
+
+                    }
+                }
+                else
+                {
+                    UseAttackSkill(chosenSkill); // the last 2 are direct attacks 1 with a high crit rate another that drops the speed of the target 
+                    PerformBasicAttack(); // then do a basic attack 
+                }
 
                 enemyStats.special = false;
             }
-            else
+            else // then the basic attacks with some skills that fit him
             {
-                Skill chosenSkill = availableSkills[Random.Range(1, availableSkills.Count)];
+                int ran2;
+                ran2 = Random.Range(0, 100);
+                if (ran2 < 0)
+                {
+                    ran2 = 1;
+                }
+                if (ran2 < 70)
+                {
+                    Skill chosenSkill2 = availableSkills[Random.Range(4, availableSkills.Count)];
+                    if (chosenSkill2.Ptargit == 1)
+                    {
+
+
+                        UseSupportSkill(chosenSkill2);
+
+
+                    }
+                    if (chosenSkill2.Ptargit == 0)
+                    {
+
+                        UseAttackSkill(chosenSkill2);
+
+                    }
+                }
+                else
+                {
+                    // Perform a basic attack
+                    PerformBasicAttack();
+                }
+                enemyStats.special_count--;
             }
+            
             
         }
         if (ty == PublicEnums.EnemyTypes.Elite_dessert_1) // desert elite will be an ice wolf 
@@ -562,16 +625,130 @@ public class EnemyAI : MonoBehaviour
         }
         if (ty == PublicEnums.EnemyTypes.Elite_ruin_1) // ruin elite will be a booster worrior  
         {
-            if (enemyStats.special_count == 0)
+            if (enemyStats.special_count == 0) // his special is to do 5 basic attacks and lower his defence for 3 turns 
             {
                 enemyStats.special_count = 10;
                 enemyStats.special = true;
-                if (enemyStats.special == true)
+                
+            }
+            if (enemyStats.special == true)
+            {
+                PerformBasicAttack();
+                PerformBasicAttack();
+                PerformBasicAttack();
+                PerformBasicAttack();
+                PerformBasicAttack();
+                float weaponMultiplier = GetWeaponMultiplier(PublicEnums.WeaponType.Sword);
+                availableSkills[0].ActivateSkill(GameManager.Instance.enemyObj[0], enemyStats.attackDamage, weaponMultiplier, enemyStats.critChance, enemyStats.effectChance); // this lowers his own defence
+            }
+            else
+            {
+                enemyStats.special_count--;
+                int ran;
+                ran = Random.Range(0, 100);
+                if (ran < 0)
                 {
+                    ran = 1;
+                }
+                if (ran < 40)
+                {
+                    Skill chosenSkill2 = availableSkills[Random.Range(2, availableSkills.Count)];
+                    if (chosenSkill2.Ptargit == 1)
+                    {
 
+
+                        UseSupportSkill(chosenSkill2);
+
+
+                    }
+                    if (chosenSkill2.Ptargit == 0)
+                    {
+
+                        UseAttackSkill(chosenSkill2);
+
+                    }
+                    PerformBasicAttack(); // and after any skill he basic attacks
+                }
+                else
+                {
+                    // Perform a basic attack 2 times 
+                    PerformBasicAttack();
+                    PerformBasicAttack();
                 }
             }
-            Skill chosenSkill = availableSkills[Random.Range(0, availableSkills.Count)];
+            if(enemyStats.special_count == 3)
+            {
+                float weaponMultiplier = GetWeaponMultiplier(PublicEnums.WeaponType.Sword);
+                availableSkills[1].ActivateSkill(GameManager.Instance.enemyObj[0], enemyStats.attackDamage, weaponMultiplier, enemyStats.critChance, enemyStats.effectChance); // after that he will clense his debuffs 
+            }
+            
+        }
+        if (ty == PublicEnums.EnemyTypes.Boss_1_Main) // the main boss is a ruin beast its 1 great gem in the shape of an eye that then makes 2 diffrent arms 1 being made of red gems being the left arm and a blue one made of blue gems
+        {
+            Skill chosenSkill2 = availableSkills[Random.Range(0, availableSkills.Count)];
+            if (chosenSkill2.Ptargit == 1)
+            {
+
+
+                UseSupportSkill(chosenSkill2);
+
+
+            }
+            if (chosenSkill2.Ptargit == 0)
+            {
+
+                UseAttackSkill(chosenSkill2);
+
+            }
+        }
+        if (ty == PublicEnums.EnemyTypes.Boss_1_L_arm) // the left arm is pure basic attack with a 50% chance to stun when below 50% health 
+        {
+            if(enemyStats.health <= enemyStats.maxHealth)
+            {
+                int ran;
+                ran = Random.Range(0, 100);
+                if (ran < 0)
+                {
+                    ran = 1;
+                }
+                if (ran < 50)
+                {
+                    UseAttackSkill(availableSkills[0]);
+                }
+            }
+            PerformBasicAttack();
+            PerformBasicAttack();
+        }
+        if (ty == PublicEnums.EnemyTypes.Boss_1_R_arm) // the right arm is a spell caster only casting spells when below 50% hp they have a 50% chance to use a defence droppting skill 
+        {
+            if (enemyStats.health <= enemyStats.maxHealth)
+            {
+                int ran;
+                ran = Random.Range(0, 100);
+                if (ran < 0)
+                {
+                    ran = 1;
+                }
+                if (ran < 50)
+                {
+                    UseAttackSkill(availableSkills[0]);
+                }
+            }
+            Skill chosenSkill2 = availableSkills[Random.Range(1, availableSkills.Count)];
+            if (chosenSkill2.Ptargit == 1)
+            {
+
+
+                UseSupportSkill(chosenSkill2);
+
+
+            }
+            if (chosenSkill2.Ptargit == 0)
+            {
+
+                UseAttackSkill(chosenSkill2);
+
+            }
         }
     }
 
