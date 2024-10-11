@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
@@ -17,6 +18,7 @@ public class EnemyAI : MonoBehaviour
     public GameObject enemyModel;
     public GameObject targetIndicatorE;
     private bool animatingAttack;
+    
     void Start()
     {
         availableSkills = enemyStats.skills;
@@ -25,14 +27,14 @@ public class EnemyAI : MonoBehaviour
 
     void Update()
     {
-        if(GameManager.Instance.combat && enemyStats.isTurn && !animatingAttack)
+        if (GameManager.Instance.combat && enemyStats.isTurn && !animatingAttack)
         {
             StartCoroutine(HandleTurnSequence());
         }
     }
     IEnumerator HandleTurnSequence()
     {
-       
+
         //move forward
         animatingAttack = true;
         postionOG = enemyModel.transform.position;
@@ -55,7 +57,7 @@ public class EnemyAI : MonoBehaviour
         float timeElapsed = 0f;
         Vector3 startPosition = enemyModel.transform.position;
 
-        while(timeElapsed < duration) 
+        while (timeElapsed < duration)
         {
             enemyModel.transform.position = Vector3.Lerp(startPosition, targetPosition, timeElapsed / duration);
             timeElapsed += duration;
@@ -68,44 +70,44 @@ public class EnemyAI : MonoBehaviour
     private void HandleCombatActions()
     {
         // Determine whether to use a skill or basic attack
-       
-        
 
-            if (ShouldUseSkill() && availableSkills.Count > 0)
-            {
-                // Choose a random skill from available skills
-                Skill chosenSkill = availableSkills[Random.Range(0, availableSkills.Count)];
+
+
+        if (ShouldUseSkill() && availableSkills.Count > 0)
+        {
+            // Choose a random skill from available skills
+            Skill chosenSkill = availableSkills[Random.Range(0, availableSkills.Count)];
             if (chosenSkill.Ptargit == 1)
             {
-                
-                
-                    UseAttackSkill(chosenSkill);
-                
-               
+
+
+                UseAttackSkill(chosenSkill);
+
+
             }
-            if(chosenSkill.Ptargit == 0)
+            if (chosenSkill.Ptargit == 0)
             {
-                
-                    UseAttackSkill(chosenSkill);
-                
+
+                UseAttackSkill(chosenSkill);
+
             }
-            }
-            else
-            {
-                // Perform a basic attack
-                PerformBasicAttack();
-            }
-            
-        
-        
+        }
+        else
+        {
+            // Perform a basic attack
+            PerformBasicAttack();
+        }
+
+
+
     }
     private void UseSupportSkill(Skill skill) // used to target the enemys for buffs  and such
     {
         int ran;
         GameObject target;
-        if(skill.AOE == true)
+        if (skill.AOE == true)
         {
-            for(int i = 0; i < GameManager.Instance.enemyObj.Count; i++)
+            for (int i = 0; i < GameManager.Instance.enemyObj.Count; i++)
             {
                 target = GameManager.Instance.enemyObj[i];
                 if (target.GetComponent<playerController>().playerStats.health <= 0)
@@ -122,11 +124,11 @@ public class EnemyAI : MonoBehaviour
                 }
                 else
                 {
-                   
+
                 }
-               
+
             }
-           
+
         }
         else
         {
@@ -213,7 +215,7 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    
+
 
     private bool ShouldUseSkill()
     {
@@ -235,7 +237,7 @@ public class EnemyAI : MonoBehaviour
         {
             return Random.value > 0f;
         }
-            return Random.value > 0.5f;
+        return Random.value > 0.5f;
     }
 
     private void PerformBasicAttack()
@@ -244,8 +246,8 @@ public class EnemyAI : MonoBehaviour
         GameObject target;
         while (true)
         {
-             ran = Random.Range(1, PartyManager.Instance.startingPlayerParty.Count) - 1;
-             target = PartyManager.Instance.startingPlayerParty[ran];
+            ran = Random.Range(1, PartyManager.Instance.startingPlayerParty.Count) - 1;
+            target = PartyManager.Instance.startingPlayerParty[ran];
             if (target.GetComponent<playerController>().playerStats.health <= 0)
             {
 
@@ -259,9 +261,9 @@ public class EnemyAI : MonoBehaviour
         {
             // Get the weapon weakness multiplier based on player's weaknesses
             float weaponMultiplier = GetWeaponMultiplier(PublicEnums.WeaponType.Sword); // Example weapon
-            
+
             // Activate the weapon attack
-            Skill weaponAttack = new Skill(); 
+            Skill weaponAttack = new Skill();
             weaponAttack.ActivateWeaponAttack(target, enemyStats.attackDamage, weaponMultiplier, enemyStats.critChance, enemyStats.effectChance); // Example power 10
             targetIndicatorE.SetActive(false);
         }
@@ -272,34 +274,36 @@ public class EnemyAI : MonoBehaviour
         float multiplier = GetWeaponMultiplier(weaponType);
         damage = Mathf.FloorToInt(damage * multiplier);
         enemyStats.health -= damage;
-
-        //FloatingNumberManager.Instance.ShowFloatingText(transform, damage, cam);
+        Vector3 targetPosition = transform.position;
+        DamageNumberManager.Instance.ShowNumbers(targetPosition, damage);
 
         GameManager.Instance.EndTurn();
 
         if (enemyStats.health <= 0)
         {
-            GameManager.Instance.EnemyDeath(gameObject);
+            GameManager.Instance.EnemyDeath(gameObject);           
             Destroy(gameObject);
         }
     }
-
+   
     public void TakeSkillDamage(int damage, PublicEnums.ElementType elementType)
     {
         float multiplier = GetSkillMultiplier(elementType);
         damage = Mathf.FloorToInt(damage * multiplier);
         enemyStats.health -= damage;
-
-        //FloatingNumberManager.Instance.ShowFloatingText(transform, damage, cam);
+        Vector3 targetPosition = transform.position;
+        DamageNumberManager.Instance.ShowNumbers(targetPosition, damage);
 
         GameManager.Instance.EndTurn();
 
         if (enemyStats.health <= 0)
         {
-            GameManager.Instance.EnemyDeath(gameObject);
+            GameManager.Instance.EnemyDeath(gameObject);            
             Destroy(gameObject);
         }
     }
+
+  
 
     public float GetSkillMultiplier(PublicEnums.ElementType elementType)
     {
@@ -330,6 +334,6 @@ public class EnemyAI : MonoBehaviour
         enemyStats.isTurn = true;
     }
 
-    
+
 }
 

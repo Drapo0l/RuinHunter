@@ -53,11 +53,9 @@ public class PartyManager : MonoBehaviour
     {
         foreach (GameObject characters in startingPlayerParty) 
         {
-            characters.transform.GetChild(0).gameObject.SetActive(false);
-            characters.GetComponent<SphereCollider>().enabled = false;
+            characters.SetActive(false);
         }
-        startingPlayerParty[index].transform.GetChild(0).gameObject.SetActive(true);
-        startingPlayerParty[index].GetComponent<SphereCollider>().enabled = true;
+        startingPlayerParty[index].SetActive(true);
         startingPlayerParty[index].transform.position = startingPlayerParty[shownPartyMember].transform.position;
         playerCamera.Follow = startingPlayerParty[index].transform;
         playerCamera.LookAt = startingPlayerParty[index].transform;

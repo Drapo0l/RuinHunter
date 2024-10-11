@@ -21,19 +21,19 @@ MonoBehaviour:
   maxMana: 200
   mana: 150
   combatSpeed: 0
-  skillDamage: 0
-  attackDamage: 0
+  skillDamage: 300
+  attackDamage: 300
   critChance: 0
   effectChance: 0
-  Defence: 0
+  Defence: 200
   maxHealthOG: 3500
-  maxManaOG: 0
+  maxManaOG: 200
   combatSpeedOG: 0
-  skillDamageOG: 0
-  attackDamageOG: 0
+  skillDamageOG: 300
+  attackDamageOG: 300
   critChanceOG: 0
   effectChanceOG: 0
-  DefenceOG: 0
+  DefenceOG: 200
   expGive: 0
   skills:
   - skillName: Fire Bolt
@@ -101,5 +101,7 @@ MonoBehaviour:
     Ptargit: 0
     AOE: 0
   regions: 2
-  isTurn: 0
+  isTurn: 1
   isStuned: 0
+  special: 0
+  special_count: 0

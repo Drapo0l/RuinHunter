@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7923199573929319383}
   - component: {fileID: 4882080590731908003}
   - component: {fileID: 340042506739755640}
-  - component: {fileID: 8130331155323798062}
   - component: {fileID: 5131612446860957344}
   m_Layer: 0
   m_Name: DamagePlaneText
@@ -103,14 +102,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!222 &8130331155323798062
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4606228384056261303}
-  m_CullTransparentMesh: 1
 --- !u!114 &5131612446860957344
 MonoBehaviour:
   m_ObjectHideFlags: 0

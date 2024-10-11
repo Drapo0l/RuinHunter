@@ -15,17 +15,26 @@ MonoBehaviour:
   level: 1
   currentXP: 0
   xpToNextLevel: 100
-  health: 1650
+  nameOfCharacter: Bat
+  health: 300
   maxHealth: 300
   maxMana: 0
   mana: 0
-  nameOfCharacter: Bat
   combatSpeed: 15
   skillDamage: 50
   attackDamage: 60
   critChance: 0
   effectChance: 0
   Defence: 0
+  maxHealthOG: 300
+  maxManaOG: 0
+  combatSpeedOG: 15
+  skillDamageOG: 50
+  attackDamageOG: 60
+  critChanceOG: 0
+  effectChanceOG: 0
+  DefenceOG: 0
+  expGive: 0
   skills:
   - skillName: elekiattacki
     elementType: 3
@@ -34,6 +43,7 @@ MonoBehaviour:
     manaCost: 0
     effect: 0
     Ptargit: 0
+    AOE: 0
   - skillName: elekiattacki
     elementType: 3
     weaponType: 0
@@ -41,6 +51,9 @@ MonoBehaviour:
     manaCost: 0
     effect: 0
     Ptargit: 0
+    AOE: 0
   regions: 0
   isTurn: 0
   isStuned: 0
+  special: 0
+  special_count: 0
