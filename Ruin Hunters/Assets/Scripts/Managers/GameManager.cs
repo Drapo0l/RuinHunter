@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
 
     public Vector3 lastPlayerPosition;
 
-    private bool collisionEnemy;
+    private int amountDead = 0;
     private bool wasCombatInitialized = false;
     private void Awake()
     {
@@ -209,7 +209,9 @@ public class GameManager : MonoBehaviour
     }
 
     public void EndTurn()
-    {             
+    {
+        
+
         //move to the next character in the list
         currentTurnIndex = (currentTurnIndex + 1) % characters.Count;
 
@@ -219,6 +221,7 @@ public class GameManager : MonoBehaviour
 
     public void EnemyDeath(GameObject enemy)
     {
+        currentTurnIndex--;
         enemyObj.Remove(enemy);
         turnOrder.Remove(enemy.GetComponent<EnemyAI>().enemyStats);
         if (enemyObj.Count == 0)
@@ -229,6 +232,7 @@ public class GameManager : MonoBehaviour
 
     public void PlayerDeath(GameObject player)
     {
+        currentTurnIndex--;
         battleParty.Remove(player);
         turnOrder.Remove(player.GetComponent<playerController>().playerStats);
         if (battleParty.Count == 0)

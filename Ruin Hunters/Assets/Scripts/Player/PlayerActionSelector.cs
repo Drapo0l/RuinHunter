@@ -515,28 +515,23 @@ public class PlayerActionSelector : MonoBehaviour
         if (!usingItem)
         {
             Vector3 origininalPosition = playerTransform.position;
+            Transform enemyTransform = enemies[selectedEnemyIndex].transform;
+            
+            Vector3 directionToEnemy = (enemyTransform.position - playerTransform.position).normalized;
 
-            Vector3 enemyPosition = enemies[selectedPartyIndex].transform.position;
-                
-            float moveDuration = 0.5f;
-            float elapsedTime = 0f;
+            float distanceInFrontOfEnemy = 1.5f;
+            Vector3 targetPosition = enemyTransform.position - directionToEnemy * distanceInFrontOfEnemy;
 
-            while (elapsedTime < moveDuration)
+            playerController.playerAnimator.SetBool("moving", true);
+            while (Vector3.Distance(playerTransform.position, targetPosition) > 0.1f)
             {
-                elapsedTime += Time.deltaTime;
+               playerTransform.position = Vector3.MoveTowards(playerTransform.position, targetPosition, playerController.speed * Time.deltaTime);
+               yield return null;
+            }                     
 
-                float step = (elapsedTime / moveDuration) * Vector3.Distance(origininalPosition, enemyPosition);
-                 
-                playerTransform.position = Vector3.MoveTowards(playerTransform.position, enemyPosition, step);
-                
-                 yield return null;
-            }
+            playerController.playerAnimator.SetTrigger("Attack");
 
-            playerTransform.position = enemyPosition;
-
-            playerController.AttackAnimation();
-
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(playerController.playerAnimator.GetCurrentAnimatorStateInfo(0).length);
 
             if (skillAttack)
             {
@@ -547,26 +542,21 @@ public class PlayerActionSelector : MonoBehaviour
                 enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeMeleeDamage(playerController.playerStats.attackDamage, playerController.playerWeapon);
             }
 
-            elapsedTime = 0f;
 
-            while (elapsedTime < moveDuration)
+            playerController.playerAnimator.SetBool("moving", true);
+            while (Vector3.Distance(playerTransform.position, origininalPosition) > 0.1f)
             {
-                elapsedTime += Time.deltaTime;
-
-                float step = (elapsedTime / moveDuration) * Vector3.Distance(enemyPosition, origininalPosition);
-
-                playerTransform.position = Vector3.MoveTowards(playerTransform.position, origininalPosition, step);
-
+                playerTransform.position = Vector3.MoveTowards(playerTransform.position, origininalPosition, playerController.speed * Time.deltaTime);
                 yield return null;
             }
-
-            playerTransform.position = origininalPosition;
+            playerController.playerAnimator.SetBool("moving", false);
         }
         else
         {
             consumeItem();
         }
         HideMenu();
+        GameManager.Instance.EndTurn();
     }
     
     private void consumeItem()
