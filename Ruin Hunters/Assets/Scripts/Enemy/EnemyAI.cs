@@ -19,6 +19,7 @@ public class EnemyAI : MonoBehaviour
     public GameObject targetIndicatorE;
     private bool animatingAttack;
     
+
     void Start()
     {
         availableSkills = enemyStats.skills;
