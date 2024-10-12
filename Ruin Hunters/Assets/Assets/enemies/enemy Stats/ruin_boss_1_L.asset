@@ -35,7 +35,15 @@ MonoBehaviour:
   effectChanceOG: 0
   DefenceOG: 0
   expGive: 0
-  skills: []
+  skills:
+  - skillName: stun_bash
+    elementType: 0
+    weaponType: 0
+    baseDamage: 0
+    manaCost: 0
+    effect: 3
+    Ptargit: 0
+    AOE: 0
   regions: 0
   isTurn: 0
   isStuned: 0

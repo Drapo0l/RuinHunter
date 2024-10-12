@@ -35,7 +35,63 @@ MonoBehaviour:
   effectChanceOG: 0
   DefenceOG: 0
   expGive: 0
-  skills: []
+  skills:
+  - skillName: crush_SK
+    elementType: 0
+    weaponType: 0
+    baseDamage: 0
+    manaCost: 0
+    effect: 10
+    Ptargit: 0
+    AOE: 1
+  - skillName: crush_a
+    elementType: 0
+    weaponType: 0
+    baseDamage: 0
+    manaCost: 0
+    effect: 5
+    Ptargit: 0
+    AOE: 1
+  - skillName: crush_d
+    elementType: 0
+    weaponType: 0
+    baseDamage: 0
+    manaCost: 0
+    effect: 7
+    Ptargit: 1
+    AOE: 1
+  - skillName: crush_S
+    elementType: 0
+    weaponType: 0
+    baseDamage: 0
+    manaCost: 0
+    effect: 9
+    Ptargit: 0
+    AOE: 1
+  - skillName: rock_blast
+    elementType: 0
+    weaponType: 0
+    baseDamage: 0
+    manaCost: 0
+    effect: 1
+    Ptargit: 0
+    AOE: 0
+  - skillName: judgment
+    elementType: 0
+    weaponType: 0
+    baseDamage: 0
+    manaCost: 0
+    effect: 3
+    Ptargit: 0
+    AOE: 0
+  - skillName: soul_boost
+    elementType: 0
+    weaponType: 0
+    baseDamage: 0
+    manaCost: 0
+    effect: 11
+    Ptargit: 1
+    AOE: 1
   regions: 0
   isTurn: 0
   isStuned: 0

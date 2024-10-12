@@ -371,7 +371,7 @@ public class EnemyAI : MonoBehaviour
                 {
                     ran = 1;
                 }
-                if (ran < 55)
+                if (ran < 40)
                 {
                     Skill chosenSkill = availableSkills[Random.Range(4, availableSkills.Count)];
                     if (chosenSkill.Ptargit == 1)
@@ -480,7 +480,7 @@ public class EnemyAI : MonoBehaviour
         }
         if (ty == PublicEnums.EnemyTypes.Boss_1_L_arm) // the left arm is pure basic attack with a 50% chance to stun when below 50% health 
         {
-            if (enemyStats.health <= enemyStats.maxHealth)
+            if (enemyStats.health <= enemyStats.maxHealth/2)
             {
                 int ran;
                 ran = Random.Range(0, 101);
@@ -490,7 +490,36 @@ public class EnemyAI : MonoBehaviour
                 }
                 if (ran < 50)
                 {
-                    UseAttackSkill(availableSkills[0]);
+                    int kc;
+                    kc = GameManager.Instance.battleParty.Count - 1;
+                    GameObject target = null;
+                    for (int i = 0; i < GameManager.Instance.battleParty.Count; i++)
+                    {
+                        target = GameManager.Instance.battleParty[i];
+                        if (target.GetComponent<playerController>().playerStats.health <= 0)
+                        {
+                            if (target != null)
+                            {
+                                if (kc < GameManager.Instance.battleParty.Count - 1)
+                                {
+                                    i--;
+                                    kc--;
+                                }
+                                // Calculate skill damage using any multipliers
+                                float multiplier = GetSkillMultiplier(availableSkills[0].elementType);
+
+                                // Activate the skill, passing the player as the target
+                                availableSkills[0].ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, enemyStats.effectChance); // Attacker power is set to 10 for now
+                                targetIndicatorE.SetActive(false);
+                            }
+                        }
+                        else
+                        {
+
+                        }
+
+                    }
+                   
                 }
             }
             PerformBasicAttack();

@@ -35,7 +35,55 @@ MonoBehaviour:
   effectChanceOG: 0
   DefenceOG: 0
   expGive: 0
-  skills: []
+  skills:
+  - skillName: M_heal
+    elementType: 0
+    weaponType: 0
+    baseDamage: 0
+    manaCost: 0
+    effect: 2
+    Ptargit: 1
+    AOE: 1
+  - skillName: heart_fire
+    elementType: 0
+    weaponType: 0
+    baseDamage: 0
+    manaCost: 0
+    effect: 4
+    Ptargit: 1
+    AOE: 1
+  - skillName: heart_ice
+    elementType: 0
+    weaponType: 0
+    baseDamage: 0
+    manaCost: 0
+    effect: 6
+    Ptargit: 1
+    AOE: 1
+  - skillName: heart_earth
+    elementType: 0
+    weaponType: 0
+    baseDamage: 0
+    manaCost: 0
+    effect: 8
+    Ptargit: 1
+    AOE: 1
+  - skillName: heart_lightning
+    elementType: 3
+    weaponType: 0
+    baseDamage: 0
+    manaCost: 0
+    effect: 3
+    Ptargit: 0
+    AOE: 1
+  - skillName: heart_pure
+    elementType: 0
+    weaponType: 0
+    baseDamage: 0
+    manaCost: 0
+    effect: 12
+    Ptargit: 1
+    AOE: 1
   regions: 0
   isTurn: 0
   isStuned: 0

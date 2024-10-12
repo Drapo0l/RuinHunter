@@ -59,7 +59,7 @@ MonoBehaviour:
     manaCost: 0
     effect: 9
     Ptargit: 0
-    AOE: 1
+    AOE: 0
   - skillName: clense
     elementType: 0
     weaponType: 0
@@ -68,6 +68,38 @@ MonoBehaviour:
     effect: 12
     Ptargit: 1
     AOE: 0
+  - skillName: steam_blast
+    elementType: 1
+    weaponType: 15
+    baseDamage: 0
+    manaCost: 0
+    effect: 7
+    Ptargit: 0
+    AOE: 0
+  - skillName: heat_wave
+    elementType: 1
+    weaponType: 0
+    baseDamage: 0
+    manaCost: 0
+    effect: 0
+    Ptargit: 0
+    AOE: 1
+  - skillName: weaken_tune
+    elementType: 0
+    weaponType: 0
+    baseDamage: 0
+    manaCost: 0
+    effect: 5
+    Ptargit: 0
+    AOE: 1
+  - skillName: brittle_tune
+    elementType: 0
+    weaponType: 0
+    baseDamage: 0
+    manaCost: 0
+    effect: 7
+    Ptargit: 0
+    AOE: 1
   regions: 0
   isTurn: 0
   isStuned: 0

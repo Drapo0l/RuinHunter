@@ -59,7 +59,7 @@ MonoBehaviour:
     manaCost: 0
     effect: 0
     Ptargit: 0
-    AOE: 1
+    AOE: 0
   - skillName: new_moon
     elementType: 2
     weaponType: 0
@@ -67,7 +67,7 @@ MonoBehaviour:
     manaCost: 0
     effect: 0
     Ptargit: 0
-    AOE: 1
+    AOE: 0
   - skillName: clense
     elementType: 0
     weaponType: 0
@@ -76,6 +76,30 @@ MonoBehaviour:
     effect: 12
     Ptargit: 1
     AOE: 0
+  - skillName: ice_bite
+    elementType: 2
+    weaponType: 10
+    baseDamage: 0
+    manaCost: 0
+    effect: 1
+    Ptargit: 0
+    AOE: 0
+  - skillName: body_bash
+    elementType: 0
+    weaponType: 0
+    baseDamage: 0
+    manaCost: 0
+    effect: 3
+    Ptargit: 0
+    AOE: 0
+  - skillName: blizzard
+    elementType: 2
+    weaponType: 0
+    baseDamage: 0
+    manaCost: 0
+    effect: 9
+    Ptargit: 0
+    AOE: 1
   regions: 0
   isTurn: 0
   isStuned: 0

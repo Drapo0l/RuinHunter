@@ -43,7 +43,7 @@ MonoBehaviour:
     manaCost: 0
     effect: 3
     Ptargit: 0
-    AOE: 1
+    AOE: 0
   - skillName: knife_shower
     elementType: 0
     weaponType: 10
@@ -51,7 +51,7 @@ MonoBehaviour:
     manaCost: 0
     effect: 1
     Ptargit: 0
-    AOE: 1
+    AOE: 0
   - skillName: back_stab
     elementType: 0
     weaponType: 10
@@ -67,6 +67,46 @@ MonoBehaviour:
     manaCost: 0
     effect: 5
     Ptargit: 0
+    AOE: 0
+  - skillName: entangle
+    elementType: 4
+    weaponType: 0
+    baseDamage: 0
+    manaCost: 0
+    effect: 5
+    Ptargit: 0
+    AOE: 0
+  - skillName: blitz
+    elementType: 0
+    weaponType: 15
+    baseDamage: 0
+    manaCost: 0
+    effect: 1
+    Ptargit: 0
+    AOE: 0
+  - skillName: knife_dance
+    elementType: 0
+    weaponType: 10
+    baseDamage: 0
+    manaCost: 0
+    effect: 1
+    Ptargit: 0
+    AOE: 1
+  - skillName: sharpen
+    elementType: 0
+    weaponType: 0
+    baseDamage: 0
+    manaCost: 0
+    effect: 4
+    Ptargit: 1
+    AOE: 0
+  - skillName: cloak
+    elementType: 0
+    weaponType: 0
+    baseDamage: 0
+    manaCost: 0
+    effect: 6
+    Ptargit: 1
     AOE: 0
   regions: 0
   isTurn: 0

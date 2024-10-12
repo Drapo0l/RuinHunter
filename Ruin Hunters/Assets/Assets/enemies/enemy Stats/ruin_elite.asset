@@ -52,6 +52,22 @@ MonoBehaviour:
     effect: 12
     Ptargit: 1
     AOE: 0
+  - skillName: boost
+    elementType: 0
+    weaponType: 0
+    baseDamage: 0
+    manaCost: 0
+    effect: 4
+    Ptargit: 1
+    AOE: 0
+  - skillName: spark_surge
+    elementType: 3
+    weaponType: 0
+    baseDamage: 0
+    manaCost: 0
+    effect: 3
+    Ptargit: 0
+    AOE: 1
   regions: 0
   isTurn: 0
   isStuned: 0
