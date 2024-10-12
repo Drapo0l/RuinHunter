@@ -54,6 +54,16 @@ public class ButtonsFuncsForInventory : MonoBehaviour
         InventoryMenu.Instance.Accessoryymenu();
     }
 
+    public void OpenItemmenu() //Opens the Accessory menu
+    {
+        InventoryMenu.Instance.ItemMenu();
+    }
+
+    public void OpenSkillmenu() //Opens the Accessory menu
+    {
+        InventoryMenu.Instance.Skillmenu();
+    }
+
     public void GoBack() //Go back to the party info menu
     {
         InventoryMenu.Instance.returnToPartyInfo();

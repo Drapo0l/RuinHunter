@@ -7,11 +7,11 @@ public class PublicEnums : Item
     
     public enum WeaponType
     {
-        None =0,
-        Sword = 15,
-        Dagger=10,
-        Bow =15,
-        Lance =15,
+        None,
+        Sword,
+        Dagger,
+        Bow,
+        Lance,
         
     }
 

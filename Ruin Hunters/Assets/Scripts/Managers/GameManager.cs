@@ -18,10 +18,9 @@ public class GameManager : MonoBehaviour
     public GameObject battleCamera;
     public int expTotal;
     private List<CharacterAttributes> playerParty; // list to hold player party
-    public List<GameObject> battlePartyHealth = new List<GameObject>();
-    public List<GameObject> battleParty = new List<GameObject>();
+    public List<GameObject> battleParty;
     private List<CharacterAttributes> characters; //list to hold enmies and allies
-
+    
     public List<GameObject> playerHealths;          // list of player health/mana
     public GameObject playerHealthsParent;
     private int currentTurnIndex = 0; // index of the current character's turn
@@ -38,7 +37,7 @@ public class GameManager : MonoBehaviour
 
     private bool collisionEnemy;
     private bool wasCombatInitialized = false;
-    private void Awake()
+    private void Awake ()
     {
         if (Instance == null)
         {
@@ -53,7 +52,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         if (combat && !wasCombatInitialized)
-        {
+        {            
             playerHealthsParent.SetActive(true);
             playerParty = PartyManager.Instance.GetCurrentPartyComponent();
             StartCombat();
@@ -72,11 +71,10 @@ public class GameManager : MonoBehaviour
 
     void StartCombat()
     {
-
         characters = new List<CharacterAttributes>();
-
+        
         characters.AddRange(playerParty);
-
+       
         for (int i = 0; i < playerParty.Count; i++)
         {
             playerHealths[i].SetActive(true);
@@ -95,7 +93,7 @@ public class GameManager : MonoBehaviour
             characters[i].effectChanceOG = characters[i].effectChance;
             expTotal = characters[i].expGive + expTotal;
         }
-        SetupBattleField();
+        //SetupBattleField();
 
         // Sort characters based on speed in descending order
         turnOrder = new List<CharacterAttributes>(characters);
@@ -109,66 +107,63 @@ public class GameManager : MonoBehaviour
     {
         // clear enemy list
         if (currentEnemies != null)
-        {
-            currentEnemies.Clear();
+        {  
+            currentEnemies.Clear(); 
         }
 
-        if (currentEnemies == null)
+        if (currentEnemies == null) 
         {
             currentEnemies = new List<CharacterAttributes> { };
         }
-
+       
         if (colliderPool != null)
         {
             enemyObj = colliderPool.GetEnemies();
-            foreach (var enemy in enemyObj)
+            foreach (var enemy in enemyObj) 
             {
                 characters.Add(enemy.GetComponent<EnemyAI>().enemyStats);
                 enemy.GetComponent<EnemyAI>().postionOG = enemy.transform.position;
-            }
+            }          
         }
 
-        foreach (CharacterAttributes enemyObj in currentEnemies)
+        foreach (CharacterAttributes enemyObj in currentEnemies) 
         {
             characters.Add(enemyObj);
         }
-
+       
     }
 
-    void SetupBattleField()
-    {
-        battleCamera.SetActive(true);
-        playerCamera.SetActive(false);
-        battlePartyHealth = PartyManager.Instance.GetPlayeGameObj();
-        battleParty = new List<GameObject>(battlePartyHealth);
-        int pos = 0;
-        foreach (GameObject player in battleParty)
-        {
-            player.GetComponent<Rigidbody>().velocity = Vector3.zero * 0;
-            if (player.transform.localScale.x > 0)
-                player.transform.localScale = new Vector3(Math.Abs(player.transform.localScale.x) * -1, player.transform.localScale.y, player.transform.localScale.z);
-            player.SetActive(true);
-            player.transform.SetParent(battleCamera.transform);
-            player.transform.localPosition = new Vector3(3f + pos, 0f, 10f + pos);
-            pos++;
-        }
-        pos = 0;
+    //void SetupBattleField()
+    //{
+    //    battleCamera.SetActive(true);
+    //    playerCamera.SetActive(false);
+    //    battleParty = PartyManager.Instance.GetPlayeGameObj();
+    //    int pos = 0;
+    //    foreach (GameObject player in battleParty)
+    //    {
+    //        player.GetComponent<Rigidbody>().velocity = Vector3.zero * 0;
+    //        player.SetActive(true);
+    //        player.transform.SetParent(battleCamera.transform);
+    //        player.transform.localPosition = new Vector3(3f + pos, -1.28f, 10f + pos);
+    //        pos++;
+    //    }
+    //    pos = 0;
 
-        foreach (GameObject enemy in enemyObj)
-        {
-            enemy.SetActive(true);
-            enemy.transform.SetParent(battleCamera.transform);
-            enemy.transform.localPosition = new Vector3(-7.25f + pos, -1.28f, 10.5f + pos);
-            pos++;
-        }
-    }
+    //    foreach (GameObject enemy in enemyObj)
+    //    {
+    //        enemy.SetActive(true);
+    //        enemy.transform.SetParent(battleCamera.transform);
+    //        enemy.transform.localPosition = new Vector3(-7.25f + pos, -1.28f, 10.5f + pos);
+    //        pos++;
+    //    }
+    //}
     private void SetHealthBars()
     {
-
+        List<GameObject> playerParty = PartyManager.Instance.GetPlayeGameObj();
         int index = 0;
-        foreach (var playerChar in battlePartyHealth)
+        foreach (var playerChar in playerParty)
         {
-            playerChar.gameObject.SetActive(true);
+            playerChar.transform.GetChild(0).gameObject.SetActive(true);
             //ManaNumber
             playerHealths[index].transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = playerChar.GetComponent<playerController>().playerStats.mana.ToString() + " / " + playerChar.GetComponent<playerController>().playerStats.maxMana.ToString();
             //ManaBar
@@ -200,41 +195,42 @@ public class GameManager : MonoBehaviour
             chara.isTurn = false;
         }
 
-        combat = true;
+        combat = true;       
 
         CharacterAttributes currentCharacter = turnOrder[currentTurnIndex];
 
         currentCharacter.isTurn = true;
-
+        
     }
 
     public void EndTurn()
-    {             
-        //move to the next character in the list
-        currentTurnIndex = (currentTurnIndex + 1) % characters.Count;
+    {        
+        if (enemyObj.Count == 0 || battleParty.Count == 0)
+        {
+            EndCombat();            
+        }
+        else
+        {
+            //move to the next character in the list
+            currentTurnIndex = (currentTurnIndex + 1) % characters.Count;
 
-        //start the next character's turn
-        StartTurn();
+            //start the next character's turn
+            StartTurn();
+        }
+
+        
     }
 
     public void EnemyDeath(GameObject enemy)
     {
         enemyObj.Remove(enemy);
         turnOrder.Remove(enemy.GetComponent<EnemyAI>().enemyStats);
-        if (enemyObj.Count == 0)
-        {
-            EndCombat();
-        }
     }
 
     public void PlayerDeath(GameObject player)
     {
         battleParty.Remove(player);
         turnOrder.Remove(player.GetComponent<playerController>().playerStats);
-        if (battleParty.Count == 0)
-        {
-            EndCombat();
-        }
     }
 
     public void EndCombat()
@@ -265,17 +261,17 @@ public class GameManager : MonoBehaviour
             player.SetActive(false);
             player.transform.localPosition = lastPlayerPosition;
             player.transform.SetParent(playerCamera.transform);
-
+            
         }
         battleParty[0].SetActive(true);
 
         //move to the next character in the list
-
-
-
-
-
-
+      
+        
+        
+           
+       
+       
     }
 
 }
