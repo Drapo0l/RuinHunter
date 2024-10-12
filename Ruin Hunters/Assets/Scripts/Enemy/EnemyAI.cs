@@ -114,6 +114,7 @@ public class EnemyAI : MonoBehaviour
             }
             else // then the basic attacks with some skills that fit him
             {
+                
                 int ran2;
                 ran2 = Random.Range(0, 100);
                 if (ran2 < 0)
@@ -455,7 +456,7 @@ public class EnemyAI : MonoBehaviour
             if (enemyStats.health <= enemyStats.maxHealth)
             {
                 int ran;
-                ran = Random.Range(0, 100);
+                ran = Random.Range(0, 101);
                 if (ran < 0)
                 {
                     ran = 1;
@@ -568,7 +569,7 @@ public class EnemyAI : MonoBehaviour
         {
             while (true)
             {
-                ran = Random.Range(1, GameManager.Instance.enemyObj.Count) - 1;
+                ran = Random.Range(0, PartyManager.Instance.startingPlayerParty.Count - 1);
                 target = GameManager.Instance.enemyObj[ran];
                 if (target.GetComponent<playerController>().playerStats.health <= 0)
                 {
@@ -625,7 +626,7 @@ public class EnemyAI : MonoBehaviour
         {
             while (true)
             {
-                ran = Random.Range(1, GameManager.Instance.battleParty.Count) - 1;
+                ran = Random.Range(0, PartyManager.Instance.startingPlayerParty.Count - 1);
                 target = GameManager.Instance.battleParty[ran];
                 if (target.GetComponent<playerController>().playerStats.health <= 0)
                 {
@@ -680,7 +681,7 @@ public class EnemyAI : MonoBehaviour
         GameObject target;
         while (true)
         {
-            ran = Random.Range(1, PartyManager.Instance.startingPlayerParty.Count) - 1;
+            ran = Random.Range(0, PartyManager.Instance.startingPlayerParty.Count - 1);
             target = PartyManager.Instance.startingPlayerParty[ran];
             if (target.GetComponent<playerController>().playerStats.health <= 0)
             {
