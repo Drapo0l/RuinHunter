@@ -90,8 +90,7 @@ public class PlayerActionSelector : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Return)) 
             {
-                DamageEnemy();
-            
+                StartCoroutine(DamageEnemy());            
             }
             if (Input.GetKeyDown(KeyCode.Backspace)) 
             {
@@ -510,21 +509,63 @@ public class PlayerActionSelector : MonoBehaviour
         SelectEnemy(0);
     }
 
-    public void DamageEnemy()
+    public IEnumerator DamageEnemy()
     {
         
-        if (skillAttack)
+        if (!usingItem)
         {
-            enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(playerSkills[skillScrollIndex].baseDamage, playerSkills[skillScrollIndex].elementType);
-        }
-        else if(usingItem)
-        {
-            consumeItem();
+            Vector3 origininalPosition = playerTransform.position;
+
+            Vector3 enemyPosition = enemies[selectedPartyIndex].transform.position;
+                
+            float moveDuration = 0.5f;
+            float elapsedTime = 0f;
+
+            while (elapsedTime < moveDuration)
+            {
+                elapsedTime += Time.deltaTime;
+
+                float step = (elapsedTime / moveDuration) * Vector3.Distance(origininalPosition, enemyPosition);
+                 
+                playerTransform.position = Vector3.MoveTowards(playerTransform.position, enemyPosition, step);
+                
+                 yield return null;
+            }
+
+            playerTransform.position = enemyPosition;
+
+            playerController.AttackAnimation();
+
+            yield return new WaitForSeconds(0.5f);
+
+            if (skillAttack)
+            {
+                enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(playerSkills[skillScrollIndex].baseDamage, playerSkills[skillScrollIndex].elementType);
+            }            
+            else
+            {
+                enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeMeleeDamage(playerController.playerStats.attackDamage, playerController.playerWeapon);
+            }
+
+            elapsedTime = 0f;
+
+            while (elapsedTime < moveDuration)
+            {
+                elapsedTime += Time.deltaTime;
+
+                float step = (elapsedTime / moveDuration) * Vector3.Distance(enemyPosition, origininalPosition);
+
+                playerTransform.position = Vector3.MoveTowards(playerTransform.position, origininalPosition, step);
+
+                yield return null;
+            }
+
+            playerTransform.position = origininalPosition;
         }
         else
         {
-            enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeMeleeDamage(playerController.playerStats.attackDamage, playerController.playerWeapon);
-        }        
+            consumeItem();
+        }
         HideMenu();
     }
     
