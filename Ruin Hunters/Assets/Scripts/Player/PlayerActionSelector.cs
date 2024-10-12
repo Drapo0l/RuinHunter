@@ -519,7 +519,7 @@ public class PlayerActionSelector : MonoBehaviour
             
             Vector3 directionToEnemy = (enemyTransform.position - playerTransform.position).normalized;
 
-            float distanceInFrontOfEnemy = 1.5f;
+            float distanceInFrontOfEnemy = 3f;
             Vector3 targetPosition = enemyTransform.position - directionToEnemy * distanceInFrontOfEnemy;
 
             playerController.playerAnimator.SetBool("moving", true);
@@ -535,7 +535,17 @@ public class PlayerActionSelector : MonoBehaviour
 
             if (skillAttack)
             {
-                enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(playerSkills[skillScrollIndex].baseDamage, playerSkills[skillScrollIndex].elementType);
+                if (playerSkills[skillScrollIndex].AOE)
+                {
+                    foreach (var enemy in enemies)
+                    {
+                        enemy.GetComponent<EnemyAI>().TakeSkillDamage(playerSkills[skillScrollIndex].baseDamage, playerSkills[skillScrollIndex].elementType);
+                    }
+                }
+                else
+                {
+                    enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(playerSkills[skillScrollIndex].baseDamage, playerSkills[skillScrollIndex].elementType);
+                }
             }            
             else
             {

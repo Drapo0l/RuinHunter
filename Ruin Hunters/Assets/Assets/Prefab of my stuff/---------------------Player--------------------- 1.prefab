@@ -220,7 +220,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6979063063507874819}
   m_Layer: 0
-  m_Name: ---------------------Player--------------------- 1 1
+  m_Name: ---------------------Player--------------------- 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -373,8 +373,8 @@ MonoBehaviour:
   terrainLayer:
     serializedVersion: 2
     m_Bits: 64
-  rb: {fileID: 0}
-  sr: {fileID: 0}
+  rb: {fileID: 1870726281204846662}
+  sr: {fileID: 3187355490738160270}
   ignorePlayerLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -1076,8 +1076,8 @@ MonoBehaviour:
   terrainLayer:
     serializedVersion: 2
     m_Bits: 64
-  rb: {fileID: 0}
-  sr: {fileID: 0}
+  rb: {fileID: 3501465166128035466}
+  sr: {fileID: 273595802602165880}
   ignorePlayerLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -1265,8 +1265,8 @@ MonoBehaviour:
   terrainLayer:
     serializedVersion: 2
     m_Bits: 64
-  rb: {fileID: 0}
-  sr: {fileID: 0}
+  rb: {fileID: 6893388080447969653}
+  sr: {fileID: 8334500707922200397}
   ignorePlayerLayer:
     serializedVersion: 2
     m_Bits: 8
