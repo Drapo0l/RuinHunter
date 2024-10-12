@@ -309,12 +309,12 @@ public class EnemyAI : MonoBehaviour
             if(enemyStats.special_count == 0)
             {
                 enemyStats.special_count = 3;
-                enemyStats.special = true;
+              //  enemyStats.special = true;
             }
-            if (enemyStats.special == true)
-            {
+            //if (enemyStats.special == true)
+            //{
 
-            }
+            //}
             Skill chosenSkill = availableSkills[Random.Range(0, availableSkills.Count)];
         }
         if (ty == PublicEnums.EnemyTypes.Elite_dessert_1)
@@ -322,7 +322,7 @@ public class EnemyAI : MonoBehaviour
             if (enemyStats.special_count == 0)
             {
                 enemyStats.special_count = 4;
-                enemyStats.special = true;
+              //  enemyStats.special = true;
             }
             Skill chosenSkill = availableSkills[Random.Range(0, availableSkills.Count)];
         }
@@ -331,7 +331,7 @@ public class EnemyAI : MonoBehaviour
             if (enemyStats.special_count == 0)
             {
                 enemyStats.special_count = 2;
-                enemyStats.special = true;
+              //  enemyStats.special = true;  
             }
             Skill chosenSkill = availableSkills[Random.Range(0, availableSkills.Count)];
         }
@@ -340,8 +340,8 @@ public class EnemyAI : MonoBehaviour
             if (enemyStats.special_count == 0)
             {
                 enemyStats.special_count = 10;
-                enemyStats.special = true;
-                if (enemyStats.special == true)
+              //  enemyStats.special = true;
+             //   if (enemyStats.special == true)
                 {
 
                 }

@@ -13,3 +13,6 @@ MonoBehaviour:
   m_Name: Sword
   m_EditorClassIdentifier: 
   label: Sword
+  weaponType: 1
+  ArmourType: 0
+  AccessoryType: 0

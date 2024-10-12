@@ -17,8 +17,13 @@ public class playerController : MonoBehaviour, IDamage
     public LayerMask ignorePlayerLayer;
 
     public PublicEnums.WeaponType playerWeapon;
+    public PublicEnums.ArmourTypes playerArmour;
+    public PublicEnums.AccessoryTypes playerAccessory;
     // Angel's polo angel equip Item
-    public InventoryItem equippedItem;  // to show if the player has the equpied item or not and have it be equpied
+    public InventoryItem equippedWeapon;  // to show if the player has the equpied item or not and have it be equpied to the player's weapon,armour or accessory
+    public InventoryItem equippedArmour;  
+    public InventoryItem equippedAccessory; 
+
 
     // Create List to hold strengths and weaknesses
     public List<WeaponCalc> weaponsWeakness = new List<WeaponCalc>();
@@ -41,31 +46,31 @@ public class playerController : MonoBehaviour, IDamage
     void Update()
     {
         
-        if(!GameManager.Instance.combat)
-        {
-            CharacterMovement();
-        }
-        else
-        {
-            if(playerStats.isTurn) 
-            {
-                if (defended != 0)
-                {
+        //if(!GameManager.Instance.combat)
+        //{
+        //    CharacterMovement();
+        //}
+        ////else
+        ////{
+        ////    if(playerStats.isTurn) 
+        ////    {
+        ////        if (defended != 0)
+        ////        {
                    
-                    playerStats.Defence = defended;
-                    defended = 0;
-                }
+        ////            playerStats.Defence = defended;
+        ////            defended = 0;
+        ////        }
                 
-                // when it's the player's turn, show the menu
-                actionSelector.ShowMenu(transform, this, playerStats.skills);                
-            }
-        }
+        ////        // when it's the player's turn, show the menu
+        ////        actionSelector.ShowMenu(transform, this, playerStats.skills);                
+        ////    }
+        ////}
         
 
     }
 
     // Polo Angel's code
-    public void Equip(InventoryItem item)
+    public void EquipWeapon(InventoryItem item)
     {
         if (item == null) // if null, you can't equip it and gives a error message
         {
@@ -73,8 +78,35 @@ public class playerController : MonoBehaviour, IDamage
             return;
         }
         // equips the item on the player
-        equippedItem = item;
+        equippedWeapon = item;
+        playerWeapon = equippedWeapon.weaponType;
        Debug.Log($"Equipped: {item.label}");
+    }
+
+    public void EquipArmour(InventoryItem item)
+    {
+        if (item == null) // if null, you can't equip it and gives a error message
+        {
+            Debug.LogError("Cannot equip a null item!");
+            return;
+        }
+        // equips the item on the player
+        equippedArmour = item;
+        playerArmour = equippedArmour.ArmourType;
+        Debug.Log($"Equipped: {item.label}");
+    }
+
+    public void EquipAccessory(InventoryItem item)
+    {
+        if (item == null) // if null, you can't equip it and gives a error message
+        {
+            Debug.LogError("Cannot equip a null item!");
+            return;
+        }
+        // equips the item on the player
+        equippedAccessory = item;
+        playerAccessory = equippedAccessory.AccessoryType;
+        Debug.Log($"Equipped: {item.label}");
     }
 
     private void CharacterMovement()
@@ -187,5 +219,7 @@ public class playerController : MonoBehaviour, IDamage
         return 1f;
     }
 
-   
+
+    
+
 }
