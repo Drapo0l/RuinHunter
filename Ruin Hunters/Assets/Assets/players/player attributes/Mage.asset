@@ -26,16 +26,24 @@ MonoBehaviour:
   critChance: 0
   effectChance: 0
   Defence: 100
-  maxHealthOG: 0
-  maxManaOG: 0
-  combatSpeedOG: 0
-  skillDamageOG: 0
-  attackDamageOG: 0
+  maxHealthOG: 2000
+  maxManaOG: 150
+  combatSpeedOG: 12
+  skillDamageOG: 200
+  attackDamageOG: 150
   critChanceOG: 0
   effectChanceOG: 0
-  DefenceOG: 0
+  DefenceOG: 100
   expGive: 0
-  skills: []
+  skills:
+  - skillName: FireBall
+    elementType: 1
+    weaponType: 0
+    baseDamage: 300
+    manaCost: 40
+    effect: 0
+    Ptargit: 0
+    AOE: 1
   regions: 0
   isTurn: 0
   isStuned: 0
