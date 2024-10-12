@@ -356,7 +356,7 @@ public class EnemyAI : MonoBehaviour
         damage = Mathf.FloorToInt(damage * multiplier);
         enemyStats.health -= damage;
 
-        FloatingNumberManager.Instance.ShowFloatingText(transform, damage, cam);
+        //FloatingNumberManager.Instance.ShowFloatingText(transform, damage, cam);  
 
         GameManager.Instance.EndTurn();
 
@@ -372,7 +372,7 @@ public class EnemyAI : MonoBehaviour
         damage = Mathf.FloorToInt(damage * multiplier);
         enemyStats.health -= damage;
 
-        FloatingNumberManager.Instance.ShowFloatingText(transform, damage, cam);
+        //FloatingNumberManager.Instance.ShowFloatingText(transform, damage, cam);
 
         GameManager.Instance.EndTurn();
         
