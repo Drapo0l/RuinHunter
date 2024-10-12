@@ -113,7 +113,7 @@ public class EnemyAI : MonoBehaviour
                 }
                 else
                 {
-                    UseAttackSkill(chosenSkill); // the last 2 are direct attacks 1 with a high crit rate another that drops the speed of the target 
+                    UseAttackSkill(chosenSkill); // the last 2 are direct attacks 1 with a high crit rate another that drops the attack of the target 
                     PerformBasicAttack(); // then do a basic attack 
                 }
 

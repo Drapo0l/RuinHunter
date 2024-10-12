@@ -35,7 +35,39 @@ MonoBehaviour:
   effectChanceOG: 0
   DefenceOG: 0
   expGive: 0
-  skills: []
+  skills:
+  - skillName: burn_out_1
+    elementType: 0
+    weaponType: 0
+    baseDamage: 0
+    manaCost: 0
+    effect: 7
+    Ptargit: 1
+    AOE: 0
+  - skillName: burn_out_2
+    elementType: 0
+    weaponType: 0
+    baseDamage: 0
+    manaCost: 0
+    effect: 9
+    Ptargit: 1
+    AOE: 0
+  - skillName: 'big_bomb_fiesta '
+    elementType: 1
+    weaponType: 0
+    baseDamage: 0
+    manaCost: 0
+    effect: 9
+    Ptargit: 0
+    AOE: 1
+  - skillName: clense
+    elementType: 0
+    weaponType: 0
+    baseDamage: 0
+    manaCost: 0
+    effect: 12
+    Ptargit: 1
+    AOE: 0
   regions: 0
   isTurn: 0
   isStuned: 0

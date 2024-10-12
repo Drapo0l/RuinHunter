@@ -16,8 +16,8 @@ MonoBehaviour:
   currentXP: 0
   xpToNextLevel: 100
   nameOfCharacter: 
-  health: 0
-  maxHealth: 0
+  health: 5000
+  maxHealth: 5000
   maxMana: 0
   mana: 0
   combatSpeed: 0
@@ -35,7 +35,23 @@ MonoBehaviour:
   effectChanceOG: 0
   DefenceOG: 0
   expGive: 0
-  skills: []
+  skills:
+  - skillName: over_charged
+    elementType: 0
+    weaponType: 0
+    baseDamage: 0
+    manaCost: 0
+    effect: 7
+    Ptargit: 1
+    AOE: 0
+  - skillName: clense
+    elementType: 0
+    weaponType: 0
+    baseDamage: 0
+    manaCost: 0
+    effect: 12
+    Ptargit: 1
+    AOE: 0
   regions: 0
   isTurn: 0
   isStuned: 0

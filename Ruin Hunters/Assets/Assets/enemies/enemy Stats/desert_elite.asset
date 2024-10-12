@@ -35,7 +35,47 @@ MonoBehaviour:
   effectChanceOG: 0
   DefenceOG: 0
   expGive: 0
-  skills: []
+  skills:
+  - skillName: houl_A
+    elementType: 0
+    weaponType: 0
+    baseDamage: 0
+    manaCost: 0
+    effect: 4
+    Ptargit: 1
+    AOE: 0
+  - skillName: howl_H
+    elementType: 0
+    weaponType: 0
+    baseDamage: 0
+    manaCost: 0
+    effect: 2
+    Ptargit: 0
+    AOE: 0
+  - skillName: full_moon
+    elementType: 2
+    weaponType: 0
+    baseDamage: 0
+    manaCost: 0
+    effect: 0
+    Ptargit: 0
+    AOE: 1
+  - skillName: new_moon
+    elementType: 2
+    weaponType: 0
+    baseDamage: 0
+    manaCost: 0
+    effect: 0
+    Ptargit: 0
+    AOE: 1
+  - skillName: clense
+    elementType: 0
+    weaponType: 0
+    baseDamage: 0
+    manaCost: 0
+    effect: 12
+    Ptargit: 1
+    AOE: 0
   regions: 0
   isTurn: 0
   isStuned: 0

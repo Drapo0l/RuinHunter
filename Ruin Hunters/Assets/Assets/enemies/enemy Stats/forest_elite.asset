@@ -35,7 +35,39 @@ MonoBehaviour:
   effectChanceOG: 0
   DefenceOG: 0
   expGive: 0
-  skills: []
+  skills:
+  - skillName: flash_bomb
+    elementType: 3
+    weaponType: 0
+    baseDamage: 0
+    manaCost: 0
+    effect: 3
+    Ptargit: 0
+    AOE: 1
+  - skillName: knife_shower
+    elementType: 0
+    weaponType: 10
+    baseDamage: 0
+    manaCost: 0
+    effect: 1
+    Ptargit: 0
+    AOE: 1
+  - skillName: back_stab
+    elementType: 0
+    weaponType: 10
+    baseDamage: 0
+    manaCost: 0
+    effect: 1
+    Ptargit: 0
+    AOE: 0
+  - skillName: entangle
+    elementType: 4
+    weaponType: 0
+    baseDamage: 0
+    manaCost: 0
+    effect: 5
+    Ptargit: 0
+    AOE: 0
   regions: 0
   isTurn: 0
   isStuned: 0
