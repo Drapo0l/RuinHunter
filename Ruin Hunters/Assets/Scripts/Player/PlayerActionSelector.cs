@@ -534,7 +534,7 @@ public class PlayerActionSelector : MonoBehaviour
 
             playerTransform.position = enemyPosition;
 
-            //playerController.AttackAnimation();
+            playerController.AttackAnimation();
 
             yield return new WaitForSeconds(0.5f);
 

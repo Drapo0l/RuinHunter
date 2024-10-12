@@ -16,24 +16,24 @@ MonoBehaviour:
   currentXP: 0
   xpToNextLevel: 100
   nameOfCharacter: Fenrir
-  health: 1000
+  health: 640
   maxHealth: 1000
   maxMana: 100
   mana: 80
   combatSpeed: 0
-  skillDamage: 0
-  attackDamage: 79
+  skillDamage: 300
+  attackDamage: 300
   critChance: 0
   effectChance: 0
-  Defence: 0
+  Defence: 100
   maxHealthOG: 1000
-  maxManaOG: 0
+  maxManaOG: 100
   combatSpeedOG: 0
-  skillDamageOG: 0
-  attackDamageOG: 8
+  skillDamageOG: 300
+  attackDamageOG: 300
   critChanceOG: 0
   effectChanceOG: 0
-  DefenceOG: 0
+  DefenceOG: 100
   expGive: 0
   skills:
   - skillName: Giga Slash
@@ -53,5 +53,7 @@ MonoBehaviour:
     Ptargit: 0
     AOE: 0
   regions: 2
-  isTurn: 1
+  isTurn: 0
   isStuned: 0
+  special: 0
+  special_count: 0

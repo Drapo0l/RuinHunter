@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 using UnityEngine.UI; 
 
 public class InventoryMenu : MonoBehaviour
@@ -12,11 +11,18 @@ public class InventoryMenu : MonoBehaviour
     [SerializeField] GameObject menuWeapon;
     [SerializeField] GameObject menuAmour;
     [SerializeField] GameObject menuAccessory;
-    [SerializeField] GameObject menuItem;
-    [SerializeField] GameObject menuSkills;
     [SerializeField] GameObject menuPanel;
+    //public GameObject hoverIndicator;
+    //public GameObject buttonPrefab;
 
-    public List<GameObject> playerHealthMana;          // list of player health/mana
+    //private bool EquipingArmour = false;
+    //private bool EquipingWeaon = false;
+    //private bool EquipingAccessory = false;
+
+    private int currentSelection = 0;
+    //private Stack<List<Button>> menuStack = new Stack<List<Button>>();
+    //private List<Button> currentMenu;
+
     public bool Ispause;
     float scaleorginaltime;
     public static InventoryMenu Instance;
@@ -58,7 +64,6 @@ public class InventoryMenu : MonoBehaviour
 
     public void startunPause()
     {
-
         Ispause = !Ispause;
         Time.timeScale = scaleorginaltime;
         Cursor.visible = false;
@@ -70,56 +75,27 @@ public class InventoryMenu : MonoBehaviour
     public void Weaponmenu() // turns off the Party Info menu and switches and turns on the weapon menu
     {
         menuWeapon.SetActive(true);
-        //menuPause.SetActive(false);
+        menuPause.SetActive(false);
     }
 
     public void Amourmenu() // turns off the Party Info menu and switches and turns on the Amour menu
     {
         menuAmour.SetActive(true);
-        //menuPause.SetActive(false);
+        menuPause.SetActive(false);
     }
 
     public void Accessoryymenu() // turns off the Party Info menu and switches and turns on the Accessory menu
     {
         menuAccessory.SetActive(true);
-        //menuPause.SetActive(false);
+        menuPause.SetActive(false);
     }
 
-    public void ItemMenu() // turns off the Party Info menu and switches and turns on the weapon menu
-    {
-        menuItem.SetActive(true);
-        //menuPause.SetActive(false);
-    }
-
-    public void Skillmenu() // turns off the Party Info menu and switches and turns on the weapon menu
-    {
-        menuSkills.SetActive(true);
-        //menuPause.SetActive(false);
-    }
     public void returnToPartyInfo()  // turns off the other menus and goes back to the party info menu once you press the back button
     {
         menuAccessory.SetActive(false);
         menuAmour.SetActive(false);
         menuWeapon.SetActive(false);
-        menuSkills.SetActive(false);
-        menuItem.SetActive(false);
-        // menuPause.SetActive(true);
+        menuPause.SetActive(true);
     }
 
-    private void ShowHealthManaBars()
-    {
-        List<GameObject> playerParty = PartyManager.Instance.GetPlayeGameObj();
-        int index = 0;
-        foreach (var playerChar in playerParty)
-        {
-         playerChar.transform.GetChild(0).gameObject.SetActive(true);
-         //ManaNumber
-         playerHealthMana[index].transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = playerChar.GetComponent<playerController>().playerStats.mana.ToString() + " / " + playerChar.GetComponent<playerController>().playerStats.maxMana.ToString();
-         //HealthNumber
-         playerHealthMana[index].transform.GetChild(1).gameObject.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = playerChar.GetComponent<playerController>().playerStats.health.ToString() + " / " + playerChar.GetComponent<playerController>().playerStats.maxHealth.ToString();
-          
-
-         index++;
-        }
-    }
 }

@@ -16,7 +16,7 @@ public class CharacterAttributes : ScriptableObject
     public int mana;
     public int combatSpeed;
     public int skillDamage;
-    public int attackDamage =0;
+    public int attackDamage;
     public int critChance;
     public int effectChance;
     public int Defence;
@@ -24,7 +24,7 @@ public class CharacterAttributes : ScriptableObject
     public int maxManaOG;
     public int combatSpeedOG;
     public int skillDamageOG;
-    public int attackDamageOG =0;
+    public int attackDamageOG;
     public int critChanceOG;
     public int effectChanceOG;
     public int DefenceOG;
@@ -33,7 +33,8 @@ public class CharacterAttributes : ScriptableObject
     public PublicEnums.Regions regions;
     public bool isTurn = false;
     public bool isStuned = false;
-    internal int special_count;
+    public bool special = false;
+    public int special_count;
 
     public void AddExperience (int xpAmount)
     {
