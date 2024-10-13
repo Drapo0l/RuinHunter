@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
-using static UnityEditor.PlayerSettings;
+//using static UnityEditor.PlayerSettings;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,9 +18,10 @@ public class GameManager : MonoBehaviour
     public GameObject battleCamera;
     public int expTotal;
     private List<CharacterAttributes> playerParty; // list to hold player party
-    private List<GameObject> battleParty;
+    public List<GameObject> battlePartyHealth = new List<GameObject>();
+    public List<GameObject> battleParty = new List<GameObject>();
     private List<CharacterAttributes> characters; //list to hold enmies and allies
-    
+
     public List<GameObject> playerHealths;          // list of player health/mana
     public GameObject playerHealthsParent;
     private int currentTurnIndex = 0; // index of the current character's turn
@@ -32,13 +34,11 @@ public class GameManager : MonoBehaviour
     public List<GameObject> enemyObj;
     private RegionEnemyPool colliderPool;
 
-    private int deadParty;
-
     public Vector3 lastPlayerPosition;
 
-    private bool collisionEnemy;
+    private int amountDead = 0;
     private bool wasCombatInitialized = false;
-    private void Awake ()
+    private void Awake()
     {
         if (Instance == null)
         {
@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         if (combat && !wasCombatInitialized)
-        {            
+        {
             playerHealthsParent.SetActive(true);
             playerParty = PartyManager.Instance.GetCurrentPartyComponent();
             StartCombat();
@@ -72,10 +72,11 @@ public class GameManager : MonoBehaviour
 
     void StartCombat()
     {
+
         characters = new List<CharacterAttributes>();
-        
+
         characters.AddRange(playerParty);
-       
+
         for (int i = 0; i < playerParty.Count; i++)
         {
             playerHealths[i].SetActive(true);
@@ -108,44 +109,47 @@ public class GameManager : MonoBehaviour
     {
         // clear enemy list
         if (currentEnemies != null)
-        {  
-            currentEnemies.Clear(); 
+        {
+            currentEnemies.Clear();
         }
 
-        if (currentEnemies == null) 
+        if (currentEnemies == null)
         {
             currentEnemies = new List<CharacterAttributes> { };
         }
-       
+
         if (colliderPool != null)
         {
             enemyObj = colliderPool.GetEnemies();
-            foreach (var enemy in enemyObj) 
+            foreach (var enemy in enemyObj)
             {
                 characters.Add(enemy.GetComponent<EnemyAI>().enemyStats);
-               
-            }          
+                enemy.GetComponent<EnemyAI>().postionOG = enemy.transform.position;
+            }
         }
 
-        foreach (CharacterAttributes enemyObj in currentEnemies) 
+        foreach (CharacterAttributes enemyObj in currentEnemies)
         {
             characters.Add(enemyObj);
         }
-       
+
     }
 
     void SetupBattleField()
     {
         battleCamera.SetActive(true);
         playerCamera.SetActive(false);
-        battleParty = PartyManager.Instance.GetPlayeGameObj();
+        battlePartyHealth = PartyManager.Instance.GetPlayeGameObj();
+        battleParty = new List<GameObject>(battlePartyHealth);
         int pos = 0;
         foreach (GameObject player in battleParty)
         {
             player.GetComponent<Rigidbody>().velocity = Vector3.zero * 0;
+            if (player.transform.localScale.x > 0)
+                player.transform.localScale = new Vector3(Math.Abs(player.transform.localScale.x) * -1, player.transform.localScale.y, player.transform.localScale.z);
             player.SetActive(true);
             player.transform.SetParent(battleCamera.transform);
-            player.transform.localPosition = new Vector3(3f + pos, -1.28f, 10f + pos);
+            player.transform.localPosition = new Vector3(3f + pos, 0f, 10f + pos);
             pos++;
         }
         pos = 0;
@@ -160,11 +164,11 @@ public class GameManager : MonoBehaviour
     }
     private void SetHealthBars()
     {
-        List<GameObject> playerParty = PartyManager.Instance.GetPlayeGameObj();
+
         int index = 0;
-        foreach (var playerChar in playerParty)
+        foreach (var playerChar in battlePartyHealth)
         {
-            playerChar.transform.GetChild(0).gameObject.SetActive(true);
+            playerChar.gameObject.SetActive(true);
             //ManaNumber
             playerHealths[index].transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = playerChar.GetComponent<playerController>().playerStats.mana.ToString() + " / " + playerChar.GetComponent<playerController>().playerStats.maxMana.ToString();
             //ManaBar
@@ -190,73 +194,68 @@ public class GameManager : MonoBehaviour
 
     public void StartTurn()
     {
-        combat = true;
 
         foreach (var chara in turnOrder)
         {
             chara.isTurn = false;
         }
 
+        combat = true;
+
         CharacterAttributes currentCharacter = turnOrder[currentTurnIndex];
 
         currentCharacter.isTurn = true;
-        
+
     }
 
     public void EndTurn()
     {
+        
 
-        deadParty = 0;
-        for (int i = 0; i < turnOrder.Count;)
-        {
-            if (turnOrder[i].health <= 0)
-            {
-                turnOrder.RemoveAt(i);
-            }
-            else { i++; }
-        }
-        for (int i = 0; i < enemyObj.Count;)
-        { 
-            if (enemyObj[i].GetComponent<EnemyAI>().enemyStats.health <= 0)
-            {
-                enemyObj.RemoveAt(i);
-            }
-            else
-            {
-                i++;
-            }
-            
-        }
-        for (int i = 0; i < battleParty.Count; i++)
-        {
-            if (battleParty[i].GetComponent<playerController>().playerStats.health <= 0)
-            {
-                deadParty++;
-            }
-            else
-            {
-                deadParty--;                
-            }
-        }
-        if (enemyObj.Count == 0 || deadParty == battleParty.Count)
+        //move to the next character in the list
+        currentTurnIndex = (currentTurnIndex + 1) % characters.Count;
+
+        //start the next character's turn
+        StartTurn();
+    }
+
+    public void EnemyDeath(GameObject enemy)
+    {
+        currentTurnIndex--;
+        enemyObj.Remove(enemy);
+        turnOrder.Remove(enemy.GetComponent<EnemyAI>().enemyStats);
+        if (enemyObj.Count == 0)
         {
             EndCombat();
-            
         }
-        else
+    }
+
+    public void PlayerDeath(GameObject player)
+    {
+        currentTurnIndex--;
+        battleParty.Remove(player);
+        turnOrder.Remove(player.GetComponent<playerController>().playerStats);
+        if (battleParty.Count == 0)
         {
-            //move to the next character in the list
-            currentTurnIndex = (currentTurnIndex + 1) % characters.Count;
-
-            //start the next character's turn
-            StartTurn();
+            EndCombat();
         }
-
-        
     }
 
     public void EndCombat()
     {
+        for (int i = 0; i < characters.Count; i++)
+        {
+            characters[i].maxMana = characters[i].maxManaOG;
+            characters[i].maxHealth = characters[i].maxHealthOG;
+            characters[i].Defence = characters[i].DefenceOG;
+            characters[i].combatSpeed = characters[i].combatSpeedOG;
+            characters[i].skillDamage = characters[i].skillDamageOG;
+            characters[i].attackDamage = characters[i].attackDamageOG;
+            characters[i].critChance = characters[i].critChanceOG;
+            characters[i].effectChance = characters[i].effectChanceOG;
+            characters[i].AddExperience(expTotal);
+        }
+
         characters.Clear();
         playerParty.Clear();
         wasCombatInitialized = false;
@@ -270,33 +269,17 @@ public class GameManager : MonoBehaviour
             player.SetActive(false);
             player.transform.localPosition = lastPlayerPosition;
             player.transform.SetParent(playerCamera.transform);
-            
+
         }
         battleParty[0].SetActive(true);
 
         //move to the next character in the list
-        currentTurnIndex = (currentTurnIndex + 1) % characters.Count;
-        if (currentEnemies.Count <= 0)
-        {
-            for (int i = 0; i < characters.Count; i++) // makes it so that your og stats are now saved 
-            {
-                characters[i].maxMana = characters[i].maxManaOG;
-                characters[i].maxHealth = characters[i].maxHealthOG;
-                characters[i].Defence = characters[i].DefenceOG;
-                characters[i].combatSpeed = characters[i].combatSpeedOG;
-                characters[i].skillDamage = characters[i].skillDamageOG;
-                characters[i].attackDamage = characters[i].attackDamageOG;
-                characters[i].critChance = characters[i].critChanceOG;
-                characters[i].effectChance = characters[i].effectChanceOG;
-                characters[i].AddExperience(expTotal);
-            }
-        }
-        else
-        {
-            //start the next character's turn
-            StartTurn();
-        }
-       
+
+
+
+
+
+
     }
 
 }

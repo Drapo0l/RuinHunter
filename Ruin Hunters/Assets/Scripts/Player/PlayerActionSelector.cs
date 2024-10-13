@@ -90,8 +90,7 @@ public class PlayerActionSelector : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Return)) 
             {
-                DamageEnemy();
-            
+                StartCoroutine(DamageEnemy());            
             }
             if (Input.GetKeyDown(KeyCode.Backspace)) 
             {
@@ -181,7 +180,6 @@ public class PlayerActionSelector : MonoBehaviour
         usingItem = false;
         skillAttack = false;
         HandleBackspace();
-        GameManager.Instance.EndTurn();
     }
 
     void HideActionMenu()
@@ -511,22 +509,64 @@ public class PlayerActionSelector : MonoBehaviour
         SelectEnemy(0);
     }
 
-    public void DamageEnemy()
+    public IEnumerator DamageEnemy()
     {
         
-        if (skillAttack)
+        if (!usingItem)
         {
-            enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(playerSkills[skillScrollIndex].baseDamage, playerSkills[skillScrollIndex].elementType);
-        }
-        else if(usingItem)
-        {
-            consumeItem();
+            Vector3 origininalPosition = playerTransform.position;
+            Transform enemyTransform = enemies[selectedEnemyIndex].transform;
+            
+            Vector3 directionToEnemy = (enemyTransform.position - playerTransform.position).normalized;
+
+            float distanceInFrontOfEnemy = 3f;
+            Vector3 targetPosition = enemyTransform.position - directionToEnemy * distanceInFrontOfEnemy;
+
+            playerController.playerAnimator.SetBool("moving", true);
+            while (Vector3.Distance(playerTransform.position, targetPosition) > 0.1f)
+            {
+               playerTransform.position = Vector3.MoveTowards(playerTransform.position, targetPosition, playerController.speed * Time.deltaTime);
+               yield return null;
+            }                     
+
+            playerController.playerAnimator.SetTrigger("Attack");
+
+            yield return new WaitForSeconds(playerController.playerAnimator.GetCurrentAnimatorStateInfo(0).length);
+
+            if (skillAttack)
+            {
+                if (playerSkills[skillScrollIndex].AOE)
+                {
+                    foreach (var enemy in enemies)
+                    {
+                        enemy.GetComponent<EnemyAI>().TakeSkillDamage(playerSkills[skillScrollIndex].baseDamage, playerSkills[skillScrollIndex].elementType);
+                    }
+                }
+                else
+                {
+                    enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(playerSkills[skillScrollIndex].baseDamage, playerSkills[skillScrollIndex].elementType);
+                }
+            }            
+            else
+            {
+                enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeMeleeDamage(playerController.playerStats.attackDamage, playerController.playerWeapon);
+            }
+
+
+            playerController.playerAnimator.SetBool("moving", true);
+            while (Vector3.Distance(playerTransform.position, origininalPosition) > 0.1f)
+            {
+                playerTransform.position = Vector3.MoveTowards(playerTransform.position, origininalPosition, playerController.speed * Time.deltaTime);
+                yield return null;
+            }
+            playerController.playerAnimator.SetBool("moving", false);
         }
         else
         {
-            enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeMeleeDamage(playerController.playerStats.attackDamage, playerController.playerWeapon);
-        }        
+            consumeItem();
+        }
         HideMenu();
+        GameManager.Instance.EndTurn();
     }
     
     private void consumeItem()

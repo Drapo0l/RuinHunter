@@ -32,14 +32,14 @@ public class PartyManager : MonoBehaviour
     {
         if (!GameManager.Instance.combat) 
         {
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetKeyDown(KeyCode.Z))
             {
                 shownPartyMember = selectedPartyMember;
                 selectedPartyMember--;
                 if (selectedPartyMember < 0) selectedPartyMember = playerParty.Count - 1;
                 SwitchCharacter(selectedPartyMember);
             }
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.X))
             {
                 shownPartyMember = selectedPartyMember;
                 selectedPartyMember++;
@@ -53,11 +53,9 @@ public class PartyManager : MonoBehaviour
     {
         foreach (GameObject characters in startingPlayerParty) 
         {
-            characters.transform.GetChild(0).gameObject.SetActive(false);
-            characters.GetComponent<SphereCollider>().enabled = false;
+            characters.SetActive(false);
         }
-        startingPlayerParty[index].transform.GetChild(0).gameObject.SetActive(true);
-        startingPlayerParty[index].GetComponent<SphereCollider>().enabled = true;
+        startingPlayerParty[index].SetActive(true);
         startingPlayerParty[index].transform.position = startingPlayerParty[shownPartyMember].transform.position;
         playerCamera.Follow = startingPlayerParty[index].transform;
         playerCamera.LookAt = startingPlayerParty[index].transform;

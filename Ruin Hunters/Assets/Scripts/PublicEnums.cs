@@ -7,12 +7,31 @@ public class PublicEnums : Item
     
     public enum WeaponType
     {
-        None,
-        Sword,
-        Dagger,
-        Bow,
-        Lance,
+        None =0,
+        Sword = 15,
+        Dagger=10,
+        Bow =15,
+        Lance =15,
         
+    }
+
+    public enum ArmourTypes
+    {
+        None,
+        leather,
+        Bronze,
+        Iron,
+       Diamond,
+    }
+
+    public enum AccessoryTypes
+    {
+        None,
+        strength,
+        Health,
+        Mana,
+        Defense,
+        Speed  
     }
 
     public enum ElementType
@@ -57,6 +76,13 @@ public class PublicEnums : Item
         CasterA,
         CasterP,
         Support,
+        Elite_dessert_1,
+        Elite_forest_1,
+        Elite_ice_1,
+        Elite_ruin_1,
+        Boss_1_Main,
+        Boss_1_R_arm,
+        Boss_1_L_arm,
 
 
     }

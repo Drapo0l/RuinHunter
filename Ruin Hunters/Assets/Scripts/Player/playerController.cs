@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class playerController : MonoBehaviour, IDamage
@@ -30,6 +31,7 @@ public class playerController : MonoBehaviour, IDamage
 
     public int defended = 0;
 
+    public Animator playerAnimator;
     // Start is called before the first frame update
     void Start()
     {
@@ -50,8 +52,7 @@ public class playerController : MonoBehaviour, IDamage
             if(playerStats.isTurn) 
             {
                 if (defended != 0)
-                {
-                   
+                {                   
                     playerStats.Defence = defended;
                     defended = 0;
                 }
@@ -62,6 +63,19 @@ public class playerController : MonoBehaviour, IDamage
         }
         
 
+    }
+
+    // Polo Angel's code
+    public void Equip(InventoryItem item)
+    {
+        if (item == null) // if null, you can't equip it and gives a error message
+        {
+            Debug.LogError("Cannot equip a null item!");
+            return;
+        }
+        // equips the item on the player
+        equippedItem = item;
+       Debug.Log($"Equipped: {item.label}");
     }
 
     private void CharacterMovement()
@@ -87,33 +101,47 @@ public class playerController : MonoBehaviour, IDamage
         float y = Input.GetAxis("Vertical");
         Vector3 moveDir = new Vector3(x, 0, y);
         rb.velocity = moveDir * speed;
+        if (rb.velocity.magnitude != 0f) 
+        {
+            playerAnimator.SetBool("moving", true);
+        }
+        else 
+        {
+            playerAnimator.SetBool("moving", false);
+        }
 
         //flip sprite depending on direction
         if (x != 0 && x < 0)
         {
-            sr.flipX = false;
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * -1, transform.localScale.y, transform.localScale.z);
         }
         else if (x != 0 && x > 0)
         {
-            sr.flipX = true;
+            transform.localScale = new Vector3 (Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
     }
 
-    
+    public void AttackAnimation()
+    {
+        playerAnimator.SetTrigger("Attack");
+    }
 
     public void TakeSkillDamage(int damage, PublicEnums.ElementType elementType)
     {
         float multiplier = GetSkillMultiplier(elementType);
         damage = Mathf.FloorToInt(damage * multiplier);
         playerStats.health -= damage;
-
-        FloatingNumberManager.Instance.ShowFloatingText(transform, damage, cam);
-
-        
+        Vector3 targetPosition = transform.position;
+        DamageNumberManager.Instance.ShowNumbers(targetPosition, damage);
 
         if (playerStats.health <= 0)
         {
-            //died
+            playerAnimator.SetBool("death", true);
+            GameManager.Instance.PlayerDeath(gameObject);
+        }
+        else
+        {
+            playerAnimator.SetTrigger("TakeDamage");
         }
     }
 
@@ -121,15 +149,19 @@ public class playerController : MonoBehaviour, IDamage
     {
         float multiplier = GetMeleeMultiplier(weaponType);
         damage = Mathf.FloorToInt(damage * multiplier);
-        playerStats.health -= damage;
-
-        FloatingNumberManager.Instance.ShowFloatingText(transform, damage, cam);
-
-       
+        playerStats.health -= damage; 
+        Vector3 targetPosition = transform.position;
+        DamageNumberManager.Instance.ShowNumbers(targetPosition, damage);
+        
 
         if (playerStats.health <= 0)
         {
-            //died
+            playerAnimator.SetBool("death", true);
+            GameManager.Instance.PlayerDeath(gameObject);
+        }
+        else
+        {
+            playerAnimator.SetTrigger("TakeDamage");
         }
     }
 
@@ -178,16 +210,10 @@ public class playerController : MonoBehaviour, IDamage
         return 1f;
     }
 
-    // Polo Angel's code
-    public void Equip(InventoryItem item)  
+    public void revive()
     {
-        if (item == null) // if null, you can't equip it and gives a error message
-        {
-            Debug.LogError("Cannot equip a null item!");
-            return;
-        }
-        // equips the item on the player
-        equippedItem = item;
-        Debug.Log($"Equipped: {item.label}");
+        playerAnimator.SetFloat("SpeedMultiplier", -1f);
+        playerAnimator.Play("witch_death", 0, 1f);
     }
+   
 }

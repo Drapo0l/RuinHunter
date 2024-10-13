@@ -20,7 +20,15 @@ public class Skill
         // Simple damage calculation (adjust as necessary)
         int damage = Mathf.FloorToInt(baseDamage * multiplier) + attackerPower;
         damage = Seffect(target, crit, effectC, damage, effect);
-        damage = damage - target.GetComponent<playerController>().playerStats.Defence;
+        if (effect != PublicEnums.Effects.Heal)
+        {
+            damage = damage - target.GetComponent<playerController>().playerStats.Defence;
+            if(damage < 0)
+            {
+                damage = 0;
+            }
+        }
+       
         // Apply damage to the target, e.g., calling the target's TakeDamage() method.
         IDamage targetHit = target.GetComponent<IDamage>();
         if (targetHit != null) 
@@ -35,6 +43,11 @@ public class Skill
         int damage = Mathf.FloorToInt(baseDamage * multiplier) + attackerPower;
         damage = Seffect(target, crit, effectC, damage, effect);
         damage = damage - target.GetComponent<playerController>().playerStats.Defence;
+        damage = damage - target.GetComponent<playerController>().playerStats.Defence;
+        if (damage < 0)
+        {
+            damage = 0;
+        }
         // Apply damage to the target, e.g., calling the target's TakeDamage() method.
         IDamage targetHit = target.GetComponent<IDamage>();
         if (targetHit != null)
@@ -55,7 +68,7 @@ public class Skill
         }
         if (EN == PublicEnums.Effects.Stun)
         {
-            T.GetComponent<CharacterAttributes>().isStuned = true;
+            T.GetComponent<playerController>().playerStats.isStuned = true;
         }
         if (EN == PublicEnums.Effects.Heal)
         {
@@ -63,47 +76,47 @@ public class Skill
         }
         if (EN == PublicEnums.Effects.AttackDown)
         {
-            T.GetComponent<CharacterAttributes>().attackDamage = T.GetComponent<CharacterAttributes>().attackDamage / 2;
+            T.GetComponent<playerController>().playerStats.attackDamage = T.GetComponent<playerController>().playerStats.attackDamage / 2;
         }
         if (EN == PublicEnums.Effects.AttackUp)
         {
-            T.GetComponent<CharacterAttributes>().attackDamage = T.GetComponent<CharacterAttributes>().attackDamage * 2;
+            T.GetComponent<playerController>().playerStats.attackDamage = T.GetComponent<playerController>().playerStats.attackDamage * 2;
         }
         if (EN == PublicEnums.Effects.DefenceDown)
         {
-            T.GetComponent<CharacterAttributes>().Defence = T.GetComponent<CharacterAttributes>().Defence / 2;
+            T.GetComponent<playerController>().playerStats.Defence = T.GetComponent<playerController>().playerStats.Defence / 2;
         }
         if (EN == PublicEnums.Effects.DefenceUp)
         {
-            T.GetComponent<CharacterAttributes>().Defence = T.GetComponent<CharacterAttributes>().Defence * 2;
+            T.GetComponent<playerController>().playerStats.Defence = T.GetComponent<playerController>().playerStats.Defence * 2;
         }
        
         if (EN == PublicEnums.Effects.SpeedDown)
         {
-            T.GetComponent<CharacterAttributes>().combatSpeed = T.GetComponent<CharacterAttributes>().combatSpeed / 2;
+            T.GetComponent<playerController>().playerStats.combatSpeed = T.GetComponent<playerController>().playerStats.combatSpeed / 2;
         }
         if (EN == PublicEnums.Effects.SpeedUp)
         {
-            T.GetComponent<CharacterAttributes>().combatSpeed = T.GetComponent<CharacterAttributes>().combatSpeed * 2;
+            T.GetComponent<playerController>().playerStats.combatSpeed = T.GetComponent<playerController>().playerStats.combatSpeed * 2;
         }
         if (EN == PublicEnums.Effects.SkillPDown)
         {
-            T.GetComponent<CharacterAttributes>().skillDamage = T.GetComponent<CharacterAttributes>().skillDamage / 2;
+            T.GetComponent<playerController>().playerStats.skillDamage = T.GetComponent<playerController>().playerStats.skillDamage / 2;
         }
         if (EN == PublicEnums.Effects.SkillPUP)
         {
-            T.GetComponent<CharacterAttributes>().skillDamage = T.GetComponent<CharacterAttributes>().skillDamage * 2;
+            T.GetComponent<playerController>().playerStats.skillDamage = T.GetComponent<playerController>().playerStats.skillDamage * 2;
         }
         if (EN == PublicEnums.Effects.Clense)
         {
-            T.GetComponent<CharacterAttributes>().maxMana = T.GetComponent<CharacterAttributes>().maxManaOG;
-            T.GetComponent<CharacterAttributes>().maxHealth = T.GetComponent<CharacterAttributes>().maxHealthOG;
-            T.GetComponent<CharacterAttributes>().Defence =  T.GetComponent<CharacterAttributes>().DefenceOG;
-             T.GetComponent<CharacterAttributes>().combatSpeed = T.GetComponent<CharacterAttributes>().combatSpeedOG;
-             T.GetComponent<CharacterAttributes>().skillDamage = T.GetComponent<CharacterAttributes>().skillDamageOG;
-              T.GetComponent<CharacterAttributes>().attackDamage = T.GetComponent<CharacterAttributes>().attackDamageOG;
-             T.GetComponent<CharacterAttributes>().critChance = T.GetComponent<CharacterAttributes>().critChanceOG;
-              T.GetComponent<CharacterAttributes>().effectChance = T.GetComponent<CharacterAttributes>().effectChanceOG;
+            T.GetComponent<playerController>().playerStats.maxMana = T.GetComponent<playerController>().playerStats.maxManaOG;
+            T.GetComponent<playerController>().playerStats.maxHealth = T.GetComponent<playerController>().playerStats.maxHealthOG;
+            T.GetComponent<playerController>().playerStats.Defence =  T.GetComponent<playerController>().playerStats.DefenceOG;
+            T.GetComponent<playerController>().playerStats.combatSpeed = T.GetComponent<playerController>().playerStats.combatSpeedOG;
+             T.GetComponent<playerController>().playerStats.skillDamage = T.GetComponent<playerController>().playerStats.skillDamageOG;
+              T.GetComponent<playerController>().playerStats.attackDamage = T.GetComponent<playerController>().playerStats.attackDamageOG;
+             T.GetComponent<playerController>().playerStats.critChance = T.GetComponent<playerController>().playerStats.critChanceOG;
+              T.GetComponent<playerController>().playerStats.effectChance = T.GetComponent<playerController>().playerStats.effectChanceOG;
           
         }
         return D;
