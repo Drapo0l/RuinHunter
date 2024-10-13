@@ -16,4 +16,26 @@ MonoBehaviour:
   sentences:
   - Hello, my name is Lau
   - I'm a test NPC, this is a test text
-  - Ok, bye
+  - What you like to know?
+  choices:
+  - buttonText: A
+    playerText: How are you?
+    nextDialogue: {fileID: 11400000, guid: 7ac7c657342886d41b64021f9a136703, type: 2}
+    actionType: 0
+    conditions: []
+    consequences:
+    - key: 
+      value: 
+      actionType: 0
+  - buttonText: B
+    playerText: What town is this?
+    nextDialogue: {fileID: 11400000, guid: 42fc4e7a34ce0854397168ca5b9b83c5, type: 2}
+    actionType: 0
+    conditions: []
+    consequences: []
+  - buttonText: C
+    playerText: Bye
+    nextDialogue: {fileID: 11400000, guid: eebe3195c8930514fb73620569c81dde, type: 2}
+    actionType: 0
+    conditions: []
+    consequences: []
