@@ -1,5 +1,7 @@
+using System.Collections.Generic;
+using System.Xml.Serialization;
 using UnityEngine;
-using UnityEngine.Events; 
+using UnityEngine.Events;
 
 public class ItemEquiper : MonoBehaviour
 {
@@ -8,24 +10,19 @@ public class ItemEquiper : MonoBehaviour
 
     private CharacterAttributes PlayerDamage;
     private PublicEnums.WeaponType weaponType;
-    private PublicEnums.ArmourTypes armourTypes;    
+    private PublicEnums.ArmourTypes armourTypes;
     private PublicEnums.AccessoryTypes accessoryTypes;
-    private playerController player; 
+    private playerController Player;
     private Dictionary<PublicEnums.WeaponType, int> weaponDamageMap;
     private Dictionary<PublicEnums.ArmourTypes, int> ArmourDefenseMap;
-    private Dictionary<PublicEnums.AccessoryTypes, int>AccessoryBuffsMap;
+    private Dictionary<PublicEnums.AccessoryTypes, int> AccessoryBuffsMap;
 
     public InventoryItem Item;
 
     void Start()
     {
-         player = FindObjectOfType<playerController>();
-        //PlayerDamage = FindObjectOfType<CharacterAttributes>();
-        //if (PlayerDamage == null)
-        //{
-        //    Debug.LogError("CharacterAttributes instance not found in the scene!");
-        //    return; // Exit early if PlayerDamage is null
-        //}
+        Player = FindObjectOfType<playerController>();
+
         WeaponDamageFORPLAYER();
         ArmourDefenseFORPLAYER();
     }
@@ -39,11 +36,9 @@ public class ItemEquiper : MonoBehaviour
             { PublicEnums.WeaponType.Sword, 18 },// Add other weapon types and their damage values here
             { PublicEnums.WeaponType.Lance, 15 },
             { PublicEnums.WeaponType.Bow, 12 },
-            { PublicEnums.WeaponType.Dagger, 10 },
-
+              { PublicEnums.WeaponType.Dagger, 10 },
         };
     }
-
     public void ArmourDefenseFORPLAYER()
     {
         // Initialize the Armour damage mapping
@@ -57,51 +52,45 @@ public class ItemEquiper : MonoBehaviour
 
         };
     }
-
     public void AddWeaponDamage(PublicEnums.WeaponType weaponType)
     {
-       
+
         if (weaponDamageMap == null)
         {
             Debug.LogError("weaponDamageMap is not initialized!");
             return;
         }
-        if (player.playerStats.attackDamage == 0)
+        if (Player.playerStats.attackDamage == 0)
         {
             Debug.LogError("PlayerDamage is not initialized!");
             return;
         }
-
         if (weaponDamageMap.TryGetValue(weaponType, out int weaponDamage))
         {
-            player.playerStats.attackDamage += weaponDamage; 
+            Player.playerStats.attackDamage += weaponDamage;
             Debug.Log($"Added {weaponDamage} damage for weapon type {weaponType}.");
         }
         else
         {
             Debug.LogError("Weapon type not found in damage map!");
         }
-
     }
+
+
+
 
     public void AddArmourDefense(PublicEnums.ArmourTypes ArmourType)
     {
-
         if (ArmourDefenseMap == null)
         {
             Debug.LogError("weaponDamageMap is not initialized!");
             return;
         }
-        if (player.playerStats.Defence == 0)
-        {
-            Debug.LogError("PlayerDefense is not initialized!");
-            return;
-        }
 
         if (ArmourDefenseMap.TryGetValue(ArmourType, out int ArmourDefense))
         {
-            player.playerStats.Defence += ArmourDefense;
-            Debug.Log($"Added {ArmourDefense} damage for weapon type {ArmourType}.");
+            Player.playerStats.Defence += ArmourDefense;
+            Debug.Log($"Removed {ArmourDefense} damage for weapon type {ArmourType}.");
         }
         else
         {
@@ -110,34 +99,10 @@ public class ItemEquiper : MonoBehaviour
 
     }
 
-    //public void AddWeaponDamage(PublicEnums.WeaponType weaponType)
-    //{
 
-    //    if (weaponDamageMap == null)
-    //    {
-    //        Debug.LogError("weaponDamageMap is not initialized!");
-    //        return;
-    //    }
-    //    if (player.playerStats.attackDamage == 0)
-    //    {
-    //        Debug.LogError("PlayerDamage is not initialized!");
-    //        return;
-    //    }
-
-    //    if (weaponDamageMap.TryGetValue(weaponType, out int weaponDamage))
-    //    {
-    //        player.playerStats.attackDamage += weaponDamage;
-    //        Debug.Log($"Added {weaponDamage} damage for weapon type {weaponType}.");
-    //    }
-    //    else
-    //    {
-    //        Debug.LogError("Weapon type not found in damage map!");
-    //    }
-
-    //}
-    public void ChooseWeapon()  
+    public void ChooseWeapon()
     {
-   
+
         if (Item == null)  // if not selected,will give a warning and return nothinh
         {
             Debug.LogError("No item selected to equip!");
@@ -151,12 +116,12 @@ public class ItemEquiper : MonoBehaviour
             return;
         }
 
-        // Remove damage from the current weapon if there is one
+        //Remove damage from the current weapon if there is one
         if (player.equippedWeapon.weaponType != PublicEnums.WeaponType.None)
-        {
-            RemoveWeaponDamage(player.equippedWeapon.weaponType);
+            {
+                RemoveWeaponDamage(player.equippedWeapon.weaponType);
 
-        }
+            }
 
 
         activeInventoryItemChangeEvent.Invoke(Item);  // Once you click on the button for a weapon for a example, it will be equiped on the player
@@ -164,32 +129,31 @@ public class ItemEquiper : MonoBehaviour
         AddWeaponDamage(Item.weaponType);
         Debug.Log($"You equipped {Item.label}!");
 
-       
+
     }
 
-    private void AddWeaponDamage() // Adds the damage of the weapon to the player damage
+    public void ChooseArmour()
     {
-        PlayerDamage.attackDamage = (int)GetWeaponDamage();  
-    }
 
-        playerController player = FindObjectOfType<playerController>();
-        if (player == null) // if couldn't find the player, gives a error message
+        //playerController player = FindObjectOfType<playerController>();
+        if (Player == null) // if couldn't find the player, gives a error message
         {
             Debug.LogError("Player not found!");
             return;
         }
         // Remove damage from the current weapon if there is one
-        if (player.equippedArmour.ArmourType != PublicEnums.ArmourTypes.None)
+        if (Player.equippedArmour.ArmourType != PublicEnums.ArmourTypes.None)
         {
-            RemoveArmourDefense(player.equippedArmour.ArmourType);
+            RemoveArmourDefense(Player.equippedArmour.ArmourType);
 
         }
         activeInventoryItemChangeEvent.Invoke(Item);  // Once you click on the button for a weapon for a example, it will be equiped on the player
-        player.EquipArmour(Item);
+        Player.EquipArmour(Item);
         AddArmourDefense(Item.ArmourType);
         Debug.Log($"You equipped {Item.label}!");
-
     }
+
+
 
     public void ChooseAccessory()
     {
@@ -213,7 +177,6 @@ public class ItemEquiper : MonoBehaviour
         Debug.Log($"You equipped {Item.label}!");
 
     }
-
     public void RemoveWeaponDamage(PublicEnums.WeaponType weaponType)
     {
         if (weaponDamageMap == null)
@@ -224,7 +187,7 @@ public class ItemEquiper : MonoBehaviour
 
         if (weaponDamageMap.TryGetValue(weaponType, out int weaponDamage))
         {
-            player.playerStats.attackDamage -= weaponDamage;
+            Player.playerStats.attackDamage -= weaponDamage;
             Debug.Log($"Removed {weaponDamage} damage for weapon type {weaponType}.");
         }
         else
@@ -243,7 +206,7 @@ public class ItemEquiper : MonoBehaviour
 
         if (ArmourDefenseMap.TryGetValue(ArmourType, out int ArmourDefense))
         {
-            player.playerStats.Defence -= ArmourDefense;
+            Player.playerStats.Defence -= ArmourDefense;
             Debug.Log($"Removed {ArmourDefense} damage for weapon type {ArmourType}.");
         }
         else
@@ -253,3 +216,5 @@ public class ItemEquiper : MonoBehaviour
     }
 
 }
+
+

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI; 
 
@@ -19,6 +20,7 @@ public class InventoryMenu : MonoBehaviour
     public bool Ispause;
     float scaleorginaltime;
     public static InventoryMenu Instance;
+    playerController player;
 
     //Show Player's stats
     public List<GameObject> playerHealths;          // list of player health
@@ -42,21 +44,23 @@ public class InventoryMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Cancel"))
+        if (!GameManager.Instance.leveling && !GameManager.Instance.combat)
         {
-            if (menuActive == null)
+            if (Input.GetButtonDown("Cancel"))
             {
-                startPause();
-                menuActive = menuPause;
-                menuPause.SetActive(Ispause);
-            }
-            else if (menuActive == menuPause)
-            {
-                startunPause();
-            }
+                if (menuActive == null)
+                {
+                    startPause();
+                    menuActive = menuPause;
+                    menuPause.SetActive(Ispause);
+                }
+                else if (menuActive == menuPause)
+                {
+                    startunPause();
+                }
 
+            }
         }
-      
     }
 
 
@@ -82,27 +86,27 @@ public class InventoryMenu : MonoBehaviour
     public void Weaponmenu() // turns off the Party Info menu and switches and turns on the weapon menu
     {
         menuWeapon.SetActive(true);
-        menuPause.SetActive(false);
+        //menuPause.SetActive(false);
     }
 
     public void Amourmenu() // turns off the Party Info menu and switches and turns on the Amour menu
     {
         menuAmour.SetActive(true);
-        menuPause.SetActive(false);
+        //menuPause.SetActive(false);
     }
 
     public void Accessoryymenu() // turns off the Party Info menu and switches and turns on the Accessory menu
     {
         menuAccessory.SetActive(true);
-        menuPause.SetActive(false);
+        //menuPause.SetActive(false);
     }
 
     public void returnToPartyInfo()  // turns off the other menus and goes back to the party info menu once you press the back button
     {
-        menuAccessory.SetActive(false);
-        menuAmour.SetActive(false);
+        //menuAccessory.SetActive(false);
+        //menuAmour.SetActive(false);
         menuWeapon.SetActive(false);
-        menuPause.SetActive(true);
+        //menuPause.SetActive(true);
     }
 
     private void ShowHealth()

@@ -30,7 +30,7 @@ public class PartyManager : MonoBehaviour
 
     private void Update()
     {
-        if (!GameManager.Instance.combat) 
+        if (!GameManager.Instance.combat)
         {
             if (Input.GetKeyDown(KeyCode.Z))
             {
@@ -51,7 +51,7 @@ public class PartyManager : MonoBehaviour
 
     private void SwitchCharacter(int index)
     {
-        foreach (GameObject characters in startingPlayerParty) 
+        foreach (GameObject characters in startingPlayerParty)
         {
             characters.SetActive(false);
         }
@@ -64,7 +64,7 @@ public class PartyManager : MonoBehaviour
 
     private void Start()
     {
-        SwitchCharacter(0);
+        //SwitchCharacter(0);
         StartCoroutine(DelayForPartySetup());
     }
 
