@@ -47,6 +47,7 @@ public class CharacterAttributes : ScriptableObject
         if(currentXP >= xpToNextLevel)
         {
             LevelUp();
+            CheckLevelUP();
         }
     }
 

@@ -12,17 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e337efe9978a8409654b2b05bb0c8c, type: 3}
   m_Name: Wolf1
   m_EditorClassIdentifier: 
+  level: 1
+  currentXP: 1000
+  xpToNextLevel: 100
+  nameOfCharacter: Wolf_1
   health: 500
   maxHealth: 500
   maxMana: 0
   mana: 0
-  nameOfCharacter: Wolf_1
   combatSpeed: 20
   skillDamage: 5
   attackDamage: 80
   critChance: 20
   effectChance: 20
   Defence: 40
+  maxHealthOG: 0
+  maxManaOG: 0
+  combatSpeedOG: 0
+  skillDamageOG: 0
+  attackDamageOG: 0
+  critChanceOG: 0
+  effectChanceOG: 0
+  DefenceOG: 0
+  expGive: 0
   skills:
   - skillName: 'howl '
     elementType: 0
@@ -31,6 +43,7 @@ MonoBehaviour:
     manaCost: 0
     effect: 4
     Ptargit: 0
+    AOE: 0
   - skillName: Fang
     elementType: 0
     weaponType: 2
@@ -38,6 +51,9 @@ MonoBehaviour:
     manaCost: 0
     effect: 1
     Ptargit: 1
+    AOE: 0
   regions: 0
   isTurn: 0
   isStuned: 0
+  special: 0
+  special_count: 0

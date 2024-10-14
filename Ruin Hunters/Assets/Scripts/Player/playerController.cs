@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class playerController : MonoBehaviour, IDamage
 {
+    public Sprite Sprite;
     public string characterName;
     public CharacterAttributes playerStats;
 
@@ -43,11 +44,11 @@ public class playerController : MonoBehaviour, IDamage
     void Update()
     {
         
-        if(!GameManager.Instance.combat)
+        if(!GameManager.Instance.leveling && !GameManager.Instance.combat)
         {
             CharacterMovement();
         }
-        else
+        else if (GameManager.Instance.combat)
         {
             if(playerStats.isTurn) 
             {
@@ -132,7 +133,7 @@ public class playerController : MonoBehaviour, IDamage
         damage = Mathf.FloorToInt(damage * multiplier);
         playerStats.health -= damage;
         Vector3 targetPosition = transform.position;
-        DamageNumberManager.Instance.ShowNumbers(targetPosition, damage);
+        DamageNumberManager.Instance.ShowNumbers(targetPosition, damage, Color.red);
 
         if (playerStats.health <= 0)
         {
@@ -151,7 +152,7 @@ public class playerController : MonoBehaviour, IDamage
         damage = Mathf.FloorToInt(damage * multiplier);
         playerStats.health -= damage; 
         Vector3 targetPosition = transform.position;
-        DamageNumberManager.Instance.ShowNumbers(targetPosition, damage);
+        DamageNumberManager.Instance.ShowNumbers(targetPosition, damage, Color.red);
         
 
         if (playerStats.health <= 0)

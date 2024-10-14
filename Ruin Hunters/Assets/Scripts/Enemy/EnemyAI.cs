@@ -17,6 +17,9 @@ public class EnemyAI : MonoBehaviour
     public Camera cam;
     public GameObject enemyModel;
     public GameObject targetIndicatorE;
+    public List<Item> dropableItems;
+    public int minGold;
+    public int maxGold;
     private bool animatingAttack;
     
     void Start()
@@ -78,7 +81,7 @@ public class EnemyAI : MonoBehaviour
             }
             if (enemyStats.special == true)
             {
-                Skill chosenSkill = availableSkills[Random.Range(0, availableSkills.Count)];
+                Skill chosenSkill = availableSkills[Random.Range(0, 4)];
                 if (chosenSkill == availableSkills[0] | chosenSkill == availableSkills[1])
                 {
                     for (int i = 0; i < GameManager.Instance.battleParty.Count; i++) // the first 2 will be aoe attacks on the party doing a debuff and some dmg 
@@ -709,13 +712,16 @@ public class EnemyAI : MonoBehaviour
         damage = Mathf.FloorToInt(damage * multiplier);
         enemyStats.health -= damage;
         Vector3 targetPosition = transform.position;
-        DamageNumberManager.Instance.ShowNumbers(targetPosition, damage);
+        DamageNumberManager.Instance.ShowNumbers(targetPosition, damage, Color.red);
 
         
 
         if (enemyStats.health <= 0)
         {
-            GameManager.Instance.EnemyDeath(gameObject);           
+            if (dropableItems.Count != 0)
+                GameManager.Instance.EnemyDeath(gameObject, dropableItems[Random.Range(0, dropableItems.Count)], Random.Range(minGold, maxGold));
+            else
+                GameManager.Instance.EnemyDeath(gameObject, Random.Range(minGold, maxGold));
             Destroy(gameObject);
         }
     }
@@ -726,13 +732,16 @@ public class EnemyAI : MonoBehaviour
         damage = Mathf.FloorToInt(damage * multiplier);
         enemyStats.health -= damage;
         Vector3 targetPosition = transform.position;
-        DamageNumberManager.Instance.ShowNumbers(targetPosition, damage);
+        DamageNumberManager.Instance.ShowNumbers(targetPosition, damage, Color.red);
 
         
 
         if (enemyStats.health <= 0)
         {
-            GameManager.Instance.EnemyDeath(gameObject);            
+            if(dropableItems.Count != 0)
+                GameManager.Instance.EnemyDeath(gameObject, dropableItems[Random.Range(0, dropableItems.Count)], Random.Range(minGold, maxGold));  
+            else
+                GameManager.Instance.EnemyDeath(gameObject, Random.Range(minGold, maxGold));
             Destroy(gameObject);
         }
     }

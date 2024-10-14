@@ -12,28 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e337efe9978a8409654b2b05bb0c8c, type: 3}
   m_Name: Mage
   m_EditorClassIdentifier: 
-  level: 1
-  currentXP: 0
-  xpToNextLevel: 100
+  level: 8
+  currentXP: 200
+  xpToNextLevel: 800
   nameOfCharacter: Mage
-  health: 2000
-  maxHealth: 2000
-  maxMana: 150
-  mana: 100
-  combatSpeed: 12
+  health: 2420
+  maxHealth: 2420
+  maxMana: 360
+  mana: 360
+  combatSpeed: 222
   skillDamage: 200
-  attackDamage: 150
+  attackDamage: 360
   critChance: 0
   effectChance: 0
-  Defence: 100
-  maxHealthOG: 2000
-  maxManaOG: 150
-  combatSpeedOG: 12
+  Defence: 310
+  maxHealthOG: 2400
+  maxManaOG: 350
+  combatSpeedOG: 212
   skillDamageOG: 200
-  attackDamageOG: 150
+  attackDamageOG: 350
   critChanceOG: 0
   effectChanceOG: 0
-  DefenceOG: 100
+  DefenceOG: 300
   expGive: 0
   skills:
   - skillName: FireBall

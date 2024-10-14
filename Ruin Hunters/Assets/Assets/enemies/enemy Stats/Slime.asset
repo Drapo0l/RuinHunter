@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Slime
   m_EditorClassIdentifier: 
   level: 1
-  currentXP: 0
+  currentXP: 1000
   xpToNextLevel: 100
   nameOfCharacter: Bat
-  health: 1350
+  health: -8150
   maxHealth: 300
   maxMana: 0
   mana: 0
@@ -43,7 +43,7 @@ MonoBehaviour:
     manaCost: 0
     effect: 0
     Ptargit: 0
-    AOE: 0
+    AOE: 1
   - skillName: elekiattacki
     elementType: 3
     weaponType: 0
