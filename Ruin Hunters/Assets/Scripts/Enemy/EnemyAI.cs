@@ -434,6 +434,10 @@ public class EnemyAI : MonoBehaviour
                 if (ran < 40)
                 {
                     Skill chosenSkill2 = availableSkills[Random.Range(2, availableSkills.Count)];
+                    if (ran < 0)
+                    {
+                        ran = 2;
+                    }
                     if (chosenSkill2.Ptargit == 1)
                     {
 
@@ -545,6 +549,7 @@ public class EnemyAI : MonoBehaviour
                 }
             }
             Skill chosenSkill2 = availableSkills[Random.Range(0, availableSkills.Count )];
+
             if (chosenSkill2.Ptargit == 1)
             {
 
@@ -607,7 +612,7 @@ public class EnemyAI : MonoBehaviour
             for (int i = 0; i < GameManager.Instance.battleParty.Count; i++)
             {
                 target = GameManager.Instance.battleParty[i];
-                if (target.GetComponent<playerController>().playerStats.health <= 0)
+                if (target.GetComponent<EnemyAI>().enemyStats.health <= 0)
                 {
                     if (target != null)
                     {
@@ -636,9 +641,13 @@ public class EnemyAI : MonoBehaviour
         {
             while (true)
             {
-                ran = Random.Range(1, GameManager.Instance.enemyObj.Count);
+                ran = Random.Range(0, GameManager.Instance.enemyObj.Count);
+                if(ran < 0)
+                {
+                    ran = 0;
+                }
                 target = GameManager.Instance.enemyObj[ran];
-                if (target.GetComponent<playerController>().playerStats.health <= 0)
+                if (target.GetComponent<EnemyAI>().enemyStats.health <= 0)
                 {
 
                 }
@@ -702,6 +711,10 @@ public class EnemyAI : MonoBehaviour
             while (true)
             {
                 ran = Random.Range(0, GameManager.Instance.battleParty.Count);
+                if (ran < 0)
+                {
+                    ran = 0;
+                }
                 target = GameManager.Instance.battleParty[ran];
                 if (target.GetComponent<playerController>().playerStats.health <= 0)
                 {
@@ -757,6 +770,10 @@ public class EnemyAI : MonoBehaviour
         while (true)
         {
             ran = Random.Range(0, PartyManager.Instance.startingPlayerParty.Count);
+            if (ran < 0)
+            {
+                ran =0;
+            }
             target = PartyManager.Instance.startingPlayerParty[ran];
             if (target.GetComponent<playerController>().playerStats.health <= 0)
             {

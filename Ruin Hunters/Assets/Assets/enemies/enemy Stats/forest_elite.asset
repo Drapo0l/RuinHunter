@@ -15,31 +15,31 @@ MonoBehaviour:
   level: 1
   currentXP: 0
   xpToNextLevel: 100
-  nameOfCharacter: 
-  health: 0
-  maxHealth: 0
-  maxMana: 0
-  mana: 0
-  combatSpeed: 0
-  skillDamage: 0
-  attackDamage: 0
-  critChance: 0
-  effectChance: 0
-  Defence: 0
-  maxHealthOG: 0
-  maxManaOG: 0
-  combatSpeedOG: 0
-  skillDamageOG: 0
-  attackDamageOG: 0
-  critChanceOG: 0
-  effectChanceOG: 0
-  DefenceOG: 0
-  expGive: 0
+  nameOfCharacter: Jax.
+  health: 40000
+  maxHealth: 40000
+  maxMana: 1
+  mana: 1
+  combatSpeed: 80
+  skillDamage: 600
+  attackDamage: 800
+  critChance: 60
+  effectChance: 80
+  Defence: 200
+  maxHealthOG: 40000
+  maxManaOG: 1
+  combatSpeedOG: 80
+  skillDamageOG: 600
+  attackDamageOG: 800
+  critChanceOG: 60
+  effectChanceOG: 80
+  DefenceOG: 200
+  expGive: 1000
   skills:
   - skillName: flash_bomb
     elementType: 3
     weaponType: 0
-    baseDamage: 0
+    baseDamage: 600
     manaCost: 0
     effect: 3
     Ptargit: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
   - skillName: knife_shower
     elementType: 0
     weaponType: 10
-    baseDamage: 0
+    baseDamage: 1000
     manaCost: 0
     effect: 1
     Ptargit: 0
@@ -55,7 +55,7 @@ MonoBehaviour:
   - skillName: back_stab
     elementType: 0
     weaponType: 10
-    baseDamage: 0
+    baseDamage: 3000
     manaCost: 0
     effect: 1
     Ptargit: 0
@@ -63,7 +63,7 @@ MonoBehaviour:
   - skillName: entangle
     elementType: 4
     weaponType: 0
-    baseDamage: 0
+    baseDamage: 600
     manaCost: 0
     effect: 5
     Ptargit: 0
@@ -79,7 +79,7 @@ MonoBehaviour:
   - skillName: blitz
     elementType: 0
     weaponType: 15
-    baseDamage: 0
+    baseDamage: 800
     manaCost: 0
     effect: 1
     Ptargit: 0
@@ -87,7 +87,7 @@ MonoBehaviour:
   - skillName: knife_dance
     elementType: 0
     weaponType: 10
-    baseDamage: 0
+    baseDamage: 500
     manaCost: 0
     effect: 1
     Ptargit: 0
@@ -112,4 +112,4 @@ MonoBehaviour:
   isTurn: 0
   isStuned: 0
   special: 0
-  special_count: 0
+  special_count: 2
