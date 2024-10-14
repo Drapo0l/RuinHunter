@@ -13,6 +13,7 @@ public class Skill
     public PublicEnums.Effects effect;
     public int Ptargit; // set as 1 for enemys set as 0 for party members
     public bool AOE; // is it an aoe
+    private ParticleManager ParticleForSkill; 
 
 
     public void ActivateSkill(GameObject target, int attackerPower, float multiplier,int crit, int effectC)
