@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events; 
 
@@ -168,14 +167,10 @@ public class ItemEquiper : MonoBehaviour
        
     }
 
-    public void ChooseArmour()
+    private void AddWeaponDamage() // Adds the damage of the weapon to the player damage
     {
-
-        if (Item == null)  // if not selected,will give a warning and return nothinh
-        {
-            Debug.LogError("No item selected to equip!");
-            return;
-        }
+        PlayerDamage.attackDamage = (int)GetWeaponDamage();  
+    }
 
         playerController player = FindObjectOfType<playerController>();
         if (player == null) // if couldn't find the player, gives a error message

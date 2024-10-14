@@ -162,3 +162,6 @@ MonoBehaviour:
   enemyModel: {fileID: 2074794736699707982}
   targetIndicatorE: {fileID: 7827821399089975602, guid: 2765472d77292394c81e1d422285baeb,
     type: 3}
+  dropableItems: []
+  minGold: 100
+  maxGold: 1000

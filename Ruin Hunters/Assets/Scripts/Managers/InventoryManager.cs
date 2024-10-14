@@ -5,17 +5,20 @@ using UnityEngine;
 using static PublicEnums;
 
 public class InventoryManager : MonoBehaviour
-{
+{   
+
     public static InventoryManager instance { get; private set; }
 
     [SerializeField]  private List<Item> items = new List<Item>();
     private ItemType itemType;
+    public int Gold;
 
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -25,7 +28,15 @@ public class InventoryManager : MonoBehaviour
 
     public void AddItem(Item item)
     {
-        items.Add(item);
+        Item existingItem = items.Find(i => i.name == item.name);
+        if (existingItem != null) 
+        {
+            existingItem.amountOfItem += item.amountOfItem;
+        }
+        else
+        {
+            items.Add(item);
+        }
     }
 
     public void RemoveItem(Item item)

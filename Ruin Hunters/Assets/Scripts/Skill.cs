@@ -23,6 +23,10 @@ public class Skill
         if (effect != PublicEnums.Effects.Heal)
         {
             damage = damage - target.GetComponent<playerController>().playerStats.Defence;
+            if(damage < 0)
+            {
+                damage = 0;
+            }
         }
        
         // Apply damage to the target, e.g., calling the target's TakeDamage() method.
@@ -39,6 +43,11 @@ public class Skill
         int damage = Mathf.FloorToInt(baseDamage * multiplier) + attackerPower;
         damage = Seffect(target, crit, effectC, damage, effect);
         damage = damage - target.GetComponent<playerController>().playerStats.Defence;
+        damage = damage - target.GetComponent<playerController>().playerStats.Defence;
+        if (damage < 0)
+        {
+            damage = 0;
+        }
         // Apply damage to the target, e.g., calling the target's TakeDamage() method.
         IDamage targetHit = target.GetComponent<IDamage>();
         if (targetHit != null)

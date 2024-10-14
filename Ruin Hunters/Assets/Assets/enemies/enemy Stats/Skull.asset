@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Skull
   m_EditorClassIdentifier: 
   level: 1
-  currentXP: 0
+  currentXP: 1000
   xpToNextLevel: 100
   nameOfCharacter: Skull
-  health: 4000
+  health: -4700
   maxHealth: 4000
   maxMana: 0
   mana: 0
@@ -26,16 +26,26 @@ MonoBehaviour:
   critChance: 0
   effectChance: 0
   Defence: 0
-  maxHealthOG: 0
+  maxHealthOG: 4000
   maxManaOG: 0
-  combatSpeedOG: 0
-  skillDamageOG: 0
-  attackDamageOG: 0
+  combatSpeedOG: 10
+  skillDamageOG: 300
+  attackDamageOG: 100
   critChanceOG: 0
   effectChanceOG: 0
   DefenceOG: 0
   expGive: 0
-  skills: []
+  skills:
+  - skillName: FireBall
+    elementType: 1
+    weaponType: 0
+    baseDamage: 200
+    manaCost: 0
+    effect: 0
+    Ptargit: 0
+    AOE: 1
   regions: 0
   isTurn: 0
   isStuned: 0
+  special: 0
+  special_count: 0

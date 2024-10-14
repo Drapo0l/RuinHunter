@@ -13,6 +13,3 @@ MonoBehaviour:
   m_Name: Butter Sword
   m_EditorClassIdentifier: 
   label: Butter Sword
-  weaponType: 1
-  ArmourType: 0
-  AccessoryType: 0

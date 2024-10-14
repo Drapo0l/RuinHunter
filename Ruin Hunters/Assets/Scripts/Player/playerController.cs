@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class playerController : MonoBehaviour, IDamage
 {
+    public Sprite Sprite;
     public string characterName;
     public CharacterAttributes playerStats;
 
@@ -17,13 +19,8 @@ public class playerController : MonoBehaviour, IDamage
     public LayerMask ignorePlayerLayer;
 
     public PublicEnums.WeaponType playerWeapon;
-    public PublicEnums.ArmourTypes playerArmour;
-    public PublicEnums.AccessoryTypes playerAccessory;
     // Angel's polo angel equip Item
-    public InventoryItem equippedWeapon;  // to show if the player has the equpied item or not and have it be equpied to the player's weapon,armour or accessory
-    public InventoryItem equippedArmour;  
-    public InventoryItem equippedAccessory; 
-
+    public InventoryItem equippedItem;  // to show if the player has the equpied item or not and have it be equpied
 
     // Create List to hold strengths and weaknesses
     public List<WeaponCalc> weaponsWeakness = new List<WeaponCalc>();
@@ -35,6 +32,7 @@ public class playerController : MonoBehaviour, IDamage
 
     public int defended = 0;
 
+    public Animator playerAnimator;
     // Start is called before the first frame update
     void Start()
     {
@@ -45,32 +43,31 @@ public class playerController : MonoBehaviour, IDamage
     // Update is called once per frame
     void Update()
     {
-
-        if (!GameManager.Instance.combat)
+        
+        if(!GameManager.Instance.leveling && !GameManager.Instance.combat)
         {
             CharacterMovement();
         }
-        else
+        else if (GameManager.Instance.combat)
         {
-            if (playerStats.isTurn)
+            if(playerStats.isTurn) 
             {
                 if (defended != 0)
-                {
-
+                {                   
                     playerStats.Defence = defended;
                     defended = 0;
                 }
-
+                
                 // when it's the player's turn, show the menu
-                actionSelector.ShowMenu(transform, this, playerStats.skills);
+                actionSelector.ShowMenu(transform, this, playerStats.skills);                
             }
         }
-
+        
 
     }
 
     // Polo Angel's code
-    public void EquipWeapon(InventoryItem item)
+    public void Equip(InventoryItem item)
     {
         if (item == null) // if null, you can't equip it and gives a error message
         {
@@ -78,35 +75,8 @@ public class playerController : MonoBehaviour, IDamage
             return;
         }
         // equips the item on the player
-        equippedWeapon = item;
-        playerWeapon = equippedWeapon.weaponType;
+        equippedItem = item;
        Debug.Log($"Equipped: {item.label}");
-    }
-
-    public void EquipArmour(InventoryItem item)
-    {
-        if (item == null) // if null, you can't equip it and gives a error message
-        {
-            Debug.LogError("Cannot equip a null item!");
-            return;
-        }
-        // equips the item on the player
-        equippedArmour = item;
-        playerArmour = equippedArmour.ArmourType;
-        Debug.Log($"Equipped: {item.label}");
-    }
-
-    public void EquipAccessory(InventoryItem item)
-    {
-        if (item == null) // if null, you can't equip it and gives a error message
-        {
-            Debug.LogError("Cannot equip a null item!");
-            return;
-        }
-        // equips the item on the player
-        equippedAccessory = item;
-        playerAccessory = equippedAccessory.AccessoryType;
-        Debug.Log($"Equipped: {item.label}");
     }
 
     private void CharacterMovement()
@@ -132,31 +102,47 @@ public class playerController : MonoBehaviour, IDamage
         float y = Input.GetAxis("Vertical");
         Vector3 moveDir = new Vector3(x, 0, y);
         rb.velocity = moveDir * speed;
+        if (rb.velocity.magnitude != 0f) 
+        {
+            playerAnimator.SetBool("moving", true);
+        }
+        else 
+        {
+            playerAnimator.SetBool("moving", false);
+        }
 
         //flip sprite depending on direction
         if (x != 0 && x < 0)
         {
-            sr.flipX = false;
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * -1, transform.localScale.y, transform.localScale.z);
         }
         else if (x != 0 && x > 0)
         {
-            sr.flipX = true;
+            transform.localScale = new Vector3 (Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
     }
 
-    
+    public void AttackAnimation()
+    {
+        playerAnimator.SetTrigger("Attack");
+    }
 
     public void TakeSkillDamage(int damage, PublicEnums.ElementType elementType)
     {
         float multiplier = GetSkillMultiplier(elementType);
         damage = Mathf.FloorToInt(damage * multiplier);
         playerStats.health -= damage;
-
-        //FloatingNumberManager.Instance.ShowFloatingText(transform, damage, cam);        
+        Vector3 targetPosition = transform.position;
+        DamageNumberManager.Instance.ShowNumbers(targetPosition, damage, Color.red);
 
         if (playerStats.health <= 0)
         {
+            playerAnimator.SetBool("death", true);
             GameManager.Instance.PlayerDeath(gameObject);
+        }
+        else
+        {
+            playerAnimator.SetTrigger("TakeDamage");
         }
     }
 
@@ -164,13 +150,19 @@ public class playerController : MonoBehaviour, IDamage
     {
         float multiplier = GetMeleeMultiplier(weaponType);
         damage = Mathf.FloorToInt(damage * multiplier);
-        playerStats.health -= damage;
-
-        //FloatingNumberManager.Instance.ShowFloatingText(transform, damage, cam);      
+        playerStats.health -= damage; 
+        Vector3 targetPosition = transform.position;
+        DamageNumberManager.Instance.ShowNumbers(targetPosition, damage, Color.red);
+        
 
         if (playerStats.health <= 0)
         {
+            playerAnimator.SetBool("death", true);
             GameManager.Instance.PlayerDeath(gameObject);
+        }
+        else
+        {
+            playerAnimator.SetTrigger("TakeDamage");
         }
     }
 
@@ -219,7 +211,10 @@ public class playerController : MonoBehaviour, IDamage
         return 1f;
     }
 
-
-    
-
+    public void revive()
+    {
+        playerAnimator.SetFloat("SpeedMultiplier", -1f);
+        playerAnimator.Play("witch_death", 0, 1f);
+    }
+   
 }
