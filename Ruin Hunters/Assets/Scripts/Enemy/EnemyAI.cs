@@ -82,16 +82,24 @@ public class EnemyAI : MonoBehaviour
             if (enemyStats.special == true)
             {
                 Skill chosenSkill = availableSkills[Random.Range(0, 4)];
+
                 if (chosenSkill == availableSkills[0] | chosenSkill == availableSkills[1])
                 {
-                    for (int i = 0; i < GameManager.Instance.battleParty.Count; i++) // the first 2 will be aoe attacks on the party doing a debuff and some dmg 
+                    int kc;
+                    kc = GameManager.Instance.battleParty.Count - 1;
+                    GameObject target = null;
+                    for (int i = 0; i < GameManager.Instance.battleParty.Count; i++)
                     {
-                        GameObject target = null;
                         target = GameManager.Instance.battleParty[i];
                         if (target.GetComponent<playerController>().playerStats.health <= 0)
-                        {                            
+                        {
                             if (target != null)
                             {
+                                if (kc < GameManager.Instance.battleParty.Count - 1)
+                                {
+                                    i--;
+                                    kc--;
+                                }
                                 // Calculate skill damage using any multipliers
                                 float multiplier = GetSkillMultiplier(availableSkills[3].elementType);
 
@@ -109,7 +117,7 @@ public class EnemyAI : MonoBehaviour
                 }
                 else
                 {
-                    UseAttackSkill(chosenSkill); // the last 2 are direct attacks 1 with a high crit rate another that drops the speed of the target 
+                    UseAttackSkill(chosenSkill); // the last 2 are direct attacks 1 with a high crit rate another that drops the attack of the target 
                     PerformBasicAttack(); // then do a basic attack 
                 }
 
@@ -162,14 +170,21 @@ public class EnemyAI : MonoBehaviour
                     float weaponMultiplier = GetWeaponMultiplier(PublicEnums.WeaponType.Sword);
                     availableSkills[5].ActivateSkill(GameManager.Instance.enemyObj[0], enemyStats.attackDamage, weaponMultiplier, enemyStats.critChance, enemyStats.effectChance); // this clenses all his effects
                     availableSkills[0].ActivateSkill(GameManager.Instance.enemyObj[0], enemyStats.attackDamage, weaponMultiplier, enemyStats.critChance, enemyStats.effectChance); // and gives him an attack buff 
-                    for (int i = 0; i < GameManager.Instance.battleParty.Count; i++) // then will do an aoe on the party doing ice dmg 
+                    int kc;
+                    kc = GameManager.Instance.battleParty.Count - 1;
+                    GameObject target = null;
+                    for (int i = 0; i < GameManager.Instance.battleParty.Count; i++)
                     {
-                        GameObject target = null;
                         target = GameManager.Instance.battleParty[i];
                         if (target.GetComponent<playerController>().playerStats.health <= 0)
-                        {                            
+                        {
                             if (target != null)
                             {
+                                if (kc < GameManager.Instance.battleParty.Count - 1)
+                                {
+                                    i--;
+                                    kc--;
+                                }
                                 // Calculate skill damage using any multipliers
                                 float multiplier = GetSkillMultiplier(availableSkills[3].elementType);
 
@@ -193,19 +208,26 @@ public class EnemyAI : MonoBehaviour
                     float weaponMultiplier = GetWeaponMultiplier(PublicEnums.WeaponType.Sword);
                     availableSkills[5].ActivateSkill(GameManager.Instance.enemyObj[0], enemyStats.attackDamage, weaponMultiplier, enemyStats.critChance, enemyStats.effectChance); // he will clense his debuffs 
                     availableSkills[2].ActivateSkill(GameManager.Instance.enemyObj[0], enemyStats.attackDamage, weaponMultiplier, enemyStats.critChance, enemyStats.effectChance); // and heal himself 
-                    for (int i = 0; i < GameManager.Instance.battleParty.Count; i++) // and will do an aoe that lowers the defence of the party this will then switch imbetween both for the remainder of the fight
+                    int kc;
+                    kc = GameManager.Instance.battleParty.Count - 1;
+                    GameObject target = null;
+                    for (int i = 0; i < GameManager.Instance.battleParty.Count; i++)// and will do an aoe that lowers the defence of the party this will then switch imbetween both for the remainder of the fight
                     {
-                        GameObject target = null;
                         target = GameManager.Instance.battleParty[i];
                         if (target.GetComponent<playerController>().playerStats.health <= 0)
-                        {                            
+                        {
                             if (target != null)
                             {
+                                if (kc < GameManager.Instance.battleParty.Count - 1)
+                                {
+                                    i--;
+                                    kc--;
+                                }
                                 // Calculate skill damage using any multipliers
                                 float multiplier = GetSkillMultiplier(availableSkills[4].elementType);
 
                                 // Activate the skill, passing the player as the target
-                                availableSkills[2].ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, enemyStats.effectChance); // Attacker power is set to 10 for now
+                                availableSkills[4].ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, enemyStats.effectChance); // Attacker power is set to 10 for now
                                 targetIndicatorE.SetActive(false);
                             }
                         }
@@ -301,14 +323,21 @@ public class EnemyAI : MonoBehaviour
                 PerformBasicAttack();
                 PerformBasicAttack();
                 PerformBasicAttack();
+                int kc;
+                kc = GameManager.Instance.battleParty.Count - 1;
+                GameObject target = null;
                 for (int i = 0; i < GameManager.Instance.battleParty.Count; i++)
                 {
-                    GameObject target = null;
                     target = GameManager.Instance.battleParty[i];
                     if (target.GetComponent<playerController>().playerStats.health <= 0)
-                    {                        
+                    {
                         if (target != null)
                         {
+                            if (kc < GameManager.Instance.battleParty.Count - 1)
+                            {
+                                i--;
+                                kc--;
+                            }
                             // Calculate skill damage using any multipliers
                             float multiplier = GetSkillMultiplier(availableSkills[3].elementType);
 
@@ -346,7 +375,7 @@ public class EnemyAI : MonoBehaviour
                 {
                     ran = 1;
                 }
-                if (ran < 55)
+                if (ran < 40)
                 {
                     Skill chosenSkill = availableSkills[Random.Range(4, availableSkills.Count)];
                     if (chosenSkill.Ptargit == 1)
@@ -455,7 +484,7 @@ public class EnemyAI : MonoBehaviour
         }
         if (ty == PublicEnums.EnemyTypes.Boss_1_L_arm) // the left arm is pure basic attack with a 50% chance to stun when below 50% health 
         {
-            if (enemyStats.health <= enemyStats.maxHealth)
+            if (enemyStats.health <= enemyStats.maxHealth/2)
             {
                 int ran;
                 ran = Random.Range(0, 101);
@@ -465,7 +494,36 @@ public class EnemyAI : MonoBehaviour
                 }
                 if (ran < 50)
                 {
-                    UseAttackSkill(availableSkills[0]);
+                    int kc;
+                    kc = GameManager.Instance.battleParty.Count - 1;
+                    GameObject target = null;
+                    for (int i = 0; i < GameManager.Instance.battleParty.Count; i++)
+                    {
+                        target = GameManager.Instance.battleParty[i];
+                        if (target.GetComponent<playerController>().playerStats.health <= 0)
+                        {
+                            if (target != null)
+                            {
+                                if (kc < GameManager.Instance.battleParty.Count - 1)
+                                {
+                                    i--;
+                                    kc--;
+                                }
+                                // Calculate skill damage using any multipliers
+                                float multiplier = GetSkillMultiplier(availableSkills[0].elementType);
+
+                                // Activate the skill, passing the player as the target
+                                availableSkills[0].ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, enemyStats.effectChance); // Attacker power is set to 10 for now
+                                targetIndicatorE.SetActive(false);
+                            }
+                        }
+                        else
+                        {
+
+                        }
+
+                    }
+                   
                 }
             }
             PerformBasicAttack();
@@ -544,13 +602,20 @@ public class EnemyAI : MonoBehaviour
         GameObject target;
         if (skill.AOE == true)
         {
-            for (int i = 0; i < GameManager.Instance.enemyObj.Count; i++)
+            int kc;
+            kc = GameManager.Instance.battleParty.Count - 1;
+            for (int i = 0; i < GameManager.Instance.battleParty.Count; i++)
             {
-                target = GameManager.Instance.enemyObj[i];
+                target = GameManager.Instance.battleParty[i];
                 if (target.GetComponent<playerController>().playerStats.health <= 0)
                 {
                     if (target != null)
                     {
+                        if (kc < GameManager.Instance.battleParty.Count - 1)
+                        {
+                            i--;
+                            kc--;
+                        }
                         // Calculate skill damage using any multipliers
                         float multiplier = GetSkillMultiplier(skill.elementType);
 
@@ -601,6 +666,9 @@ public class EnemyAI : MonoBehaviour
         GameObject target;
         if (skill.AOE == true)
         {
+
+            int kc;
+            kc = GameManager.Instance.battleParty.Count-1;
             for (int i = 0; i < GameManager.Instance.battleParty.Count; i++)
             {
                 target = GameManager.Instance.battleParty[i];
@@ -608,6 +676,11 @@ public class EnemyAI : MonoBehaviour
                 {
                     if (target != null)
                     {
+                        if(kc < GameManager.Instance.battleParty.Count - 1)
+                        {
+                            i--;
+                            kc--;
+                        }
                         // Calculate skill damage using any multipliers
                         float multiplier = GetSkillMultiplier(skill.elementType);
 
