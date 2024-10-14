@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Skull
   m_EditorClassIdentifier: 
   level: 1
-  currentXP: 0
+  currentXP: 1000
   xpToNextLevel: 100
   nameOfCharacter: Skull
-  health: 2950
+  health: -4700
   maxHealth: 4000
   maxMana: 0
   mana: 0
@@ -45,7 +45,7 @@ MonoBehaviour:
     Ptargit: 0
     AOE: 1
   regions: 0
-  isTurn: 1
+  isTurn: 0
   isStuned: 0
   special: 0
   special_count: 0

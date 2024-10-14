@@ -41,6 +41,7 @@ public class PlayerActionSelector : MonoBehaviour
     private bool skillAttack = false;
     private bool targetingParty = false;
     private bool usingItem = false;
+    private bool tutorial = true;
 
     private List<Skill> playerSkills;
     public int visibleSkillCount = 4;
@@ -66,82 +67,83 @@ public class PlayerActionSelector : MonoBehaviour
 
     void Update()
     {
-        // Handle navigation and selection input
-        if (menuPanel.activeSelf && !attacking && !skillAttack && !usingItem)
-        { 
-            if (Input.GetKeyDown(KeyCode.W)) { Navigate(-1); }
-            if (Input.GetKeyDown(KeyCode.S)) { Navigate(1); }
-            if (Input.GetKeyDown(KeyCode.Return)) { ExecuteCurrentAction(); }
-            if (Input.GetKeyDown(KeyCode.Backspace)) { HandleBackspace(); }
-        }
-        else if(menuPanel.activeSelf && attacking)
         {
-            if (Input.GetKeyDown(KeyCode.W)) 
+            // Handle navigation and selection input
+            if (menuPanel.activeSelf && !attacking && !skillAttack && !usingItem)
             {
-                selectedEnemyIndex--;
-                if(selectedEnemyIndex < 0) selectedEnemyIndex = enemies.Count - 1;
-                SelectEnemy(selectedEnemyIndex);
+                if (Input.GetKeyDown(KeyCode.W)) { Navigate(-1); }
+                if (Input.GetKeyDown(KeyCode.S)) { Navigate(1); }
+                if (Input.GetKeyDown(KeyCode.Return)) { ExecuteCurrentAction(); }
+                if (Input.GetKeyDown(KeyCode.Backspace)) { HandleBackspace(); }
             }
-            if (Input.GetKeyDown(KeyCode.S)) 
+            else if (menuPanel.activeSelf && attacking)
             {
-                selectedEnemyIndex++;
-                if (selectedEnemyIndex >= enemies.Count) selectedEnemyIndex = 0;
-                SelectEnemy(selectedEnemyIndex);
+                if (Input.GetKeyDown(KeyCode.W))
+                {
+                    selectedEnemyIndex--;
+                    if (selectedEnemyIndex < 0) selectedEnemyIndex = enemies.Count - 1;
+                    SelectEnemy(selectedEnemyIndex);
+                }
+                if (Input.GetKeyDown(KeyCode.S))
+                {
+                    selectedEnemyIndex++;
+                    if (selectedEnemyIndex >= enemies.Count) selectedEnemyIndex = 0;
+                    SelectEnemy(selectedEnemyIndex);
+                }
+                if (Input.GetKeyDown(KeyCode.Return))
+                {
+                    StartCoroutine(DamageEnemy());
+                }
+                if (Input.GetKeyDown(KeyCode.Backspace))
+                {
+                    HandleAttackBackspace();
+                }
             }
-            if (Input.GetKeyDown(KeyCode.Return)) 
+            else if (menuPanel.activeSelf && skillAttack)
             {
-                StartCoroutine(DamageEnemy());            
+                if (Input.GetKeyDown(KeyCode.W)) { NavigateSkills(-1); }
+                if (Input.GetKeyDown(KeyCode.S)) { NavigateSkills(1); }
+                if (Input.GetKeyDown(KeyCode.Return))
+                {
+                    PerformAttack();
+                }
+                if (Input.GetKeyDown(KeyCode.Backspace)) { HandleBackspace(); }
             }
-            if (Input.GetKeyDown(KeyCode.Backspace)) 
+            else if (targetingParty)
             {
-                HandleAttackBackspace();             
+                if (Input.GetKeyDown(KeyCode.W))
+                {
+                    selectedPartyIndex--;
+                    if (selectedPartyIndex < 0) selectedPartyIndex = playerParty.Count - 1;
+                    targetParty(selectedPartyIndex);
+                }
+                if (Input.GetKeyDown(KeyCode.S))
+                {
+                    selectedPartyIndex++;
+                    if (selectedPartyIndex >= playerParty.Count) selectedPartyIndex = 0;
+                    targetParty(selectedPartyIndex);
+                }
+                if (Input.GetKeyDown(KeyCode.Return))
+                {
+                    consumeItem();
+                }
+                if (Input.GetKeyDown(KeyCode.Backspace))
+                {
+                    HandleAttackBackspace();
+                }
+            }
+            else if (menuPanel.activeSelf && usingItem)
+            {
+                if (Input.GetKeyDown(KeyCode.W)) { NavigateItems(-1); }
+                if (Input.GetKeyDown(KeyCode.S)) { NavigateItems(1); }
+                if (Input.GetKeyDown(KeyCode.Return))
+                {
+                    UseItem();
+                }
+                if (Input.GetKeyDown(KeyCode.Backspace))
+                { HandleBackspace(); }
             }
         }
-        else if (menuPanel.activeSelf && skillAttack)
-        {
-            if (Input.GetKeyDown(KeyCode.W)) { NavigateSkills(-1); }
-            if (Input.GetKeyDown(KeyCode.S)) { NavigateSkills(1); }
-            if (Input.GetKeyDown(KeyCode.Return)) 
-            { 
-                PerformAttack();
-            }
-            if (Input.GetKeyDown(KeyCode.Backspace)) { HandleBackspace(); }
-        }
-        else if (targetingParty)
-        {
-            if (Input.GetKeyDown(KeyCode.W))
-            {
-                selectedPartyIndex--;
-                if (selectedPartyIndex < 0) selectedPartyIndex = playerParty.Count - 1;
-                targetParty(selectedPartyIndex);
-            }
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                selectedPartyIndex++;
-                if (selectedPartyIndex >= playerParty.Count) selectedPartyIndex = 0;
-                targetParty(selectedPartyIndex);
-            }
-            if (Input.GetKeyDown(KeyCode.Return))
-            {
-                consumeItem();
-            }
-            if (Input.GetKeyDown(KeyCode.Backspace))
-            {
-                HandleAttackBackspace();
-            }
-        }
-        else if (menuPanel.activeSelf && usingItem)
-        {
-            if (Input.GetKeyDown(KeyCode.W)) { NavigateItems(-1); }
-            if (Input.GetKeyDown(KeyCode.S)) { NavigateItems(1); }
-            if (Input.GetKeyDown(KeyCode.Return))
-            {
-                UseItem();
-            }
-            if (Input.GetKeyDown(KeyCode.Backspace)) 
-            { HandleBackspace(); }
-        }
-        
     }
 
     public void ShowMenu(Transform player, playerController _playerController, List<Skill> currentSkills)
@@ -151,24 +153,36 @@ public class PlayerActionSelector : MonoBehaviour
         playerSkills = currentSkills;
         playerTransform = player;
         playerController = _playerController;
-        enemies = GameManager.Instance.enemyObj;        
-
-        //does not work idk why AHHHHHHHHHHHH
-        // set the position of the menu to the left of the player
-        //battleCamera.gameObject.SetActive(true);
-
-        //Vector3 worldPosition = playerTransform.position + new Vector3(-2f, 0, 0); //adjust offset if needed
-
-        //Vector3 screenPosition = battleCamera.WorldToScreenPoint(worldPosition);
-
-        //menuPanel.transform.position = screenPosition;
+        enemies = GameManager.Instance.enemyObj;       
 
         menuPanel.SetActive(true); // enable the menu
 
-        
+        //SetMenuPositionToLeftOfPlayer();
     }
 
-    
+    //private void SetMenuPositionToLeftOfPlayer()
+    //{
+    //    Vector3 playerWorldPos = playerTransform.position;
+
+    //    Vector3 offset = new Vector3(-2f, 0, 0);
+
+    //    Vector3 screenPos = battleCamera.WorldToScreenPoint(playerWorldPos + offset);
+
+    //    if (screenPos.z < 0) // if it's behind the camera
+    //    {           
+    //        return;
+    //    }
+    //    RectTransform canvasRectTransform = actionMenu.GetComponentInParent<Canvas>().GetComponent<RectTransform>();
+
+    //    RectTransformUtility.ScreenPointToLocalPointInRectangle(
+    //    canvasRectTransform,
+    //    screenPos,
+    //    battleCamera,
+    //    out Vector2 localPoint);
+    //    //localPoint.x += 1100;
+    //    //localPoint.y += 600;
+    //    actionMenu.GetComponent<RectTransform>().anchoredPosition = localPoint;
+    //}
 
     public void HideMenu()
     {
@@ -537,9 +551,15 @@ public class PlayerActionSelector : MonoBehaviour
             {
                 if (playerSkills[skillScrollIndex].AOE)
                 {
-                    foreach (var enemy in enemies)
+                    int currentMax = enemies.Count;
+                    for (int i = 0; i < currentMax; i++)
                     {
-                        enemy.GetComponent<EnemyAI>().TakeSkillDamage(playerSkills[skillScrollIndex].baseDamage, playerSkills[skillScrollIndex].elementType);
+                        if(enemies.Count != currentMax)
+                        {
+                            i--;
+                            currentMax--;
+                        }
+                        enemies[i].GetComponent<EnemyAI>().TakeSkillDamage(playerSkills[skillScrollIndex].baseDamage, playerSkills[skillScrollIndex].elementType);
                     }
                 }
                 else
@@ -566,7 +586,8 @@ public class PlayerActionSelector : MonoBehaviour
             consumeItem();
         }
         HideMenu();
-        GameManager.Instance.EndTurn();
+        if (enemies.Count != 0)        
+            GameManager.Instance.EndTurn();
     }
     
     private void consumeItem()
@@ -574,6 +595,7 @@ public class PlayerActionSelector : MonoBehaviour
         Item item = InventoryManager.instance.GetItems()[itemScrollIndex];
         if (item.potionEffect == PublicEnums.Effects.Heal)
         {
+            DamageNumberManager.Instance.ShowNumbers(playerParty[selectedPartyIndex].transform.position, item.effectAmount, Color.green);
             playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.health += item.effectAmount;
             if (playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.health > playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.maxHealth)
                 playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.health = playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.maxHealth;
@@ -599,6 +621,7 @@ public class PlayerActionSelector : MonoBehaviour
     {
         if(Random.value > 0.5f)
         {
+            HideMenu();
             GameManager.Instance.EndCombat();
         }
     }
