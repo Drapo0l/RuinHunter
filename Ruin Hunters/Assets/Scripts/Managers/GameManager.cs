@@ -133,30 +133,30 @@ public class GameManager : MonoBehaviour
        
     }
 
-    //void SetupBattleField()
-    //{
-    //    battleCamera.SetActive(true);
-    //    playerCamera.SetActive(false);
-    //    battleParty = PartyManager.Instance.GetPlayeGameObj();
-    //    int pos = 0;
-    //    foreach (GameObject player in battleParty)
-    //    {
-    //        player.GetComponent<Rigidbody>().velocity = Vector3.zero * 0;
-    //        player.SetActive(true);
-    //        player.transform.SetParent(battleCamera.transform);
-    //        player.transform.localPosition = new Vector3(3f + pos, -1.28f, 10f + pos);
-    //        pos++;
-    //    }
-    //    pos = 0;
+    void SetupBattleField()
+    {
+        battleCamera.SetActive(true);
+        playerCamera.SetActive(false);
+        battleParty = PartyManager.Instance.GetPlayeGameObj();
+        int pos = 0;
+        foreach (GameObject player in battleParty)
+        {
+            player.GetComponent<Rigidbody>().velocity = Vector3.zero * 0;
+            player.SetActive(true);
+            player.transform.SetParent(battleCamera.transform);
+            player.transform.localPosition = new Vector3(3f + pos, -1.28f, 10f + pos);
+            pos++;
+        }
+        pos = 0;
 
-    //    foreach (GameObject enemy in enemyObj)
-    //    {
-    //        enemy.SetActive(true);
-    //        enemy.transform.SetParent(battleCamera.transform);
-    //        enemy.transform.localPosition = new Vector3(-7.25f + pos, -1.28f, 10.5f + pos);
-    //        pos++;
-    //    }
-    //}
+        foreach (GameObject enemy in enemyObj)
+        {
+            enemy.SetActive(true);
+            enemy.transform.SetParent(battleCamera.transform);
+            enemy.transform.localPosition = new Vector3(-7.25f + pos, -1.28f, 10.5f + pos);
+            pos++;
+        }
+    }
     private void SetHealthBars()
     {
         List<GameObject> playerParty = PartyManager.Instance.GetPlayeGameObj();

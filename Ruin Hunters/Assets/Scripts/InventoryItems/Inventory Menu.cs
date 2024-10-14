@@ -16,10 +16,22 @@ public class InventoryMenu : MonoBehaviour
     [SerializeField] GameObject menuSkills;
     [SerializeField] GameObject menuPanel;
 
-    public List<GameObject> playerHealthMana;          // list of player health/mana
+
     public bool Ispause;
     float scaleorginaltime;
     public static InventoryMenu Instance;
+
+    //Show Player's stats
+    public List<GameObject> playerHealths;          // list of player health
+    public TMP_Text HP_text;
+    public List<GameObject> playerMana;          // list of player Mana
+    public TMP_Text Mana_text;
+    public List<GameObject> playerStrength;          // list of player Strentgh
+    public TMP_Text Strength_text;
+    public List<GameObject> playerSpeed;          // list of player speed
+    public TMP_Text Speed_text;
+    public List<GameObject> playerDefense;          // list of player Defense
+    public TMP_Text Defense_text;
 
 
     void Start()
@@ -45,8 +57,10 @@ public class InventoryMenu : MonoBehaviour
             }
 
         }
-
+      
     }
+
+
 
     public void startPause()
     {
@@ -106,20 +120,19 @@ public class InventoryMenu : MonoBehaviour
         // menuPause.SetActive(true);
     }
 
-    private void ShowHealthManaBars()
+    private void ShowHealth()
     {
         List<GameObject> playerParty = PartyManager.Instance.GetPlayeGameObj();
         int index = 0;
         foreach (var playerChar in playerParty)
         {
-         playerChar.transform.GetChild(0).gameObject.SetActive(true);
-         //ManaNumber
-         playerHealthMana[index].transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = playerChar.GetComponent<playerController>().playerStats.mana.ToString() + " / " + playerChar.GetComponent<playerController>().playerStats.maxMana.ToString();
-         //HealthNumber
-         playerHealthMana[index].transform.GetChild(1).gameObject.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = playerChar.GetComponent<playerController>().playerStats.health.ToString() + " / " + playerChar.GetComponent<playerController>().playerStats.maxHealth.ToString();
-          
+            playerChar.transform.GetChild(0).gameObject.SetActive(true);
+            //HealthNumber
+            playerHealths[index].transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = playerChar.GetComponent<playerController>().playerStats.health.ToString() + " / " + playerChar.GetComponent<playerController>().playerStats.maxHealth.ToString();
 
-         index++;
+            index++;
         }
     }
+
+
 }

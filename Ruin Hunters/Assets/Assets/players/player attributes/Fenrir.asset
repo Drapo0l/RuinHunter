@@ -22,10 +22,10 @@ MonoBehaviour:
   mana: 80
   combatSpeed: 0
   skillDamage: 0
-  attackDamage: 79
+  attackDamage: 8
   critChance: 0
   effectChance: 0
-  Defence: 0
+  Defence: 10
   maxHealthOG: 1000
   maxManaOG: 0
   combatSpeedOG: 0

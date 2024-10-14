@@ -45,27 +45,27 @@ public class playerController : MonoBehaviour, IDamage
     // Update is called once per frame
     void Update()
     {
-        
-        //if(!GameManager.Instance.combat)
-        //{
-        //    CharacterMovement();
-        //}
-        ////else
-        ////{
-        ////    if(playerStats.isTurn) 
-        ////    {
-        ////        if (defended != 0)
-        ////        {
-                   
-        ////            playerStats.Defence = defended;
-        ////            defended = 0;
-        ////        }
-                
-        ////        // when it's the player's turn, show the menu
-        ////        actionSelector.ShowMenu(transform, this, playerStats.skills);                
-        ////    }
-        ////}
-        
+
+        if (!GameManager.Instance.combat)
+        {
+            CharacterMovement();
+        }
+        else
+        {
+            if (playerStats.isTurn)
+            {
+                if (defended != 0)
+                {
+
+                    playerStats.Defence = defended;
+                    defended = 0;
+                }
+
+                // when it's the player's turn, show the menu
+                actionSelector.ShowMenu(transform, this, playerStats.skills);
+            }
+        }
+
 
     }
 
