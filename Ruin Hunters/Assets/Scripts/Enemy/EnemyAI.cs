@@ -168,7 +168,7 @@ public class EnemyAI : MonoBehaviour
                 {
                     enemyStats.special_count = 4;
                     float weaponMultiplier = GetWeaponMultiplier(PublicEnums.WeaponType.Sword);
-                    availableSkills[5].ActivateSkill(GameManager.Instance.enemyObj[0], enemyStats.attackDamage, weaponMultiplier, enemyStats.critChance, enemyStats.effectChance); // this clenses all his effects
+                    availableSkills[4].ActivateSkill(GameManager.Instance.enemyObj[0], enemyStats.attackDamage, weaponMultiplier, enemyStats.critChance, enemyStats.effectChance); // this clenses all his effects
                     availableSkills[0].ActivateSkill(GameManager.Instance.enemyObj[0], enemyStats.attackDamage, weaponMultiplier, enemyStats.critChance, enemyStats.effectChance); // and gives him an attack buff 
                     int kc;
                     kc = GameManager.Instance.battleParty.Count - 1;
@@ -189,7 +189,7 @@ public class EnemyAI : MonoBehaviour
                                 float multiplier = GetSkillMultiplier(availableSkills[3].elementType);
 
                                 // Activate the skill, passing the player as the target
-                                availableSkills[3].ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, enemyStats.effectChance); // Attacker power is set to 10 for now
+                                availableSkills[2].ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, enemyStats.effectChance); // Attacker power is set to 10 for now
                                 targetIndicatorE.SetActive(false);
                             }
                         }
@@ -202,12 +202,12 @@ public class EnemyAI : MonoBehaviour
                     enemyStats.special_count++;
                     enemyStats.special = true;
                 }
-                if (enemyStats.special == true) // if the full moon is out it will change to a new moon the blizzard will stop 
+                else if (enemyStats.special == true) // if the full moon is out it will change to a new moon the blizzard will stop 
                 {
                     enemyStats.special_count = 4;
                     float weaponMultiplier = GetWeaponMultiplier(PublicEnums.WeaponType.Sword);
-                    availableSkills[5].ActivateSkill(GameManager.Instance.enemyObj[0], enemyStats.attackDamage, weaponMultiplier, enemyStats.critChance, enemyStats.effectChance); // he will clense his debuffs 
-                    availableSkills[2].ActivateSkill(GameManager.Instance.enemyObj[0], enemyStats.attackDamage, weaponMultiplier, enemyStats.critChance, enemyStats.effectChance); // and heal himself 
+                    availableSkills[4].ActivateSkill(GameManager.Instance.enemyObj[0], enemyStats.attackDamage, weaponMultiplier, enemyStats.critChance, enemyStats.effectChance); // he will clense his debuffs 
+                    availableSkills[1].ActivateSkill(GameManager.Instance.enemyObj[0], enemyStats.attackDamage, weaponMultiplier, enemyStats.critChance, enemyStats.effectChance); // and heal himself 
                     int kc;
                     kc = GameManager.Instance.battleParty.Count - 1;
                     GameObject target = null;
@@ -227,7 +227,7 @@ public class EnemyAI : MonoBehaviour
                                 float multiplier = GetSkillMultiplier(availableSkills[4].elementType);
 
                                 // Activate the skill, passing the player as the target
-                                availableSkills[4].ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, enemyStats.effectChance); // Attacker power is set to 10 for now
+                                availableSkills[3].ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, enemyStats.effectChance); // Attacker power is set to 10 for now
                                 targetIndicatorE.SetActive(false);
                             }
                         }
@@ -434,6 +434,10 @@ public class EnemyAI : MonoBehaviour
                 if (ran < 40)
                 {
                     Skill chosenSkill2 = availableSkills[Random.Range(2, availableSkills.Count)];
+                    if (ran < 0)
+                    {
+                        ran = 2;
+                    }
                     if (chosenSkill2.Ptargit == 1)
                     {
 
@@ -545,6 +549,7 @@ public class EnemyAI : MonoBehaviour
                 }
             }
             Skill chosenSkill2 = availableSkills[Random.Range(0, availableSkills.Count )];
+
             if (chosenSkill2.Ptargit == 1)
             {
 
@@ -607,7 +612,7 @@ public class EnemyAI : MonoBehaviour
             for (int i = 0; i < GameManager.Instance.battleParty.Count; i++)
             {
                 target = GameManager.Instance.battleParty[i];
-                if (target.GetComponent<playerController>().playerStats.health <= 0)
+                if (target.GetComponent<EnemyAI>().enemyStats.health <= 0)
                 {
                     if (target != null)
                     {
@@ -636,9 +641,13 @@ public class EnemyAI : MonoBehaviour
         {
             while (true)
             {
-                ran = Random.Range(1, GameManager.Instance.enemyObj.Count);
+                ran = Random.Range(0, GameManager.Instance.enemyObj.Count);
+                if(ran < 0)
+                {
+                    ran = 0;
+                }
                 target = GameManager.Instance.enemyObj[ran];
-                if (target.GetComponent<playerController>().playerStats.health <= 0)
+                if (target.GetComponent<EnemyAI>().enemyStats.health <= 0)
                 {
 
                 }
@@ -702,6 +711,10 @@ public class EnemyAI : MonoBehaviour
             while (true)
             {
                 ran = Random.Range(0, GameManager.Instance.battleParty.Count);
+                if (ran < 0)
+                {
+                    ran = 0;
+                }
                 target = GameManager.Instance.battleParty[ran];
                 if (target.GetComponent<playerController>().playerStats.health <= 0)
                 {
@@ -757,6 +770,10 @@ public class EnemyAI : MonoBehaviour
         while (true)
         {
             ran = Random.Range(0, PartyManager.Instance.startingPlayerParty.Count);
+            if (ran < 0)
+            {
+                ran =0;
+            }
             target = PartyManager.Instance.startingPlayerParty[ran];
             if (target.GetComponent<playerController>().playerStats.health <= 0)
             {
