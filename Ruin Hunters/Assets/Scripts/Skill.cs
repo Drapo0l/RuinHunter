@@ -81,9 +81,8 @@ public class Skill
                 D = D * 2;
             }
         }
-        int chance2 = Random.Range(1, 101);
-        if(chance2 >= E)
-        {
+        
+      
             if (EN == PublicEnums.Effects.Stun)
             {
                 if (T.tag.Equals("Player"))
@@ -234,7 +233,7 @@ public class Skill
 
 
             }
-        }
+        
         
         return D;
     }
