@@ -168,7 +168,7 @@ public class EnemyAI : MonoBehaviour
                 {
                     enemyStats.special_count = 4;
                     float weaponMultiplier = GetWeaponMultiplier(PublicEnums.WeaponType.Sword);
-                    availableSkills[5].ActivateSkill(GameManager.Instance.enemyObj[0], enemyStats.attackDamage, weaponMultiplier, enemyStats.critChance, enemyStats.effectChance); // this clenses all his effects
+                    availableSkills[4].ActivateSkill(GameManager.Instance.enemyObj[0], enemyStats.attackDamage, weaponMultiplier, enemyStats.critChance, enemyStats.effectChance); // this clenses all his effects
                     availableSkills[0].ActivateSkill(GameManager.Instance.enemyObj[0], enemyStats.attackDamage, weaponMultiplier, enemyStats.critChance, enemyStats.effectChance); // and gives him an attack buff 
                     int kc;
                     kc = GameManager.Instance.battleParty.Count - 1;
@@ -189,7 +189,7 @@ public class EnemyAI : MonoBehaviour
                                 float multiplier = GetSkillMultiplier(availableSkills[3].elementType);
 
                                 // Activate the skill, passing the player as the target
-                                availableSkills[3].ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, enemyStats.effectChance); // Attacker power is set to 10 for now
+                                availableSkills[2].ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, enemyStats.effectChance); // Attacker power is set to 10 for now
                                 targetIndicatorE.SetActive(false);
                             }
                         }
@@ -202,12 +202,12 @@ public class EnemyAI : MonoBehaviour
                     enemyStats.special_count++;
                     enemyStats.special = true;
                 }
-                if (enemyStats.special == true) // if the full moon is out it will change to a new moon the blizzard will stop 
+                else if (enemyStats.special == true) // if the full moon is out it will change to a new moon the blizzard will stop 
                 {
                     enemyStats.special_count = 4;
                     float weaponMultiplier = GetWeaponMultiplier(PublicEnums.WeaponType.Sword);
-                    availableSkills[5].ActivateSkill(GameManager.Instance.enemyObj[0], enemyStats.attackDamage, weaponMultiplier, enemyStats.critChance, enemyStats.effectChance); // he will clense his debuffs 
-                    availableSkills[2].ActivateSkill(GameManager.Instance.enemyObj[0], enemyStats.attackDamage, weaponMultiplier, enemyStats.critChance, enemyStats.effectChance); // and heal himself 
+                    availableSkills[4].ActivateSkill(GameManager.Instance.enemyObj[0], enemyStats.attackDamage, weaponMultiplier, enemyStats.critChance, enemyStats.effectChance); // he will clense his debuffs 
+                    availableSkills[1].ActivateSkill(GameManager.Instance.enemyObj[0], enemyStats.attackDamage, weaponMultiplier, enemyStats.critChance, enemyStats.effectChance); // and heal himself 
                     int kc;
                     kc = GameManager.Instance.battleParty.Count - 1;
                     GameObject target = null;
@@ -227,7 +227,7 @@ public class EnemyAI : MonoBehaviour
                                 float multiplier = GetSkillMultiplier(availableSkills[4].elementType);
 
                                 // Activate the skill, passing the player as the target
-                                availableSkills[4].ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, enemyStats.effectChance); // Attacker power is set to 10 for now
+                                availableSkills[3].ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, enemyStats.effectChance); // Attacker power is set to 10 for now
                                 targetIndicatorE.SetActive(false);
                             }
                         }
