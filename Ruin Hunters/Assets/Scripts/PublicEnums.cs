@@ -67,6 +67,13 @@ public class PublicEnums : Item
         SkillPDown,
         SkillPUP,
         Clense,
+        Revive,
+        Party_Heal,
+        Party_AttackUp,
+        Party_DefenceUp,
+        Party_SpeedUp,
+        Party_SkillUp,
+        Party_Revive,
     }
 
     public enum EnemyTypes // these are the enemy types 
@@ -94,6 +101,8 @@ public class PublicEnums : Item
         Weapon,
         Equipment
     }
+
+  
 
     [CreateAssetMenu(fileName = "NewConsumable", menuName = "Items/Consumable")]
     public class ConsumableItem : Item

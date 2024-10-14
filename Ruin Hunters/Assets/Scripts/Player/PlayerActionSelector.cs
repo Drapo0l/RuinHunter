@@ -600,9 +600,92 @@ public class PlayerActionSelector : MonoBehaviour
             if (playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.health > playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.maxHealth)
                 playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.health = playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.maxHealth;
         }
-        //continue if statements for other item types
-        //leave this at the end to consume the item
-        item.amountOfItem--;
+        if (item.potionEffect == PublicEnums.Effects.AttackUp)
+        {
+            playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage = playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage * 2;
+        }
+        if (item.potionEffect == PublicEnums.Effects.DefenceUp)
+        {
+            playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage = playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage * 2;
+        }
+        if (item.potionEffect == PublicEnums.Effects.SpeedUp)
+        {
+            playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage = playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage * 2;
+        }
+        if (item.potionEffect == PublicEnums.Effects.SkillPUP)
+        {
+           playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage = playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage * 2;
+        }
+        if (item.potionEffect == PublicEnums.Effects.Clense)
+        {
+            playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage = playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage * 2;
+        }
+        if (item.potionEffect == PublicEnums.Effects.Revive)
+        {
+            GameManager.Instance.PlayerReborn(playerParty[selectedPartyIndex]);
+        }
+        if (item.potionEffect == PublicEnums.Effects.Party_AttackUp)
+        {
+            for (int i = 0; i < playerParty.Count; i++)
+            {
+                if (playerParty[i].GetComponent<playerController>().playerStats.health > 0)
+                {
+                    playerParty[i].GetComponent<playerController>().playerStats.attackDamage = playerParty[i].GetComponent<playerController>().playerStats.attackDamage * 2;
+                }
+
+
+            }
+        }
+        if (item.potionEffect == PublicEnums.Effects.Party_DefenceUp)
+        {
+            for (int i = 0; i < playerParty.Count; i++)
+            {
+                if (playerParty[i].GetComponent<playerController>().playerStats.health > 0)
+                {
+                    playerParty[i].GetComponent<playerController>().playerStats.Defence = playerParty[i].GetComponent<playerController>().playerStats.Defence * 2;
+                }
+
+
+            }
+        }
+        if (item.potionEffect == PublicEnums.Effects.Party_SpeedUp)
+        {
+            for (int i = 0; i < playerParty.Count; i++)
+            {
+                if (playerParty[i].GetComponent<playerController>().playerStats.health > 0)
+                {
+                    playerParty[i].GetComponent<playerController>().playerStats.combatSpeed = playerParty[i].GetComponent<playerController>().playerStats.combatSpeed * 2;
+                }
+
+
+            }
+        }
+        if (item.potionEffect == PublicEnums.Effects.Party_SkillUp)
+        {
+            for (int i = 0; i < playerParty.Count; i++)
+            {
+                if (playerParty[i].GetComponent<playerController>().playerStats.health > 0)
+                {
+                    playerParty[i].GetComponent<playerController>().playerStats.skillDamage = playerParty[i].GetComponent<playerController>().playerStats.skillDamage * 2;
+                }
+                
+               
+            }
+        }
+        if (item.potionEffect == PublicEnums.Effects.Party_Revive)
+        {
+            for (int i = 0; i < playerParty.Count; i++)
+            {
+                if (playerParty[i].GetComponent<playerController>().playerStats.health <= 0)
+                {
+                    GameManager.Instance.PlayerReborn(playerParty[i]);
+                }
+            }
+        }
+
+            //continue if statements for other item types
+            //leave this at the end to consume the item
+            item.amountOfItem--;
         if(item.amountOfItem <= 0 )
         {
             InventoryManager.instance.RemoveItem(item);

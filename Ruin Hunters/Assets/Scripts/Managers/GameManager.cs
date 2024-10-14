@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     public GameObject playerParent;
     public int expTotal;
     private List<CharacterAttributes> playerParty; // list to hold player party
+    public List<GameObject> Grave_Yard = new List<GameObject>();
     public List<GameObject> battlePartyHealth = new List<GameObject>();
     public List<GameObject> battleParty = new List<GameObject>();
     private List<CharacterAttributes> characters; //list to hold enmies and allies
@@ -275,12 +276,20 @@ public class GameManager : MonoBehaviour
         currentTurnIndex--;
         battleParty.Remove(player);
         turnOrder.Remove(player.GetComponent<playerController>().playerStats);
+        Grave_Yard.Add(player);
         if (battleParty.Count == 0)
         {
             StartCoroutine(EndCombat());            
         }
     }
-
+    public void PlayerReborn(GameObject player)
+    {
+        currentTurnIndex++;
+        battleParty.Add(player);
+        turnOrder.Add(player.GetComponent<playerController>().playerStats);
+        Grave_Yard.Remove(player);
+       
+    }
     public IEnumerator EndCombat()
     {
         for (int i = 0; i < characters.Count; i++)
