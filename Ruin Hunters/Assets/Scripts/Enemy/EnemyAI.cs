@@ -104,7 +104,7 @@ public class EnemyAI : MonoBehaviour
                                 float multiplier = GetSkillMultiplier(availableSkills[3].elementType);
 
                                 // Activate the skill, passing the player as the target
-                                availableSkills[3].ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, enemyStats.effectChance); // Attacker power is set to 10 for now
+                                availableSkills[3].ActivateSkill(target, enemyStats.skillDamage, multiplier, enemyStats.critChance, availableSkills[3].effect); // Attacker power is set to 10 for now
                                 targetIndicatorE.SetActive(false);
                             }
                         }
@@ -168,15 +168,15 @@ public class EnemyAI : MonoBehaviour
                 {
                     enemyStats.special_count = 4;
                     float weaponMultiplier = GetWeaponMultiplier(PublicEnums.WeaponType.Sword);
-                    availableSkills[4].ActivateSkill(GameManager.Instance.enemyObj[0], enemyStats.attackDamage, weaponMultiplier, enemyStats.critChance, enemyStats.effectChance); // this clenses all his effects
-                    availableSkills[0].ActivateSkill(GameManager.Instance.enemyObj[0], enemyStats.attackDamage, weaponMultiplier, enemyStats.critChance, enemyStats.effectChance); // and gives him an attack buff 
+                    availableSkills[4].ActivateSkill(GameManager.Instance.enemyObj[0], 0, weaponMultiplier, enemyStats.critChance, availableSkills[4].effect); // this clenses all his effects
+                    availableSkills[0].ActivateSkill(GameManager.Instance.enemyObj[0], 0, weaponMultiplier, enemyStats.critChance, availableSkills[0].effect); // and gives him an attack buff 
                     int kc;
                     kc = GameManager.Instance.battleParty.Count - 1;
                     GameObject target = null;
                     for (int i = 0; i < GameManager.Instance.battleParty.Count; i++)
                     {
                         target = GameManager.Instance.battleParty[i];
-                        if (target.GetComponent<playerController>().playerStats.health <= 0)
+                        if (target.GetComponent<playerController>().playerStats.health >= 0)
                         {
                             if (target != null)
                             {
@@ -186,11 +186,11 @@ public class EnemyAI : MonoBehaviour
                                     kc--;
                                 }
                                 // Calculate skill damage using any multipliers
-                                float multiplier = GetSkillMultiplier(availableSkills[3].elementType);
+                                float multiplier = GetSkillMultiplier(availableSkills[2].elementType);
 
                                 // Activate the skill, passing the player as the target
-                                availableSkills[2].ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, enemyStats.effectChance); // Attacker power is set to 10 for now
-                                targetIndicatorE.SetActive(false);
+                                availableSkills[2].ActivateSkill(target, enemyStats.skillDamage, multiplier, enemyStats.critChance, availableSkills[2].effect); // Attacker power is set to 10 for now
+                                //targetIndicatorE.SetActive(false);
                             }
                         }
                         else
@@ -206,15 +206,15 @@ public class EnemyAI : MonoBehaviour
                 {
                     enemyStats.special_count = 4;
                     float weaponMultiplier = GetWeaponMultiplier(PublicEnums.WeaponType.Sword);
-                    availableSkills[4].ActivateSkill(GameManager.Instance.enemyObj[0], enemyStats.attackDamage, weaponMultiplier, enemyStats.critChance, enemyStats.effectChance); // he will clense his debuffs 
-                    availableSkills[1].ActivateSkill(GameManager.Instance.enemyObj[0], enemyStats.attackDamage, weaponMultiplier, enemyStats.critChance, enemyStats.effectChance); // and heal himself 
+                    availableSkills[4].ActivateSkill(GameManager.Instance.enemyObj[0],0, weaponMultiplier, enemyStats.critChance, availableSkills[4].effect); // he will clense his debuffs 
+                    availableSkills[1].ActivateSkill(GameManager.Instance.enemyObj[0], 0, weaponMultiplier, enemyStats.critChance, availableSkills[1].effect); // and heal himself 
                     int kc;
                     kc = GameManager.Instance.battleParty.Count - 1;
                     GameObject target;
                     for (int i = 0; i < GameManager.Instance.battleParty.Count; i++)// and will do an aoe that lowers the defence of the party this will then switch imbetween both for the remainder of the fight
                     {
                         target = GameManager.Instance.battleParty[i];
-                        if (target.GetComponent<playerController>().playerStats.health <= 0)
+                        if (target.GetComponent<playerController>().playerStats.health >= 0)
                         {
                             if (target != null)
                             {
@@ -227,7 +227,7 @@ public class EnemyAI : MonoBehaviour
                                 float multiplier = GetSkillMultiplier(availableSkills[4].elementType);
 
                                 // Activate the skill, passing the player as the target
-                                availableSkills[3].ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, enemyStats.effectChance); // Attacker power is set to 10 for now
+                                availableSkills[3].ActivateSkill(target, enemyStats.skillDamage, multiplier, enemyStats.critChance, availableSkills[3].effect); // Attacker power is set to 10 for now
                                 targetIndicatorE.SetActive(false);
                             }
                         }
@@ -312,7 +312,7 @@ public class EnemyAI : MonoBehaviour
             {
 
                 float weaponMultiplier = GetWeaponMultiplier(PublicEnums.WeaponType.Sword);
-                availableSkills[3].ActivateSkill(GameManager.Instance.enemyObj[0], enemyStats.attackDamage, weaponMultiplier, enemyStats.critChance, enemyStats.effectChance);
+                availableSkills[3].ActivateSkill(GameManager.Instance.enemyObj[0], 0, weaponMultiplier, enemyStats.critChance, availableSkills[3].effect);
                 enemyStats.special_count++;
             }
 
@@ -329,7 +329,7 @@ public class EnemyAI : MonoBehaviour
                 for (int i = 0; i < GameManager.Instance.battleParty.Count; i++)
                 {
                     target = GameManager.Instance.battleParty[i];
-                    if (target.GetComponent<playerController>().playerStats.health <= 0)
+                    if (target.GetComponent<playerController>().playerStats.health >= 0)
                     {
                         if (target != null)
                         {
@@ -342,7 +342,7 @@ public class EnemyAI : MonoBehaviour
                             float multiplier = GetSkillMultiplier(availableSkills[3].elementType);
 
                             // Activate the skill, passing the player as the target
-                            availableSkills[2].ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, enemyStats.effectChance); // Attacker power is set to 10 for now
+                            availableSkills[2].ActivateSkill(target, enemyStats.skillDamage, multiplier, enemyStats.critChance, availableSkills[2].effect); // Attacker power is set to 10 for now
                             targetIndicatorE.SetActive(false);
                         }
                     }
@@ -361,8 +361,8 @@ public class EnemyAI : MonoBehaviour
             {
                 Skill chosenSkill = availableSkills[0];
                 float weaponMultiplier = GetWeaponMultiplier(PublicEnums.WeaponType.Sword);
-                availableSkills[0].ActivateSkill(GameManager.Instance.enemyObj[0], enemyStats.attackDamage, weaponMultiplier, enemyStats.critChance, enemyStats.effectChance);
-                availableSkills[1].ActivateSkill(GameManager.Instance.enemyObj[0], enemyStats.attackDamage, weaponMultiplier, enemyStats.critChance, enemyStats.effectChance);
+                availableSkills[0].ActivateSkill(GameManager.Instance.enemyObj[0], 0, weaponMultiplier, enemyStats.critChance, availableSkills[0].effect);
+                availableSkills[1].ActivateSkill(GameManager.Instance.enemyObj[0], 0, weaponMultiplier, enemyStats.critChance, availableSkills[1].effect);
 
                 enemyStats.special = false;
             }
@@ -420,7 +420,7 @@ public class EnemyAI : MonoBehaviour
                 PerformBasicAttack();
                 PerformBasicAttack();
                 float weaponMultiplier = GetWeaponMultiplier(PublicEnums.WeaponType.Sword);
-                availableSkills[0].ActivateSkill(GameManager.Instance.enemyObj[0], enemyStats.attackDamage, weaponMultiplier, enemyStats.critChance, enemyStats.effectChance); // this lowers his own defence
+                availableSkills[0].ActivateSkill(GameManager.Instance.enemyObj[0], 0, weaponMultiplier, enemyStats.critChance, availableSkills[0].effect); // this lowers his own defence
             }
             else
             {
@@ -464,7 +464,7 @@ public class EnemyAI : MonoBehaviour
             if (enemyStats.special_count == 3)
             {
                 float weaponMultiplier = GetWeaponMultiplier(PublicEnums.WeaponType.Sword);
-                availableSkills[1].ActivateSkill(GameManager.Instance.enemyObj[0], enemyStats.attackDamage, weaponMultiplier, enemyStats.critChance, enemyStats.effectChance); // after that he will clense his debuffs 
+                availableSkills[1].ActivateSkill(GameManager.Instance.enemyObj[0], 0, weaponMultiplier, enemyStats.critChance, availableSkills[1].effect); // after that he will clense his debuffs 
             }
 
         }
@@ -504,7 +504,7 @@ public class EnemyAI : MonoBehaviour
                     for (int i = 0; i < GameManager.Instance.battleParty.Count; i++)
                     {
                         target = GameManager.Instance.battleParty[i];
-                        if (target.GetComponent<playerController>().playerStats.health <= 0)
+                        if (target.GetComponent<playerController>().playerStats.health >= 0)
                         {
                             if (target != null)
                             {
@@ -517,7 +517,7 @@ public class EnemyAI : MonoBehaviour
                                 float multiplier = GetSkillMultiplier(availableSkills[0].elementType);
 
                                 // Activate the skill, passing the player as the target
-                                availableSkills[0].ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, enemyStats.effectChance); // Attacker power is set to 10 for now
+                                availableSkills[0].ActivateSkill(target, enemyStats.skillDamage, multiplier, enemyStats.critChance, availableSkills[0].effect); // Attacker power is set to 10 for now
                                 targetIndicatorE.SetActive(false);
                             }
                         }
@@ -612,7 +612,7 @@ public class EnemyAI : MonoBehaviour
             for (int i = 0; i < GameManager.Instance.battleParty.Count; i++)
             {
                 target = GameManager.Instance.battleParty[i];
-                if (target.GetComponent<EnemyAI>().enemyStats.health <= 0)
+                if (target.GetComponent<EnemyAI>().enemyStats.health >= 0)
                 {
                     if (target != null)
                     {
@@ -625,7 +625,7 @@ public class EnemyAI : MonoBehaviour
                         float multiplier = GetSkillMultiplier(skill.elementType);
 
                         // Activate the skill, passing the player as the target
-                        skill.ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, enemyStats.effectChance); // Attacker power is set to 10 for now
+                        skill.ActivateSkill(target, 0, multiplier, enemyStats.critChance, skill.effect); // Attacker power is set to 10 for now
                         targetIndicatorE.SetActive(false);
                     }
                 }
@@ -662,7 +662,7 @@ public class EnemyAI : MonoBehaviour
                 float multiplier = GetSkillMultiplier(skill.elementType);
 
                 // Activate the skill, passing the player as the target
-                skill.ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, enemyStats.effectChance); // Attacker power is set to 10 for now
+                skill.ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, skill.effect); // Attacker power is set to 10 for now
                 targetIndicatorE.SetActive(false);
             }
 
@@ -681,7 +681,7 @@ public class EnemyAI : MonoBehaviour
             for (int i = 0; i < GameManager.Instance.battleParty.Count; i++)
             {
                 target = GameManager.Instance.battleParty[i];
-                if (target.GetComponent<playerController>().playerStats.health <= 0)
+                if (target.GetComponent<playerController>().playerStats.health >= 0)
                 {
                     if (target != null)
                     {
@@ -694,7 +694,7 @@ public class EnemyAI : MonoBehaviour
                         float multiplier = GetSkillMultiplier(skill.elementType);
 
                         // Activate the skill, passing the player as the target
-                        skill.ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, enemyStats.effectChance); // Attacker power is set to 10 for now
+                        skill.ActivateSkill(target, enemyStats.skillDamage, multiplier, enemyStats.critChance, skill.effect); // Attacker power is set to 10 for now
                         targetIndicatorE.SetActive(false);
                     }
                 }
@@ -731,7 +731,7 @@ public class EnemyAI : MonoBehaviour
                 float multiplier = GetSkillMultiplier(skill.elementType);
 
                 // Activate the skill, passing the player as the target
-                skill.ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, enemyStats.effectChance); // Attacker power is set to 10 for now
+                skill.ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, skill.effect); // Attacker power is set to 10 for now
                 targetIndicatorE.SetActive(false);
             }
 
@@ -791,7 +791,7 @@ public class EnemyAI : MonoBehaviour
 
             // Activate the weapon attack
             Skill weaponAttack = new Skill();
-            weaponAttack.ActivateWeaponAttack(target, enemyStats.attackDamage, weaponMultiplier, enemyStats.critChance, enemyStats.effectChance); // Example power 10
+            weaponAttack.ActivateWeaponAttack(target, enemyStats.attackDamage, weaponMultiplier, enemyStats.critChance, weaponAttack.effect); // Example power 10
             targetIndicatorE.SetActive(false);
         }
     }

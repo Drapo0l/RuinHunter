@@ -15,11 +15,11 @@ public class Skill
     public bool AOE; // is it an aoe
 
 
-    public void ActivateSkill(GameObject target, int attackerPower, float multiplier,int crit, int effectC)
+    public void ActivateSkill(GameObject target, int attackerPower, float multiplier,int crit, PublicEnums.Effects effects)
     {
         // Simple damage calculation (adjust as necessary)
         int damage = Mathf.FloorToInt(baseDamage * multiplier) + attackerPower;
-        damage = Seffect(target, crit, effectC, damage, effect);
+        damage = Seffect(target, crit, damage, effects);
         if (effect != PublicEnums.Effects.Heal)
         {
             if (target.tag.Equals("Player"))
@@ -43,11 +43,11 @@ public class Skill
         }
     }
 
-    public void ActivateWeaponAttack(GameObject target, int attackerPower, float multiplier,int crit, int effectC)
+    public void ActivateWeaponAttack(GameObject target, int attackerPower, float multiplier,int crit, PublicEnums.Effects effects)
     {
         // Simple damage calculation (adjust as necessary)
         int damage = Mathf.FloorToInt(baseDamage * multiplier) + attackerPower;
-        damage = Seffect(target, crit, effectC, damage, effect);
+        damage = Seffect(target, crit, damage, effects);
         if (target.tag.Equals("Player"))
         {
             damage = damage - target.GetComponent<playerController>().playerStats.Defence;
@@ -70,7 +70,7 @@ public class Skill
         }
     }
 
-    int Seffect(GameObject T,int C, int E, int D, PublicEnums.Effects EN)
+    int Seffect(GameObject T,int C, int D, PublicEnums.Effects EN)
     {
         
         if (EN == PublicEnums.Effects.Crit)
