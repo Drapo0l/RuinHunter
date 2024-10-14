@@ -15,17 +15,22 @@ public class InventoryMenu : MonoBehaviour
     //public GameObject hoverIndicator;
     //public GameObject buttonPrefab;
 
-    //private bool EquipingArmour = false;
-    //private bool EquipingWeaon = false;
-    //private bool EquipingAccessory = false;
-
-    private int currentSelection = 0;
-    //private Stack<List<Button>> menuStack = new Stack<List<Button>>();
-    //private List<Button> currentMenu;
 
     public bool Ispause;
     float scaleorginaltime;
     public static InventoryMenu Instance;
+
+    //Show Player's stats
+    public List<GameObject> playerHealths;          // list of player health
+    public TMP_Text HP_text;
+    public List<GameObject> playerMana;          // list of player Mana
+    public TMP_Text Mana_text;
+    public List<GameObject> playerStrength;          // list of player Strentgh
+    public TMP_Text Strength_text;
+    public List<GameObject> playerSpeed;          // list of player speed
+    public TMP_Text Speed_text;
+    public List<GameObject> playerDefense;          // list of player Defense
+    public TMP_Text Defense_text;
 
 
     void Start()
@@ -51,8 +56,10 @@ public class InventoryMenu : MonoBehaviour
             }
 
         }
-
+      
     }
+
+
 
     public void startPause()
     {
@@ -97,5 +104,20 @@ public class InventoryMenu : MonoBehaviour
         menuWeapon.SetActive(false);
         menuPause.SetActive(true);
     }
+
+    private void ShowHealth()
+    {
+        List<GameObject> playerParty = PartyManager.Instance.GetPlayeGameObj();
+        int index = 0;
+        foreach (var playerChar in playerParty)
+        {
+            playerChar.transform.GetChild(0).gameObject.SetActive(true);
+            //HealthNumber
+            playerHealths[index].transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = playerChar.GetComponent<playerController>().playerStats.health.ToString() + " / " + playerChar.GetComponent<playerController>().playerStats.maxHealth.ToString();
+
+            index++;
+        }
+    }
+
 
 }
