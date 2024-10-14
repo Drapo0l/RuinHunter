@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.InputSystem.HID;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
+//using static UnityEditor.Progress;
 //using static UnityEditor.PlayerSettings;
 
 public class GameManager : MonoBehaviour

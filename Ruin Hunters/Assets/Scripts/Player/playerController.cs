@@ -19,8 +19,12 @@ public class playerController : MonoBehaviour, IDamage
     public LayerMask ignorePlayerLayer;
 
     public PublicEnums.WeaponType playerWeapon;
+    public PublicEnums.ArmourTypes playerArmour;
+    public PublicEnums.AccessoryTypes playerAccessory;
     // Angel's polo angel equip Item
-    public InventoryItem equippedItem;  // to show if the player has the equpied item or not and have it be equpied
+    public InventoryItem equippedWeapon;  // to show if the player has the equpied item or not and have it be equpied to the player's weapon,armour or accessory
+    public InventoryItem equippedArmour;
+    public InventoryItem equippedAccessory;
 
     // Create List to hold strengths and weaknesses
     public List<WeaponCalc> weaponsWeakness = new List<WeaponCalc>();
@@ -67,7 +71,7 @@ public class playerController : MonoBehaviour, IDamage
     }
 
     // Polo Angel's code
-    public void Equip(InventoryItem item)
+    public void EquipWeapon(InventoryItem item)
     {
         if (item == null) // if null, you can't equip it and gives a error message
         {
@@ -75,11 +79,37 @@ public class playerController : MonoBehaviour, IDamage
             return;
         }
         // equips the item on the player
-        equippedItem = item;
-       Debug.Log($"Equipped: {item.label}");
+
+        equippedWeapon = item;
+        playerWeapon = equippedWeapon.weaponType;
+        Debug.Log($"Equipped: {item.label}");
     }
 
-    private void CharacterMovement()
+    public void EquipArmour(InventoryItem item)
+    {
+        if (item == null) // if null, you can't equip it and gives a error message
+        {
+            Debug.LogError("Cannot equip a null item!");
+            return;
+        }
+        // equips the item on the player
+        equippedArmour = item;
+        playerArmour = equippedArmour.ArmourType;
+        Debug.Log($"Equipped: {item.label}");
+    }
+    public void EquipAccessory(InventoryItem item)
+    {
+        if (item == null) // if null, you can't equip it and gives a error message
+        {
+            Debug.LogError("Cannot equip a null item!");
+            return;
+        }
+        // equips the item on the player
+        equippedAccessory = item;
+        playerAccessory = equippedAccessory.AccessoryType;
+        Debug.Log($"Equipped: {item.label}");
+    }
+    public void CharacterMovement()
     {
         // raycast to check ground
         RaycastHit hit;
