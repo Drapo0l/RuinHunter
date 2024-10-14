@@ -210,7 +210,7 @@ public class EnemyAI : MonoBehaviour
                     availableSkills[1].ActivateSkill(GameManager.Instance.enemyObj[0], enemyStats.attackDamage, weaponMultiplier, enemyStats.critChance, enemyStats.effectChance); // and heal himself 
                     int kc;
                     kc = GameManager.Instance.battleParty.Count - 1;
-                    GameObject target = null;
+                    GameObject target;
                     for (int i = 0; i < GameManager.Instance.battleParty.Count; i++)// and will do an aoe that lowers the defence of the party this will then switch imbetween both for the remainder of the fight
                     {
                         target = GameManager.Instance.battleParty[i];
