@@ -2,44 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPC : NPCManager, NPCTalkable, NPCShop
+public class NPC : NPCManager, NPCTalkable
 {
     [SerializeField] private Dialogue dialogue;
     [SerializeField] private DialogueManager dialogueManager;
 
-    [SerializeField] private ShopItem shopItemsHeld;
-    private ShopSystem shopSystem;
-
     public bool isAShopNPC = false;
-
 
     public override void Interact()
     {
-        Talk(dialogue);
+        if (dialogueManager.gameObject.activeSelf)
+        {
+            // If the dialogue is already active, advance to the next sentence
+            dialogueManager.DisplayNextSentence(dialogue);
+        }
+        else
+        {
+            // Start the dialogue if it isn't active
+            Talk(dialogue);
+        }
     }
+
     public void Talk(Dialogue dialogueText)
     {
-        //start conversation
-        dialogueManager.DisplayNextSentence(dialogueText);
-    }
-
-    private void OnDialogueEnd()
-    {
-        if (isAShopNPC)
+        if (dialogueText != null && dialogueManager != null)
         {
-            Shop();
+            dialogueManager.StartDialogue(dialogueText);
         }
-    }
-
-    public void Shop()
-    {
-        shopSystem = new ShopSystem(shopItemsHeld.Items.Count, shopItemsHeld.MaxAllowedGold, shopItemsHeld.BuyMarkUp, shopItemsHeld.SellMarkUp);
-        foreach (var item in shopItemsHeld.Items)
-        {
-            shopSystem.AddToShop(item.itemData, item.Amount); // No need for 'as Item' since itemData is already of type Item
-        }
-
-        OpenShopUI();
     }
 
 }

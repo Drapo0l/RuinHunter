@@ -105,3 +105,5 @@ MonoBehaviour:
   isStuned: 0
   special: 0
   special_count: 0
+  weapon: {fileID: 0}
+  equipment: {fileID: 0}

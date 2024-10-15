@@ -54,7 +54,14 @@ public class EnemyAI : MonoBehaviour
         animatingAttack = false;
         GameManager.Instance.EndTurn();
     }
-
+    IEnumerator E_Pause()
+    {
+        yield return new WaitForSeconds(1f);
+    }
+    public void Epause()
+    {
+        StartCoroutine(E_Pause());
+    }
     IEnumerator MoveToPosition(Vector3 targetPosition, float duration)
     {
         float timeElapsed = 0f;
@@ -802,9 +809,17 @@ public class EnemyAI : MonoBehaviour
         damage = Mathf.FloorToInt(damage * multiplier);
         enemyStats.health -= damage;
         Vector3 targetPosition = transform.position;
-        DamageNumberManager.Instance.ShowNumbers(targetPosition, damage, Color.red);
+        if (damage < 0)
+        {
+            damage = damage * -1;
+            DamageNumberManager.Instance.ShowNumbers(targetPosition, damage, Color.green);
+        }
+        else
+        {
+            DamageNumberManager.Instance.ShowNumbers(targetPosition, damage, Color.red);
+        }
 
-        
+
 
         if (enemyStats.health <= 0)
         {
@@ -822,7 +837,16 @@ public class EnemyAI : MonoBehaviour
         damage = Mathf.FloorToInt(damage * multiplier);
         enemyStats.health -= damage;
         Vector3 targetPosition = transform.position;
-        DamageNumberManager.Instance.ShowNumbers(targetPosition, damage, Color.red);
+        if(damage < 0)
+        {
+            damage = damage * -1;
+            DamageNumberManager.Instance.ShowNumbers(targetPosition, damage, Color.green);
+        }
+        else
+        {
+            DamageNumberManager.Instance.ShowNumbers(targetPosition, damage, Color.red);
+        }
+       
 
         
 
