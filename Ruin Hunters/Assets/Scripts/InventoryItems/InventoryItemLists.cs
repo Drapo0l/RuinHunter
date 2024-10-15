@@ -42,7 +42,7 @@ public class InventoryItemLists : MonoBehaviour
         newMenuItem.transform.SetParent(_content.transform, true);
         newMenuItem.SetActive(true);
         newMenuItem.GetComponentInChildren<TextMeshProUGUI>().text = label;
-        newMenuItem.GetComponent<ItemEquiper>().Item = item;    
+        //newMenuItem.GetComponent<Item>().Item = item;    
     }
 
     void ActivateFirstItem() // always starts with the first item in the list and shows the name and details of the item on top

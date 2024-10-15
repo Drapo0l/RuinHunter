@@ -1093,7 +1093,7 @@ public class CharacterMenuManager : MonoBehaviour
         {
             itemStats.transform.GetChild(0).gameObject.transform.GetComponent<TextMeshProUGUI>().text = item.itemName;
             itemStats.transform.GetChild(1).gameObject.transform.GetComponent<Image>().sprite = item.Sprite;
-            itemStats.transform.GetChild(2).gameObject.transform.GetComponent<TextMeshProUGUI>().text = "Element: " + item.elementType.ToString();
+            itemStats.transform.GetChild(2).gameObject.transform.GetComponent<TextMeshProUGUI>().text = "Element: " + item.Element.ToString();
             itemStats.transform.GetChild(3).gameObject.transform.GetComponent<TextMeshProUGUI>().text = "Base Damage: " + item.effectAmount.ToString();
             itemStats.transform.GetChild(4).gameObject.transform.GetComponent<TextMeshProUGUI>().text = "Effect: " + item.potionEffect.ToString();
             itemStats.transform.GetChild(6).gameObject.transform.GetComponent<TextMeshProUGUI>().text = item.description;      

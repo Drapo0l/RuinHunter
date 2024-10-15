@@ -194,11 +194,11 @@ public class Shop : MonoBehaviour
         }
         else if (currentItemList == 1)
         {
-            ShowWeaponStats();
+            ShowEquipmentStats();
         }
         else if (currentItemList == 2)
         {
-            ShowEquipmentStats();
+            ShowWeaponStats();
         }
     }
 
