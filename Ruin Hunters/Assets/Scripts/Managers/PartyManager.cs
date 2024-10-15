@@ -30,7 +30,8 @@ public class PartyManager : MonoBehaviour
 
     private void Update()
     {
-        if (!GameManager.Instance.combat) 
+
+        if (!GameManager.Instance.combat && !GameManager.Instance.leveling) 
         {
             if (Input.GetKeyDown(KeyCode.Z))
             {
@@ -51,7 +52,7 @@ public class PartyManager : MonoBehaviour
 
     private void SwitchCharacter(int index)
     {
-        foreach (GameObject characters in startingPlayerParty) 
+        foreach (GameObject characters in startingPlayerParty)
         {
             characters.SetActive(false);
         }
@@ -64,7 +65,7 @@ public class PartyManager : MonoBehaviour
 
     private void Start()
     {
-        SwitchCharacter(0);
+        //SwitchCharacter(0);
         StartCoroutine(DelayForPartySetup());
     }
 
@@ -123,12 +124,12 @@ public class PartyManager : MonoBehaviour
 
     public List<CharacterAttributes> GetCurrentPartyComponent()
     {
-        return playerParty;
+        return new List<CharacterAttributes>(playerParty);
     }
 
     public List<GameObject> GetPlayeGameObj() 
     {
-        return startingPlayerParty;
+        return new List<GameObject>(startingPlayerParty);
     }
 
     public bool IsPartyFull()

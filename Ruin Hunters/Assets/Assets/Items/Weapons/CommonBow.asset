@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: SmallPotion
-  m_EditorClassIdentifier: Assembly-CSharp::Item
-  itemName: Small Potion
-  description: Heals user for 100HP
-  effectAmount: 100
-  amountOfItem: 5
-  damageable: 0
-  potionEffect: 2
+  m_Name: CommonBow
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponItem
+  Sprite: {fileID: 0}
+  itemName: Common Bow
+  description: Bow found around in the forest
+  damage: 40
+  skillDamage: 20
+  itemPrice: 40
+  weaponType: 15

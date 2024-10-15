@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 
 
@@ -8,6 +9,8 @@ using UnityEngine;
 public class InventoryItem : ScriptableObject
 {
     public string label = "Weapon";  // what you call and can change the name of the weapon or amour or accessory in the inscpetor of the ScriptableObject  
+    [SerializeField]
+    public Sprite ItemImage;
     public PublicEnums.WeaponType weaponType;
     public PublicEnums.ArmourTypes ArmourType;
     public PublicEnums.AccessoryTypes AccessoryType;
@@ -29,4 +32,6 @@ public class InventoryItem : ScriptableObject
         return AccessoryType;
 
     }
+
+
 }

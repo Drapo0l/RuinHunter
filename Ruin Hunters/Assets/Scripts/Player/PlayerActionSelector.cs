@@ -41,7 +41,8 @@ public class PlayerActionSelector : MonoBehaviour
     private bool skillAttack = false;
     private bool targetingParty = false;
     private bool usingItem = false;
-    private bool tutorial = true;
+    private bool animating = false;
+
 
     private List<Skill> playerSkills;
     public int visibleSkillCount = 4;
@@ -67,82 +68,90 @@ public class PlayerActionSelector : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.Instance.combat)
         {
-            // Handle navigation and selection input
-            if (menuPanel.activeSelf && !attacking && !skillAttack && !usingItem)
+            if (!animating)
             {
-                if (Input.GetKeyDown(KeyCode.W)) { Navigate(-1); }
-                if (Input.GetKeyDown(KeyCode.S)) { Navigate(1); }
-                if (Input.GetKeyDown(KeyCode.Return)) { ExecuteCurrentAction(); }
-                if (Input.GetKeyDown(KeyCode.Backspace)) { HandleBackspace(); }
+                // Handle navigation and selection input
+                if (menuPanel.activeSelf && !attacking && !skillAttack && !usingItem)
+                {
+                    if (Input.GetKeyDown(KeyCode.W)) { Navigate(-1); }
+                    if (Input.GetKeyDown(KeyCode.S)) { Navigate(1); }
+                    if (Input.GetKeyDown(KeyCode.Return)) { ExecuteCurrentAction(); }
+                    if (Input.GetKeyDown(KeyCode.Backspace)) { HandleBackspace(); }
+                }
+                else if (menuPanel.activeSelf && attacking)
+                {
+                    if (Input.GetKeyDown(KeyCode.W))
+                    {
+                        selectedEnemyIndex--;
+                        if (selectedEnemyIndex < 0) selectedEnemyIndex = enemies.Count - 1;
+                        SelectEnemy(selectedEnemyIndex);
+                    }
+                    if (Input.GetKeyDown(KeyCode.S))
+                    {
+                        selectedEnemyIndex++;
+                        if (selectedEnemyIndex >= enemies.Count) selectedEnemyIndex = 0;
+                        SelectEnemy(selectedEnemyIndex);
+                    }
+                    if (Input.GetKeyDown(KeyCode.Return))
+                    {
+                        StartCoroutine(DamageEnemy());
+                    }
+                    if (Input.GetKeyDown(KeyCode.Backspace))
+                    {
+                        HandleAttackBackspace();
+                    }
+                }
+                else if (menuPanel.activeSelf && skillAttack)
+                {
+                    if (Input.GetKeyDown(KeyCode.W)) { NavigateSkills(-1); }
+                    if (Input.GetKeyDown(KeyCode.S)) { NavigateSkills(1); }
+                    if (Input.GetKeyDown(KeyCode.Return))
+                    {
+                        PerformAttack();
+                    }
+                    if (Input.GetKeyDown(KeyCode.Backspace)) { HandleBackspace(); }
+                }
+                else if (targetingParty)
+                {
+                    if (Input.GetKeyDown(KeyCode.W))
+                    {
+                        selectedPartyIndex--;
+                        if (selectedPartyIndex < 0) selectedPartyIndex = playerParty.Count - 1;
+                        targetParty(selectedPartyIndex);
+                    }
+                    if (Input.GetKeyDown(KeyCode.S))
+                    {
+                        selectedPartyIndex++;
+                        if (selectedPartyIndex >= playerParty.Count) selectedPartyIndex = 0;
+                        targetParty(selectedPartyIndex);
+                    }
+                    if (Input.GetKeyDown(KeyCode.Return))
+                    {
+                        consumeItem();
+                    }
+                    if (Input.GetKeyDown(KeyCode.Backspace))
+                    {
+                        HandleAttackBackspace();
+                    }
+                }
+                else if (menuPanel.activeSelf && usingItem)
+                {
+                    if (Input.GetKeyDown(KeyCode.W)) { NavigateItems(-1); }
+                    if (Input.GetKeyDown(KeyCode.S)) { NavigateItems(1); }
+                    if (Input.GetKeyDown(KeyCode.Return))
+                    {
+                        UseItem();
+                    }
+                    if (Input.GetKeyDown(KeyCode.Backspace))
+                    { HandleBackspace(); }
+                }
             }
-            else if (menuPanel.activeSelf && attacking)
-            {
-                if (Input.GetKeyDown(KeyCode.W))
-                {
-                    selectedEnemyIndex--;
-                    if (selectedEnemyIndex < 0) selectedEnemyIndex = enemies.Count - 1;
-                    SelectEnemy(selectedEnemyIndex);
-                }
-                if (Input.GetKeyDown(KeyCode.S))
-                {
-                    selectedEnemyIndex++;
-                    if (selectedEnemyIndex >= enemies.Count) selectedEnemyIndex = 0;
-                    SelectEnemy(selectedEnemyIndex);
-                }
-                if (Input.GetKeyDown(KeyCode.Return))
-                {
-                    StartCoroutine(DamageEnemy());
-                }
-                if (Input.GetKeyDown(KeyCode.Backspace))
-                {
-                    HandleAttackBackspace();
-                }
-            }
-            else if (menuPanel.activeSelf && skillAttack)
-            {
-                if (Input.GetKeyDown(KeyCode.W)) { NavigateSkills(-1); }
-                if (Input.GetKeyDown(KeyCode.S)) { NavigateSkills(1); }
-                if (Input.GetKeyDown(KeyCode.Return))
-                {
-                    PerformAttack();
-                }
-                if (Input.GetKeyDown(KeyCode.Backspace)) { HandleBackspace(); }
-            }
-            else if (targetingParty)
-            {
-                if (Input.GetKeyDown(KeyCode.W))
-                {
-                    selectedPartyIndex--;
-                    if (selectedPartyIndex < 0) selectedPartyIndex = playerParty.Count - 1;
-                    targetParty(selectedPartyIndex);
-                }
-                if (Input.GetKeyDown(KeyCode.S))
-                {
-                    selectedPartyIndex++;
-                    if (selectedPartyIndex >= playerParty.Count) selectedPartyIndex = 0;
-                    targetParty(selectedPartyIndex);
-                }
-                if (Input.GetKeyDown(KeyCode.Return))
-                {
-                    consumeItem();
-                }
-                if (Input.GetKeyDown(KeyCode.Backspace))
-                {
-                    HandleAttackBackspace();
-                }
-            }
-            else if (menuPanel.activeSelf && usingItem)
-            {
-                if (Input.GetKeyDown(KeyCode.W)) { NavigateItems(-1); }
-                if (Input.GetKeyDown(KeyCode.S)) { NavigateItems(1); }
-                if (Input.GetKeyDown(KeyCode.Return))
-                {
-                    UseItem();
-                }
-                if (Input.GetKeyDown(KeyCode.Backspace))
-                { HandleBackspace(); }
-            }
+        }
+        else
+        {
+            menuPanel.SetActive(false);
         }
     }
 
@@ -157,32 +166,24 @@ public class PlayerActionSelector : MonoBehaviour
 
         menuPanel.SetActive(true); // enable the menu
 
-        //SetMenuPositionToLeftOfPlayer();
+        SetMenuPositionToLeftOfPlayer();
     }
 
-    //private void SetMenuPositionToLeftOfPlayer()
-    //{
-    //    Vector3 playerWorldPos = playerTransform.position;
+    private void SetMenuPositionToLeftOfPlayer()
+    {
+        Vector3 playerWorldPos = playerTransform.position;
 
-    //    Vector3 offset = new Vector3(-2f, 0, 0);
+        Vector3 offset = new Vector3(-2f, 0, 0);
 
-    //    Vector3 screenPos = battleCamera.WorldToScreenPoint(playerWorldPos + offset);
+        Vector3 screenPos = battleCamera.WorldToScreenPoint(playerWorldPos + offset);
 
-    //    if (screenPos.z < 0) // if it's behind the camera
-    //    {           
-    //        return;
-    //    }
-    //    RectTransform canvasRectTransform = actionMenu.GetComponentInParent<Canvas>().GetComponent<RectTransform>();
+        if (screenPos.z < 0) // if it's behind the camera
+        {
+            return;
+        }
 
-    //    RectTransformUtility.ScreenPointToLocalPointInRectangle(
-    //    canvasRectTransform,
-    //    screenPos,
-    //    battleCamera,
-    //    out Vector2 localPoint);
-    //    //localPoint.x += 1100;
-    //    //localPoint.y += 600;
-    //    actionMenu.GetComponent<RectTransform>().anchoredPosition = localPoint;
-    //}
+        actionMenu.GetComponent<RectTransform>().anchoredPosition = screenPos;
+    }
 
     public void HideMenu()
     {
@@ -264,7 +265,7 @@ public class PlayerActionSelector : MonoBehaviour
             itemScrollIndex = Mathf.Max(0, playerItems.Count - 5);
             PopulateItemMenu();
         }
-        else if (currentSelection >= playerSkills.Count)
+        else if (currentSelection >= playerItems.Count)
         {
             //if player is at the bottom go to first skill
             currentSelection = 0;
@@ -280,7 +281,7 @@ public class PlayerActionSelector : MonoBehaviour
         }
         else if (currentSelection >= itemScrollIndex + 5)
         {
-            itemScrollIndex = Mathf.Min(playerSkills.Count - 5, itemScrollIndex + 1); //scroll down
+            itemScrollIndex = Mathf.Min(playerItems.Count - 5, itemScrollIndex + 1); //scroll down
             PopulateItemMenu();
         }
 
@@ -525,9 +526,9 @@ public class PlayerActionSelector : MonoBehaviour
 
     public IEnumerator DamageEnemy()
     {
-        
         if (!usingItem)
         {
+            animating = true;
             Vector3 origininalPosition = playerTransform.position;
             Transform enemyTransform = enemies[selectedEnemyIndex].transform;
             
@@ -559,17 +560,17 @@ public class PlayerActionSelector : MonoBehaviour
                             i--;
                             currentMax--;
                         }
-                        enemies[i].GetComponent<EnemyAI>().TakeSkillDamage(playerSkills[skillScrollIndex].baseDamage, playerSkills[skillScrollIndex].elementType);
+                        enemies[i].GetComponent<EnemyAI>().TakeSkillDamage(playerSkills[skillScrollIndex].baseDamage + playerController.playerStats.weapon.skillDamage, playerSkills[skillScrollIndex].elementType);
                     }
                 }
                 else
                 {
-                    enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(playerSkills[skillScrollIndex].baseDamage, playerSkills[skillScrollIndex].elementType);
+                    enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(playerSkills[skillScrollIndex].baseDamage + playerController.playerStats.weapon.skillDamage, playerSkills[skillScrollIndex].elementType);
                 }
             }            
             else
             {
-                enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeMeleeDamage(playerController.playerStats.attackDamage, playerController.playerWeapon);
+                enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeMeleeDamage(playerController.playerStats.attackDamage + playerController.playerStats.weapon.damage, playerController.playerWeapon);
             }
 
 
@@ -588,18 +589,211 @@ public class PlayerActionSelector : MonoBehaviour
         HideMenu();
         if (enemies.Count != 0)        
             GameManager.Instance.EndTurn();
+        animating = false;
     }
-    
+
     private void consumeItem()
     {
+        EnemyAI pause = new EnemyAI();
         Item item = InventoryManager.instance.GetItems()[itemScrollIndex];
-        if (item.potionEffect == PublicEnums.Effects.Heal)
+        if (item.damageable == false)
         {
-            DamageNumberManager.Instance.ShowNumbers(playerParty[selectedPartyIndex].transform.position, item.effectAmount, Color.green);
-            playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.health += item.effectAmount;
-            if (playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.health > playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.maxHealth)
-                playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.health = playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.maxHealth;
+            if (item.potionEffect == PublicEnums.Effects.Heal)
+            {
+                DamageNumberManager.Instance.ShowNumbers(playerParty[selectedPartyIndex].transform.position, item.effectAmount, Color.green);
+                playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.health += item.effectAmount;
+                if (playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.health > playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.maxHealth)
+                    playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.health = playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.maxHealth;
+            }
+            if (item.potionEffect == PublicEnums.Effects.AttackUp)
+            {
+                DamageNumberManager.Instance.ShowString(playerParty[selectedPartyIndex].transform.position, "ATT UP", Color.red);
+                playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage = playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage * 2;
+            }
+            if (item.potionEffect == PublicEnums.Effects.DefenceUp)
+            {
+                DamageNumberManager.Instance.ShowString(playerParty[selectedPartyIndex].transform.position, "DEF UP", Color.blue);
+                playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage = playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage * 2;
+            }
+            if (item.potionEffect == PublicEnums.Effects.SpeedUp)
+            {
+                DamageNumberManager.Instance.ShowString(playerParty[selectedPartyIndex].transform.position, "SPD UP", Color.green);
+                playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage = playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage * 2;
+            }
+            if (item.potionEffect == PublicEnums.Effects.SkillPUP)
+            {
+                DamageNumberManager.Instance.ShowString(playerParty[selectedPartyIndex].transform.position, "SKL UP", Color.cyan);
+                playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage = playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage * 2;
+            }
+            if (item.potionEffect == PublicEnums.Effects.Clense)
+            {
+                DamageNumberManager.Instance.ShowString(playerParty[selectedPartyIndex].transform.position, "Clense", Color.gray);
+                playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage = playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage * 2;
+            }
+            if (item.potionEffect == PublicEnums.Effects.Revive)
+            {
+                DamageNumberManager.Instance.ShowString(playerParty[selectedPartyIndex].transform.position, "REBORN", Color.yellow);
+                GameManager.Instance.PlayerReborn(playerParty[selectedPartyIndex]);
+            }
+            if (item.potionEffect == PublicEnums.Effects.Party_AttackUp)
+            {
+                for (int i = 0; i < playerParty.Count; i++)
+                {
+                    if (playerParty[i].GetComponent<playerController>().playerStats.health > 0)
+                    {
+                        DamageNumberManager.Instance.ShowString(playerParty[i].transform.position, "ATT UP", Color.red);
+                        playerParty[i].GetComponent<playerController>().playerStats.attackDamage = playerParty[i].GetComponent<playerController>().playerStats.attackDamage * 2;
+                    }
+
+
+                }
+            }
+            if (item.potionEffect == PublicEnums.Effects.Party_DefenceUp)
+            {
+                for (int i = 0; i < playerParty.Count; i++)
+                {
+                    if (playerParty[i].GetComponent<playerController>().playerStats.health > 0)
+                    {
+                        DamageNumberManager.Instance.ShowString(playerParty[i].transform.position, "DEF UP", Color.blue);
+                        playerParty[i].GetComponent<playerController>().playerStats.Defence = playerParty[i].GetComponent<playerController>().playerStats.Defence * 2;
+                    }
+
+
+                }
+            }
+            if (item.potionEffect == PublicEnums.Effects.Party_SpeedUp)
+            {
+                for (int i = 0; i < playerParty.Count; i++)
+                {
+                    if (playerParty[i].GetComponent<playerController>().playerStats.health > 0)
+                    {
+                        DamageNumberManager.Instance.ShowString(playerParty[i].transform.position, "SPD UP", Color.green);
+                        playerParty[i].GetComponent<playerController>().playerStats.combatSpeed = playerParty[i].GetComponent<playerController>().playerStats.combatSpeed * 2;
+                    }
+
+
+                }
+            }
+            if (item.potionEffect == PublicEnums.Effects.Party_SkillUp)
+            {
+                for (int i = 0; i < playerParty.Count; i++)
+                {
+                    if (playerParty[i].GetComponent<playerController>().playerStats.health > 0)
+                    {
+                        DamageNumberManager.Instance.ShowString(playerParty[i].transform.position, "SKL UP", Color.cyan);
+                        playerParty[i].GetComponent<playerController>().playerStats.skillDamage = playerParty[i].GetComponent<playerController>().playerStats.skillDamage * 2;
+                    }
+
+
+                }
+            }
+            if (item.potionEffect == PublicEnums.Effects.Party_Revive)
+            {
+                for (int i = 0; i < playerParty.Count; i++)
+                {
+                    if (playerParty[i].GetComponent<playerController>().playerStats.health <= 0)
+                    {
+                        DamageNumberManager.Instance.ShowString(playerParty[i].transform.position, "REBORN", Color.yellow);
+                        GameManager.Instance.PlayerReborn(playerParty[i]);
+                    }
+                }
+            }
         }
+        else
+        {
+            if (item.potionEffect == PublicEnums.Effects.None)
+            {
+                enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element);
+            }
+            if (item.potionEffect == PublicEnums.Effects.Party_None)
+            {
+                for (int i = 0; i < playerParty.Count; i++)
+                {
+                    if (enemies[i].GetComponent<playerController>().playerStats.health <= 0)
+                    {
+                        enemies[i].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element);
+                    }
+                }
+                
+            }
+            if (item.potionEffect == PublicEnums.Effects.AttackDown)
+            {
+                DamageNumberManager.Instance.ShowString(enemies[selectedEnemyIndex].transform.position, "ATT DOWN", Color.black);
+                enemies[selectedEnemyIndex].GetComponent<EnemyAI>().enemyStats.attackDamage = enemies[selectedEnemyIndex].GetComponent<playerController>().playerStats.attackDamage / 2;
+                pause.Epause();
+                enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element);
+            }
+            if (item.potionEffect == PublicEnums.Effects.DefenceDown)
+            {
+                DamageNumberManager.Instance.ShowString(enemies[selectedEnemyIndex].transform.position, "DEF DOWN", Color.black);
+                enemies[selectedEnemyIndex].GetComponent<EnemyAI>().enemyStats.Defence = enemies[selectedEnemyIndex].GetComponent<playerController>().playerStats.attackDamage / 2;
+                pause.Epause();
+                enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element);
+            }
+            if (item.potionEffect == PublicEnums.Effects.SpeedDown)
+            {
+                DamageNumberManager.Instance.ShowString(enemies[selectedEnemyIndex].transform.position, "SPD DOWN", Color.black);
+                enemies[selectedEnemyIndex].GetComponent<EnemyAI>().enemyStats.combatSpeed = enemies[selectedEnemyIndex].GetComponent<playerController>().playerStats.attackDamage / 2;
+                pause.Epause();
+                enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element);
+            }
+            if (item.potionEffect == PublicEnums.Effects.SkillPDown)
+            {
+                DamageNumberManager.Instance.ShowString(enemies[selectedEnemyIndex].transform.position, "SKL DOWN", Color.black);
+                enemies[selectedEnemyIndex].GetComponent<EnemyAI>().enemyStats.skillDamage = enemies[selectedEnemyIndex].GetComponent<playerController>().playerStats.attackDamage / 2;
+                pause.Epause();
+                enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element);
+            }
+            if (item.potionEffect == PublicEnums.Effects.Party_AttackDown)
+            {
+                for (int i = 0; i < playerParty.Count; i++)
+                {
+                    if (enemies[i].GetComponent<playerController>().playerStats.health <= 0)
+                    {
+                        DamageNumberManager.Instance.ShowString(enemies[selectedEnemyIndex].transform.position, "ATT DOWN", Color.black);
+                        pause.Epause();
+                        enemies[i].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element);
+                    }
+                }
+            }
+            if (item.potionEffect == PublicEnums.Effects.Party_DefenceDown)
+            {
+                for (int i = 0; i < playerParty.Count; i++)
+                {
+                    if (enemies[i].GetComponent<playerController>().playerStats.health <= 0)
+                    {
+                        DamageNumberManager.Instance.ShowString(enemies[selectedEnemyIndex].transform.position, "DEF DOWN", Color.black);
+                        pause.Epause();
+                        enemies[i].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element);
+                    }
+                }
+            }
+            if (item.potionEffect == PublicEnums.Effects.Party_SpeedDown)
+            {
+                for (int i = 0; i < playerParty.Count; i++)
+                {
+                    if (enemies[i].GetComponent<playerController>().playerStats.health <= 0)
+                    {
+                        DamageNumberManager.Instance.ShowString(enemies[selectedEnemyIndex].transform.position, "SPD DOWN", Color.black);
+                        pause.Epause();
+                        enemies[i].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element);
+                    }
+                }
+            }
+            if (item.potionEffect == PublicEnums.Effects.Party_SkillDown)
+            {
+                for (int i = 0; i < playerParty.Count; i++)
+                {
+                    if (enemies[i].GetComponent<playerController>().playerStats.health <= 0)
+                    {
+                        DamageNumberManager.Instance.ShowString(enemies[selectedEnemyIndex].transform.position, "SKL DOWN", Color.black);
+                        pause.Epause();
+                        enemies[i].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element);
+                    }
+                }
+            }
+        }
+        
         //continue if statements for other item types
         //leave this at the end to consume the item
         item.amountOfItem--;

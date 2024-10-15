@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.InputSystem.HID;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
+//using static UnityEditor.Progress;
 //using static UnityEditor.PlayerSettings;
 
 public class GameManager : MonoBehaviour
@@ -19,8 +19,10 @@ public class GameManager : MonoBehaviour
     public GameObject playerCamera;
     public GameObject battleCamera;
     public GameObject playerParent;
+    public GameObject battleUI;
     public int expTotal;
     private List<CharacterAttributes> playerParty; // list to hold player party
+    public List<GameObject> Grave_Yard = new List<GameObject>();
     public List<GameObject> battlePartyHealth = new List<GameObject>();
     public List<GameObject> battleParty = new List<GameObject>();
     private List<CharacterAttributes> characters; //list to hold enmies and allies
@@ -118,6 +120,7 @@ public class GameManager : MonoBehaviour
             characters[i].critChanceOG = characters[i].critChance;
             characters[i].effectChanceOG = characters[i].effectChance;
             expTotal = characters[i].expGive + expTotal;
+            characters[i].Defence += characters[i].equipment.armor;
         }
         SetupBattleField();
 
@@ -174,7 +177,7 @@ public class GameManager : MonoBehaviour
                 player.transform.localScale = new Vector3(Math.Abs(player.transform.localScale.x) * -1, player.transform.localScale.y, player.transform.localScale.z);
             player.SetActive(true);
             player.transform.SetParent(battleCamera.transform);
-            player.transform.localPosition = new Vector3(3f + pos, 0f, 10f + pos);
+            player.transform.localPosition = new Vector3(2.03f + pos, -1.28f, 7.5f + pos);
             pos++;
         }
         pos = 0;
@@ -216,7 +219,7 @@ public class GameManager : MonoBehaviour
         //spawn at certain location
         return Vector3.zero; //placeholder
     }
-
+                
     public void StartTurn()
     {
 
@@ -226,10 +229,18 @@ public class GameManager : MonoBehaviour
         }
 
         combat = true;
-
+        
         CharacterAttributes currentCharacter = turnOrder[currentTurnIndex];
-
-        currentCharacter.isTurn = true;
+        if (currentCharacter.isStuned == true)
+        {
+           
+            EndTurn();
+        }
+        else
+        {
+            currentCharacter.isTurn = true;
+        }
+            
 
     }
 
@@ -275,14 +286,24 @@ public class GameManager : MonoBehaviour
         currentTurnIndex--;
         battleParty.Remove(player);
         turnOrder.Remove(player.GetComponent<playerController>().playerStats);
+        Grave_Yard.Add(player);
         if (battleParty.Count == 0)
         {
             StartCoroutine(EndCombat());            
         }
     }
-
+    public void PlayerReborn(GameObject player)
+    {
+        currentTurnIndex++;
+        battleParty.Add(player);
+        turnOrder.Add(player.GetComponent<playerController>().playerStats);
+        Grave_Yard.Remove(player);
+       
+    }
     public IEnumerator EndCombat()
     {
+        
+
         for (int i = 0; i < characters.Count; i++)
         {
             characters[i].maxMana = characters[i].maxManaOG;
@@ -299,6 +320,8 @@ public class GameManager : MonoBehaviour
 
 
         yield return new WaitForSeconds(2f);
+        combat = false;
+        battleUI.SetActive(false);
         InventoryManager.instance.Gold += totalGold;
         foreach (var player in battleParty)
         {
@@ -340,7 +363,7 @@ public class GameManager : MonoBehaviour
         characters.Clear();
         playerParty.Clear();
         wasCombatInitialized = false;
-        combat = false;
+       
         battleCamera.SetActive(false);
         playerCamera.SetActive(true);
         playerHealthsParent.SetActive(false);
@@ -365,7 +388,6 @@ public class GameManager : MonoBehaviour
         int child = 0;
         foreach (GameObject player in playerLeveled) 
         {
-            player.GetComponent<playerController>().actionSelector.HideMenu();
             player.GetComponent<SphereCollider>().enabled = true;            
             levelUpScreen.transform.GetChild(child).gameObject.SetActive(true);
             GameObject playerPanel = levelUpScreen.transform.GetChild(child).gameObject;

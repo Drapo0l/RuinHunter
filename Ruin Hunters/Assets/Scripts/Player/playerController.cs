@@ -19,8 +19,6 @@ public class playerController : MonoBehaviour, IDamage
     public LayerMask ignorePlayerLayer;
 
     public PublicEnums.WeaponType playerWeapon;
-    // Angel's polo angel equip Item
-    public InventoryItem equippedItem;  // to show if the player has the equpied item or not and have it be equpied
 
     // Create List to hold strengths and weaknesses
     public List<WeaponCalc> weaponsWeakness = new List<WeaponCalc>();
@@ -44,7 +42,8 @@ public class playerController : MonoBehaviour, IDamage
     void Update()
     {
         
-        if(!GameManager.Instance.leveling && !GameManager.Instance.combat)
+
+        if(!GameManager.Instance.leveling && !GameManager.Instance.combat && !CharacterMenuManager.Instance.inUI)
         {
             CharacterMovement();
         }
@@ -66,20 +65,48 @@ public class playerController : MonoBehaviour, IDamage
 
     }
 
-    // Polo Angel's code
-    public void Equip(InventoryItem item)
-    {
-        if (item == null) // if null, you can't equip it and gives a error message
-        {
-            Debug.LogError("Cannot equip a null item!");
-            return;
-        }
-        // equips the item on the player
-        equippedItem = item;
-       Debug.Log($"Equipped: {item.label}");
-    }
+    //// Polo Angel's code
+    //public void EquipWeapon(InventoryItem item)
+    //{
+    //    if (item == null) // if null, you can't equip it and gives a error message
+    //    {
+    //        Debug.LogError("Cannot equip a null item!");
+    //        return;
+    //    }
+    //    // equips the item on the player
 
-    private void CharacterMovement()
+
+
+    //    equippedWeapon = item;
+    //    playerWeapon = equippedWeapon.weaponType;
+
+    //}
+
+    //public void EquipArmour(InventoryItem item)
+    //{
+    //    if (item == null) // if null, you can't equip it and gives a error message
+    //    {
+    //        Debug.LogError("Cannot equip a null item!");
+    //        return;
+    //    }
+    //    // equips the item on the player
+    //    equippedArmour = item;
+    //    playerArmour = equippedArmour.ArmourType;
+    //    Debug.Log($"Equipped: {item.label}");
+    //}
+    //public void EquipAccessory(InventoryItem item)
+    //{
+    //    if (item == null) // if null, you can't equip it and gives a error message
+    //    {
+    //        Debug.LogError("Cannot equip a null item!");
+    //        return;
+    //    }
+    //    // equips the item on the player
+    //    equippedAccessory = item;
+    //    playerAccessory = equippedAccessory.AccessoryType;
+    //    Debug.Log($"Equipped: {item.label}");
+    //}
+    public void CharacterMovement()
     {
         // raycast to check ground
         RaycastHit hit;
@@ -133,7 +160,15 @@ public class playerController : MonoBehaviour, IDamage
         damage = Mathf.FloorToInt(damage * multiplier);
         playerStats.health -= damage;
         Vector3 targetPosition = transform.position;
-        DamageNumberManager.Instance.ShowNumbers(targetPosition, damage, Color.red);
+        if (damage < 0)
+        {
+            damage = damage * -1;
+            DamageNumberManager.Instance.ShowNumbers(targetPosition, damage, Color.green);
+        }
+        else
+        {
+            DamageNumberManager.Instance.ShowNumbers(targetPosition, damage, Color.red);
+        }
 
         if (playerStats.health <= 0)
         {
@@ -152,8 +187,16 @@ public class playerController : MonoBehaviour, IDamage
         damage = Mathf.FloorToInt(damage * multiplier);
         playerStats.health -= damage; 
         Vector3 targetPosition = transform.position;
-        DamageNumberManager.Instance.ShowNumbers(targetPosition, damage, Color.red);
-        
+        if (damage < 0)
+        {
+            damage = damage * -1;
+            DamageNumberManager.Instance.ShowNumbers(targetPosition, damage, Color.green);
+        }
+        else
+        {
+            DamageNumberManager.Instance.ShowNumbers(targetPosition, damage, Color.red);
+        }
+
 
         if (playerStats.health <= 0)
         {

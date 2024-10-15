@@ -35,6 +35,8 @@ public class CharacterAttributes : ScriptableObject
     public bool isStuned = false;
     public bool special = false;
     public int special_count;
+    public WeaponItem weapon;
+    public EquipmentItem equipment;
 
     public void AddExperience (int xpAmount)
     {

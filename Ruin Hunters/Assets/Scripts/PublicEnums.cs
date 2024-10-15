@@ -7,11 +7,11 @@ public class PublicEnums : Item
     
     public enum WeaponType
     {
-        None =0,
-        Sword = 15,
-        Dagger=10,
-        Bow =15,
-        Lance =15,
+        None,
+        Sword,
+        Dagger,
+        Bow,
+        Lance,
         
     }
 
@@ -67,6 +67,19 @@ public class PublicEnums : Item
         SkillPDown,
         SkillPUP,
         Clense,
+        Revive,
+        Party_Heal,
+        Party_AttackUp,
+        Party_DefenceUp,
+        Party_SpeedUp,
+        Party_SkillUp,
+        Party_Revive,
+        Party_None,
+        Party_AttackDown,
+        Party_DefenceDown,
+        Party_SpeedDown,
+        Party_SkillDown,
+       
     }
 
     public enum EnemyTypes // these are the enemy types 
@@ -103,6 +116,8 @@ public class PublicEnums : Item
         Weapon,
         Equipment
     }
+
+  
 
     [CreateAssetMenu(fileName = "NewConsumable", menuName = "Items/Consumable")]
     public class ConsumableItem : Item
