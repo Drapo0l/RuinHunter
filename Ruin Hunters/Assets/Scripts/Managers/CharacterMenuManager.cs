@@ -47,6 +47,7 @@ public class CharacterMenuManager : MonoBehaviour
     public GameObject itemStats;
     public GameObject skillStats;
     public GameObject choosePlayer;
+    public GameObject playerRevivedAlive;
 
     public GameObject cursor;
     public GameObject statMenu;
@@ -149,7 +150,13 @@ public class CharacterMenuManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.W)) { NavigateParty(-1); }
             if (Input.GetKeyDown(KeyCode.S)) { NavigateParty(1); }
-            if (Input.GetKeyDown(KeyCode.Return)) { UseItem(); }
+            if (Input.GetKeyDown(KeyCode.Return)) 
+            { 
+                if(ItemMenu)
+                    StartCoroutine(UseItem()); 
+                else
+                    StartCoroutine(UseSkill());
+            }
             if (Input.GetKeyDown(KeyCode.Backspace)) { HandleBackspaceSmallerMenu(); }
         }
         else if(ItemMenu && statMenu.activeSelf)
@@ -157,6 +164,7 @@ public class CharacterMenuManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.W)) { NavigateItems(-1); }
             if (Input.GetKeyDown(KeyCode.S)) { NavigateItems(1); }
             if (Input.GetKeyDown(KeyCode.Return)) { CheckForItemUse(); }
+
 
             if (Input.GetKeyDown(KeyCode.Backspace)) { HandleBackspace(); }
         }
@@ -324,7 +332,7 @@ public class CharacterMenuManager : MonoBehaviour
 
         subMenuParent.SetActive(true);
 
-        int floor = (int)Math.Ceiling((double)currentSelection / 2) - 1;
+        int floor = (int)Math.Ceiling((double)playerScrollIndex / 2) - 1;
         if (floor < 0)
         {
             floor = 0;
@@ -365,7 +373,7 @@ public class CharacterMenuManager : MonoBehaviour
 
         subMenuParent.SetActive(true);
 
-        int floor = (int)Math.Ceiling((double)currentSelection / 2) - 1;
+        int floor = (int)Math.Ceiling((double)playerScrollIndex / 2) - 1;
         if (floor < 0)
         {
             floor = 0;
@@ -404,7 +412,7 @@ public class CharacterMenuManager : MonoBehaviour
         currentSelection += direction;
         skillScrollIndex += direction;
 
-        int floor = (int)Math.Ceiling((double)currentSelection / 2) - 1;
+        int floor = (int)Math.Ceiling((double)playerScrollIndex / 2) - 1;
         if (floor < 0) 
         {
             floor = 0;
@@ -493,13 +501,13 @@ public class CharacterMenuManager : MonoBehaviour
         cursor.transform.SetParent(subMenuParent.transform);
 
         List<WeaponItem> playerItems = new List<WeaponItem>(InventoryManager.instance.GetWeaponItems());
-        int floor = (int)Math.Ceiling((double)currentSelection / 2) - 1;
+        int floor = (int)Math.Ceiling((double)playerScrollIndex / 2) - 1;
         if (floor < 0)
         {
             floor = 0;
         }
         if (playerParty[floor].GetComponent<playerController>().playerStats.weapon != null)
-            playerItems.Add(playerParty[floor].GetComponent<playerController>().playerStats.weapon);
+            playerItems.Insert(0, playerParty[floor].GetComponent<playerController>().playerStats.weapon);
 
         weaponItems = playerItems;
         if (currentSelection > weaponItems.Count)
@@ -557,13 +565,13 @@ public class CharacterMenuManager : MonoBehaviour
         cursor.transform.SetParent(subMenuParent.transform);
 
         List<WeaponItem> playerItems = new List<WeaponItem>(InventoryManager.instance.GetWeaponItems());
-        int floor = (int)Math.Ceiling((double)currentSelection / 2) - 1;
+        int floor = (int)Math.Ceiling((double)playerScrollIndex / 2) - 1;
         if (floor < 0)
         {
             floor = 0;
         }
         if (playerParty[floor].GetComponent<playerController>().playerStats.weapon != null)
-            playerItems.Add(playerParty[floor].GetComponent<playerController>().playerStats.weapon);
+            playerItems.Insert(0, playerParty[floor].GetComponent<playerController>().playerStats.weapon);
 
         weaponItems = playerItems;
 
@@ -623,13 +631,13 @@ public class CharacterMenuManager : MonoBehaviour
         cursor.transform.SetParent(subMenuParent.transform);
 
         List<EquipmentItem> playerItems = new List<EquipmentItem>(InventoryManager.instance.GetEquipmentItems());
-        int floor = (int)Math.Ceiling((double)currentSelection / 2) - 1;
+        int floor = (int)Math.Ceiling((double)playerScrollIndex / 2) - 1;
         if (floor < 0)
         {
             floor = 0;
         }
         if (playerParty[floor].GetComponent<playerController>().playerStats.equipment != null)
-            playerItems.Add(playerParty[floor].GetComponent<playerController>().playerStats.equipment);
+            playerItems.Insert(0, playerParty[floor].GetComponent<playerController>().playerStats.equipment);
 
         equipmentItems = playerItems;
         if(currentSelection > equipmentItems.Count)
@@ -690,13 +698,13 @@ public class CharacterMenuManager : MonoBehaviour
         cursor.transform.SetParent(subMenuParent.transform);
 
         List<EquipmentItem> playerItems = new List<EquipmentItem>(InventoryManager.instance.GetEquipmentItems());
-        int floor = (int)Math.Ceiling((double)currentSelection / 2) - 1;
+        int floor = (int)Math.Ceiling((double)playerScrollIndex / 2) - 1;
         if (floor < 0)
         {
             floor = 0;
         }
         if (playerParty[floor].GetComponent<playerController>().playerStats.equipment != null)
-            playerItems.Add(playerParty[floor].GetComponent<playerController>().playerStats.equipment);
+            playerItems.Insert(0, playerParty[floor].GetComponent<playerController>().playerStats.equipment);
         //update buttons
         equipmentItems = playerItems;
         if (currentSelection > equipmentItems.Count)
@@ -750,13 +758,13 @@ public class CharacterMenuManager : MonoBehaviour
         equipmentScrollIndex += direction;
 
         List<EquipmentItem> playerItems = new List<EquipmentItem>(InventoryManager.instance.GetEquipmentItems());
-        int floor = (int)Math.Ceiling((double)currentSelection / 2) - 1;
+        int floor = (int)Math.Ceiling((double)playerScrollIndex / 2) - 1;
         if (floor < 0)
         {
             floor = 0;
         }
         if (playerParty[floor].GetComponent<playerController>().playerStats.equipment != null)
-            playerItems.Add(playerParty[floor].GetComponent<playerController>().playerStats.equipment);
+            playerItems.Insert(0, playerParty[floor].GetComponent<playerController>().playerStats.equipment);
 
         if (currentSelection < 0)
         {
@@ -796,13 +804,13 @@ public class CharacterMenuManager : MonoBehaviour
         weaponScrollIndex += direction;
 
         List<WeaponItem> playerItems = new List<WeaponItem>(InventoryManager.instance.GetWeaponItems());
-        int floor = (int)Math.Ceiling((double)currentSelection / 2) - 1;
+        int floor = (int)Math.Ceiling((double)playerScrollIndex / 2) - 1;
         if (floor < 0)
         {
             floor = 0;
         }
         if (playerParty[floor].GetComponent<playerController>().playerStats.weapon != null)
-            playerItems.Add(playerParty[floor].GetComponent<playerController>().playerStats.weapon);
+            playerItems.Insert(0, playerParty[floor].GetComponent<playerController>().playerStats.weapon);
 
         if (currentSelection < 0)
         {
@@ -841,7 +849,7 @@ public class CharacterMenuManager : MonoBehaviour
         Item item = InventoryManager.instance.GetItems()[itemScrollIndex];
         if(item != null)
         {
-            if(item.potionEffect == PublicEnums.Effects.Heal ) // or heal
+            if(item.potionEffect == PublicEnums.Effects.Heal || item.potionEffect == PublicEnums.Effects.Revive) // or heal
             {
                 choosePlayer.SetActive(true);
                 for (int i = 0; i < playerParty.Count; i++)
@@ -865,7 +873,7 @@ public class CharacterMenuManager : MonoBehaviour
         Skill skill = playerSkills[skillScrollIndex];
         if (skill != null)
         {
-            if (skill.effect == PublicEnums.Effects.Heal)
+            if (skill.effect == PublicEnums.Effects.Heal || skill.effect == PublicEnums.Effects.Revive)
             {
                 choosePlayer.SetActive(true);
                 for (int i = 0; i < playerParty.Count; i++)
@@ -882,7 +890,7 @@ public class CharacterMenuManager : MonoBehaviour
         }
     }
     
-    private void UseItem()
+    private IEnumerator UseItem()
     {
         //I am assuming that we are only reviving or healing in the menu so I am not adjusting any other stat, if you want to do that go ahead
         //you can make it so revive is the only thing that heals the player, I have not pulled because I don't want to deal with merge errors
@@ -891,27 +899,61 @@ public class CharacterMenuManager : MonoBehaviour
         CharacterAttributes playerStats = playerParty[currentSelection].GetComponent<playerController>().playerStats;
         if (item != null)
         {
-            playerStats.health += item.effectAmount;
-            if (playerStats.health > playerStats.maxHealth)
-                playerStats.health = playerStats.maxHealth;
+            if (item.potionEffect == PublicEnums.Effects.Revive && playerStats.health <= 0)
+            {
+                playerStats.health += item.effectAmount;
+                if (playerStats.health > playerStats.maxHealth)
+                    playerStats.health = playerStats.maxHealth;
+                item.amountOfItem--;
+            }
+            else if(item.potionEffect == PublicEnums.Effects.Heal && playerStats.health != playerStats.maxHealth)
+            {
+                playerStats.health += item.effectAmount;
+                if (playerStats.health > playerStats.maxHealth)
+                    playerStats.health = playerStats.maxHealth;
+                item.amountOfItem--;
+            }
+            else if(item.potionEffect == PublicEnums.Effects.Revive && playerStats.health > 0)
+            {
+                playerRevivedAlive.SetActive(true);
+                yield return new WaitForSeconds(1f);
+                playerRevivedAlive.SetActive(false);
+            }
         }
     }
 
-    private void UseSkill()
+    private IEnumerator UseSkill()
     {
         Skill skill = playerParty[currentSelection].GetComponent<playerController>().playerStats.skills[currentSelection];
         CharacterAttributes playerStats = playerParty[currentSelection].GetComponent<playerController>().playerStats;
         if (skill != null)
         {
-            playerStats.health += skill.baseDamage;
-            if (playerStats.health > playerStats.maxHealth)
-                playerStats.health = playerStats.maxHealth;
+            if (skill.effect == PublicEnums.Effects.Revive && playerStats.health <= 0)
+            {
+                playerStats.health += skill.baseDamage;
+                if (playerStats.health > playerStats.maxHealth)
+                    playerStats.health = playerStats.maxHealth;
+                playerStats.mana -= skill.manaCost;
+            }
+            else if (skill.effect == PublicEnums.Effects.Heal)
+            {
+                playerStats.health += skill.baseDamage;
+                if (playerStats.health > playerStats.maxHealth)
+                    playerStats.health = playerStats.maxHealth;
+                playerStats.mana -= skill.manaCost;
+            }
+            else if (skill.effect == PublicEnums.Effects.Revive && playerStats.health > 0)
+            {
+                playerRevivedAlive.SetActive(true);
+                yield return new WaitForSeconds(1f);
+                playerRevivedAlive.SetActive(false);
+            }
         }
     }
 
     private void EquipWeapon()
     {
-        int floor = (int)Math.Ceiling((double)currentSelection / 2) - 1;
+        int floor = (int)Math.Ceiling((double)playerScrollIndex / 2) - 1;
         if (floor < 0)
         {
             floor = 0;
@@ -924,15 +966,18 @@ public class CharacterMenuManager : MonoBehaviour
             charStats.weapon = null;
         }
         
+        
+        currentSelection = 0;
         charStats.weapon = weaponItems[weaponScrollIndex];
         InventoryManager.instance.RemoveItem(weaponItems[weaponScrollIndex]);
+        weaponScrollIndex = 0;
         OpenWeaponMenu();
     }
 
     private void EquipmArmor()
     {
         //unequip item
-        int floor = (int)Math.Ceiling((double)currentSelection / 2) - 1;
+        int floor = (int)Math.Ceiling((double)playerScrollIndex / 2) - 1;
         if (floor < 0)
         {
             floor = 0;
@@ -944,9 +989,12 @@ public class CharacterMenuManager : MonoBehaviour
             InventoryManager.instance.AddItem(charStats.equipment);
             charStats.equipment = null;
         }
+
         
+        currentSelection = 0;
         charStats.equipment = equipmentItems[equipmentScrollIndex];
         InventoryManager.instance.RemoveItem(equipmentItems[equipmentScrollIndex]);
+        equipmentScrollIndex = 0;
         OpenEquipmentMenu();
     }    
 
@@ -1094,7 +1142,8 @@ public class CharacterMenuManager : MonoBehaviour
             itemStats.transform.GetChild(2).gameObject.transform.GetComponent<TextMeshProUGUI>().text = "Element: " + item.Element.ToString();
             itemStats.transform.GetChild(3).gameObject.transform.GetComponent<TextMeshProUGUI>().text = "Base Damage: " + item.effectAmount.ToString();
             itemStats.transform.GetChild(4).gameObject.transform.GetComponent<TextMeshProUGUI>().text = "Effect: " + item.potionEffect.ToString();
-            itemStats.transform.GetChild(6).gameObject.transform.GetComponent<TextMeshProUGUI>().text = item.description;      
+            itemStats.transform.GetChild(6).gameObject.transform.GetComponent<TextMeshProUGUI>().text = item.description;
+            itemStats.transform.GetChild(7).gameObject.transform.GetComponent<TextMeshProUGUI>().text = "Amount: " + item.amountOfItem.ToString();
         }
     }
 

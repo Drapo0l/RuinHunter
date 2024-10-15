@@ -14,7 +14,7 @@ public class InventoryMenu : MonoBehaviour
     [SerializeField] GameObject menuAmour;
     [SerializeField] GameObject menuAccessory;
     [SerializeField] GameObject menuPanel;
-
+    public GameObject CheckPointPanel;
 
     public List<PartyManager> playerMems = new List<PartyManager>();
 

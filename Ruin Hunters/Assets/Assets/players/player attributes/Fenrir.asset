@@ -36,7 +36,9 @@ MonoBehaviour:
   DefenceOG: 320
   expGive: 0
   skills:
-  - skillName: Giga Slash
+  - sprite: {fileID: 0}
+    description: 
+    skillName: Giga Slash
     elementType: 0
     weaponType: 1
     baseDamage: 350
@@ -44,7 +46,9 @@ MonoBehaviour:
     effect: 0
     Ptargit: 0
     AOE: 0
-  - skillName: Mega Slash
+  - sprite: {fileID: 0}
+    description: 
+    skillName: Mega Slash
     elementType: 0
     weaponType: 1
     baseDamage: 350

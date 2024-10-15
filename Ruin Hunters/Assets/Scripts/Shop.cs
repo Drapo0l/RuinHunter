@@ -82,7 +82,7 @@ public class Shop : MonoBehaviour
 
     public void OpenShop()
     {
-        playerGold.text = InventoryManager.instance.Gold.ToString();
+        playerGold.text = "Current Gold: " + InventoryManager.instance.Gold.ToString();
         ShopOpened = true;
         shop.SetActive(true);
         menuStack.Push(ShopButtons);
