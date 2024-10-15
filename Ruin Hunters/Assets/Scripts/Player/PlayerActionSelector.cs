@@ -41,7 +41,8 @@ public class PlayerActionSelector : MonoBehaviour
     private bool skillAttack = false;
     private bool targetingParty = false;
     private bool usingItem = false;
-    private bool tutorial = true;
+    private bool animating = false;
+
 
     private List<Skill> playerSkills;
     public int visibleSkillCount = 4;
@@ -67,82 +68,90 @@ public class PlayerActionSelector : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.Instance.combat)
         {
-            // Handle navigation and selection input
-            if (menuPanel.activeSelf && !attacking && !skillAttack && !usingItem)
+            if (!animating)
             {
-                if (Input.GetKeyDown(KeyCode.W)) { Navigate(-1); }
-                if (Input.GetKeyDown(KeyCode.S)) { Navigate(1); }
-                if (Input.GetKeyDown(KeyCode.Return)) { ExecuteCurrentAction(); }
-                if (Input.GetKeyDown(KeyCode.Backspace)) { HandleBackspace(); }
+                // Handle navigation and selection input
+                if (menuPanel.activeSelf && !attacking && !skillAttack && !usingItem)
+                {
+                    if (Input.GetKeyDown(KeyCode.W)) { Navigate(-1); }
+                    if (Input.GetKeyDown(KeyCode.S)) { Navigate(1); }
+                    if (Input.GetKeyDown(KeyCode.Return)) { ExecuteCurrentAction(); }
+                    if (Input.GetKeyDown(KeyCode.Backspace)) { HandleBackspace(); }
+                }
+                else if (menuPanel.activeSelf && attacking)
+                {
+                    if (Input.GetKeyDown(KeyCode.W))
+                    {
+                        selectedEnemyIndex--;
+                        if (selectedEnemyIndex < 0) selectedEnemyIndex = enemies.Count - 1;
+                        SelectEnemy(selectedEnemyIndex);
+                    }
+                    if (Input.GetKeyDown(KeyCode.S))
+                    {
+                        selectedEnemyIndex++;
+                        if (selectedEnemyIndex >= enemies.Count) selectedEnemyIndex = 0;
+                        SelectEnemy(selectedEnemyIndex);
+                    }
+                    if (Input.GetKeyDown(KeyCode.Return))
+                    {
+                        StartCoroutine(DamageEnemy());
+                    }
+                    if (Input.GetKeyDown(KeyCode.Backspace))
+                    {
+                        HandleAttackBackspace();
+                    }
+                }
+                else if (menuPanel.activeSelf && skillAttack)
+                {
+                    if (Input.GetKeyDown(KeyCode.W)) { NavigateSkills(-1); }
+                    if (Input.GetKeyDown(KeyCode.S)) { NavigateSkills(1); }
+                    if (Input.GetKeyDown(KeyCode.Return))
+                    {
+                        PerformAttack();
+                    }
+                    if (Input.GetKeyDown(KeyCode.Backspace)) { HandleBackspace(); }
+                }
+                else if (targetingParty)
+                {
+                    if (Input.GetKeyDown(KeyCode.W))
+                    {
+                        selectedPartyIndex--;
+                        if (selectedPartyIndex < 0) selectedPartyIndex = playerParty.Count - 1;
+                        targetParty(selectedPartyIndex);
+                    }
+                    if (Input.GetKeyDown(KeyCode.S))
+                    {
+                        selectedPartyIndex++;
+                        if (selectedPartyIndex >= playerParty.Count) selectedPartyIndex = 0;
+                        targetParty(selectedPartyIndex);
+                    }
+                    if (Input.GetKeyDown(KeyCode.Return))
+                    {
+                        consumeItem();
+                    }
+                    if (Input.GetKeyDown(KeyCode.Backspace))
+                    {
+                        HandleAttackBackspace();
+                    }
+                }
+                else if (menuPanel.activeSelf && usingItem)
+                {
+                    if (Input.GetKeyDown(KeyCode.W)) { NavigateItems(-1); }
+                    if (Input.GetKeyDown(KeyCode.S)) { NavigateItems(1); }
+                    if (Input.GetKeyDown(KeyCode.Return))
+                    {
+                        UseItem();
+                    }
+                    if (Input.GetKeyDown(KeyCode.Backspace))
+                    { HandleBackspace(); }
+                }
             }
-            else if (menuPanel.activeSelf && attacking)
-            {
-                if (Input.GetKeyDown(KeyCode.W))
-                {
-                    selectedEnemyIndex--;
-                    if (selectedEnemyIndex < 0) selectedEnemyIndex = enemies.Count - 1;
-                    SelectEnemy(selectedEnemyIndex);
-                }
-                if (Input.GetKeyDown(KeyCode.S))
-                {
-                    selectedEnemyIndex++;
-                    if (selectedEnemyIndex >= enemies.Count) selectedEnemyIndex = 0;
-                    SelectEnemy(selectedEnemyIndex);
-                }
-                if (Input.GetKeyDown(KeyCode.Return))
-                {
-                    StartCoroutine(DamageEnemy());
-                }
-                if (Input.GetKeyDown(KeyCode.Backspace))
-                {
-                    HandleAttackBackspace();
-                }
-            }
-            else if (menuPanel.activeSelf && skillAttack)
-            {
-                if (Input.GetKeyDown(KeyCode.W)) { NavigateSkills(-1); }
-                if (Input.GetKeyDown(KeyCode.S)) { NavigateSkills(1); }
-                if (Input.GetKeyDown(KeyCode.Return))
-                {
-                    PerformAttack();
-                }
-                if (Input.GetKeyDown(KeyCode.Backspace)) { HandleBackspace(); }
-            }
-            else if (targetingParty)
-            {
-                if (Input.GetKeyDown(KeyCode.W))
-                {
-                    selectedPartyIndex--;
-                    if (selectedPartyIndex < 0) selectedPartyIndex = playerParty.Count - 1;
-                    targetParty(selectedPartyIndex);
-                }
-                if (Input.GetKeyDown(KeyCode.S))
-                {
-                    selectedPartyIndex++;
-                    if (selectedPartyIndex >= playerParty.Count) selectedPartyIndex = 0;
-                    targetParty(selectedPartyIndex);
-                }
-                if (Input.GetKeyDown(KeyCode.Return))
-                {
-                    consumeItem();
-                }
-                if (Input.GetKeyDown(KeyCode.Backspace))
-                {
-                    HandleAttackBackspace();
-                }
-            }
-            else if (menuPanel.activeSelf && usingItem)
-            {
-                if (Input.GetKeyDown(KeyCode.W)) { NavigateItems(-1); }
-                if (Input.GetKeyDown(KeyCode.S)) { NavigateItems(1); }
-                if (Input.GetKeyDown(KeyCode.Return))
-                {
-                    UseItem();
-                }
-                if (Input.GetKeyDown(KeyCode.Backspace))
-                { HandleBackspace(); }
-            }
+        }
+        else
+        {
+            menuPanel.SetActive(false);
         }
     }
 
@@ -157,32 +166,24 @@ public class PlayerActionSelector : MonoBehaviour
 
         menuPanel.SetActive(true); // enable the menu
 
-        //SetMenuPositionToLeftOfPlayer();
+        SetMenuPositionToLeftOfPlayer();
     }
 
-    //private void SetMenuPositionToLeftOfPlayer()
-    //{
-    //    Vector3 playerWorldPos = playerTransform.position;
+    private void SetMenuPositionToLeftOfPlayer()
+    {
+        Vector3 playerWorldPos = playerTransform.position;
 
-    //    Vector3 offset = new Vector3(-2f, 0, 0);
+        Vector3 offset = new Vector3(-2f, 0, 0);
 
-    //    Vector3 screenPos = battleCamera.WorldToScreenPoint(playerWorldPos + offset);
+        Vector3 screenPos = battleCamera.WorldToScreenPoint(playerWorldPos + offset);
 
-    //    if (screenPos.z < 0) // if it's behind the camera
-    //    {           
-    //        return;
-    //    }
-    //    RectTransform canvasRectTransform = actionMenu.GetComponentInParent<Canvas>().GetComponent<RectTransform>();
+        if (screenPos.z < 0) // if it's behind the camera
+        {
+            return;
+        }
 
-    //    RectTransformUtility.ScreenPointToLocalPointInRectangle(
-    //    canvasRectTransform,
-    //    screenPos,
-    //    battleCamera,
-    //    out Vector2 localPoint);
-    //    //localPoint.x += 1100;
-    //    //localPoint.y += 600;
-    //    actionMenu.GetComponent<RectTransform>().anchoredPosition = localPoint;
-    //}
+        actionMenu.GetComponent<RectTransform>().anchoredPosition = screenPos;
+    }
 
     public void HideMenu()
     {
@@ -264,7 +265,7 @@ public class PlayerActionSelector : MonoBehaviour
             itemScrollIndex = Mathf.Max(0, playerItems.Count - 5);
             PopulateItemMenu();
         }
-        else if (currentSelection >= playerSkills.Count)
+        else if (currentSelection >= playerItems.Count)
         {
             //if player is at the bottom go to first skill
             currentSelection = 0;
@@ -280,7 +281,7 @@ public class PlayerActionSelector : MonoBehaviour
         }
         else if (currentSelection >= itemScrollIndex + 5)
         {
-            itemScrollIndex = Mathf.Min(playerSkills.Count - 5, itemScrollIndex + 1); //scroll down
+            itemScrollIndex = Mathf.Min(playerItems.Count - 5, itemScrollIndex + 1); //scroll down
             PopulateItemMenu();
         }
 
@@ -525,9 +526,9 @@ public class PlayerActionSelector : MonoBehaviour
 
     public IEnumerator DamageEnemy()
     {
-        
         if (!usingItem)
         {
+            animating = true;
             Vector3 origininalPosition = playerTransform.position;
             Transform enemyTransform = enemies[selectedEnemyIndex].transform;
             
@@ -588,8 +589,9 @@ public class PlayerActionSelector : MonoBehaviour
         HideMenu();
         if (enemies.Count != 0)        
             GameManager.Instance.EndTurn();
+        animating = false;
     }
-    
+
     private void consumeItem()
     {
         Item item = InventoryManager.instance.GetItems()[itemScrollIndex];

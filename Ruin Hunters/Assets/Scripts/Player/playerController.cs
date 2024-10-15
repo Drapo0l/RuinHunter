@@ -19,8 +19,6 @@ public class playerController : MonoBehaviour, IDamage
     public LayerMask ignorePlayerLayer;
 
     public PublicEnums.WeaponType playerWeapon;
-    // Angel's polo angel equip Item
-    public InventoryItem equippedItem;  // to show if the player has the equpied item or not and have it be equpied
 
     // Create List to hold strengths and weaknesses
     public List<WeaponCalc> weaponsWeakness = new List<WeaponCalc>();
@@ -44,7 +42,7 @@ public class playerController : MonoBehaviour, IDamage
     void Update()
     {
         
-        if(!GameManager.Instance.leveling && !GameManager.Instance.combat)
+        if(!GameManager.Instance.leveling && !GameManager.Instance.combat && !CharacterMenuManager.Instance.inUI)
         {
             CharacterMovement();
         }
@@ -75,7 +73,7 @@ public class playerController : MonoBehaviour, IDamage
             return;
         }
         // equips the item on the player
-        equippedItem = item;
+        //equippedItem = item;
        Debug.Log($"Equipped: {item.label}");
     }
 

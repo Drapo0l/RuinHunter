@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public GameObject playerCamera;
     public GameObject battleCamera;
     public GameObject playerParent;
+    public GameObject battleUI;
     public int expTotal;
     private List<CharacterAttributes> playerParty; // list to hold player party
     public List<GameObject> battlePartyHealth = new List<GameObject>();
@@ -216,7 +217,7 @@ public class GameManager : MonoBehaviour
         //spawn at certain location
         return Vector3.zero; //placeholder
     }
-
+                
     public void StartTurn()
     {
 
@@ -283,6 +284,8 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator EndCombat()
     {
+        
+
         for (int i = 0; i < characters.Count; i++)
         {
             characters[i].maxMana = characters[i].maxManaOG;
@@ -299,6 +302,8 @@ public class GameManager : MonoBehaviour
 
 
         yield return new WaitForSeconds(2f);
+        combat = false;
+        battleUI.SetActive(false);
         InventoryManager.instance.Gold += totalGold;
         foreach (var player in battleParty)
         {
@@ -340,7 +345,7 @@ public class GameManager : MonoBehaviour
         characters.Clear();
         playerParty.Clear();
         wasCombatInitialized = false;
-        combat = false;
+       
         battleCamera.SetActive(false);
         playerCamera.SetActive(true);
         playerHealthsParent.SetActive(false);
@@ -365,7 +370,6 @@ public class GameManager : MonoBehaviour
         int child = 0;
         foreach (GameObject player in playerLeveled) 
         {
-            player.GetComponent<playerController>().actionSelector.HideMenu();
             player.GetComponent<SphereCollider>().enabled = true;            
             levelUpScreen.transform.GetChild(child).gameObject.SetActive(true);
             GameObject playerPanel = levelUpScreen.transform.GetChild(child).gameObject;

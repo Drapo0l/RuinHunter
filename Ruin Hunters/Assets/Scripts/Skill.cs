@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class Skill 
 {
+    public Sprite sprite;
+    public string description;
     public string skillName;
     public PublicEnums.ElementType elementType;
     public PublicEnums.WeaponType weaponType;
