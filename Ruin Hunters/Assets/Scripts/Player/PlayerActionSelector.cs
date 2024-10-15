@@ -42,6 +42,7 @@ public class PlayerActionSelector : MonoBehaviour
     private bool targetingParty = false;
     private bool usingItem = false;
     private bool animating = false;
+    
 
 
     private List<Skill> playerSkills;
@@ -72,6 +73,7 @@ public class PlayerActionSelector : MonoBehaviour
         {
             if (!animating)
             {
+                
                 // Handle navigation and selection input
                 if (menuPanel.activeSelf && !attacking && !skillAttack && !usingItem)
                 {
@@ -560,7 +562,10 @@ public class PlayerActionSelector : MonoBehaviour
                             i--;
                             currentMax--;
                         }
-                        enemies[i].GetComponent<EnemyAI>().TakeSkillDamage(playerSkills[skillScrollIndex].baseDamage + playerController.playerStats.weapon.skillDamage, playerSkills[skillScrollIndex].elementType);
+                        if (playerController.playerStats.weapon != null)
+                            enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(playerSkills[skillScrollIndex].baseDamage + playerController.playerStats.weapon.skillDamage, playerSkills[skillScrollIndex].elementType);
+                        else
+                            enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(playerSkills[skillScrollIndex].baseDamage, playerSkills[skillScrollIndex].elementType);
                     }
                 }
                 else
@@ -820,12 +825,15 @@ public class PlayerActionSelector : MonoBehaviour
     private void FleeFunc()
     {
         if(Random.value > 0.5f)
+        { 
+            GameManager.Instance.FleeCombat();
+        }
+        else
         {
             HideMenu();
-            GameManager.Instance.EndCombat();
+            GameManager.Instance.EndTurn();
         }
     }
-
 
     public void RemoveEnemy(GameObject enemy) 
     {
