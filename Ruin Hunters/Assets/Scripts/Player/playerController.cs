@@ -48,7 +48,7 @@ public class playerController : MonoBehaviour, IDamage
     void Update()
     {
         
-        if(!GameManager.Instance.leveling && !GameManager.Instance.combat)
+        if(!GameManager.Instance.combat)
         {
             CharacterMovement();
         }

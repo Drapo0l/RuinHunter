@@ -175,7 +175,7 @@ public class GameManager : MonoBehaviour
                 player.transform.localScale = new Vector3(Math.Abs(player.transform.localScale.x) * -1, player.transform.localScale.y, player.transform.localScale.z);
             player.SetActive(true);
             player.transform.SetParent(battleCamera.transform);
-            player.transform.localPosition = new Vector3(3f + pos, 0f, 10f + pos);
+            player.transform.localPosition = new Vector3(2.03f + pos, -1.28f, 7.5f + pos);
             pos++;
         }
         pos = 0;

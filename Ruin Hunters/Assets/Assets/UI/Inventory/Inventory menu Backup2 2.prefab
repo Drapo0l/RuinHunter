@@ -2735,15 +2735,16 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3392217454741800190}
-  - {fileID: 7473447339776301967}
-  - {fileID: 1506772914531409173}
-  - {fileID: 5064940150551303163}
+  - {fileID: 5368918672996439303}
   - {fileID: 2671561290364073861}
   - {fileID: 6037172273151520583}
   - {fileID: 5576875056149698207}
   - {fileID: 7321577750356011636}
   - {fileID: 8762394827833226136}
   - {fileID: 2359363385677607787}
+  - {fileID: 7473447339776301967}
+  - {fileID: 1506772914531409173}
+  - {fileID: 5064940150551303163}
   m_Father: {fileID: 5778622677283827617}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -5045,7 +5046,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5778622677283827617
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5062,7 +5063,6 @@ RectTransform:
   - {fileID: 7270687493868672618}
   - {fileID: 1341560928430769339}
   - {fileID: 4090168137421565412}
-  - {fileID: 5368918672996439303}
   m_Father: {fileID: 3924255722978089087}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -5426,15 +5426,7 @@ MonoBehaviour:
   _content: {fileID: 2338112652215727986}
   _menuItemTemplate: {fileID: 2807410169785950510}
   inventoryItems:
-  - {fileID: 11400000, guid: 02079051acebaa4478ee0b8bd540d3d7, type: 2}
-  - {fileID: 11400000, guid: 02079051acebaa4478ee0b8bd540d3d7, type: 2}
-  - {fileID: 11400000, guid: 3c28daa5ecccbf143be2ab0b2e5d825f, type: 2}
-  - {fileID: 11400000, guid: 4a27718b6604d0f4e91c4574ae8a0d8c, type: 2}
-  - {fileID: 11400000, guid: 02079051acebaa4478ee0b8bd540d3d7, type: 2}
-  - {fileID: 11400000, guid: 3c28daa5ecccbf143be2ab0b2e5d825f, type: 2}
   - {fileID: 11400000, guid: 2e7d6f6407d7329498ec7186d42bd128, type: 2}
-  - {fileID: 11400000, guid: 02079051acebaa4478ee0b8bd540d3d7, type: 2}
-  - {fileID: 11400000, guid: 3c28daa5ecccbf143be2ab0b2e5d825f, type: 2}
   AIICE:
     m_PersistentCalls:
       m_Calls:
@@ -8134,7 +8126,9 @@ MonoBehaviour:
   menuAmour: {fileID: 8721704846827441426}
   menuAccessory: {fileID: 2791569316414106756}
   menuPanel: {fileID: 2679093741718469358}
+  playerLeveled: []
   Ispause: 0
+  DefaultButton: {fileID: 0}
   playerHealths: []
   HP_text: {fileID: 0}
   playerMana: []
@@ -9590,16 +9584,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8749786006422636286}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5778622677283827617}
+  m_Father: {fileID: 4090168137421565412}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -277, y: 323}
+  m_AnchoredPosition: {x: -276.99292, y: 53.04004}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5329437439985249899
