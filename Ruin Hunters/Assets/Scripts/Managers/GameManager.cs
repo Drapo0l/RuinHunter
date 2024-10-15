@@ -49,6 +49,10 @@ public class GameManager : MonoBehaviour
     private List<Item> randomItems = new List<Item>();
     private int totalGold;
 
+    //Polo Angel's code
+    // Player Spawn Location
+    //public GameObject PlayerSpawnLoc;
+
     private void Awake()
     {
         if (Instance == null)
@@ -59,6 +63,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        //PlayerSpawnLoc = GameObject.FindGameObjectWithTag("PlaySpawnPos");
     }
 
     void Update()
@@ -178,7 +183,7 @@ public class GameManager : MonoBehaviour
             pos++;
         }
         pos = 0;
-
+   
         foreach (GameObject enemy in enemyObj)
         {
             enemy.SetActive(true);

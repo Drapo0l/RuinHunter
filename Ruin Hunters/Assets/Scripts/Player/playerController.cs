@@ -37,11 +37,14 @@ public class playerController : MonoBehaviour, IDamage
     public int defended = 0;
 
     public Animator playerAnimator;
+
+
     // Start is called before the first frame update
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody>();
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+        //SpawnCheckPoint();
     }
 
     // Update is called once per frame
@@ -69,8 +72,16 @@ public class playerController : MonoBehaviour, IDamage
         
 
     }
+    ////Polo Angel's SpawnCheckPoint Code
+    //public void SpawnCheckPoint()
+    //{
+    //    transform.position = GameManager.Instance.PlayerSpawnLoc.transform.position;
+    //    playerStats.health = playerStats.maxHealth;
+    //    playerStats.mana = playerStats.maxMana;
 
-    // Polo Angel's code
+    //}
+
+    // Polo Angel's code 
     public void EquipWeapon(InventoryItem item)
     {
         if (item == null) // if null, you can't equip it and gives a error message
