@@ -100,6 +100,15 @@ public class PublicEnums : Item
 
     }
 
+    public enum ActionType
+    {
+        None,            // Default, no action
+        UnlockQuest,    // Example action for unlocking a quest
+        ChangeNPCState, // Change an NPC's state or behavior
+        UpdateInventory  // Add or remove items from inventory
+                         // Add more actions as needed
+    }
+
     public enum ItemType
     {
         Consumable,

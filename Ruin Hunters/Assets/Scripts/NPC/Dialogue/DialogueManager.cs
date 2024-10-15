@@ -1,136 +1,174 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
+using static PublicEnums;
 
 public class DialogueManager : MonoBehaviour
 {
-   [SerializeField] private TextMeshProUGUI NPCname;
-   [SerializeField] private TextMeshProUGUI NPCdialogue;
- [Range(1,10)]  [SerializeField] private int typingSpeed;
+    [SerializeField] private TextMeshProUGUI NPCname;
+    [SerializeField] private TextMeshProUGUI NPCdialogue;
+    [SerializeField] private ChoiceManager choiceManager; // Reference to ChoiceManager
+    [Range(1, 10)][SerializeField] private int typingSpeed;
 
-    private Queue<string> sentences = new Queue<string>();// FIFO 
-    private string s;
+    private Queue<string> sentences = new Queue<string>();
+    private string currentSentence;
     private bool endConversation;
     private bool isTyping;
+    private bool waitingForPlayerInput = false;
 
+    private const string HTML_Alpha = "<color=#00000000>"; // Used for typing effect
+    private const float Max_Type_Time = 0.1f; // Controls typing speed
     private Coroutine typeDialogueCoroutine;
-
-    private const string HTML_Alpha = "<color=#00000000>";
-    private const float Max_Type_Time = 0.1f;
-    
-
-    // Start is called before the first frame update
-    void Start()
-    {
-       
-    }
 
     public void StartDialogue(Dialogue dialogue)
     {
-        //activate gameObject
-        if(!gameObject.activeSelf)
+        if (!gameObject.activeSelf)
         {
             gameObject.SetActive(true);
         }
-        //update the name
         NPCname.text = dialogue.NPCName;
 
-        //add dialogue text to queue
-        for (int i = 0; i < dialogue.sentences.Length; i++)
+        // Add dialogue text to queue
+        sentences.Clear();
+        foreach (var sentence in dialogue.sentences)
         {
-            sentences.Enqueue(dialogue.sentences[i]);
+            sentences.Enqueue(sentence);
         }
 
+        DisplayNextSentence(dialogue);
     }
 
     public void DisplayNextSentence(Dialogue dialogue)
     {
-
-
-        if (sentences.Count == 0)//if there is nothing in the queue
+        // If there are no sentences left
+        if (sentences.Count == 0)
         {
             if (!endConversation)
             {
-                StartDialogue(dialogue);
-            }
-            else if (endConversation && !isTyping)
-            {
                 EndDialogue();
-                return;
             }
+            return; // Exit if there are no sentences
         }
-        //if there is somenthing in the queue
-        if (!isTyping)
-        {
-            s = sentences.Dequeue();
-            typeDialogueCoroutine = StartCoroutine(TypeSentence(s));
-        }
-        //dialogue Is being typed out
-        else
-        {
-            FinishParagraphEarly();
-        }
-     
 
-        //update conversation bool
+        // If there are sentences, continue displaying
+        if (!isTyping && sentences.Count > 0)
+        {
+            currentSentence = sentences.Dequeue(); // Get the next sentence
+            typeDialogueCoroutine = StartCoroutine(TypeSentence(currentSentence)); // Type out the next sentence
+        }
+        else if (isTyping)
+        {
+            FinishParagraphEarly(); // Allow finishing the current sentence early if requested
+        }
+
+        // Update the end conversation state
         if (sentences.Count == 0)
         {
             endConversation = true;
-           
+            // Show choices if available
+            if (dialogue.choices.Count > 0)
+            {
+                choiceManager.ShowChoices(dialogue.choices);
+            }
+            else
+            {
+                // Wait for player input to end the dialogue
+                waitingForPlayerInput = true;
+            }
+        }
+    }
+
+    private void Update()
+    {
+        // Check for player input to end the dialogue if it's the last sentence
+        if (waitingForPlayerInput && Input.GetKeyDown(KeyCode.E))
+        {
+            EndDialogue();
+            waitingForPlayerInput = false;
         }
     }
 
     public void EndDialogue()
     {
-      //clear queue
-      sentences.Clear();
-
-        //return bool to false
+        sentences.Clear();
         endConversation = false;
 
-        //deactivate gameObject
         if (gameObject.activeSelf)
         {
-            gameObject.SetActive (false);
+            gameObject.SetActive(false);
         }
     }
 
-    IEnumerator TypeSentence(string s)//display all text invisable and then go one by one
+    public void ExecuteAction(ActionType actionType, DialogueChoice choice)
+    {
+        switch (actionType)
+        {
+            case ActionType.UnlockQuest:
+              //  if (!string.IsNullOrEmpty(choice.questID))
+                {
+              //      UnlockQuest(choice.questID);
+                }
+                break;
+            case ActionType.ChangeNPCState:
+             //   if (choice.changesNPCState)
+                {
+                    ChangeNPCState();
+                }
+                break;
+            case ActionType.UpdateInventory:
+               // if (choice.rewardItem != null)
+                {
+              //      UpdateInventory(choice.rewardItem);
+                }
+                break;
+            case ActionType.None:
+                break;
+        }
+    }
+
+    private void UnlockQuest(string questId)
+    {
+        GameState.Instance.UnlockQuest(questId);
+        Debug.Log($"Quest {questId} unlocked!");
+    }
+
+    private void ChangeNPCState()
+    {
+        Debug.Log("NPC state changed!");
+    }
+
+    private void UpdateInventory(Item item)
+    {
+        GameState.Instance.UpdateInventory(item);
+        Debug.Log($"{item.name} added to inventory!");
+    }
+
+    IEnumerator TypeSentence(string sentence)
     {
         isTyping = true;
-
         NPCdialogue.text = "";
 
-        string originalText = s;
-        string displayedText = "";
+        string originalText = sentence;
         int alphaIndex = 0;
 
-        foreach (char c in s.ToCharArray())
+        foreach (char c in originalText)
         {
             alphaIndex++;
-            NPCdialogue.text = originalText;
-
-            displayedText = NPCdialogue.text.Insert(alphaIndex, HTML_Alpha);
-            NPCdialogue.text = displayedText;
+            NPCdialogue.text = originalText; // Keep the full text visible
+            string displayedText = NPCdialogue.text.Insert(alphaIndex, HTML_Alpha);
+            NPCdialogue.text = displayedText; // Apply typing effect
 
             yield return new WaitForSeconds(Max_Type_Time / typingSpeed);
         }
-        isTyping = false;   
+
+        isTyping = false;
     }
 
     private void FinishParagraphEarly()
     {
-        //stop the coroutine
         StopCoroutine(typeDialogueCoroutine);
-
-        //finish display text
-        NPCdialogue.text = s;
-
-        //upadate isTyping bool
+        NPCdialogue.text = currentSentence; // Show full sentence
         isTyping = false;
     }
-  
 }
-

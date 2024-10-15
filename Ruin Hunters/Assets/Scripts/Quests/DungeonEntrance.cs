@@ -6,6 +6,7 @@ using UnityEngine;
 public class DungeonEntrance : MonoBehaviour
 {
     public Quest requiredQuest;
+    public BoxCollider BoxCollider;
     public Teleporter Teleporter;
 
     private void OnTriggerEnter(Collider other)
@@ -20,7 +21,7 @@ public class DungeonEntrance : MonoBehaviour
             else
             {
                 Teleporter.gameObject.SetActive(false);
-                //add your code to show textbox with "finish quest.name"
+                //set a text the say that you need to finish x quest use requiredQuest.name 
             }
         }
     }
