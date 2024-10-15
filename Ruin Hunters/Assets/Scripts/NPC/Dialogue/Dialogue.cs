@@ -23,6 +23,7 @@ public class DialogueChoice
     public List<Condition> conditions; // Conditions to check for this choice
     public List<Consequence> consequences; // Consequences of this choice
 }
+
 [System.Serializable]
 public class Condition
 {

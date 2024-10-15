@@ -21,6 +21,7 @@ public class DungeonEntrance : MonoBehaviour
             else
             {
                 Teleporter.gameObject.SetActive(false);
+                //set a text the say that you need to finish x quest use requiredQuest.name 
             }
         }
     }

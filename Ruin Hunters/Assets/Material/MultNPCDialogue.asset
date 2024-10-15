@@ -15,4 +15,13 @@ MonoBehaviour:
   NPCName: Lau
   sentences:
   - I am a traveler. I enjoy exploring new places
-  choices: []
+  - I am a traveler. I enjoy exploring new places
+  - I am a traveler. I enjoy exploring new places
+  - I am a traveler. I enjoy exploring new places
+  choices:
+  - buttonText: 
+    playerText: 
+    nextDialogue: {fileID: 0}
+    actionType: 0
+    conditions: []
+    consequences: []

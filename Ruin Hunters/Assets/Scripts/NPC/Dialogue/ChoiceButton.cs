@@ -8,7 +8,7 @@ public class ChoiceButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     [SerializeField] private TextMeshProUGUI choiceText; // Reference to the text component
     private GameObject choicePreviewWindow;
     private TextMeshProUGUI choicePreviewText;
-    public string playerText; // Make this public
+    public string playerText; 
 
     public void Setup(string buttonText, string playerText, System.Action onClickAction, GameObject previewWindow, TextMeshProUGUI previewText)
     {
