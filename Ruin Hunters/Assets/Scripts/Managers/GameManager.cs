@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public GameObject battleCamera;
     public GameObject playerParent;
     public GameObject battleUI;
+    public GameObject worldEnemyParent;
     public int expTotal;
     private List<CharacterAttributes> playerParty; // list to hold player party
     public List<GameObject> Grave_Yard = new List<GameObject>();
@@ -102,6 +103,7 @@ public class GameManager : MonoBehaviour
 
     void StartCombat()
     {
+        worldEnemyParent.SetActive(false);
         QuestManager.instance.questParent.SetActive(false);
 
         characters = new List<CharacterAttributes>();
@@ -385,7 +387,45 @@ public class GameManager : MonoBehaviour
         }
         battleParty[0].SetActive(true);
         QuestManager.instance.questParent.SetActive(true);
+        worldEnemyParent.SetActive(true);
+        //move to the next character in the list
+    }
+    public void FleeCombat()
+    {
+        
 
+        for (int i = 0; i < characters.Count; i++)
+        {
+            characters[i].maxMana = characters[i].maxManaOG;
+            characters[i].maxHealth = characters[i].maxHealthOG;
+            characters[i].Defence = characters[i].DefenceOG;
+            characters[i].combatSpeed = characters[i].combatSpeedOG;
+            characters[i].skillDamage = characters[i].skillDamageOG;
+            characters[i].attackDamage = characters[i].attackDamageOG;
+            characters[i].critChance = characters[i].critChanceOG;
+            characters[i].effectChance = characters[i].effectChanceOG;
+            characters[i].AddExperience(expTotal);
+        }
+        combat = false;
+        battleUI.SetActive(false);
+        characters.Clear();
+        playerParty.Clear();
+        wasCombatInitialized = false;
+       
+        battleCamera.SetActive(false);
+        playerCamera.SetActive(true);
+        playerHealthsParent.SetActive(false);
+
+        foreach (GameObject player in battleParty)
+        {
+            player.SetActive(false);
+            player.transform.localPosition = lastPlayerPosition;
+            player.transform.SetParent(playerParent.transform);
+
+        }
+        battleParty[0].SetActive(true);
+        QuestManager.instance.questParent.SetActive(true);
+        worldEnemyParent.SetActive(true);
         //move to the next character in the list
     }
 
