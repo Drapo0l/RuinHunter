@@ -16,24 +16,24 @@ MonoBehaviour:
   currentXP: 200
   xpToNextLevel: 800
   nameOfCharacter: Mage
-  health: 2420
+  health: 2060
   maxHealth: 2420
   maxMana: 360
   mana: 360
   combatSpeed: 222
   skillDamage: 200
-  attackDamage: 360
+  attackDamage: 45
   critChance: 0
   effectChance: 0
   Defence: 310
-  maxHealthOG: 2400
-  maxManaOG: 350
-  combatSpeedOG: 212
+  maxHealthOG: 2420
+  maxManaOG: 360
+  combatSpeedOG: 222
   skillDamageOG: 200
-  attackDamageOG: 350
+  attackDamageOG: 45
   critChanceOG: 0
   effectChanceOG: 0
-  DefenceOG: 300
+  DefenceOG: 310
   expGive: 0
   skills:
   - skillName: FireBall
@@ -45,7 +45,7 @@ MonoBehaviour:
     Ptargit: 0
     AOE: 1
   regions: 0
-  isTurn: 0
+  isTurn: 1
   isStuned: 0
   special: 0
   special_count: 0

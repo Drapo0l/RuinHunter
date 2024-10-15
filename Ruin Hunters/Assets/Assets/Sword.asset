@@ -13,3 +13,7 @@ MonoBehaviour:
   m_Name: Sword
   m_EditorClassIdentifier: 
   label: Sword
+  ItemImage: {fileID: 0}
+  weaponType: 1
+  ArmourType: 0
+  AccessoryType: 0

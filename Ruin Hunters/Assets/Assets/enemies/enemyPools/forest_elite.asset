@@ -9,10 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1207aca2198b25b45a5d914be38660ba, type: 3}
-  m_Name: Rusty bow
+  m_Script: {fileID: 11500000, guid: 954c882b31a220c42a20fe33651b227b, type: 3}
+  m_Name: forest_elite
   m_EditorClassIdentifier: 
-  label: Rusty bow
-  weaponType: 3
-  ArmourType: 0
-  AccessoryType: 0
+  region: 0
+  collidingEnemy: {fileID: 2074794736699707982, guid: 79a1d2e6d52e8af46948a7a842de4db4,
+    type: 3}
+  enemyPrefabs: []
+  maxEnemies: 1
