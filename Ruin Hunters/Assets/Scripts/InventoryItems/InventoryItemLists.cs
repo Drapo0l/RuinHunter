@@ -21,8 +21,6 @@ public class InventoryItemLists : MonoBehaviour
     {
         AddMenuItems();
         ActivateFirstItem();
-
-
     }
 
     void AddMenuItems() // to add new items in the list 
