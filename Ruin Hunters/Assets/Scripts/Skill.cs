@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+
 
 [System.Serializable]
 public class Skill 
@@ -42,7 +44,7 @@ public class Skill
             targetHit.TakeSkillDamage(damage, elementType);
         }
     }
-
+   
     public void ActivateWeaponAttack(GameObject target, int attackerPower, float multiplier,int crit, PublicEnums.Effects effects)
     {
         // Simple damage calculation (adjust as necessary)
@@ -69,10 +71,10 @@ public class Skill
             targetHit.TakeMeleeDamage(damage, PublicEnums.WeaponType.None);
         }
     }
-
+    
     int Seffect(GameObject T,int C, int D, PublicEnums.Effects EN)
     {
-        
+        EnemyAI Pause = new EnemyAI();
         if (EN == PublicEnums.Effects.Crit)
         {
          int chance = Random.Range(1, 101);
@@ -82,10 +84,11 @@ public class Skill
             }
         }
         
-      
             if (EN == PublicEnums.Effects.Stun)
             {
-                if (T.tag.Equals("Player"))
+            DamageNumberManager.Instance.ShowString(T.transform.position, "STUN!", Color.yellow);
+            Pause.Epause();
+            if (T.tag.Equals("Player"))
                 {
                     T.GetComponent<playerController>().playerStats.isStuned = true;
                 }
@@ -102,7 +105,9 @@ public class Skill
             }
             if (EN == PublicEnums.Effects.AttackDown)
             {
-                if (T.tag.Equals("Player"))
+            DamageNumberManager.Instance.ShowString(T.transform.position, "ATT DOWN", Color.black);
+            Pause.Epause();
+            if (T.tag.Equals("Player"))
                 {
                     T.GetComponent<playerController>().playerStats.attackDamage = T.GetComponent<playerController>().playerStats.attackDamage / 2;
                 }
@@ -115,7 +120,9 @@ public class Skill
             }
             if (EN == PublicEnums.Effects.AttackUp)
             {
-                if (T.tag.Equals("Player"))
+            DamageNumberManager.Instance.ShowString(T.transform.position, "ATT UP", Color.red);
+            Pause.Epause();
+            if (T.tag.Equals("Player"))
                 {
                     T.GetComponent<playerController>().playerStats.attackDamage = T.GetComponent<playerController>().playerStats.attackDamage * 2;
                 }
@@ -128,7 +135,9 @@ public class Skill
             }
             if (EN == PublicEnums.Effects.DefenceDown)
             {
-                if (T.tag.Equals("Player"))
+            DamageNumberManager.Instance.ShowString(T.transform.position, "DEF DOWN", Color.black);
+            Pause.Epause();
+            if (T.tag.Equals("Player"))
                 {
                     T.GetComponent<playerController>().playerStats.Defence = T.GetComponent<playerController>().playerStats.Defence / 2;
                 }
@@ -141,7 +150,9 @@ public class Skill
             }
             if (EN == PublicEnums.Effects.DefenceUp)
             {
-                if (T.tag.Equals("Player"))
+            DamageNumberManager.Instance.ShowString(T.transform.position, "DEF UP", Color.blue);
+            Pause.Epause();
+            if (T.tag.Equals("Player"))
                 {
                     T.GetComponent<playerController>().playerStats.Defence = T.GetComponent<playerController>().playerStats.Defence * 2;
                 }
@@ -155,7 +166,10 @@ public class Skill
 
             if (EN == PublicEnums.Effects.SpeedDown)
             {
-                if (T.tag.Equals("Player"))
+            DamageNumberManager.Instance.ShowString(T.transform.position, "SPD DOWN", Color.black);
+            Pause.Epause();
+
+            if (T.tag.Equals("Player"))
                 {
                     T.GetComponent<playerController>().playerStats.combatSpeed = T.GetComponent<playerController>().playerStats.combatSpeed / 2;
                 }
@@ -168,7 +182,9 @@ public class Skill
             }
             if (EN == PublicEnums.Effects.SpeedUp)
             {
-                if (T.tag.Equals("Player"))
+            DamageNumberManager.Instance.ShowString(T.transform.position, "SPD UP", Color.green);
+            Pause.Epause();
+            if (T.tag.Equals("Player"))
                 {
                     T.GetComponent<playerController>().playerStats.combatSpeed = T.GetComponent<playerController>().playerStats.combatSpeed * 2;
                 }
@@ -181,7 +197,9 @@ public class Skill
             }
             if (EN == PublicEnums.Effects.SkillPDown)
             {
-                if (T.tag.Equals("Player"))
+            DamageNumberManager.Instance.ShowString(T.transform.position, "SKL DOWN", Color.black);
+            Pause.Epause();
+            if (T.tag.Equals("Player"))
                 {
                     T.GetComponent<playerController>().playerStats.skillDamage = T.GetComponent<playerController>().playerStats.skillDamage / 2;
                 }
@@ -194,7 +212,9 @@ public class Skill
             }
             if (EN == PublicEnums.Effects.SkillPUP)
             {
-                if (T.tag.Equals("Player"))
+            DamageNumberManager.Instance.ShowString(T.transform.position, "SKL UP", Color.cyan);
+            Pause.Epause();
+            if (T.tag.Equals("Player"))
                 {
                     T.GetComponent<playerController>().playerStats.skillDamage = T.GetComponent<playerController>().playerStats.skillDamage * 2;
                 }
@@ -207,7 +227,9 @@ public class Skill
             }
             if (EN == PublicEnums.Effects.Clense)
             {
-                if (T.tag.Equals("Player"))
+            DamageNumberManager.Instance.ShowString(T.transform.position, "Clense", Color.gray);
+            Pause.Epause();
+            if (T.tag.Equals("Player"))
                 {
                     T.GetComponent<playerController>().playerStats.maxMana = T.GetComponent<playerController>().playerStats.maxManaOG;
                     T.GetComponent<playerController>().playerStats.maxHealth = T.GetComponent<playerController>().playerStats.maxHealthOG;

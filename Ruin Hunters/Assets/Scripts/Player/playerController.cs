@@ -163,7 +163,15 @@ public class playerController : MonoBehaviour, IDamage
         damage = Mathf.FloorToInt(damage * multiplier);
         playerStats.health -= damage;
         Vector3 targetPosition = transform.position;
-        DamageNumberManager.Instance.ShowNumbers(targetPosition, damage, Color.red);
+        if (damage < 0)
+        {
+            damage = damage * -1;
+            DamageNumberManager.Instance.ShowNumbers(targetPosition, damage, Color.green);
+        }
+        else
+        {
+            DamageNumberManager.Instance.ShowNumbers(targetPosition, damage, Color.red);
+        }
 
         if (playerStats.health <= 0)
         {
@@ -182,8 +190,16 @@ public class playerController : MonoBehaviour, IDamage
         damage = Mathf.FloorToInt(damage * multiplier);
         playerStats.health -= damage; 
         Vector3 targetPosition = transform.position;
-        DamageNumberManager.Instance.ShowNumbers(targetPosition, damage, Color.red);
-        
+        if (damage < 0)
+        {
+            damage = damage * -1;
+            DamageNumberManager.Instance.ShowNumbers(targetPosition, damage, Color.green);
+        }
+        else
+        {
+            DamageNumberManager.Instance.ShowNumbers(targetPosition, damage, Color.red);
+        }
+
 
         if (playerStats.health <= 0)
         {

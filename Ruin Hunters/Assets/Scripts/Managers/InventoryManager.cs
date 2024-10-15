@@ -61,7 +61,7 @@ public class Item : ScriptableObject
     public int itemPrice; // item price
     public bool damageable;
     public PublicEnums.Effects potionEffect;
-
+    public PublicEnums.ElementType Element;
     // New variables for categorization
     public ItemType itemType; // Enum to categorize items
 }

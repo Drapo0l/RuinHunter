@@ -227,10 +227,18 @@ public class GameManager : MonoBehaviour
         }
 
         combat = true;
-
+        
         CharacterAttributes currentCharacter = turnOrder[currentTurnIndex];
-
-        currentCharacter.isTurn = true;
+        if (currentCharacter.isStuned == true)
+        {
+           
+            EndTurn();
+        }
+        else
+        {
+            currentCharacter.isTurn = true;
+        }
+            
 
     }
 

@@ -592,100 +592,209 @@ public class PlayerActionSelector : MonoBehaviour
     
     private void consumeItem()
     {
+        EnemyAI pause = new EnemyAI();
         Item item = InventoryManager.instance.GetItems()[itemScrollIndex];
-        if (item.potionEffect == PublicEnums.Effects.Heal)
+        if (item.damageable == false)
         {
-            DamageNumberManager.Instance.ShowNumbers(playerParty[selectedPartyIndex].transform.position, item.effectAmount, Color.green);
-            playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.health += item.effectAmount;
-            if (playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.health > playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.maxHealth)
-                playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.health = playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.maxHealth;
-        }
-        if (item.potionEffect == PublicEnums.Effects.AttackUp)
-        {
-            playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage = playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage * 2;
-        }
-        if (item.potionEffect == PublicEnums.Effects.DefenceUp)
-        {
-            playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage = playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage * 2;
-        }
-        if (item.potionEffect == PublicEnums.Effects.SpeedUp)
-        {
-            playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage = playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage * 2;
-        }
-        if (item.potionEffect == PublicEnums.Effects.SkillPUP)
-        {
-           playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage = playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage * 2;
-        }
-        if (item.potionEffect == PublicEnums.Effects.Clense)
-        {
-            playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage = playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage * 2;
-        }
-        if (item.potionEffect == PublicEnums.Effects.Revive)
-        {
-            GameManager.Instance.PlayerReborn(playerParty[selectedPartyIndex]);
-        }
-        if (item.potionEffect == PublicEnums.Effects.Party_AttackUp)
-        {
-            for (int i = 0; i < playerParty.Count; i++)
+            if (item.potionEffect == PublicEnums.Effects.Heal)
             {
-                if (playerParty[i].GetComponent<playerController>().playerStats.health > 0)
+                DamageNumberManager.Instance.ShowNumbers(playerParty[selectedPartyIndex].transform.position, item.effectAmount, Color.green);
+                playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.health += item.effectAmount;
+                if (playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.health > playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.maxHealth)
+                    playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.health = playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.maxHealth;
+            }
+            if (item.potionEffect == PublicEnums.Effects.AttackUp)
+            {
+                DamageNumberManager.Instance.ShowString(playerParty[selectedPartyIndex].transform.position, "ATT UP", Color.red);
+                playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage = playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage * 2;
+            }
+            if (item.potionEffect == PublicEnums.Effects.DefenceUp)
+            {
+                DamageNumberManager.Instance.ShowString(playerParty[selectedPartyIndex].transform.position, "DEF UP", Color.blue);
+                playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage = playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage * 2;
+            }
+            if (item.potionEffect == PublicEnums.Effects.SpeedUp)
+            {
+                DamageNumberManager.Instance.ShowString(playerParty[selectedPartyIndex].transform.position, "SPD UP", Color.green);
+                playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage = playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage * 2;
+            }
+            if (item.potionEffect == PublicEnums.Effects.SkillPUP)
+            {
+                DamageNumberManager.Instance.ShowString(playerParty[selectedPartyIndex].transform.position, "SKL UP", Color.cyan);
+                playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage = playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage * 2;
+            }
+            if (item.potionEffect == PublicEnums.Effects.Clense)
+            {
+                DamageNumberManager.Instance.ShowString(playerParty[selectedPartyIndex].transform.position, "Clense", Color.gray);
+                playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage = playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage * 2;
+            }
+            if (item.potionEffect == PublicEnums.Effects.Revive)
+            {
+                DamageNumberManager.Instance.ShowString(playerParty[selectedPartyIndex].transform.position, "REBORN", Color.yellow);
+                GameManager.Instance.PlayerReborn(playerParty[selectedPartyIndex]);
+            }
+            if (item.potionEffect == PublicEnums.Effects.Party_AttackUp)
+            {
+                for (int i = 0; i < playerParty.Count; i++)
                 {
-                    playerParty[i].GetComponent<playerController>().playerStats.attackDamage = playerParty[i].GetComponent<playerController>().playerStats.attackDamage * 2;
+                    if (playerParty[i].GetComponent<playerController>().playerStats.health > 0)
+                    {
+                        DamageNumberManager.Instance.ShowString(playerParty[i].transform.position, "ATT UP", Color.red);
+                        playerParty[i].GetComponent<playerController>().playerStats.attackDamage = playerParty[i].GetComponent<playerController>().playerStats.attackDamage * 2;
+                    }
+
+
                 }
+            }
+            if (item.potionEffect == PublicEnums.Effects.Party_DefenceUp)
+            {
+                for (int i = 0; i < playerParty.Count; i++)
+                {
+                    if (playerParty[i].GetComponent<playerController>().playerStats.health > 0)
+                    {
+                        DamageNumberManager.Instance.ShowString(playerParty[i].transform.position, "DEF UP", Color.blue);
+                        playerParty[i].GetComponent<playerController>().playerStats.Defence = playerParty[i].GetComponent<playerController>().playerStats.Defence * 2;
+                    }
 
 
+                }
+            }
+            if (item.potionEffect == PublicEnums.Effects.Party_SpeedUp)
+            {
+                for (int i = 0; i < playerParty.Count; i++)
+                {
+                    if (playerParty[i].GetComponent<playerController>().playerStats.health > 0)
+                    {
+                        DamageNumberManager.Instance.ShowString(playerParty[i].transform.position, "SPD UP", Color.green);
+                        playerParty[i].GetComponent<playerController>().playerStats.combatSpeed = playerParty[i].GetComponent<playerController>().playerStats.combatSpeed * 2;
+                    }
+
+
+                }
+            }
+            if (item.potionEffect == PublicEnums.Effects.Party_SkillUp)
+            {
+                for (int i = 0; i < playerParty.Count; i++)
+                {
+                    if (playerParty[i].GetComponent<playerController>().playerStats.health > 0)
+                    {
+                        DamageNumberManager.Instance.ShowString(playerParty[i].transform.position, "SKL UP", Color.cyan);
+                        playerParty[i].GetComponent<playerController>().playerStats.skillDamage = playerParty[i].GetComponent<playerController>().playerStats.skillDamage * 2;
+                    }
+
+
+                }
+            }
+            if (item.potionEffect == PublicEnums.Effects.Party_Revive)
+            {
+                for (int i = 0; i < playerParty.Count; i++)
+                {
+                    if (playerParty[i].GetComponent<playerController>().playerStats.health <= 0)
+                    {
+                        DamageNumberManager.Instance.ShowString(playerParty[i].transform.position, "REBORN", Color.yellow);
+                        GameManager.Instance.PlayerReborn(playerParty[i]);
+                    }
+                }
             }
         }
-        if (item.potionEffect == PublicEnums.Effects.Party_DefenceUp)
+        else
         {
-            for (int i = 0; i < playerParty.Count; i++)
+            if (item.potionEffect == PublicEnums.Effects.None)
             {
-                if (playerParty[i].GetComponent<playerController>().playerStats.health > 0)
-                {
-                    playerParty[i].GetComponent<playerController>().playerStats.Defence = playerParty[i].GetComponent<playerController>().playerStats.Defence * 2;
-                }
-
-
+                enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element);
             }
-        }
-        if (item.potionEffect == PublicEnums.Effects.Party_SpeedUp)
-        {
-            for (int i = 0; i < playerParty.Count; i++)
+            if (item.potionEffect == PublicEnums.Effects.Party_None)
             {
-                if (playerParty[i].GetComponent<playerController>().playerStats.health > 0)
+                for (int i = 0; i < playerParty.Count; i++)
                 {
-                    playerParty[i].GetComponent<playerController>().playerStats.combatSpeed = playerParty[i].GetComponent<playerController>().playerStats.combatSpeed * 2;
-                }
-
-
-            }
-        }
-        if (item.potionEffect == PublicEnums.Effects.Party_SkillUp)
-        {
-            for (int i = 0; i < playerParty.Count; i++)
-            {
-                if (playerParty[i].GetComponent<playerController>().playerStats.health > 0)
-                {
-                    playerParty[i].GetComponent<playerController>().playerStats.skillDamage = playerParty[i].GetComponent<playerController>().playerStats.skillDamage * 2;
+                    if (enemies[i].GetComponent<playerController>().playerStats.health <= 0)
+                    {
+                        enemies[i].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element);
+                    }
                 }
                 
-               
             }
-        }
-        if (item.potionEffect == PublicEnums.Effects.Party_Revive)
-        {
-            for (int i = 0; i < playerParty.Count; i++)
+            if (item.potionEffect == PublicEnums.Effects.AttackDown)
             {
-                if (playerParty[i].GetComponent<playerController>().playerStats.health <= 0)
+                DamageNumberManager.Instance.ShowString(enemies[selectedEnemyIndex].transform.position, "ATT DOWN", Color.black);
+                enemies[selectedEnemyIndex].GetComponent<EnemyAI>().enemyStats.attackDamage = enemies[selectedEnemyIndex].GetComponent<playerController>().playerStats.attackDamage / 2;
+                pause.Epause();
+                enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element);
+            }
+            if (item.potionEffect == PublicEnums.Effects.DefenceDown)
+            {
+                DamageNumberManager.Instance.ShowString(enemies[selectedEnemyIndex].transform.position, "DEF DOWN", Color.black);
+                enemies[selectedEnemyIndex].GetComponent<EnemyAI>().enemyStats.Defence = enemies[selectedEnemyIndex].GetComponent<playerController>().playerStats.attackDamage / 2;
+                pause.Epause();
+                enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element);
+            }
+            if (item.potionEffect == PublicEnums.Effects.SpeedDown)
+            {
+                DamageNumberManager.Instance.ShowString(enemies[selectedEnemyIndex].transform.position, "SPD DOWN", Color.black);
+                enemies[selectedEnemyIndex].GetComponent<EnemyAI>().enemyStats.combatSpeed = enemies[selectedEnemyIndex].GetComponent<playerController>().playerStats.attackDamage / 2;
+                pause.Epause();
+                enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element);
+            }
+            if (item.potionEffect == PublicEnums.Effects.SkillPDown)
+            {
+                DamageNumberManager.Instance.ShowString(enemies[selectedEnemyIndex].transform.position, "SKL DOWN", Color.black);
+                enemies[selectedEnemyIndex].GetComponent<EnemyAI>().enemyStats.skillDamage = enemies[selectedEnemyIndex].GetComponent<playerController>().playerStats.attackDamage / 2;
+                pause.Epause();
+                enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element);
+            }
+            if (item.potionEffect == PublicEnums.Effects.Party_AttackDown)
+            {
+                for (int i = 0; i < playerParty.Count; i++)
                 {
-                    GameManager.Instance.PlayerReborn(playerParty[i]);
+                    if (enemies[i].GetComponent<playerController>().playerStats.health <= 0)
+                    {
+                        DamageNumberManager.Instance.ShowString(enemies[selectedEnemyIndex].transform.position, "ATT DOWN", Color.black);
+                        pause.Epause();
+                        enemies[i].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element);
+                    }
+                }
+            }
+            if (item.potionEffect == PublicEnums.Effects.Party_DefenceDown)
+            {
+                for (int i = 0; i < playerParty.Count; i++)
+                {
+                    if (enemies[i].GetComponent<playerController>().playerStats.health <= 0)
+                    {
+                        DamageNumberManager.Instance.ShowString(enemies[selectedEnemyIndex].transform.position, "DEF DOWN", Color.black);
+                        pause.Epause();
+                        enemies[i].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element);
+                    }
+                }
+            }
+            if (item.potionEffect == PublicEnums.Effects.Party_SpeedDown)
+            {
+                for (int i = 0; i < playerParty.Count; i++)
+                {
+                    if (enemies[i].GetComponent<playerController>().playerStats.health <= 0)
+                    {
+                        DamageNumberManager.Instance.ShowString(enemies[selectedEnemyIndex].transform.position, "SPD DOWN", Color.black);
+                        pause.Epause();
+                        enemies[i].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element);
+                    }
+                }
+            }
+            if (item.potionEffect == PublicEnums.Effects.Party_SkillDown)
+            {
+                for (int i = 0; i < playerParty.Count; i++)
+                {
+                    if (enemies[i].GetComponent<playerController>().playerStats.health <= 0)
+                    {
+                        DamageNumberManager.Instance.ShowString(enemies[selectedEnemyIndex].transform.position, "SKL DOWN", Color.black);
+                        pause.Epause();
+                        enemies[i].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element);
+                    }
                 }
             }
         }
-
-            //continue if statements for other item types
-            //leave this at the end to consume the item
-            item.amountOfItem--;
+        
+        //continue if statements for other item types
+        //leave this at the end to consume the item
+        item.amountOfItem--;
         if(item.amountOfItem <= 0 )
         {
             InventoryManager.instance.RemoveItem(item);

@@ -74,6 +74,12 @@ public class PublicEnums : Item
         Party_SpeedUp,
         Party_SkillUp,
         Party_Revive,
+        Party_None,
+        Party_AttackDown,
+        Party_DefenceDown,
+        Party_SpeedDown,
+        Party_SkillDown,
+       
     }
 
     public enum EnemyTypes // these are the enemy types 
