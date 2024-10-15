@@ -25,7 +25,7 @@ MonoBehaviour:
   attackDamage: 255
   critChance: 0
   effectChance: 0
-  Defence: 410
+  Defence: 1210
   maxHealthOG: 3920
   maxManaOG: 410
   combatSpeedOG: 210
@@ -33,10 +33,12 @@ MonoBehaviour:
   attackDamageOG: 255
   critChanceOG: 0
   effectChanceOG: 0
-  DefenceOG: 410
+  DefenceOG: 1010
   expGive: 0
   skills:
-  - skillName: Fire Bolt
+  - sprite: {fileID: 0}
+    description: 
+    skillName: Fire Bolt
     elementType: 1
     weaponType: 0
     baseDamage: 400
@@ -44,7 +46,9 @@ MonoBehaviour:
     effect: 0
     Ptargit: 0
     AOE: 0
-  - skillName: Giga Slash
+  - sprite: {fileID: 0}
+    description: 
+    skillName: Giga Slash
     elementType: 0
     weaponType: 1
     baseDamage: 300
@@ -52,7 +56,9 @@ MonoBehaviour:
     effect: 0
     Ptargit: 0
     AOE: 0
-  - skillName: Giga Slash
+  - sprite: {fileID: 0}
+    description: 
+    skillName: Giga Slash
     elementType: 0
     weaponType: 1
     baseDamage: 300
@@ -60,7 +66,9 @@ MonoBehaviour:
     effect: 0
     Ptargit: 0
     AOE: 0
-  - skillName: Giga Slash
+  - sprite: {fileID: 0}
+    description: 
+    skillName: Giga Slash
     elementType: 0
     weaponType: 1
     baseDamage: 300
@@ -68,7 +76,9 @@ MonoBehaviour:
     effect: 0
     Ptargit: 0
     AOE: 0
-  - skillName: Giga Slash
+  - sprite: {fileID: 0}
+    description: 
+    skillName: Giga Slash
     elementType: 0
     weaponType: 1
     baseDamage: 300
@@ -76,7 +86,9 @@ MonoBehaviour:
     effect: 0
     Ptargit: 0
     AOE: 0
-  - skillName: Giga Slash
+  - sprite: {fileID: 0}
+    description: 
+    skillName: Giga Slash
     elementType: 0
     weaponType: 1
     baseDamage: 300
@@ -84,7 +96,9 @@ MonoBehaviour:
     effect: 0
     Ptargit: 0
     AOE: 0
-  - skillName: Giga Slash
+  - sprite: {fileID: 0}
+    description: 
+    skillName: Giga Slash
     elementType: 0
     weaponType: 1
     baseDamage: 300
@@ -92,7 +106,9 @@ MonoBehaviour:
     effect: 0
     Ptargit: 0
     AOE: 0
-  - skillName: hopeWork
+  - sprite: {fileID: 0}
+    description: 
+    skillName: hopeWork
     elementType: 0
     weaponType: 1
     baseDamage: 300

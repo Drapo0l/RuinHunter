@@ -16,7 +16,7 @@ MonoBehaviour:
   currentXP: 200
   xpToNextLevel: 800
   nameOfCharacter: Mage
-  health: 2060
+  health: 2310
   maxHealth: 2420
   maxMana: 360
   mana: 360
@@ -36,7 +36,9 @@ MonoBehaviour:
   DefenceOG: 310
   expGive: 0
   skills:
-  - skillName: FireBall
+  - sprite: {fileID: 0}
+    description: 
+    skillName: FireBall
     elementType: 1
     weaponType: 0
     baseDamage: 300
