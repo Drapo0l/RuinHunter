@@ -120,6 +120,7 @@ public class GameManager : MonoBehaviour
             characters[i].critChanceOG = characters[i].critChance;
             characters[i].effectChanceOG = characters[i].effectChance;
             expTotal = characters[i].expGive + expTotal;
+            characters[i].Defence += characters[i].equipment.armor;
         }
         SetupBattleField();
 

@@ -560,17 +560,17 @@ public class PlayerActionSelector : MonoBehaviour
                             i--;
                             currentMax--;
                         }
-                        enemies[i].GetComponent<EnemyAI>().TakeSkillDamage(playerSkills[skillScrollIndex].baseDamage, playerSkills[skillScrollIndex].elementType);
+                        enemies[i].GetComponent<EnemyAI>().TakeSkillDamage(playerSkills[skillScrollIndex].baseDamage + playerController.playerStats.weapon.skillDamage, playerSkills[skillScrollIndex].elementType);
                     }
                 }
                 else
                 {
-                    enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(playerSkills[skillScrollIndex].baseDamage, playerSkills[skillScrollIndex].elementType);
+                    enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(playerSkills[skillScrollIndex].baseDamage + playerController.playerStats.weapon.skillDamage, playerSkills[skillScrollIndex].elementType);
                 }
             }            
             else
             {
-                enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeMeleeDamage(playerController.playerStats.attackDamage, playerController.playerWeapon);
+                enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeMeleeDamage(playerController.playerStats.attackDamage + playerController.playerStats.weapon.damage, playerController.playerWeapon);
             }
 
 

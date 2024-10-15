@@ -955,7 +955,7 @@ public class CharacterMenuManager : MonoBehaviour
         if (menuStack.Count > 1)
         {
             menuStack.Pop();
-            currentMenu = menuStack.Peek();
+            currentMenu = leftMenu;
             playerScrollIndex = 0;
             currentSelection = 0;
             equipmentScrollIndex = 0;
@@ -980,20 +980,18 @@ public class CharacterMenuManager : MonoBehaviour
     }
 
     private void HandleBackspaceSmallerMenu()
-    {
-        if (menuStack.Count > 1)
-        {
-            menuStack.Pop();
-            currentMenu = menuStack.Peek();
-            playerScrollIndex = 0;
-            currentSelection = 0;
-            equipmentScrollIndex = 0;
-            weaponScrollIndex = 0;
-            skillScrollIndex = 0;
-            itemScrollIndex = 0;               
-            cursor.transform.SetParent(statMenu.transform);
-            UpdateHoverIndicator();
-        }
+    {           
+        currentMenu = subMenuButtons;
+        playerScrollIndex = 0;
+        currentSelection = 0;
+        equipmentScrollIndex = 0;
+        weaponScrollIndex = 0;
+        skillScrollIndex = 0;
+        itemScrollIndex = 0;
+        choosePlayer.gameObject.SetActive(false);
+        choosingPlayer = false;
+        cursor.transform.SetParent(statMenu.transform);
+        UpdateHoverIndicator();
     }
 
     private void SwitchToMenu(List<Button> newMenu)
