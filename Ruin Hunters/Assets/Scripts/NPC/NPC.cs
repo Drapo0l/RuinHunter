@@ -8,7 +8,7 @@ public class NPC : NPCManager, NPCTalkable
     [SerializeField] private DialogueManager dialogueManager;
     [SerializeField]  GameObject playerGmaeOBject;
     public Quest questForPlayer;
-
+    public static NPC instance;
 
 
     public bool isAShopNPC = false;
@@ -37,12 +37,9 @@ public class NPC : NPCManager, NPCTalkable
 
     public void GiveQuest()
     {
-        if (questForPlayer != null)
-        {
             QuestManager.instance.AddQuest(questForPlayer);
             gameObject.SetActive(false); // Turn off the NPC
             PartyManager.Instance.AddPartyMember(playerGmaeOBject);
-        }
     }
 
 }
