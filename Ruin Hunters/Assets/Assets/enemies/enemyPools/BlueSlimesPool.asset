@@ -10,10 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 954c882b31a220c42a20fe33651b227b, type: 3}
-  m_Name: forest_elite
+  m_Name: BlueSlimesPool
   m_EditorClassIdentifier: 
   region: 0
-  collidingEnemy: {fileID: 2074794736699707982, guid: 79a1d2e6d52e8af46948a7a842de4db4,
-    type: 3}
+  collidingEnemy: {fileID: 0}
   enemyPrefabs: []
-  maxEnemies: 1
+  maxEnemies: 3

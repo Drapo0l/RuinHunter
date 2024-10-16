@@ -16,27 +16,29 @@ MonoBehaviour:
   currentXP: 0
   xpToNextLevel: 100
   nameOfCharacter: Jax.
-  health: 40000
-  maxHealth: 40000
-  maxMana: 1
-  mana: 1
-  combatSpeed: 80
-  skillDamage: 600
-  attackDamage: 800
-  critChance: 60
+  health: 9000
+  maxHealth: 9000
+  maxMana: 0
+  mana: 0
+  combatSpeed: 30
+  skillDamage: 1500
+  attackDamage: 1500
+  critChance: 70
   effectChance: 80
-  Defence: 200
-  maxHealthOG: 40000
-  maxManaOG: 1
-  combatSpeedOG: 80
-  skillDamageOG: 600
-  attackDamageOG: 800
-  critChanceOG: 60
-  effectChanceOG: 80
-  DefenceOG: 200
-  expGive: 1000
+  Defence: 400
+  maxHealthOG: 9000
+  maxManaOG: 0
+  combatSpeedOG: 30
+  skillDamageOG: 1500
+  attackDamageOG: 1500
+  critChanceOG: 70
+  effectChanceOG: 0
+  DefenceOG: 400
+  expGive: 8900
   skills:
-  - skillName: flash_bomb
+  - sprite: {fileID: 0}
+    description: 
+    skillName: flash_bomb
     elementType: 3
     weaponType: 0
     baseDamage: 600
@@ -44,7 +46,9 @@ MonoBehaviour:
     effect: 3
     Ptargit: 0
     AOE: 0
-  - skillName: knife_shower
+  - sprite: {fileID: 0}
+    description: 
+    skillName: knife_shower
     elementType: 0
     weaponType: 10
     baseDamage: 1000
@@ -52,7 +56,9 @@ MonoBehaviour:
     effect: 1
     Ptargit: 0
     AOE: 0
-  - skillName: back_stab
+  - sprite: {fileID: 0}
+    description: 
+    skillName: back_stab
     elementType: 0
     weaponType: 10
     baseDamage: 3000
@@ -60,7 +66,9 @@ MonoBehaviour:
     effect: 1
     Ptargit: 0
     AOE: 0
-  - skillName: entangle
+  - sprite: {fileID: 0}
+    description: 
+    skillName: entangle
     elementType: 4
     weaponType: 0
     baseDamage: 600
@@ -68,7 +76,9 @@ MonoBehaviour:
     effect: 5
     Ptargit: 0
     AOE: 0
-  - skillName: entangle
+  - sprite: {fileID: 0}
+    description: 
+    skillName: entangle
     elementType: 4
     weaponType: 0
     baseDamage: 0
@@ -76,7 +86,9 @@ MonoBehaviour:
     effect: 5
     Ptargit: 0
     AOE: 0
-  - skillName: blitz
+  - sprite: {fileID: 0}
+    description: 
+    skillName: blitz
     elementType: 0
     weaponType: 15
     baseDamage: 800
@@ -84,7 +96,9 @@ MonoBehaviour:
     effect: 1
     Ptargit: 0
     AOE: 0
-  - skillName: knife_dance
+  - sprite: {fileID: 0}
+    description: 
+    skillName: knife_dance
     elementType: 0
     weaponType: 10
     baseDamage: 500
@@ -92,7 +106,9 @@ MonoBehaviour:
     effect: 1
     Ptargit: 0
     AOE: 1
-  - skillName: sharpen
+  - sprite: {fileID: 0}
+    description: 
+    skillName: sharpen
     elementType: 0
     weaponType: 0
     baseDamage: 0
@@ -100,7 +116,9 @@ MonoBehaviour:
     effect: 4
     Ptargit: 1
     AOE: 0
-  - skillName: cloak
+  - sprite: {fileID: 0}
+    description: 
+    skillName: cloak
     elementType: 0
     weaponType: 0
     baseDamage: 0
@@ -113,3 +131,5 @@ MonoBehaviour:
   isStuned: 0
   special: 0
   special_count: 2
+  weapon: {fileID: 0}
+  equipment: {fileID: 0}

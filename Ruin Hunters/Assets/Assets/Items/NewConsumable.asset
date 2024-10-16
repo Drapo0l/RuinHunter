@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: NewConsumable
   m_EditorClassIdentifier: Assembly-CSharp::PublicEnums/ConsumableItem
+  Sprite: {fileID: 0}
   itemName: 
   description: 
   effectAmount: 0
@@ -19,5 +20,6 @@ MonoBehaviour:
   itemPrice: 0
   damageable: 0
   potionEffect: 0
+  Element: 0
   itemType: 0
   healingAmount: 0

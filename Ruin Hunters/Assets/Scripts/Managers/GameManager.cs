@@ -76,6 +76,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         //PlayerSpawnLoc = GameObject.FindGameObjectWithTag("PlaySpawnPos");
+        Cursor.visible = false;
     }
 
     void Update()
@@ -226,8 +227,19 @@ public class GameManager : MonoBehaviour
             enemyObj = colliderPool.GetEnemies();
             foreach (var enemy in enemyObj)
             {
-                characters.Add(enemy.GetComponent<EnemyAI>().enemyStats);
-                enemy.GetComponent<EnemyAI>().postionOG = enemy.transform.position;
+                for (int i = 0; i < characters.Count; i++)
+                {
+                    enemy.GetComponent<EnemyAI>().enemyStats.maxMana = enemy.GetComponent<EnemyAI>().enemyStats.maxManaOG;
+                    enemy.GetComponent<EnemyAI>().enemyStats.maxHealth = enemy.GetComponent<EnemyAI>().enemyStats.maxHealthOG;
+                    enemy.GetComponent<EnemyAI>().enemyStats.Defence = enemy.GetComponent<EnemyAI>().enemyStats.DefenceOG;
+                    enemy.GetComponent<EnemyAI>().enemyStats.combatSpeed = enemy.GetComponent<EnemyAI>().enemyStats.combatSpeedOG;
+                    enemy.GetComponent<EnemyAI>().enemyStats.skillDamage = enemy.GetComponent<EnemyAI>().enemyStats.skillDamageOG;
+                    enemy.GetComponent<EnemyAI>().enemyStats.attackDamage = enemy.GetComponent<EnemyAI>().enemyStats.attackDamageOG;
+                    enemy.GetComponent<EnemyAI>().enemyStats.critChance = enemy.GetComponent<EnemyAI>().enemyStats.critChanceOG;
+                    enemy.GetComponent<EnemyAI>().enemyStats.effectChance = enemy.GetComponent<EnemyAI>().enemyStats.effectChanceOG;
+                    characters.Add(enemy.GetComponent<EnemyAI>().enemyStats);
+                    enemy.GetComponent<EnemyAI>().postionOG = enemy.transform.position;
+                }
             }
         }
 
