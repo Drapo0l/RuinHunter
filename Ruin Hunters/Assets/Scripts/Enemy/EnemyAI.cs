@@ -799,7 +799,7 @@ public class EnemyAI : MonoBehaviour
 
             // Activate the weapon attack
             Skill weaponAttack = new Skill();
-            weaponAttack.ActivateWeaponAttack(target, enemyStats.attackDamage, weaponMultiplier, enemyStats.critChance, weaponAttack.effect); // Example power 10
+            weaponAttack.ActivateWeaponAttack(target, enemyStats.attackDamage, weaponMultiplier, enemyStats.critChance, weaponAttack.effect,enemyStats); // Example power 10
             targetIndicatorE.SetActive(false);
         }
     }

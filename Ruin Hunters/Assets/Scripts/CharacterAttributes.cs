@@ -37,7 +37,12 @@ public class CharacterAttributes : ScriptableObject
     public int special_count;
     public WeaponItem weapon;
     public EquipmentItem equipment;
-
+    public AudioSource attacker;
+    public AudioSource target_BA;
+    public AudioClip[] Activation_Sound;
+    public float Activation_SoundV;
+    public AudioClip[] Hit_Sound;
+    public float Hit_SoundV;
     public void AddExperience (int xpAmount)
     {
         currentXP += xpAmount;

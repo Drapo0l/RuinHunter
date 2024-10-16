@@ -18,11 +18,18 @@ public class Skill
     public PublicEnums.Effects effect;
     public int Ptargit; // set as 1 for enemys set as 0 for party members
     public bool AOE; // is it an aoe
-    private ParticleManager ParticleForSkill; 
+    private ParticleManager ParticleForSkill;
+    public AudioSource caster;
+    public AudioSource target;
+    public AudioClip[] Activation_Sound;
+    public float Activation_SoundV;
+    public AudioClip[] Hit_Sound;
+    public float Hit_SoundV;
 
 
     public void ActivateSkill(GameObject target, int attackerPower, float multiplier,int crit, PublicEnums.Effects effects)
     {
+        caster.PlayOneShot(Activation_Sound[Activation_Sound.Length], Activation_SoundV);
         // Simple damage calculation (adjust as necessary)
         int damage = Mathf.FloorToInt(baseDamage * multiplier) + attackerPower;
         damage = Seffect(target, crit, damage, effects);
@@ -45,12 +52,14 @@ public class Skill
         IDamage targetHit = target.GetComponent<IDamage>();
         if (targetHit != null) 
         {
+            caster.PlayOneShot(Hit_Sound[Hit_Sound.Length], Hit_SoundV);
             targetHit.TakeSkillDamage(damage, elementType);
         }
     }
    
-    public void ActivateWeaponAttack(GameObject target, int attackerPower, float multiplier,int crit, PublicEnums.Effects effects)
+    public void ActivateWeaponAttack(GameObject target, int attackerPower, float multiplier,int crit, PublicEnums.Effects effects, CharacterAttributes attacker)
     {
+        attacker.attacker.PlayOneShot(attacker.Activation_Sound[attacker.Activation_Sound.Length], attacker.Activation_SoundV);
         // Simple damage calculation (adjust as necessary)
         int damage = Mathf.FloorToInt(baseDamage * multiplier) + attackerPower;
         damage = Seffect(target, crit, damage, effects);
@@ -72,6 +81,7 @@ public class Skill
         IDamage targetHit = target.GetComponent<IDamage>();
         if (targetHit != null)
         {
+            attacker.attacker.PlayOneShot(attacker.Hit_Sound[attacker.Hit_Sound.Length], attacker.Hit_SoundV);
             targetHit.TakeMeleeDamage(damage, PublicEnums.WeaponType.None);
         }
     }
