@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class playerController : MonoBehaviour, IDamage
 {
@@ -64,6 +65,8 @@ public class playerController : MonoBehaviour, IDamage
         
 
     }
+   
+
 
     //// Polo Angel's code
     //public void EquipWeapon(InventoryItem item)
@@ -173,7 +176,7 @@ public class playerController : MonoBehaviour, IDamage
         if (playerStats.health <= 0)
         {
             playerAnimator.SetBool("death", true);
-            GameManager.Instance.PlayerDeath(gameObject);
+            StartCoroutine(GameManager.Instance.PlayerDeath(gameObject));
         }
         else
         {
@@ -201,7 +204,7 @@ public class playerController : MonoBehaviour, IDamage
         if (playerStats.health <= 0)
         {
             playerAnimator.SetBool("death", true);
-            GameManager.Instance.PlayerDeath(gameObject);
+            StartCoroutine(GameManager.Instance.PlayerDeath(gameObject));
         }
         else
         {

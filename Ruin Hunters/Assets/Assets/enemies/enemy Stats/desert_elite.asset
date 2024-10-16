@@ -15,28 +15,30 @@ MonoBehaviour:
   level: 1
   currentXP: 0
   xpToNextLevel: 100
-  nameOfCharacter: 
-  health: 0
-  maxHealth: 0
+  nameOfCharacter: cold_moon_wolf
+  health: 50000
+  maxHealth: 50000
   maxMana: 0
   mana: 0
-  combatSpeed: 0
-  skillDamage: 0
-  attackDamage: 0
-  critChance: 0
+  combatSpeed: 50
+  skillDamage: 1500
+  attackDamage: 1200
+  critChance: 70
   effectChance: 0
-  Defence: 0
-  maxHealthOG: 0
+  Defence: 1000
+  maxHealthOG: 50000
   maxManaOG: 0
   combatSpeedOG: 0
-  skillDamageOG: 0
-  attackDamageOG: 0
-  critChanceOG: 0
+  skillDamageOG: 1500
+  attackDamageOG: 1200
+  critChanceOG: 50
   effectChanceOG: 0
-  DefenceOG: 0
-  expGive: 0
+  DefenceOG: 1000
+  expGive: 15000
   skills:
-  - skillName: houl_A
+  - sprite: {fileID: 0}
+    description: 
+    skillName: houl_A
     elementType: 0
     weaponType: 0
     baseDamage: 0
@@ -44,31 +46,39 @@ MonoBehaviour:
     effect: 4
     Ptargit: 1
     AOE: 0
-  - skillName: howl_H
+  - sprite: {fileID: 0}
+    description: 
+    skillName: howl_H
     elementType: 0
     weaponType: 0
-    baseDamage: 0
+    baseDamage: 1300
     manaCost: 0
     effect: 2
-    Ptargit: 0
+    Ptargit: 1
     AOE: 0
-  - skillName: full_moon
+  - sprite: {fileID: 0}
+    description: 
+    skillName: full_moon
     elementType: 2
     weaponType: 0
-    baseDamage: 0
+    baseDamage: 3200
     manaCost: 0
     effect: 0
     Ptargit: 0
     AOE: 0
-  - skillName: new_moon
+  - sprite: {fileID: 0}
+    description: 
+    skillName: new_moon
     elementType: 2
     weaponType: 0
-    baseDamage: 0
+    baseDamage: 800
     manaCost: 0
     effect: 0
     Ptargit: 0
     AOE: 0
-  - skillName: clense
+  - sprite: {fileID: 0}
+    description: 
+    skillName: clense
     elementType: 0
     weaponType: 0
     baseDamage: 0
@@ -76,32 +86,50 @@ MonoBehaviour:
     effect: 12
     Ptargit: 1
     AOE: 0
-  - skillName: ice_bite
+  - sprite: {fileID: 0}
+    description: 
+    skillName: ice_bite
     elementType: 2
     weaponType: 10
-    baseDamage: 0
+    baseDamage: 800
     manaCost: 0
     effect: 1
     Ptargit: 0
     AOE: 0
-  - skillName: body_bash
+  - sprite: {fileID: 0}
+    description: 
+    skillName: body_bash
     elementType: 0
     weaponType: 0
-    baseDamage: 0
+    baseDamage: 400
     manaCost: 0
     effect: 3
     Ptargit: 0
     AOE: 0
-  - skillName: blizzard
+  - sprite: {fileID: 0}
+    description: 
+    skillName: blizzard
     elementType: 2
     weaponType: 0
-    baseDamage: 0
+    baseDamage: 500
     manaCost: 0
     effect: 9
     Ptargit: 0
     AOE: 1
+  - sprite: {fileID: 0}
+    description: 
+    skillName: new dawn
+    elementType: 0
+    weaponType: 0
+    baseDamage: 0
+    manaCost: 0
+    effect: 11
+    Ptargit: 1
+    AOE: 0
   regions: 0
   isTurn: 0
   isStuned: 0
   special: 0
   special_count: 0
+  weapon: {fileID: 0}
+  equipment: {fileID: 0}

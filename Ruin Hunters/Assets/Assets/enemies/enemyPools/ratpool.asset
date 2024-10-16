@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 954c882b31a220c42a20fe33651b227b, type: 3}
+  m_Name: ratpool
+  m_EditorClassIdentifier: 
+  region: 1
+  collidingEnemy: {fileID: 4193947127004701078, guid: c236e8c1e73931142af64b39a7e4d34e,
+    type: 3}
+  enemyPrefabs:
+  - {fileID: 4193947127004701078, guid: c236e8c1e73931142af64b39a7e4d34e, type: 3}
+  - {fileID: 4193947127004701078, guid: c236e8c1e73931142af64b39a7e4d34e, type: 3}
+  maxEnemies: 3

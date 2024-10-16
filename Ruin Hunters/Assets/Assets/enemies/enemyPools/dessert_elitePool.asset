@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 954c882b31a220c42a20fe33651b227b, type: 3}
+  m_Name: dessert_elitePool
+  m_EditorClassIdentifier: 
+  region: 1
+  collidingEnemy: {fileID: 2074794736699707982, guid: 00aa1271bc2e54949864b80caadcdcb5,
+    type: 3}
+  enemyPrefabs:
+  - {fileID: 8641859716527120936, guid: 92057bed12ff73443bfe0e6e37ace936, type: 3}
+  - {fileID: 2074794736699707982, guid: 3fc44cadc2e58d842befd63a46e7fd26, type: 3}
+  maxEnemies: 3
