@@ -22,7 +22,7 @@ MonoBehaviour:
   choices:
   - buttonText: A
     playerText: I will like to know about combat
-    nextDialogue: {fileID: 11400000, guid: ebd5e4f79e5d9c040987944bef553a54, type: 2}
+    nextDialogue: {fileID: 11400000, guid: d56ab23c4ff865144ba398cfa743ea19, type: 2}
     actionType: 0
     conditions: []
     consequences: []
