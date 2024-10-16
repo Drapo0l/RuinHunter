@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: MushroomPool
   m_EditorClassIdentifier: 
   region: 0
-  collidingEnemy: {fileID: 0}
-  enemyPrefabs: []
+  collidingEnemy: {fileID: 5318663689987964869, guid: ba279f15930b45f4eb16bcdd7a0e4255,
+    type: 3}
+  enemyPrefabs:
+  - {fileID: 5318663689987964869, guid: ba279f15930b45f4eb16bcdd7a0e4255, type: 3}
+  - {fileID: 5318663689987964869, guid: ba279f15930b45f4eb16bcdd7a0e4255, type: 3}
   maxEnemies: 3

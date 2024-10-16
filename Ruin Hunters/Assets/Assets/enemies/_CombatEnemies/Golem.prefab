@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyName: Golem
-  enemyStats: {fileID: 0}
+  enemyStats: {fileID: 11400000, guid: 16e1d9c3fa3c718469f5c7a739d9af49, type: 2}
   weaponsWeakness: []
   elementWeakness: []
   ty: 0
