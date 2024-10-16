@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 954c882b31a220c42a20fe33651b227b, type: 3}
   m_Name: RedSlimesPool
   m_EditorClassIdentifier: 
-  region: 0
-  collidingEnemy: {fileID: 0}
-  enemyPrefabs: []
+  region: 1
+  collidingEnemy: {fileID: 8957797960645367694, guid: 79a6e32ebc1fb9a43a6fbdab8f2fa679,
+    type: 3}
+  enemyPrefabs:
+  - {fileID: 8957797960645367694, guid: 79a6e32ebc1fb9a43a6fbdab8f2fa679, type: 3}
+  - {fileID: 8957797960645367694, guid: 79a6e32ebc1fb9a43a6fbdab8f2fa679, type: 3}
   maxEnemies: 3

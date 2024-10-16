@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: SkeletonPool
   m_EditorClassIdentifier: 
   region: 1
-  collidingEnemy: {fileID: 0}
-  enemyPrefabs: []
+  collidingEnemy: {fileID: 1607624793923900521, guid: 95c8c5cf9c398804ca71eb23a8c5b3b1,
+    type: 3}
+  enemyPrefabs:
+  - {fileID: 8641859716527120936, guid: 92057bed12ff73443bfe0e6e37ace936, type: 3}
+  - {fileID: 1607624793923900521, guid: 95c8c5cf9c398804ca71eb23a8c5b3b1, type: 3}
   maxEnemies: 3

@@ -131,7 +131,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b833ecb0b7b933439a6fab8cb062bef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyName: 
+  enemyName: Goblin
   enemyStats: {fileID: 11400000, guid: 4cb07668e615e2447b6953e7ccae33b9, type: 2}
   weaponsWeakness: []
   elementWeakness: []

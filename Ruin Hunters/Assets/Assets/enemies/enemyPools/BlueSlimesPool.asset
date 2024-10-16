@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BlueSlimesPool
   m_EditorClassIdentifier: 
   region: 0
-  collidingEnemy: {fileID: 0}
+  collidingEnemy: {fileID: 4531936765064364113, guid: 7c84c383543604c44bfb56a5eec3d162,
+    type: 3}
   enemyPrefabs: []
   maxEnemies: 3

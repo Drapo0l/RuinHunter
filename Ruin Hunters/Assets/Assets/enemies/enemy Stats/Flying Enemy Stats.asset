@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 82e337efe9978a8409654b2b05bb0c8c, type: 3}
-  m_Name: Golem
+  m_Name: Flying Enemy Stats
   m_EditorClassIdentifier: 
   level: 1
   currentXP: 0
   xpToNextLevel: 100
   nameOfCharacter: 
-  health: 1000
-  maxHealth: 1000
+  health: 200
+  maxHealth: 200
   maxMana: 0
   mana: 0
-  combatSpeed: 5
+  combatSpeed: 90
   skillDamage: 120
-  attackDamage: 130
+  attackDamage: 110
   critChance: 0
   effectChance: 0
-  Defence: 250
+  Defence: 45
   maxHealthOG: 0
   maxManaOG: 0
   combatSpeedOG: 0

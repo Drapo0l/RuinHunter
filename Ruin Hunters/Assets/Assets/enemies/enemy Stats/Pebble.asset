@@ -25,7 +25,7 @@ MonoBehaviour:
   attackDamage: 0
   critChance: 0
   effectChance: 0
-  Defence: 0
+  Defence: 1
   maxHealthOG: 0
   maxManaOG: 0
   combatSpeedOG: 0
