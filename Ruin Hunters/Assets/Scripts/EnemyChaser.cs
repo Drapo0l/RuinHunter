@@ -44,13 +44,13 @@ public class EnemyChaser : MonoBehaviour
         isinSight = Physics.CheckSphere(transform.position, Sightrange, WherePlayer);
         if (!isinSight)
         {
-            enemyAnimator.SetBool("isChasing", false);
+            enemyAnimator.SetBool("Run", false);
             Patroling();
 
         }
         if (isinSight)
         {
-            enemyAnimator.SetBool("isChasing", true);
+            enemyAnimator.SetBool("Run", true);
             Chase();
         }
     }
