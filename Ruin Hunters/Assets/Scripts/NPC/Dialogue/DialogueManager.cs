@@ -106,7 +106,7 @@ public class DialogueManager : MonoBehaviour
         switch (actionType)
         {
             case ActionType.UnlockQuest:
-                currentNPC.GiveQuest();
+                NPC.instance.GiveQuest();
                 break;
             case ActionType.ChangeNPCState:
              //   if (choice.changesNPCState)
