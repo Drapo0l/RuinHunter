@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class NPC : NPCManager, NPCTalkable
@@ -8,7 +9,7 @@ public class NPC : NPCManager, NPCTalkable
     [SerializeField] private DialogueManager dialogueManager;
     [SerializeField]  GameObject playerGmaeOBject;
     public Quest questForPlayer;
-    public static NPC instance;
+    public Quest completeQuest;
 
 
     public bool isAShopNPC = false;
@@ -18,7 +19,7 @@ public class NPC : NPCManager, NPCTalkable
         if (dialogueManager.gameObject.activeSelf)
         {
             // If the dialogue is already active, advance to the next sentence
-            dialogueManager.DisplayNextSentence(dialogue);
+            dialogueManager.DisplayNextSentence(dialogue, this);
         }
         else
         {
@@ -37,9 +38,10 @@ public class NPC : NPCManager, NPCTalkable
 
     public void GiveQuest()
     {
-            QuestManager.instance.AddQuest(questForPlayer);
-            gameObject.SetActive(false); // Turn off the NPC
-            PartyManager.Instance.AddPartyMember(playerGmaeOBject);
+        QuestManager.instance.CompleteQuest(completeQuest);
+        QuestManager.instance.AddQuest(questForPlayer);        
+        gameObject.SetActive(false); // Turn off the NPC
+        PartyManager.Instance.AddPartyMember(playerGmaeOBject);
     }
 
 }

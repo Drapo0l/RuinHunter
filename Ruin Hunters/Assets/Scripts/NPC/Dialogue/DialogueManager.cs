@@ -37,11 +37,12 @@ public class DialogueManager : MonoBehaviour
             sentences.Enqueue(sentence);
         }
 
-        DisplayNextSentence(dialogue);
+        DisplayNextSentence(dialogue, currentNPC);
     }
 
-    public void DisplayNextSentence(Dialogue dialogue)
+    public void DisplayNextSentence(Dialogue dialogue, NPC npc)
     {
+        currentNPC = npc;
         // If there are no sentences left
         if (sentences.Count == 0)
         {
@@ -106,7 +107,7 @@ public class DialogueManager : MonoBehaviour
         switch (actionType)
         {
             case ActionType.UnlockQuest:
-                NPC.instance.GiveQuest();
+                currentNPC.GiveQuest();
                 break;
             case ActionType.ChangeNPCState:
              //   if (choice.changesNPCState)

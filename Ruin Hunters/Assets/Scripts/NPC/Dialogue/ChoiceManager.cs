@@ -81,7 +81,7 @@ public class ChoiceManager : MonoBehaviour
         }
         else
         {
-            dialogueManager.DisplayNextSentence(new Dialogue() { sentences = new string[] { "." } }); // Display the NPC's response before ending
+            dialogueManager.DisplayNextSentence(new Dialogue() { sentences = new string[] { "." } }, null); // Display the NPC's response before ending
         }
     }
 
