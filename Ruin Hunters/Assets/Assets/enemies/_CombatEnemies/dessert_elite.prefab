@@ -154,8 +154,8 @@ MonoBehaviour:
   - weaponType: 0
     weaponMultiplier: 1
   elementWeakness:
-  - elementType: 2
-    elementMultiplier: 1
+  - elementType: 1
+    elementMultiplier: 1.5
   ty: 5
   postionOG: {x: 0, y: 0, z: 0}
   cam: {fileID: 2793435810526664582, guid: f7590eb4013331c4baab59ec332962fc, type: 3}

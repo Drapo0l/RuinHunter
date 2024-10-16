@@ -15,28 +15,30 @@ MonoBehaviour:
   level: 1
   currentXP: 0
   xpToNextLevel: 100
-  nameOfCharacter: 
-  health: 5000
-  maxHealth: 5000
+  nameOfCharacter: booster worrior
+  health: 10000
+  maxHealth: 10000
   maxMana: 0
   mana: 0
-  combatSpeed: 0
-  skillDamage: 0
-  attackDamage: 0
+  combatSpeed: 900
+  skillDamage: 2000
+  attackDamage: 4000
   critChance: 0
   effectChance: 0
-  Defence: 0
+  Defence: 2500
   maxHealthOG: 0
   maxManaOG: 0
   combatSpeedOG: 0
-  skillDamageOG: 0
-  attackDamageOG: 0
+  skillDamageOG: 2000
+  attackDamageOG: 4000
   critChanceOG: 0
   effectChanceOG: 0
-  DefenceOG: 0
-  expGive: 0
+  DefenceOG: 2500
+  expGive: 90000
   skills:
-  - skillName: over_charged
+  - sprite: {fileID: 0}
+    description: 
+    skillName: over_charged
     elementType: 0
     weaponType: 0
     baseDamage: 0
@@ -44,7 +46,9 @@ MonoBehaviour:
     effect: 7
     Ptargit: 1
     AOE: 0
-  - skillName: clense
+  - sprite: {fileID: 0}
+    description: 
+    skillName: clense
     elementType: 0
     weaponType: 0
     baseDamage: 0
@@ -52,7 +56,9 @@ MonoBehaviour:
     effect: 12
     Ptargit: 1
     AOE: 0
-  - skillName: boost
+  - sprite: {fileID: 0}
+    description: 
+    skillName: boost
     elementType: 0
     weaponType: 0
     baseDamage: 0
@@ -60,10 +66,12 @@ MonoBehaviour:
     effect: 4
     Ptargit: 1
     AOE: 0
-  - skillName: spark_surge
+  - sprite: {fileID: 0}
+    description: 
+    skillName: spark_surge
     elementType: 3
     weaponType: 0
-    baseDamage: 0
+    baseDamage: 8000
     manaCost: 0
     effect: 3
     Ptargit: 0
@@ -73,3 +81,5 @@ MonoBehaviour:
   isStuned: 0
   special: 0
   special_count: 0
+  weapon: {fileID: 0}
+  equipment: {fileID: 0}

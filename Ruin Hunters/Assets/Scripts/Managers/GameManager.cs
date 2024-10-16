@@ -15,11 +15,12 @@ public class GameManager : MonoBehaviour
 {
 
     public static GameManager Instance;
-    
+
     public GameObject playerCamera;
     public GameObject battleCamera;
     public GameObject playerParent;
     public GameObject battleUI;
+    public GameObject worldEnemyParent;
     public int expTotal;
     private List<CharacterAttributes> playerParty; // list to hold player party
     public List<GameObject> Grave_Yard = new List<GameObject>();
@@ -32,6 +33,7 @@ public class GameManager : MonoBehaviour
     private int currentTurnIndex = 0; // index of the current character's turn
 
     [SerializeField] GameObject levelUpScreen;
+    [SerializeField] private GameObject deathMenu; //reference to the death menue
 
     [Header("Dependencies - No touching")]
     public bool combat = false;
@@ -44,7 +46,7 @@ public class GameManager : MonoBehaviour
 
     public Vector3 lastPlayerPosition;
     public List<GameObject> playerLeveled = new List<GameObject>();
-   
+
     private int totalXpForParty;
     private bool wasCombatInitialized = false;
 
@@ -73,10 +75,10 @@ public class GameManager : MonoBehaviour
     {
         if (leveling)
         {
-            if(Input.GetKeyDown(KeyCode.Return))
+            if (Input.GetKeyDown(KeyCode.Return))
             {
                 leveling = false;
-                for(int i = 0; i < 4; i++)
+                for (int i = 0; i < 4; i++)
                 {
                     levelUpScreen.transform.GetChild(i).gameObject.SetActive(true);
                 }
@@ -93,6 +95,7 @@ public class GameManager : MonoBehaviour
         else if (combat)
         {
             SetHealthBars();
+            CheckPartyDeath();
         }
     }
 
@@ -103,6 +106,7 @@ public class GameManager : MonoBehaviour
 
     void StartCombat()
     {
+        worldEnemyParent.SetActive(false);
         QuestManager.instance.questParent.SetActive(false);
 
         characters = new List<CharacterAttributes>();
@@ -159,8 +163,19 @@ public class GameManager : MonoBehaviour
             enemyObj = colliderPool.GetEnemies();
             foreach (var enemy in enemyObj)
             {
-                characters.Add(enemy.GetComponent<EnemyAI>().enemyStats);
-                enemy.GetComponent<EnemyAI>().postionOG = enemy.transform.position;
+                for (int i = 0; i < characters.Count; i++)
+                {
+                    enemy.GetComponent<EnemyAI>().enemyStats.maxMana = enemy.GetComponent<EnemyAI>().enemyStats.maxManaOG;
+                    enemy.GetComponent<EnemyAI>().enemyStats.maxHealth = enemy.GetComponent<EnemyAI>().enemyStats.maxHealthOG;
+                    enemy.GetComponent<EnemyAI>().enemyStats.Defence = enemy.GetComponent<EnemyAI>().enemyStats.DefenceOG;
+                    enemy.GetComponent<EnemyAI>().enemyStats.combatSpeed = enemy.GetComponent<EnemyAI>().enemyStats.combatSpeedOG;
+                    enemy.GetComponent<EnemyAI>().enemyStats.skillDamage = enemy.GetComponent<EnemyAI>().enemyStats.skillDamageOG;
+                    enemy.GetComponent<EnemyAI>().enemyStats.attackDamage = enemy.GetComponent<EnemyAI>().enemyStats.attackDamageOG;
+                    enemy.GetComponent<EnemyAI>().enemyStats.critChance = enemy.GetComponent<EnemyAI>().enemyStats.critChanceOG;
+                    enemy.GetComponent<EnemyAI>().enemyStats.effectChance = enemy.GetComponent<EnemyAI>().enemyStats.effectChanceOG;
+                    characters.Add(enemy.GetComponent<EnemyAI>().enemyStats);
+                    enemy.GetComponent<EnemyAI>().postionOG = enemy.transform.position;
+                }
             }
         }
 
@@ -228,7 +243,7 @@ public class GameManager : MonoBehaviour
         //spawn at certain location
         return Vector3.zero; //placeholder
     }
-                
+
     public void StartTurn()
     {
 
@@ -238,18 +253,18 @@ public class GameManager : MonoBehaviour
         }
 
         combat = true;
-        
+
         CharacterAttributes currentCharacter = turnOrder[currentTurnIndex];
         if (currentCharacter.isStuned == true)
         {
-           
+
             EndTurn();
         }
         else
         {
             currentCharacter.isTurn = true;
         }
-            
+
 
     }
 
@@ -270,7 +285,7 @@ public class GameManager : MonoBehaviour
             currentTurnIndex--;
         totalXpForParty += enemy.GetComponent<EnemyAI>().enemyStats.currentXP;
         enemyObj.Remove(enemy);
-        turnOrder.Remove(enemy.GetComponent<EnemyAI>().enemyStats);        
+        turnOrder.Remove(enemy.GetComponent<EnemyAI>().enemyStats);
         if (enemyObj.Count == 0)
         {
             StartCoroutine(EndCombat());
@@ -296,22 +311,25 @@ public class GameManager : MonoBehaviour
         battleParty.Remove(player);
         turnOrder.Remove(player.GetComponent<playerController>().playerStats);
         Grave_Yard.Add(player);
+        CheckPartyDeath(); // Add this line to check for party death
         if (battleParty.Count == 0)
         {
-            StartCoroutine(EndCombat());            
+            StartCoroutine(EndCombat(true)); // Call EndCombat with the flag for player death
         }
     }
+
     public void PlayerReborn(GameObject player)
     {
         currentTurnIndex++;
         battleParty.Add(player);
         turnOrder.Add(player.GetComponent<playerController>().playerStats);
         Grave_Yard.Remove(player);
-       
+
     }
-    public IEnumerator EndCombat()
+
+    public IEnumerator EndCombat(bool playerDeath = false)
     {
-        
+
 
         for (int i = 0; i < characters.Count; i++)
         {
@@ -342,17 +360,17 @@ public class GameManager : MonoBehaviour
         foreach (var item in randomItems)
         {
             InventoryManager.instance.AddItem(item);
-            foreach(var player in battleParty)
+            foreach (var player in battleParty)
             {
-                DamageNumberManager.Instance.ShowString(player.transform.position, item.itemName, Color.yellow);                
+                DamageNumberManager.Instance.ShowString(player.transform.position, item.itemName, Color.yellow);
             }
             yield return new WaitForSeconds(1f);
 
-        }      
+        }
 
         foreach (var player in battleParty)
         {
-            
+
             player.GetComponent<playerController>().playerStats.AddExperience((totalXpForParty / battleParty.Count));
             DamageNumberManager.Instance.ShowNumbers(player.transform.position, (totalXpForParty / battleParty.Count), Color.blue);
             if (player.GetComponent<playerController>().playerStats.currentXP < (totalXpForParty / battleParty.Count))
@@ -368,7 +386,43 @@ public class GameManager : MonoBehaviour
             ShowLevelUpScreen();
             playerLeveled.Clear();
         }
-       
+
+        characters.Clear();
+        playerParty.Clear();
+        wasCombatInitialized = false;
+
+        battleCamera.SetActive(false);
+        playerCamera.SetActive(true);
+        playerHealthsParent.SetActive(false);
+
+        foreach (GameObject player in battleParty)
+        {
+            player.SetActive(false);
+            player.transform.localPosition = lastPlayerPosition;
+            player.transform.SetParent(playerParent.transform);
+
+        }
+        battleParty[0].SetActive(true);
+        QuestManager.instance.questParent.SetActive(true);
+        worldEnemyParent.SetActive(true);
+        //move to the next character in the list
+    }
+    public void FleeCombat()
+    {
+        for (int i = 0; i < characters.Count; i++)
+        {
+            characters[i].maxMana = characters[i].maxManaOG;
+            characters[i].maxHealth = characters[i].maxHealthOG;
+            characters[i].Defence = characters[i].DefenceOG;
+            characters[i].combatSpeed = characters[i].combatSpeedOG;
+            characters[i].skillDamage = characters[i].skillDamageOG;
+            characters[i].attackDamage = characters[i].attackDamageOG;
+            characters[i].critChance = characters[i].critChanceOG;
+            characters[i].effectChance = characters[i].effectChanceOG;
+            characters[i].AddExperience(expTotal);
+        }
+        combat = false;
+        battleUI.SetActive(false);
         characters.Clear();
         playerParty.Clear();
         wasCombatInitialized = false;
@@ -386,8 +440,7 @@ public class GameManager : MonoBehaviour
         }
         battleParty[0].SetActive(true);
         QuestManager.instance.questParent.SetActive(true);
-
-        //move to the next character in the list
+        worldEnemyParent.SetActive(true);
     }
 
     private void ShowLevelUpScreen()
@@ -395,9 +448,9 @@ public class GameManager : MonoBehaviour
         levelUpScreen.SetActive(true);
         leveling = true;
         int child = 0;
-        foreach (GameObject player in playerLeveled) 
+        foreach (GameObject player in playerLeveled)
         {
-            player.GetComponent<SphereCollider>().enabled = true;            
+            player.GetComponent<SphereCollider>().enabled = true;
             levelUpScreen.transform.GetChild(child).gameObject.SetActive(true);
             GameObject playerPanel = levelUpScreen.transform.GetChild(child).gameObject;
             CharacterAttributes characterAttributes = player.GetComponent<playerController>().playerStats;
@@ -425,5 +478,48 @@ public class GameManager : MonoBehaviour
             playerPanel.transform.GetChild(10).GetComponent<TextMeshProUGUI>().text = "crit: " + characterAttributes.critChanceOG.ToString() + " -> " + characterAttributes.critChance.ToString();
             child++;
         }
+    }
+    private void CheckPartyDeath()
+    {
+        bool allDead = true;
+        foreach (var member in playerParty)
+        {
+            CharacterAttributes attributes = member.GetComponent<CharacterAttributes>();
+            if (attributes.health > 0)
+            {
+                allDead = false;
+                break;
+            }
+        }
+        if (allDead)
+        {
+            StartCoroutine(EndCombat(true)); // End combat if all party members are dead
+        }
+    }
+    public void playerEndCombat()
+    {
+        StartCoroutine(EndCombatRoutine());
+    }
+
+    private IEnumerator EndCombatRoutine()
+    {
+        // Perform any clean-up needed to end combat
+        foreach (var player in battleParty)
+        {
+            player.SetActive(false); // Disable player game objects
+        }
+        foreach (var enemy in enemyObj)
+        {
+            enemy.SetActive(false); // Disable enemy game objects
+        }
+        combat = false;
+        battleUI.SetActive(false);
+        playerHealthsParent.SetActive(false);
+
+        // Activate the death menu
+        deathMenu.SetActive(true);
+
+        yield return null;
+
     }
 }
