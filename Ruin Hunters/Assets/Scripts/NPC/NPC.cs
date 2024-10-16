@@ -11,7 +11,7 @@ public class NPC : NPCManager, NPCTalkable
     public Quest questForPlayer;
     public Quest completeQuest;
 
-
+    public bool isPartyMemeber;
     public bool isAShopNPC = false;
 
     public override void Interact()
@@ -40,7 +40,6 @@ public class NPC : NPCManager, NPCTalkable
     {
         QuestManager.instance.CompleteQuest(completeQuest);
         QuestManager.instance.AddQuest(questForPlayer);        
-        gameObject.SetActive(false); // Turn off the NPC
         PartyManager.Instance.AddPartyMember(playerGmaeOBject);
     }
 

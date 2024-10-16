@@ -21,7 +21,7 @@ public class DialogueManager : MonoBehaviour
     private const float Max_Type_Time = 0.1f; // Controls typing speed
     private Coroutine typeDialogueCoroutine;
     private NPC currentNPC;
-
+   
     public void StartDialogue(Dialogue dialogue)
     {
         if (!gameObject.activeSelf)
@@ -99,6 +99,10 @@ public class DialogueManager : MonoBehaviour
         if (gameObject.activeSelf)
         {
             gameObject.SetActive(false);
+            if(currentNPC.isPartyMemeber)
+            {
+                currentNPC.gameObject.SetActive(false);
+            }
         }
     }
 
