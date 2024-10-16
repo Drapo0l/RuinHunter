@@ -1,21 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class SaveGameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    
+    public static SaveGameManager SavedScene { get; set; }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }
+
 
 
 [System.Serializable]
@@ -25,6 +21,5 @@ public class GameData
     public List<Item> items;
     public List<EquipmentItem> equipmentItems;
     public List<WeaponItem> weaponItems;
-
 
 }

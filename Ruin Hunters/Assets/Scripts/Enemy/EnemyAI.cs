@@ -21,6 +21,7 @@ public class EnemyAI : MonoBehaviour
     public int minGold;
     public int maxGold;
     private bool animatingAttack;
+
     
     void Start()
     {

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class playerController : MonoBehaviour, IDamage
 {
@@ -64,6 +65,8 @@ public class playerController : MonoBehaviour, IDamage
         
 
     }
+   
+
 
     //// Polo Angel's code
     //public void EquipWeapon(InventoryItem item)

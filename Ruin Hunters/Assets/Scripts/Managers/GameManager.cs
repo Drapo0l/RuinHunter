@@ -66,6 +66,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         //PlayerSpawnLoc = GameObject.FindGameObjectWithTag("PlaySpawnPos");
+        Cursor.visible = false;
     }
 
     void Update()
