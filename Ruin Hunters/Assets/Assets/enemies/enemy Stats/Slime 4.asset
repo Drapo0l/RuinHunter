@@ -10,40 +10,46 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 82e337efe9978a8409654b2b05bb0c8c, type: 3}
-  m_Name: ruin_boss_1_L
+  m_Name: Slime 4
   m_EditorClassIdentifier: 
   level: 1
-  currentXP: 0
+  currentXP: 1000
   xpToNextLevel: 100
-  nameOfCharacter: 
-  health: 900000
-  maxHealth: 900000
+  nameOfCharacter: Bat
+  health: -8150
+  maxHealth: 300
   maxMana: 0
   mana: 0
-  combatSpeed: 40
-  skillDamage: 8000
-  attackDamage: 4000
+  combatSpeed: 15
+  skillDamage: 50
+  attackDamage: 60
   critChance: 0
   effectChance: 0
-  Defence: 4000
-  maxHealthOG: 900000
+  Defence: 0
+  maxHealthOG: 300
   maxManaOG: 0
-  combatSpeedOG: 40
-  skillDamageOG: 8000
-  attackDamageOG: 4000
+  combatSpeedOG: 15
+  skillDamageOG: 50
+  attackDamageOG: 60
   critChanceOG: 0
   effectChanceOG: 0
-  DefenceOG: 4000
+  DefenceOG: 0
   expGive: 0
   skills:
-  - sprite: {fileID: 0}
-    description: 
-    skillName: stun_bash
-    elementType: 0
+  - skillName: elekiattacki
+    elementType: 3
     weaponType: 0
-    baseDamage: 8000
+    baseDamage: 150
     manaCost: 0
-    effect: 3
+    effect: 0
+    Ptargit: 0
+    AOE: 1
+  - skillName: elekiattacki
+    elementType: 3
+    weaponType: 0
+    baseDamage: 150
+    manaCost: 0
+    effect: 0
     Ptargit: 0
     AOE: 0
   regions: 0
@@ -51,5 +57,3 @@ MonoBehaviour:
   isStuned: 0
   special: 0
   special_count: 0
-  weapon: {fileID: 0}
-  equipment: {fileID: 0}

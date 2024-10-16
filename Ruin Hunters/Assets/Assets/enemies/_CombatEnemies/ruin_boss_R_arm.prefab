@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5185018179064801866}
   - component: {fileID: 5062316960963324412}
   m_Layer: 0
-  m_Name: dessert_elite
+  m_Name: ruin_boss_R_arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -149,14 +149,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyName: Slime
-  enemyStats: {fileID: 11400000, guid: aabbc2a4d5be50e4daeb70ee4c68f32f, type: 2}
+  enemyStats: {fileID: 11400000, guid: ae26302385aefef4baf3802adc745dbd, type: 2}
   weaponsWeakness:
   - weaponType: 0
     weaponMultiplier: 1
   elementWeakness:
-  - elementType: 1
-    elementMultiplier: 1.5
-  ty: 5
+  - elementType: 3
+    elementMultiplier: 1
+  - elementType: 4
+    elementMultiplier: 1
+  ty: 10
   postionOG: {x: 0, y: 0, z: 0}
   cam: {fileID: 2793435810526664582, guid: f7590eb4013331c4baab59ec332962fc, type: 3}
   enemyModel: {fileID: 2074794736699707982}

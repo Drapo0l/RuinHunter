@@ -13,30 +13,32 @@ MonoBehaviour:
   m_Name: ice_elite
   m_EditorClassIdentifier: 
   level: 1
-  currentXP: 0
+  currentXP: 1000
   xpToNextLevel: 100
-  nameOfCharacter: 
-  health: 0
-  maxHealth: 0
+  nameOfCharacter: mariachi_bot
+  health: 70000
+  maxHealth: 70000
   maxMana: 0
   mana: 0
-  combatSpeed: 0
-  skillDamage: 0
-  attackDamage: 0
-  critChance: 0
+  combatSpeed: 35
+  skillDamage: 2000
+  attackDamage: 3000
+  critChance: 50
   effectChance: 0
-  Defence: 0
-  maxHealthOG: 0
+  Defence: 2500
+  maxHealthOG: 70000
   maxManaOG: 0
-  combatSpeedOG: 0
-  skillDamageOG: 0
-  attackDamageOG: 0
-  critChanceOG: 0
+  combatSpeedOG: 15
+  skillDamageOG: 2000
+  attackDamageOG: 3000
+  critChanceOG: 50
   effectChanceOG: 0
-  DefenceOG: 0
-  expGive: 0
+  DefenceOG: 2500
+  expGive: 75000
   skills:
-  - skillName: burn_out_1
+  - sprite: {fileID: 0}
+    description: 
+    skillName: burnout
     elementType: 0
     weaponType: 0
     baseDamage: 0
@@ -44,7 +46,9 @@ MonoBehaviour:
     effect: 7
     Ptargit: 1
     AOE: 0
-  - skillName: burn_out_2
+  - sprite: {fileID: 0}
+    description: 
+    skillName: burn_out
     elementType: 0
     weaponType: 0
     baseDamage: 0
@@ -52,15 +56,19 @@ MonoBehaviour:
     effect: 9
     Ptargit: 1
     AOE: 0
-  - skillName: 'big_bomb_fiesta '
+  - sprite: {fileID: 0}
+    description: 
+    skillName: Big_Bomb_fiesta
     elementType: 1
     weaponType: 0
-    baseDamage: 0
+    baseDamage: 9000
     manaCost: 0
-    effect: 9
+    effect: 7
     Ptargit: 0
-    AOE: 0
-  - skillName: clense
+    AOE: 1
+  - sprite: {fileID: 0}
+    description: 
+    skillName: clense
     elementType: 0
     weaponType: 0
     baseDamage: 0
@@ -68,36 +76,54 @@ MonoBehaviour:
     effect: 12
     Ptargit: 1
     AOE: 0
-  - skillName: steam_blast
-    elementType: 1
-    weaponType: 15
+  - sprite: {fileID: 0}
+    description: 
+    skillName: steam shot
+    elementType: 0
+    weaponType: 0
+    baseDamage: 2000
+    manaCost: 0
+    effect: 3
+    Ptargit: 0
+    AOE: 0
+  - sprite: {fileID: 0}
+    description: 
+    skillName: fire_up
+    elementType: 0
+    weaponType: 0
     baseDamage: 0
+    manaCost: 0
+    effect: 4
+    Ptargit: 1
+    AOE: 0
+  - sprite: {fileID: 0}
+    description: 
+    skillName: brittle tune
+    elementType: 0
+    weaponType: 0
+    baseDamage: 900
     manaCost: 0
     effect: 7
     Ptargit: 0
     AOE: 0
-  - skillName: heat_wave
-    elementType: 1
-    weaponType: 0
-    baseDamage: 0
-    manaCost: 0
-    effect: 0
-    Ptargit: 0
-    AOE: 1
-  - skillName: weaken_tune
+  - sprite: {fileID: 0}
+    description: 
+    skillName: weakening tune
     elementType: 0
     weaponType: 0
-    baseDamage: 0
+    baseDamage: 800
     manaCost: 0
     effect: 5
     Ptargit: 0
-    AOE: 1
-  - skillName: brittle_tune
-    elementType: 0
+    AOE: 0
+  - sprite: {fileID: 0}
+    description: 
+    skillName: heat wave
+    elementType: 1
     weaponType: 0
-    baseDamage: 0
+    baseDamage: 1500
     manaCost: 0
-    effect: 7
+    effect: 1
     Ptargit: 0
     AOE: 1
   regions: 0
@@ -105,3 +131,5 @@ MonoBehaviour:
   isStuned: 0
   special: 0
   special_count: 0
+  weapon: {fileID: 0}
+  equipment: {fileID: 0}

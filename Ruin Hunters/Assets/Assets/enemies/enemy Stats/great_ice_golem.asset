@@ -10,72 +10,82 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 82e337efe9978a8409654b2b05bb0c8c, type: 3}
-  m_Name: ruin_elite
+  m_Name: great_ice_golem
   m_EditorClassIdentifier: 
   level: 1
-  currentXP: 0
+  currentXP: 1000
   xpToNextLevel: 100
-  nameOfCharacter: booster worrior
-  health: 10000
-  maxHealth: 10000
+  nameOfCharacter: Bat
+  health: 8000
+  maxHealth: 8000
   maxMana: 0
   mana: 0
-  combatSpeed: 900
-  skillDamage: 2000
-  attackDamage: 4000
-  critChance: 0
+  combatSpeed: 15
+  skillDamage: 5000
+  attackDamage: 900
+  critChance: 30
   effectChance: 0
-  Defence: 2500
-  maxHealthOG: 0
+  Defence: 3000
+  maxHealthOG: 8000
   maxManaOG: 0
-  combatSpeedOG: 0
-  skillDamageOG: 2000
-  attackDamageOG: 4000
+  combatSpeedOG: 15
+  skillDamageOG: 5000
+  attackDamageOG: 900
   critChanceOG: 0
   effectChanceOG: 0
-  DefenceOG: 2500
-  expGive: 90000
+  DefenceOG: 0
+  expGive: 0
   skills:
   - sprite: {fileID: 0}
     description: 
-    skillName: over_charged
-    elementType: 0
+    skillName: ice_breaker
+    elementType: 2
     weaponType: 0
-    baseDamage: 0
+    baseDamage: 1000
     manaCost: 0
-    effect: 7
-    Ptargit: 1
-    AOE: 0
+    effect: 9
+    Ptargit: 0
+    AOE: 1
   - sprite: {fileID: 0}
     description: 
-    skillName: clense
-    elementType: 0
-    weaponType: 0
-    baseDamage: 0
-    manaCost: 0
-    effect: 12
-    Ptargit: 1
-    AOE: 0
-  - sprite: {fileID: 0}
-    description: 
-    skillName: boost
+    skillName: ice chant
     elementType: 0
     weaponType: 0
     baseDamage: 0
     manaCost: 0
     effect: 4
     Ptargit: 1
-    AOE: 0
+    AOE: 1
   - sprite: {fileID: 0}
     description: 
-    skillName: spark_surge
-    elementType: 3
+    skillName: blizzard
+    elementType: 2
     weaponType: 0
-    baseDamage: 8000
+    baseDamage: 500
     manaCost: 0
-    effect: 3
+    effect: 0
     Ptargit: 0
     AOE: 1
+  - sprite: {fileID: 0}
+    description: 
+    skillName: avalanch
+    elementType: 3
+    weaponType: 0
+    baseDamage: 2000
+    manaCost: 0
+    effect: 0
+    Ptargit: 0
+    AOE: 1
+  - sprite: {fileID: 0}
+    description: 
+    skillName: cryo heal
+    elementType: 0
+    weaponType: 0
+    baseDamage: 0
+    manaCost: 0
+    effect: 2
+    Ptargit: 1
+    AOE: 0
   regions: 0
   isTurn: 0
   isStuned: 0

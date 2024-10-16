@@ -16,27 +16,29 @@ MonoBehaviour:
   currentXP: 0
   xpToNextLevel: 100
   nameOfCharacter: 
-  health: 0
-  maxHealth: 0
+  health: 100000
+  maxHealth: 100000
   maxMana: 0
   mana: 0
   combatSpeed: 0
-  skillDamage: 0
+  skillDamage: 8000
   attackDamage: 0
   critChance: 0
   effectChance: 0
-  Defence: 0
-  maxHealthOG: 0
+  Defence: 2500
+  maxHealthOG: 100000
   maxManaOG: 0
   combatSpeedOG: 0
-  skillDamageOG: 0
+  skillDamageOG: 8000
   attackDamageOG: 0
   critChanceOG: 0
   effectChanceOG: 0
-  DefenceOG: 0
+  DefenceOG: 2500
   expGive: 0
   skills:
-  - skillName: M_heal
+  - sprite: {fileID: 0}
+    description: 
+    skillName: M_heal
     elementType: 0
     weaponType: 0
     baseDamage: 0
@@ -44,7 +46,9 @@ MonoBehaviour:
     effect: 2
     Ptargit: 1
     AOE: 1
-  - skillName: heart_fire
+  - sprite: {fileID: 0}
+    description: 
+    skillName: heart_fire
     elementType: 0
     weaponType: 0
     baseDamage: 0
@@ -52,7 +56,9 @@ MonoBehaviour:
     effect: 4
     Ptargit: 1
     AOE: 1
-  - skillName: heart_ice
+  - sprite: {fileID: 0}
+    description: 
+    skillName: heart_ice
     elementType: 0
     weaponType: 0
     baseDamage: 0
@@ -60,7 +66,9 @@ MonoBehaviour:
     effect: 6
     Ptargit: 1
     AOE: 1
-  - skillName: heart_earth
+  - sprite: {fileID: 0}
+    description: 
+    skillName: heart_earth
     elementType: 0
     weaponType: 0
     baseDamage: 0
@@ -68,15 +76,19 @@ MonoBehaviour:
     effect: 8
     Ptargit: 1
     AOE: 1
-  - skillName: heart_lightning
+  - sprite: {fileID: 0}
+    description: 
+    skillName: heart_lightning
     elementType: 3
     weaponType: 0
-    baseDamage: 0
+    baseDamage: 7000
     manaCost: 0
     effect: 3
     Ptargit: 0
     AOE: 1
-  - skillName: heart_pure
+  - sprite: {fileID: 0}
+    description: 
+    skillName: heart_pure
     elementType: 0
     weaponType: 0
     baseDamage: 0
@@ -89,3 +101,5 @@ MonoBehaviour:
   isStuned: 0
   special: 0
   special_count: 0
+  weapon: {fileID: 0}
+  equipment: {fileID: 0}

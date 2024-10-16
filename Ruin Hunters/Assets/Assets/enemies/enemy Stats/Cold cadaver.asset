@@ -10,68 +10,48 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 82e337efe9978a8409654b2b05bb0c8c, type: 3}
-  m_Name: ruin_elite
+  m_Name: Cold cadaver
   m_EditorClassIdentifier: 
   level: 1
   currentXP: 0
   xpToNextLevel: 100
-  nameOfCharacter: booster worrior
+  nameOfCharacter: 
   health: 10000
   maxHealth: 10000
   maxMana: 0
   mana: 0
-  combatSpeed: 900
-  skillDamage: 2000
-  attackDamage: 4000
+  combatSpeed: 10
+  skillDamage: 800
+  attackDamage: 2500
   critChance: 0
   effectChance: 0
-  Defence: 2500
-  maxHealthOG: 0
+  Defence: 900
+  maxHealthOG: 10000
   maxManaOG: 0
   combatSpeedOG: 0
-  skillDamageOG: 2000
-  attackDamageOG: 4000
+  skillDamageOG: 800
+  attackDamageOG: 2500
   critChanceOG: 0
   effectChanceOG: 0
-  DefenceOG: 2500
-  expGive: 90000
+  DefenceOG: 0
+  expGive: 500
   skills:
   - sprite: {fileID: 0}
     description: 
-    skillName: over_charged
+    skillName: bite
     elementType: 0
     weaponType: 0
-    baseDamage: 0
+    baseDamage: 3000
     manaCost: 0
     effect: 7
-    Ptargit: 1
+    Ptargit: 0
     AOE: 0
   - sprite: {fileID: 0}
     description: 
-    skillName: clense
-    elementType: 0
+    skillName: shreek
+    elementType: 2
     weaponType: 0
-    baseDamage: 0
-    manaCost: 0
-    effect: 12
-    Ptargit: 1
-    AOE: 0
-  - sprite: {fileID: 0}
-    description: 
-    skillName: boost
-    elementType: 0
-    weaponType: 0
-    baseDamage: 0
-    manaCost: 0
-    effect: 4
-    Ptargit: 1
-    AOE: 0
-  - sprite: {fileID: 0}
-    description: 
-    skillName: spark_surge
-    elementType: 3
-    weaponType: 0
-    baseDamage: 8000
+    baseDamage: 900
     manaCost: 0
     effect: 3
     Ptargit: 0
