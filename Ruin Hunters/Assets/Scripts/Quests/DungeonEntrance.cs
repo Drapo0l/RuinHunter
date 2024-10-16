@@ -6,7 +6,6 @@ using UnityEngine;
 public class DungeonEntrance : MonoBehaviour
 {
     public Quest requiredQuest;
-    public BoxCollider BoxCollider;
     public Teleporter Teleporter;
 
     private void OnTriggerEnter(Collider other)
@@ -14,14 +13,20 @@ public class DungeonEntrance : MonoBehaviour
         if ( other.CompareTag("Player"))
         {
             Quest quest = QuestManager.instance.activeQuests.Find(q => q == requiredQuest);
-            if (quest != null && quest.isCompleted) 
+            if (quest != null)
             {
-                Teleporter.gameObject.SetActive(true);
+                if (quest.isCompleted)
+                {
+                    Teleporter.TeleportPlayer(other.transform);
+                }
+                else
+                {                    
+                    //set a text the say that you need to finish x quest use requiredQuest.name 
+                }
             }
             else
             {
-                Teleporter.gameObject.SetActive(false);
-                //set a text the say that you need to finish x quest use requiredQuest.name 
+                Teleporter.TeleportPlayer(other.transform);
             }
         }
     }

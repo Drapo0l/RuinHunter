@@ -225,27 +225,23 @@ public class GameManager : MonoBehaviour
         if (colliderPool != null)
         {
             enemyObj = colliderPool.GetEnemies();
+            int index = 0;
             foreach (var enemy in enemyObj)
             {
-                for (int i = 0; i < characters.Count; i++)
-                {
-                    enemy.GetComponent<EnemyAI>().enemyStats.maxMana = enemy.GetComponent<EnemyAI>().enemyStats.maxManaOG;
-                    enemy.GetComponent<EnemyAI>().enemyStats.maxHealth = enemy.GetComponent<EnemyAI>().enemyStats.maxHealthOG;
-                    enemy.GetComponent<EnemyAI>().enemyStats.Defence = enemy.GetComponent<EnemyAI>().enemyStats.DefenceOG;
-                    enemy.GetComponent<EnemyAI>().enemyStats.combatSpeed = enemy.GetComponent<EnemyAI>().enemyStats.combatSpeedOG;
-                    enemy.GetComponent<EnemyAI>().enemyStats.skillDamage = enemy.GetComponent<EnemyAI>().enemyStats.skillDamageOG;
-                    enemy.GetComponent<EnemyAI>().enemyStats.attackDamage = enemy.GetComponent<EnemyAI>().enemyStats.attackDamageOG;
-                    enemy.GetComponent<EnemyAI>().enemyStats.critChance = enemy.GetComponent<EnemyAI>().enemyStats.critChanceOG;
-                    enemy.GetComponent<EnemyAI>().enemyStats.effectChance = enemy.GetComponent<EnemyAI>().enemyStats.effectChanceOG;
-                    characters.Add(enemy.GetComponent<EnemyAI>().enemyStats);
-                    enemy.GetComponent<EnemyAI>().postionOG = enemy.transform.position;
-                }
-            }
-        }
+                currentEnemies.Add(enemy.GetComponent<EnemyAI>().enemyStats);
 
-        foreach (CharacterAttributes enemyObj in currentEnemies)
-        {
-            characters.Add(enemyObj);
+                currentEnemies[index].maxMana = currentEnemies[index].maxManaOG;
+                currentEnemies[index].maxHealth = currentEnemies[index].maxHealthOG;
+                currentEnemies[index].Defence = currentEnemies[index].DefenceOG;
+                currentEnemies[index].combatSpeed = currentEnemies[index].combatSpeedOG;
+                currentEnemies[index].skillDamage = currentEnemies[index].skillDamageOG;
+                currentEnemies[index].attackDamage = currentEnemies[index].attackDamageOG;
+                currentEnemies[index].critChance = currentEnemies[index].critChanceOG;
+                currentEnemies[index].effectChance = currentEnemies[index].effectChanceOG;
+                characters.Add(enemy.GetComponent<EnemyAI>().enemyStats);
+                enemy.GetComponent<EnemyAI>().postionOG = enemy.transform.position;
+                index++;
+            }
         }
 
     }
@@ -463,7 +459,7 @@ public class GameManager : MonoBehaviour
         foreach (GameObject player in battleParty)
         {
             player.SetActive(false);
-            player.transform.localPosition = lastPlayerPosition;
+            player.transform.position = lastPlayerPosition;
             player.transform.SetParent(playerParent.transform);
             player.transform.GetComponent<SphereCollider>().enabled = true;
         }
@@ -501,7 +497,7 @@ public class GameManager : MonoBehaviour
         foreach (GameObject player in battleParty)
         {
             player.SetActive(false);
-            player.transform.localPosition = lastPlayerPosition;
+            player.transform.position = lastPlayerPosition;
             player.transform.SetParent(playerParent.transform);
             player.transform.GetComponent<SphereCollider>().enabled = true;
         }

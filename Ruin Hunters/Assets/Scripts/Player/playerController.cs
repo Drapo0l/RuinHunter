@@ -47,6 +47,7 @@ public class playerController : MonoBehaviour, IDamage
         if(!GameManager.Instance.leveling && !GameManager.Instance.combat && !CharacterMenuManager.Instance.inUI)
         {
             CharacterMovement();
+            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y * 0.1f);
         }
         else if (GameManager.Instance.combat)
         {
