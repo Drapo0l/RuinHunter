@@ -12,16 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e1e391a1e4d0ed4f9c79c3537092b2f, type: 3}
   m_Name: MultNPCDialogue
   m_EditorClassIdentifier: 
-  NPCName: Lau
+  NPCName: ...
   sentences:
-  - I am a traveler. I enjoy exploring new places
-  - I am a traveler. I enjoy exploring new places
-  - I am a traveler. I enjoy exploring new places
-  - I am a traveler. I enjoy exploring new places
-  choices:
-  - buttonText: 
-    playerText: 
-    nextDialogue: {fileID: 0}
-    actionType: 0
-    conditions: []
-    consequences: []
+  - Okay good luck
+  choices: []

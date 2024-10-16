@@ -12,7 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e1e391a1e4d0ed4f9c79c3537092b2f, type: 3}
   m_Name: MultNPCDialogue 1
   m_EditorClassIdentifier: 
-  NPCName: Lau
+  NPCName: ...
   sentences:
-  - What town? this is a test map
-  choices: []
+  - First the movement
+  - 'You can move by presing the usual keys: W for up, D for tight, S for down and
+    A for left'
+  - And the E key is for interactions with NPCs, and pass to the next dialogue
+  - What else you want to know?
+  choices:
+  - buttonText: A
+    playerText: I will like to know about combat
+    nextDialogue: {fileID: 11400000, guid: ebd5e4f79e5d9c040987944bef553a54, type: 2}
+    actionType: 0
+    conditions: []
+    consequences: []
+  - buttonText: B
+    playerText: Tell me about the Inventory
+    nextDialogue: {fileID: 11400000, guid: eebe3195c8930514fb73620569c81dde, type: 2}
+    actionType: 0
+    conditions: []
+    consequences: []
+  - buttonText: C
+    playerText: I'm good for now, bye
+    nextDialogue: {fileID: 11400000, guid: 2826f3538fc9ff2499be151f32c3a7ed, type: 2}
+    actionType: 0
+    conditions: []
+    consequences: []

@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e1e391a1e4d0ed4f9c79c3537092b2f, type: 3}
+  m_Name: DesertA
+  m_EditorClassIdentifier: 
+  NPCName: Angel
+  sentences:
+  - I wouldn't recomend exploring the desert
+  - I wasn't alone befor
+  - 'But '
+  - The monster kill everyone I once love
+  - now I'm a assasing, that roams these deserted lands
+  choices:
+  - buttonText: A
+    playerText: I'm sorry to heard that
+    nextDialogue: {fileID: 11400000, guid: db8302bd5fc531a4eb860f03c46bd6a0, type: 2}
+    actionType: 0
+    conditions: []
+    consequences: []
+  - buttonText: B
+    playerText: You should join my party, that way you don't have to be alone
+    nextDialogue: {fileID: 11400000, guid: cfdb357d0e711c84db4ae2b242669814, type: 2}
+    actionType: 1
+    conditions: []
+    consequences: []

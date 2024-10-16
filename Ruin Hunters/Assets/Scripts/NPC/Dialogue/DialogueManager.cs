@@ -20,6 +20,7 @@ public class DialogueManager : MonoBehaviour
     private const string HTML_Alpha = "<color=#00000000>"; // Used for typing effect
     private const float Max_Type_Time = 0.1f; // Controls typing speed
     private Coroutine typeDialogueCoroutine;
+    private NPC currentNPC;
 
     public void StartDialogue(Dialogue dialogue)
     {
@@ -105,10 +106,7 @@ public class DialogueManager : MonoBehaviour
         switch (actionType)
         {
             case ActionType.UnlockQuest:
-              //  if (!string.IsNullOrEmpty(choice.questID))
-                {
-              //      UnlockQuest(choice.questID);
-                }
+                currentNPC.GiveQuest();
                 break;
             case ActionType.ChangeNPCState:
              //   if (choice.changesNPCState)
@@ -130,7 +128,7 @@ public class DialogueManager : MonoBehaviour
     private void UnlockQuest(string questId)
     {
         GameState.Instance.UnlockQuest(questId);
-        Debug.Log($"Quest {questId} unlocked!");
+        //Debug.Log($"Quest {questId} unlocked!");
     }
 
     private void ChangeNPCState()
