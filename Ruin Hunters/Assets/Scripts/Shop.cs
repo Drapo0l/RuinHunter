@@ -38,20 +38,22 @@ public class Shop : MonoBehaviour
     private void Update()
     {
         
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P) && !shop.activeSelf)
         {
             OpenShop();
         }
         else if (ShopOpened && !itemMenu && !choice)
         {
-            if (Input.GetKeyDown(KeyCode.D))
-            {
-                currentItemList = (currentItemList + 1) % 3;
-                Navigate(-1);
-            }
             if (Input.GetKeyDown(KeyCode.A))
             {
-                currentItemList = (currentItemList - 1) % 3;
+                currentItemList = (currentItemList - 1) % ShopButtons.Count;
+                WhatMenu();
+                Navigate(-1);
+            }
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                currentItemList = (currentItemList + 1) % ShopButtons.Count;
+                WhatMenu();
                 Navigate(1);
             }
             if (Input.GetKeyDown(KeyCode.Return)) { OpenItemMenu(); }
@@ -87,6 +89,23 @@ public class Shop : MonoBehaviour
         shop.SetActive(true);
         menuStack.Push(ShopButtons);
         currentMenu = ShopButtons;
+        UpdateHoverIndicator();
+        GameManager.Instance.leveling = true;
+        
+    }
+    public void CloseShop()
+    {
+        ShopOpened = false;
+        shop.SetActive(false);
+        menuStack.Clear();
+        currentItemList = 0;
+        currentSelection = 0;
+        itemSelection = 0;
+        itemScrollIndex = 0;
+        itemMenu = false;
+        ShopOpened = false;
+        choice = false;
+
     }
 
     public void OpenItemMenu()
@@ -94,6 +113,7 @@ public class Shop : MonoBehaviour
         itemMenu = true;
         WhatMenu();
         SwitchToMenu(ItemButtons);
+        WhatMenu();
     }
 
     private void SwitchToMenu(List<Button> newMenu)
@@ -192,11 +212,11 @@ public class Shop : MonoBehaviour
         {
             ShowItemScreen();
         }
-        else if (currentItemList == 1)
+        else if (currentItemList == 1 || currentItemList == -3)
         {
             ShowEquipmentStats();
         }
-        else if (currentItemList == 2)
+        else if (currentItemList == 2 || currentItemList == -2)
         {
             ShowWeaponStats();
         }
@@ -208,11 +228,11 @@ public class Shop : MonoBehaviour
         {
             return Items.Count;
         }
-        else if (currentItemList == 1)
+        else if (currentItemList == 1 || currentItemList == -3)
         {
             return Weapons.Count;
         }
-        else if (currentItemList == 2)
+        else if (currentItemList == 2 || currentItemList == -2)
         {
             return Armor.Count;
         }
@@ -228,19 +248,22 @@ public class Shop : MonoBehaviour
         {
             PopulateItemMenu(Items);
         }
-        else if (currentItemList == 1)
+        else if (currentItemList == 1 || currentItemList == -3)
         {
             PopulateItemMenu(Armor);
         }
-        else if (currentItemList == 2)
+        else if (currentItemList == 2 || currentItemList == -2)
         {
             PopulateItemMenu(Weapons);
+        }
+        else if((currentItemList == 3 || currentItemList == -1) && itemMenu)
+        {
+            CloseShop();
         }
     }
 
     private void PopulateItemMenu(List<Item> items)
     {
-        itemMenu = true;
 
         ItemButtons[0].transform.parent.gameObject.SetActive(true);
 
@@ -268,8 +291,7 @@ public class Shop : MonoBehaviour
     }
 
     private void PopulateItemMenu(List<EquipmentItem> items)
-    {
-        itemMenu = true;
+    {       
 
         ItemButtons[0].transform.parent.gameObject.SetActive(true);
 
@@ -297,7 +319,6 @@ public class Shop : MonoBehaviour
     }
     private void PopulateItemMenu(List<WeaponItem> items)
     {
-        itemMenu = true;
 
         ItemButtons[0].transform.parent.gameObject.SetActive(true);
 
