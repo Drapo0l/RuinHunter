@@ -20,12 +20,12 @@ MonoBehaviour:
   maxHealth: 4000
   maxMana: 310
   mana: 310
-  combatSpeed: 210
+  combatSpeed: 0
   skillDamage: 300
   attackDamage: 243
   critChance: 0
   effectChance: 0
-  Defence: 320
+  Defence: 0
   maxHealthOG: 4000
   maxManaOG: 310
   combatSpeedOG: 210

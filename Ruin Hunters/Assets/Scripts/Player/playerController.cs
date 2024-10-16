@@ -173,7 +173,7 @@ public class playerController : MonoBehaviour, IDamage
         if (playerStats.health <= 0)
         {
             playerAnimator.SetBool("death", true);
-            GameManager.Instance.PlayerDeath(gameObject);
+            StartCoroutine(GameManager.Instance.PlayerDeath(gameObject));
         }
         else
         {
@@ -201,7 +201,7 @@ public class playerController : MonoBehaviour, IDamage
         if (playerStats.health <= 0)
         {
             playerAnimator.SetBool("death", true);
-            GameManager.Instance.PlayerDeath(gameObject);
+            StartCoroutine(GameManager.Instance.PlayerDeath(gameObject));
         }
         else
         {

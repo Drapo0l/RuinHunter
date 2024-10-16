@@ -30,7 +30,7 @@ public class EnemyAI : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.Instance.combat && enemyStats.isTurn && !animatingAttack)
+        if (GameManager.Instance.combat && enemyStats.isTurn && !animatingAttack && !GameManager.Instance.deadMenu.activeSelf)
         {
             StartCoroutine(HandleTurnSequence());
         }
@@ -714,7 +714,7 @@ public class EnemyAI : MonoBehaviour
 
         }
         else
-        {
+        {            
             while (true)
             {
                 ran = Random.Range(0, GameManager.Instance.battleParty.Count);
@@ -741,7 +741,7 @@ public class EnemyAI : MonoBehaviour
                 skill.ActivateSkill(target, enemyStats.attackDamage, multiplier, enemyStats.critChance, skill.effect); // Attacker power is set to 10 for now
                 targetIndicatorE.SetActive(false);
             }
-
+            
         }
     }
 
