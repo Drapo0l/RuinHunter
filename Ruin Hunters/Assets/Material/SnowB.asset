@@ -10,9 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e1e391a1e4d0ed4f9c79c3537092b2f, type: 3}
-  m_Name: MultNPCDialogue 2
+  m_Name: SnowB
   m_EditorClassIdentifier: 
-  NPCName: Lau
+  NPCName: Helga
   sentences:
-  - Ok, bye
+  - I'll join your party if you can prove that you are strong
+  - Help me defeta the Elite enemy in this rigion
+  - 'we need to cointinue foward and a litel to the south '
   choices: []

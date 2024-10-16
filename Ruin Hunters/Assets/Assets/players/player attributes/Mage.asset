@@ -16,16 +16,16 @@ MonoBehaviour:
   currentXP: 200
   xpToNextLevel: 800
   nameOfCharacter: Mage
-  health: 2310
+  health: 2420
   maxHealth: 2420
   maxMana: 360
   mana: 360
-  combatSpeed: 222
+  combatSpeed: 0
   skillDamage: 200
   attackDamage: 45
   critChance: 0
   effectChance: 0
-  Defence: 310
+  Defence: 0
   maxHealthOG: 2420
   maxManaOG: 360
   combatSpeedOG: 222
@@ -47,7 +47,7 @@ MonoBehaviour:
     Ptargit: 0
     AOE: 1
   regions: 0
-  isTurn: 1
+  isTurn: 0
   isStuned: 0
   special: 0
   special_count: 0
