@@ -7,22 +7,24 @@ public class DungeonEntrance : MonoBehaviour
 {
     public Quest requiredQuest;
     public Teleporter Teleporter;
-    public Quest completeThisQuest;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (completeThisQuest != null)
-        {
-            QuestManager.instance.CompleteQuest(completeThisQuest);
-        }
         if ( other.CompareTag("Player"))
         {
-            Quest quest = QuestManager.instance.completedQuests.Find(q => q == requiredQuest);
+            Quest quest = QuestManager.instance.activeQuests.Find(q => q == requiredQuest);
             if (quest != null)
-            {                           
-                 Teleporter.TeleportPlayer(other.transform); 
+            {
+                if (quest.isCompleted)
+                {
+                    Teleporter.TeleportPlayer(other.transform);
+                }
+                else
+                {                    
+                    //set a text the say that you need to finish x quest use requiredQuest.name 
+                }
             }
-            else if(requiredQuest == null)
+            else
             {
                 Teleporter.TeleportPlayer(other.transform);
             }

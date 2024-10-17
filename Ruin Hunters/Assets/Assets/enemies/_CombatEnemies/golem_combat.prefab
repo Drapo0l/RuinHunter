@@ -121,9 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyName: Bat
-  enemyStats: {fileID: 11400000, guid: 16e1d9c3fa3c718469f5c7a739d9af49, type: 2}
-  questPlayerCompleted: {fileID: 0}
-  givePlayerQuest: {fileID: 0}
+  enemyStats: {fileID: 11400000, guid: 363411f2df8c9804b9880667972ffd4e, type: 2}
   weaponsWeakness:
   - weaponType: 3
     weaponMultiplier: 2

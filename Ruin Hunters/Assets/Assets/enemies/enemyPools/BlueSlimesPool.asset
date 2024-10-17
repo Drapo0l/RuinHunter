@@ -15,7 +15,5 @@ MonoBehaviour:
   region: 0
   collidingEnemy: {fileID: 4531936765064364113, guid: 7c84c383543604c44bfb56a5eec3d162,
     type: 3}
-  enemyPrefabs:
-  - {fileID: 7982593359653728736, guid: 41d16347302404b48a3f1bea2be60ec7, type: 3}
-  - {fileID: 6258477387315653362, guid: 43d9a11c7f5bdb7488fa551ca948034a, type: 3}
+  enemyPrefabs: []
   maxEnemies: 3

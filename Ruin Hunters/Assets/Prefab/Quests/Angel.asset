@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dad1890e421eb7241a6578de59adc7ab, type: 3}
   m_Name: Angel
   m_EditorClassIdentifier: 
-  questName: Find Hidden Teleporter
-  description: where could it be hiding?
+  questName: Defate the Elite Desert
+  description: 'Go to the lefft and defat it '
   isCompleted: 0
   Objectives: []
   experienceReward: 2000
