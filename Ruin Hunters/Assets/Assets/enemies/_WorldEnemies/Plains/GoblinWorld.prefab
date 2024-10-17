@@ -159,7 +159,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   enemyAnimator: {fileID: 5786569812498807536}
-  rb: {fileID: 0}
+  rb: {fileID: 4290954671505430308}
   enemyTransform: {fileID: 1039924407544596899}
   colliderPool: {fileID: 11400000, guid: 93938061abae9bf4c8c10406f4308cc4, type: 2}
   WalkPoint: {x: 0, y: 0, z: 0}

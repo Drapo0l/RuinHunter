@@ -7,6 +7,8 @@ public class EnemyAI : MonoBehaviour
 {
     public string enemyName;
     public CharacterAttributes enemyStats;
+    public Quest questPlayerCompleted;
+    public Quest givePlayerQuest;
 
     // Weaknesses
     public List<WeaponCalc> weaponsWeakness = new List<WeaponCalc>();
@@ -20,9 +22,8 @@ public class EnemyAI : MonoBehaviour
     public List<Item> dropableItems;
     public int minGold;
     public int maxGold;
-    private bool animatingAttack;
-
-    
+    private bool animatingAttack;    
+   
     void Start()
     {
         availableSkills = enemyStats.skills;
@@ -579,7 +580,7 @@ public class EnemyAI : MonoBehaviour
     {
         if (ty == PublicEnums.EnemyTypes.Agressive | ty == PublicEnums.EnemyTypes.CasterA | ty == PublicEnums.EnemyTypes.CasterP | ty == PublicEnums.EnemyTypes.Normal | ty == PublicEnums.EnemyTypes.Support)
         {
-            if (ShouldUseSkill())
+            if (ShouldUseSkill() && availableSkills.Count != 0)
             {
                 // Choose a random skill from available skills
                 Skill chosenSkill = availableSkills[Random.Range(0, availableSkills.Count)];
@@ -828,6 +829,10 @@ public class EnemyAI : MonoBehaviour
                 GameManager.Instance.EnemyDeath(gameObject, dropableItems[Random.Range(0, dropableItems.Count)], Random.Range(minGold, maxGold));
             else
                 GameManager.Instance.EnemyDeath(gameObject, Random.Range(minGold, maxGold));
+            if(questPlayerCompleted != null)
+                QuestManager.instance.CompleteQuest(questPlayerCompleted);
+            if (givePlayerQuest != null)
+                QuestManager.instance.AddQuest(givePlayerQuest);
             Destroy(gameObject);
         }
     }
@@ -857,6 +862,10 @@ public class EnemyAI : MonoBehaviour
                 GameManager.Instance.EnemyDeath(gameObject, dropableItems[Random.Range(0, dropableItems.Count)], Random.Range(minGold, maxGold));  
             else
                 GameManager.Instance.EnemyDeath(gameObject, Random.Range(minGold, maxGold));
+            if (questPlayerCompleted != null)
+                QuestManager.instance.CompleteQuest(questPlayerCompleted);
+            if (givePlayerQuest != null)
+                QuestManager.instance.AddQuest(givePlayerQuest);
             Destroy(gameObject);
         }
     }

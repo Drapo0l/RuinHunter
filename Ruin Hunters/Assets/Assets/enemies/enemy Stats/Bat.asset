@@ -16,7 +16,7 @@ MonoBehaviour:
   currentXP: 1000
   xpToNextLevel: 100
   nameOfCharacter: Bat
-  health: 300
+  health: 100
   maxHealth: 300
   maxMana: 0
   mana: 0

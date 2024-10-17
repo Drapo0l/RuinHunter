@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> battlePartyHealth = new List<GameObject>();
     public List<GameObject> battleParty = new List<GameObject>();
     private List<CharacterAttributes> characters; //list to hold enmies and allies
+    private List<CharacterAttributes> enemyCharacters; //list to hold enmies and allies
 
     public List<GameObject> playerHealths;          // list of player health/mana
     public GameObject playerHealthsParent;
@@ -59,6 +60,8 @@ public class GameManager : MonoBehaviour
 
     private List<Item> randomItems = new List<Item>();
     private int totalGold;
+
+    private List<CharacterAttributes> deadEnemies = new List<CharacterAttributes>();
 
     public Vector3 lastSavedPosition;
     //Polo Angel's code
@@ -91,6 +94,13 @@ public class GameManager : MonoBehaviour
                     levelUpScreen.transform.GetChild(i).gameObject.SetActive(true);
                 }
                 levelUpScreen.SetActive(false);
+                foreach (GameObject player in battleParty)
+                {
+                    player.transform.position = lastPlayerPosition;
+                    player.transform.SetParent(playerParent.transform);
+                    player.transform.GetComponent<SphereCollider>().enabled = true;
+                }
+                worldEnemyParent.SetActive(true);
             }
         }
         else if (deadMenu.activeSelf)
@@ -168,6 +178,7 @@ public class GameManager : MonoBehaviour
         }
 
         AddRandomEnemies();
+        SetupBattleField();
         for (int i = 0; i < characters.Count; i++) // makes it so that your og stats are now saved 
         {
             characters[i].maxManaOG = characters[i].maxMana;
@@ -184,7 +195,7 @@ public class GameManager : MonoBehaviour
                 characters[i].Defence += characters[i].equipment.armor;
             }           
         }
-        SetupBattleField();
+       
 
         int count = battleParty.Count;
         for (int i = 0; i < count;)
@@ -204,7 +215,7 @@ public class GameManager : MonoBehaviour
         // Sort characters based on speed in descending order
         turnOrder = new List<CharacterAttributes>(characters);
         characters.Sort((a, b) => b.combatSpeed.CompareTo(a.combatSpeed));
-        turnOrder = characters;
+        turnOrder = new List<CharacterAttributes>(characters);
         currentTurnIndex = 0; // start at the first character
         StartTurn(); // start the first character's turn
     }
@@ -244,6 +255,14 @@ public class GameManager : MonoBehaviour
             }
         }
 
+    }
+
+    private void ResetEnemy()
+    {
+        foreach (var enemy in currentEnemies)
+        {
+            enemy.health = enemy.maxHealth;
+        } 
     }
 
     void SetupBattleField()
@@ -331,7 +350,7 @@ public class GameManager : MonoBehaviour
     public void EndTurn()
     {
         //move to the next character in the list
-        currentTurnIndex = (currentTurnIndex + 1) % characters.Count;
+        currentTurnIndex = (currentTurnIndex + 1) % turnOrder.Count;
 
         //start the next character's turn
         StartTurn();
@@ -391,7 +410,7 @@ public class GameManager : MonoBehaviour
     public IEnumerator EndCombat()
     {
 
-
+        ResetEnemy();
         for (int i = 0; i < characters.Count; i++)
         {
             characters[i].maxMana = characters[i].maxManaOG;
@@ -467,11 +486,13 @@ public class GameManager : MonoBehaviour
         playerCam.Follow = battleParty[0].transform;
         playerCam.LookAt = battleParty[0].transform;
         QuestManager.instance.questParent.SetActive(true);
-        worldEnemyParent.SetActive(true);
+        if(!leveling)
+            worldEnemyParent.SetActive(true);
         //move to the next character in the list
     }
     public void FleeCombat()
     {
+        ResetEnemy();
         for (int i = 0; i < characters.Count; i++)
         {
             characters[i].maxMana = characters[i].maxManaOG;
