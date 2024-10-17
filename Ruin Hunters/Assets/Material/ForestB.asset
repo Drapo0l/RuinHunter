@@ -15,6 +15,4 @@ MonoBehaviour:
   NPCName: Luok
   sentences:
   - If you are lost meabe you can go with me to explore the forest
-  - Ther is this realy hard Elite enemy that I can't beat alone
-  - So lest join forces to defated him
   choices: []

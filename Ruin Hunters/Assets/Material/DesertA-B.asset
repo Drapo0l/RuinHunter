@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NPCName: Angel
   sentences:
-  - 'I tell you this, if you can help me  kill the Elite boss of this deset '
-  - I'll join your party
+  - I tell you this, if you can help me  kill the Elite boss of this deset, I will
+    join yout party
   choices: []

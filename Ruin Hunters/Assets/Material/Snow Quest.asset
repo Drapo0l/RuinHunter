@@ -20,12 +20,12 @@ MonoBehaviour:
   - buttonText: A
     playerText: I want to explore
     nextDialogue: {fileID: 11400000, guid: 03e989d3ccba6484a807bfa4ca92323a, type: 2}
-    actionType: 0
+    actionType: 1
     conditions: []
     consequences: []
   - buttonText: B
     playerText: I want you to join my party
-    nextDialogue: {fileID: 11400000, guid: 03e989d3ccba6484a807bfa4ca92323a, type: 2}
+    nextDialogue: {fileID: 11400000, guid: 94e6db5d6be59e84995214b3e1207d19, type: 2}
     actionType: 1
     conditions: []
     consequences: []

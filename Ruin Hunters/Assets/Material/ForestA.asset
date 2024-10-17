@@ -15,6 +15,4 @@ MonoBehaviour:
   NPCName: Luok
   sentences:
   - 'Lest go together then '
-  - Ther is this realy hard Elite enemy that I can't beat alone
-  - Lest join forces to defated him
   choices: []

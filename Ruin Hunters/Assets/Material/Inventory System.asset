@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NPCName: ..,
   sentences:
-  - In the inventory to move bettewn buttons is W for up and S for down
-  - 'And back space to go back and enter to slect '
+  - 'In the inventory to move bettewn buttons is W for up and S for down. And back
+    space to go back and enter to slect '
   choices: []
