@@ -58,38 +58,35 @@ public class QuestManager : MonoBehaviour
 
     }
 
-public void CompleteQuest(Quest quest)
-{
-    if (activeQuests.Contains(quest))
-    {
-
+    public void CompleteQuest(Quest quest)
+    {       
         quest.isCompleted = true;
         activeQuests.Remove(quest);
         completedQuests.Add(quest);
 
         GrantQuestRewards(quest);
 
-        UpdateQuestDisplay();
+        UpdateQuestDisplay();        
     }
-}
 
-private void GrantQuestRewards(Quest quest)
-{
-    InventoryManager.instance.Gold += quest.goldReward;
-    List<CharacterAttributes> playerParty = PartyManager.Instance.GetCurrentPartyComponent();
-    foreach (CharacterAttributes character in playerParty)
+    private void GrantQuestRewards(Quest quest)
     {
-        character.currentXP += quest.experienceReward;
+        InventoryManager.instance.Gold += quest.goldReward;
+        List<CharacterAttributes> playerParty = PartyManager.Instance.GetCurrentPartyComponent();
+        foreach (CharacterAttributes character in playerParty)
+        {
+            character.currentXP += quest.experienceReward;
+        }
     }
-}
 
-public void AddQuest(Quest newQuest)
-{
-    if (!activeQuests.Contains(newQuest))
-    {
-        activeQuests.Add(newQuest);
+    public void AddQuest(Quest newQuest)
+    {        
+        if (!activeQuests.Contains(newQuest) && !completedQuests.Contains(newQuest))
+        {
+            activeQuests.Add(newQuest);
 
-        UpdateQuestDisplay();
+            UpdateQuestDisplay();
+        }
     }
-}
+
 }

@@ -16,6 +16,6 @@ MonoBehaviour:
   collidingEnemy: {fileID: 720076381183387591, guid: 39700f2317c0e2246aa3e02a2bc8fb6a,
     type: 3}
   enemyPrefabs:
-  - {fileID: 720076381183387591, guid: 39700f2317c0e2246aa3e02a2bc8fb6a, type: 3}
-  - {fileID: 720076381183387591, guid: 39700f2317c0e2246aa3e02a2bc8fb6a, type: 3}
+  - {fileID: 4193947127004701078, guid: c236e8c1e73931142af64b39a7e4d34e, type: 3}
+  - {fileID: 1607624793923900521, guid: 95c8c5cf9c398804ca71eb23a8c5b3b1, type: 3}
   maxEnemies: 3

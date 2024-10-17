@@ -16,7 +16,7 @@ MonoBehaviour:
   currentXP: 1000
   xpToNextLevel: 100
   nameOfCharacter: Skull
-  health: -4700
+  health: 4000
   maxHealth: 4000
   maxMana: 0
   mana: 0
@@ -36,7 +36,9 @@ MonoBehaviour:
   DefenceOG: 0
   expGive: 0
   skills:
-  - skillName: FireBall
+  - sprite: {fileID: 0}
+    description: 
+    skillName: FireBall
     elementType: 1
     weaponType: 0
     baseDamage: 200
@@ -49,3 +51,5 @@ MonoBehaviour:
   isStuned: 0
   special: 0
   special_count: 0
+  weapon: {fileID: 0}
+  equipment: {fileID: 0}
