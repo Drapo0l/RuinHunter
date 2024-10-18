@@ -23,6 +23,7 @@ public class EnemyAI : MonoBehaviour
     public List<Item> dropableItems;
     public int minGold;
     public int maxGold;
+    public bool finalBoss;
     private bool animatingAttack;    
    
     void Start()
@@ -841,6 +842,11 @@ public class EnemyAI : MonoBehaviour
                 QuestManager.instance.CompleteQuest(questPlayerCompleted);
             if (givePlayerQuest != null)
                 QuestManager.instance.AddQuest(givePlayerQuest);
+            if (finalBoss)
+            {
+                GameManager.Instance.FleeCombat();
+                WinMenu.instance.ShowWinMenu();
+            }
             Destroy(gameObject);
         }
     }
@@ -874,6 +880,11 @@ public class EnemyAI : MonoBehaviour
                 QuestManager.instance.CompleteQuest(questPlayerCompleted);
             if (givePlayerQuest != null)
                 QuestManager.instance.AddQuest(givePlayerQuest);
+            if (finalBoss)
+            {
+                GameManager.Instance.FleeCombat();
+                WinMenu.instance.ShowWinMenu();
+            }
             Destroy(gameObject);
         }
     }

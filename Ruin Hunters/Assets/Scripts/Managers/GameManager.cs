@@ -108,6 +108,7 @@ public class GameManager : MonoBehaviour
                 }
                 levelUpScreen.SetActive(false);
                 worldEnemyParent.SetActive(true);
+                QuestManager.instance.UpdateQuestDisplay();
             }
         }
         else if (deadMenu.activeSelf)
@@ -389,6 +390,7 @@ public class GameManager : MonoBehaviour
     public IEnumerator PlayerDeath(GameObject player)
     {
         yield return new WaitForSeconds(1f);
+
         currentTurnIndex--;
         battleParty.Remove(player);
         if(turnOrder != null)
@@ -512,6 +514,7 @@ public class GameManager : MonoBehaviour
         while (enemyObj.Count != 0 )
         {
             Destroy(enemyObj[0]);
+            enemyObj.RemoveAt(0);
         }
         combat = false;
         battleUI.SetActive(false);
@@ -536,7 +539,7 @@ public class GameManager : MonoBehaviour
         QuestManager.instance.questParent.SetActive(true);
         if (!leveling)
             worldEnemyParent.SetActive(true);
-        Aud = null;
+            QuestManager.instance.UpdateQuestDisplay();        
     }
 
     private void ShowLevelUpScreen()

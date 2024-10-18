@@ -3,28 +3,30 @@ using UnityEngine.UI;
 
 public class WinMenu : MonoBehaviour
 {
+    public static WinMenu instance;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     public GameObject winMenuUI; // Assign this in the Inspector
     public Button mainMenuButton;
     public Button quitButton;
-    private GameObject finalBoss;
+    public GameObject finalBoss;
 
     private void Start()
     {
         winMenuUI.SetActive(false); // Ensure the menu is initially disabled
         mainMenuButton.onClick.AddListener(GoToMainMenu);
         quitButton.onClick.AddListener(QuitGame);
-
-        // Find the final boss in the scene
-        finalBoss = GameObject.FindGameObjectWithTag("FinalBoss");
-    }
-
-    private void Update()
-    {
-        // Check if the final boss is defeated
-        if (finalBoss == null)
-        {
-            ShowWinMenu();
-        }
     }
 
     public void ShowWinMenu()

@@ -13,7 +13,7 @@ public class DungeonEntrance : MonoBehaviour
     {
         if ( other.CompareTag("Player"))
         {
-            Quest quest = QuestManager.instance.activeQuests.Find(q => q == requiredQuest);
+            Quest quest = QuestManager.instance.completedQuests.Find(q => q == requiredQuest);
             if (quest != null)
             {
                 if (quest.isCompleted)

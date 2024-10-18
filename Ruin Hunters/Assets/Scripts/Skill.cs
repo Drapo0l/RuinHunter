@@ -37,7 +37,12 @@ public class Skill
                 damage = damage - target.GetComponent<EnemyAI>().enemyStats.Defence;
             }
         }
-       
+
+        if (damage < 0)
+        {
+            damage = 0;
+        }
+
         // Apply damage to the target, e.g., calling the target's TakeDamage() method.
         IDamage targetHit = target.GetComponent<IDamage>();
         if (targetHit != null) 
@@ -88,7 +93,7 @@ public class Skill
             if (EN == PublicEnums.Effects.Stun)
             {
             DamageNumberManager.Instance.ShowString(T.transform.position, "STUN!", Color.yellow);
-            Pause.Epause();
+            //Pause.Epause();
             if (T.tag.Equals("Player"))
                 {
                     T.GetComponent<playerController>().playerStats.isStuned = true;
