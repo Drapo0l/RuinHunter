@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NPCName: Luok
   sentences:
-  - Hi my traveler
   - My name is Luok
   - I'm a healer, that likes to explore the big forest
   - What are you doing here
