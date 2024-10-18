@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e337efe9978a8409654b2b05bb0c8c, type: 3}
   m_Name: Fenrir
   m_EditorClassIdentifier: 
-  level: 57
-  currentXP: 200
+  level: 174
+  currentXP: 300
   xpToNextLevel: 500
   nameOfCharacter: Fenrir
   health: 18000
