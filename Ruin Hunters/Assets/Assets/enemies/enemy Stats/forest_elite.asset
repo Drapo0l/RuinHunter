@@ -24,7 +24,7 @@ MonoBehaviour:
   skillDamage: 1500
   attackDamage: 1500
   critChance: 70
-  effectChance: 0
+  effectChance: 80
   Defence: 400
   maxHealthOG: 9000
   maxManaOG: 0

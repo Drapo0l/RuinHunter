@@ -109,7 +109,7 @@ MonoBehaviour:
   elementWeakness: []
   ty: 0
   postionOG: {x: 0, y: 0, z: 0}
-  cam: {fileID: 2793435810526664582, guid: f7590eb4013331c4baab59ec332962fc, type: 3}
+  cam: {fileID: 0}
   enemyModel: {fileID: 1607624793923900521}
   targetIndicatorE: {fileID: 2895094163182700006, guid: 1fd0f7e4e3a7bb846bd9efa4b74183a7,
     type: 3}
@@ -133,7 +133,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Radius: 0.2
   m_Center: {x: 0, y: 0, z: 0}

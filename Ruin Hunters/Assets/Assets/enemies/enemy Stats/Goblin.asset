@@ -13,16 +13,16 @@ MonoBehaviour:
   m_Name: Goblin
   m_EditorClassIdentifier: 
   level: 1
-  currentXP: 100000
+  currentXP: 0
   xpToNextLevel: 100
   nameOfCharacter: Goblin
-  health: -186
-  maxHealth: 300
+  health: 600
+  maxHealth: 6000
   maxMana: 0
   mana: 0
-  combatSpeed: 15
-  skillDamage: 50
-  attackDamage: 60
+  combatSpeed: 35
+  skillDamage: 45
+  attackDamage: 50
   critChance: 0
   effectChance: 0
   Defence: 0
@@ -34,7 +34,7 @@ MonoBehaviour:
   critChanceOG: 0
   effectChanceOG: 0
   DefenceOG: 0
-  expGive: 100000
+  expGive: 0
   skills:
   - sprite: {fileID: 0}
     description: 
