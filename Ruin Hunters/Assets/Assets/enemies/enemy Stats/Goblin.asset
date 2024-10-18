@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Goblin
   m_EditorClassIdentifier: 
   level: 1
-  currentXP: 0
+  currentXP: 1000
   xpToNextLevel: 100
   nameOfCharacter: Goblin
   health: 600

@@ -88,9 +88,10 @@ public class GameManager : MonoBehaviour
                 leveling = false;
                 for (int i = 0; i < 4; i++)
                 {
-                    levelUpScreen.transform.GetChild(i).gameObject.SetActive(true);
+                    levelUpScreen.transform.GetChild(i).gameObject.SetActive(false);
                 }
                 levelUpScreen.SetActive(false);
+                worldEnemyParent.SetActive(true);
             }
         }
         else if (deadMenu.activeSelf)
@@ -468,7 +469,8 @@ public class GameManager : MonoBehaviour
         playerCam.Follow = battleParty[0].transform;
         playerCam.LookAt = battleParty[0].transform;
         QuestManager.instance.questParent.SetActive(true);
-        worldEnemyParent.SetActive(true);
+        if (!leveling)
+            worldEnemyParent.SetActive(true);
         //move to the next character in the list
     }
     public void FleeCombat()
@@ -484,6 +486,10 @@ public class GameManager : MonoBehaviour
             characters[i].critChance = characters[i].critChanceOG;
             characters[i].effectChance = characters[i].effectChanceOG;
             characters[i].AddExperience(expTotal);
+        }
+        while (enemyObj.Count != 0 )
+        {
+            Destroy(enemyObj[0]);
         }
         combat = false;
         battleUI.SetActive(false);
@@ -506,7 +512,8 @@ public class GameManager : MonoBehaviour
         playerCam.Follow = battleParty[0].transform;
         playerCam.LookAt = battleParty[0].transform;
         QuestManager.instance.questParent.SetActive(true);
-        worldEnemyParent.SetActive(true);
+        if (!leveling)
+            worldEnemyParent.SetActive(true);
     }
 
     private void ShowLevelUpScreen()
