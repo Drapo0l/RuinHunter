@@ -95,16 +95,17 @@ public class DialogueManager : MonoBehaviour
     {
         sentences.Clear();
         endConversation = false;
-
         if (gameObject.activeSelf)
         {
             gameObject.SetActive(false);
-            if(currentNPC.isPartyMemeber)
+            if (currentNPC != null && (currentNPC.isPartyMemeber || currentNPC.questForPlayer != null))
             {
-                currentNPC.gameObject.SetActive(false);
+                currentNPC.gameObject.SetActive(false); // Turn off the NPC after dialogue ends
+                currentNPC.HideInteractElements(); // Call method to hide interact elements
             }
         }
     }
+
 
     public void ExecuteAction(ActionType actionType, DialogueChoice choice)
     {

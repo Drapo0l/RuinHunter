@@ -565,31 +565,37 @@ public class GameManager : MonoBehaviour
         FleeCombat();
     }
 
-    //public void playerEndCombat()
-    //{
-    //    FleeCombat();
-    //    StartCoroutine(EndCombatRoutine());
-    //}
 
-    //private IEnumerator EndCombatRoutine()
-    //{
-    //    // Perform any clean-up needed to end combat
-    //    foreach (var player in battleParty)
-    //    {
-    //        player.SetActive(false); // Disable player game objects
-    //    }
-    //    foreach (var enemy in enemyObj)
-    //    {
-    //        enemy.SetActive(false); // Disable enemy game objects
-    //    }
-    //    combat = false;
-    //    battleUI.SetActive(false);
-    //    playerHealthsParent.SetActive(false);
+    public void FinalBossDefeated()
+    {
+        WinMenu winMenu = FindObjectOfType<WinMenu>();
+        winMenu.ShowWinMenu();
+    }
+        //public void playerEndCombat()
+        //{
+        //    FleeCombat();
+        //    StartCoroutine(EndCombatRoutine());
+        //}
 
-    //    // Activate the death menu
-    //    //deathMenu.SetActive(true);
+        //private IEnumerator EndCombatRoutine()
+        //{
+        //    // Perform any clean-up needed to end combat
+        //    foreach (var player in battleParty)
+        //    {
+        //        player.SetActive(false); // Disable player game objects
+        //    }
+        //    foreach (var enemy in enemyObj)
+        //    {
+        //        enemy.SetActive(false); // Disable enemy game objects
+        //    }
+        //    combat = false;
+        //    battleUI.SetActive(false);
+        //    playerHealthsParent.SetActive(false);
 
-    //    yield return null;
+        //    // Activate the death menu
+        //    //deathMenu.SetActive(true);
 
-    //}
-}
+        //    yield return null;
+
+        //}
+    }

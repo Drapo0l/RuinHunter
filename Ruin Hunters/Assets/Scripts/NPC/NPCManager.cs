@@ -46,10 +46,11 @@ public abstract class NPCManager : MonoBehaviour, NPCInteractable
             if (interactSprite.gameObject.activeSelf)
             {
                 interactSprite.gameObject.SetActive(false); // Hide sprite
+            }
+            if (interactText.gameObject.activeSelf)
+            {
                 interactText.gameObject.SetActive(false); // Hide text
             }
-            
-            
         }
     }
 
@@ -58,6 +59,12 @@ public abstract class NPCManager : MonoBehaviour, NPCInteractable
     private bool IsWithingInteractDistance()
     {
         return Vector3.Distance(playerTransform.position, transform.position) < interactDst;
+    }
+
+    public void HideInteractElements()
+    {
+        interactSprite.gameObject.SetActive(false); // Hide sprite
+        interactText.gameObject.SetActive(false); // Hide text
     }
 
     public void OpenShopUI()

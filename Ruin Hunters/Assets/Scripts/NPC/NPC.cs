@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class NPC : NPCManager, NPCTalkable
 {
-    [SerializeField] private Dialogue dialogue;
+    [SerializeField] public Dialogue dialogue;
     [SerializeField] private DialogueManager dialogueManager;
     [SerializeField]  GameObject playerGmaeOBject;
     public Quest questForPlayer;
