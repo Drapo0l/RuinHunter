@@ -123,7 +123,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyName: Red Slime
-  enemyStats: {fileID: 11400000, guid: a450e45cbf1124a4b95fa89965a77fbd, type: 2}
+  enemyStats: {fileID: 0}
+  scriptableStats: {fileID: 11400000, guid: a450e45cbf1124a4b95fa89965a77fbd, type: 2}
+  questPlayerCompleted: {fileID: 0}
+  givePlayerQuest: {fileID: 0}
   weaponsWeakness: []
   elementWeakness: []
   ty: 0

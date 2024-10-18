@@ -7,6 +7,7 @@ public class EnemyAI : MonoBehaviour
 {
     public string enemyName;
     public CharacterAttributes enemyStats;
+    public CharacterAttributes scriptableStats;
     public Quest questPlayerCompleted;
     public Quest givePlayerQuest;
 
@@ -26,8 +27,9 @@ public class EnemyAI : MonoBehaviour
    
     void Start()
     {
-        availableSkills = enemyStats.skills;
-        animatingAttack = false;
+        if (enemyStats.skills != null)
+            availableSkills = enemyStats.skills;
+        animatingAttack = false;       
     }
 
     void Update()
@@ -37,6 +39,12 @@ public class EnemyAI : MonoBehaviour
             StartCoroutine(HandleTurnSequence());
         }
     }
+
+    public void setUpStats()
+    {
+        enemyStats = scriptableStats.deepCopy();
+    }
+
     IEnumerator HandleTurnSequence()
     {
 

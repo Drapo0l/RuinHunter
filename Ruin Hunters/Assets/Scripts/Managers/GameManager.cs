@@ -239,6 +239,7 @@ public class GameManager : MonoBehaviour
             int index = 0;
             foreach (var enemy in enemyObj)
             {
+                enemy.GetComponent<EnemyAI>().setUpStats();
                 currentEnemies.Add(enemy.GetComponent<EnemyAI>().enemyStats);
 
                 currentEnemies[index].maxMana = currentEnemies[index].maxManaOG;

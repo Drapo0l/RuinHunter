@@ -123,7 +123,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyName: Skull
-  enemyStats: {fileID: 11400000, guid: 101b68ff67347614296278ea9617edcf, type: 2}
+  enemyStats: {fileID: 0}
+  scriptableStats: {fileID: 11400000, guid: 101b68ff67347614296278ea9617edcf, type: 2}
+  questPlayerCompleted: {fileID: 0}
+  givePlayerQuest: {fileID: 0}
   weaponsWeakness:
   - weaponType: 0
     weaponMultiplier: 1
