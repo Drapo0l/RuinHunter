@@ -7,6 +7,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem.HID;
+using UnityEngine.Rendering;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 //using UnityEngine.UIElements;
@@ -41,6 +42,21 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject levelUpScreen;
 
     [SerializeField] CinemachineVirtualCamera playerCam;
+
+    [Header("Sounds")]
+    [SerializeField] AudioSource Aud;
+    [SerializeField] AudioClip defeatSound;
+    [SerializeField] float AudiodefeatVol;
+    [SerializeField] AudioClip defeatMusic;
+    [SerializeField] float AudiodefeatMVol;
+    [SerializeField] AudioClip levelUpSound;
+    [SerializeField] float AudioLevelUpVol;
+    [SerializeField] AudioClip levelUpMusic;
+    [SerializeField] float AudioLevelUpMVol;
+    [SerializeField] AudioClip winSound;
+    [SerializeField] float AudioWinVol;
+
+
 
     [Header("Dependencies - No touching")]
     public bool combat = false;
@@ -363,6 +379,9 @@ public class GameManager : MonoBehaviour
         turnOrder.Remove(enemy.GetComponent<EnemyAI>().enemyStats);
         if (enemyObj.Count == 0)
         {
+            //Aud.clip = winSound;
+            //Aud.volume = AudioWinVol;
+            //Aud.Play();
             StartCoroutine(EndCombat());
         }
     }
@@ -377,6 +396,9 @@ public class GameManager : MonoBehaviour
         Grave_Yard.Add(player);
         if (battleParty.Count == 0)
         {
+            //Aud.clip = defeatSound;
+            //Aud.volume = AudiodefeatVol; 
+            //Aud.Play();
             deadMenu.SetActive(true);
         }
     }
@@ -514,6 +536,7 @@ public class GameManager : MonoBehaviour
         QuestManager.instance.questParent.SetActive(true);
         if (!leveling)
             worldEnemyParent.SetActive(true);
+        Aud = null;
     }
 
     private void ShowLevelUpScreen()

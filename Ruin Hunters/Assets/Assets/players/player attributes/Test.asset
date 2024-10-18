@@ -12,20 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e337efe9978a8409654b2b05bb0c8c, type: 3}
   m_Name: Test
   m_EditorClassIdentifier: 
-  level: 8
-  currentXP: 200
-  xpToNextLevel: 800
-  nameOfCharacter: Testing
-  health: 3920
-  maxHealth: 3920
-  maxMana: 410
-  mana: 410
-  combatSpeed: 0
+  level: 11
+  currentXP: 150
+  xpToNextLevel: 500
+  nameOfCharacter: Rogue
+  health: 4920
+  maxHealth: 4920
+  maxMana: 810
+  mana: 810
+  combatSpeed: 214
   skillDamage: 300
-  attackDamage: 255
+  attackDamage: 1255
   critChance: 0
   effectChance: 0
-  Defence: 0
+  Defence: 1410
   maxHealthOG: 3920
   maxManaOG: 410
   combatSpeedOG: 210

@@ -22,7 +22,7 @@ MonoBehaviour:
   mana: 0
   combatSpeed: 10
   skillDamage: 200
-  attackDamage: 190
+  attackDamage: 200
   critChance: 0
   effectChance: 0
   Defence: 150
