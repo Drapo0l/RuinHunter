@@ -36,9 +36,6 @@ public class Skill
             {
                 damage = damage - target.GetComponent<EnemyAI>().enemyStats.Defence;
             }
-            {
-                damage = 0;
-            }
         }
        
         // Apply damage to the target, e.g., calling the target's TakeDamage() method.
@@ -110,7 +107,7 @@ public class Skill
             if (EN == PublicEnums.Effects.AttackDown)
             {
             DamageNumberManager.Instance.ShowString(T.transform.position, "ATT DOWN", Color.black);
-            Pause.Epause();
+            //Pause.Epause();
             if (T.tag.Equals("Player"))
                 {
                     T.GetComponent<playerController>().playerStats.attackDamage = T.GetComponent<playerController>().playerStats.attackDamage / 2;
@@ -125,7 +122,7 @@ public class Skill
             if (EN == PublicEnums.Effects.AttackUp)
             {
             DamageNumberManager.Instance.ShowString(T.transform.position, "ATT UP", Color.red);
-            Pause.Epause();
+            //Pause.Epause();
             if (T.tag.Equals("Player"))
                 {
                     T.GetComponent<playerController>().playerStats.attackDamage = T.GetComponent<playerController>().playerStats.attackDamage * 2;
@@ -140,7 +137,7 @@ public class Skill
             if (EN == PublicEnums.Effects.DefenceDown)
             {
             DamageNumberManager.Instance.ShowString(T.transform.position, "DEF DOWN", Color.black);
-            Pause.Epause();
+            //Pause.Epause();
             if (T.tag.Equals("Player"))
                 {
                     T.GetComponent<playerController>().playerStats.Defence = T.GetComponent<playerController>().playerStats.Defence / 2;
@@ -155,7 +152,7 @@ public class Skill
             if (EN == PublicEnums.Effects.DefenceUp)
             {
             DamageNumberManager.Instance.ShowString(T.transform.position, "DEF UP", Color.blue);
-            Pause.Epause();
+            //Pause.Epause();
             if (T.tag.Equals("Player"))
                 {
                     T.GetComponent<playerController>().playerStats.Defence = T.GetComponent<playerController>().playerStats.Defence * 2;
@@ -171,7 +168,7 @@ public class Skill
             if (EN == PublicEnums.Effects.SpeedDown)
             {
             DamageNumberManager.Instance.ShowString(T.transform.position, "SPD DOWN", Color.black);
-            Pause.Epause();
+            //Pause.Epause();
 
             if (T.tag.Equals("Player"))
                 {
@@ -187,7 +184,7 @@ public class Skill
             if (EN == PublicEnums.Effects.SpeedUp)
             {
             DamageNumberManager.Instance.ShowString(T.transform.position, "SPD UP", Color.green);
-            Pause.Epause();
+            //Pause.Epause();
             if (T.tag.Equals("Player"))
                 {
                     T.GetComponent<playerController>().playerStats.combatSpeed = T.GetComponent<playerController>().playerStats.combatSpeed * 2;
@@ -202,7 +199,7 @@ public class Skill
             if (EN == PublicEnums.Effects.SkillPDown)
             {
             DamageNumberManager.Instance.ShowString(T.transform.position, "SKL DOWN", Color.black);
-            Pause.Epause();
+            //Pause.Epause();
             if (T.tag.Equals("Player"))
                 {
                     T.GetComponent<playerController>().playerStats.skillDamage = T.GetComponent<playerController>().playerStats.skillDamage / 2;
@@ -217,7 +214,7 @@ public class Skill
             if (EN == PublicEnums.Effects.SkillPUP)
             {
             DamageNumberManager.Instance.ShowString(T.transform.position, "SKL UP", Color.cyan);
-            Pause.Epause();
+            //Pause.Epause();
             if (T.tag.Equals("Player"))
                 {
                     T.GetComponent<playerController>().playerStats.skillDamage = T.GetComponent<playerController>().playerStats.skillDamage * 2;
@@ -232,7 +229,7 @@ public class Skill
             if (EN == PublicEnums.Effects.Clense)
             {
             DamageNumberManager.Instance.ShowString(T.transform.position, "Clense", Color.gray);
-            Pause.Epause();
+            //Pause.Epause();
             if (T.tag.Equals("Player"))
                 {
                     T.GetComponent<playerController>().playerStats.maxMana = T.GetComponent<playerController>().playerStats.maxManaOG;

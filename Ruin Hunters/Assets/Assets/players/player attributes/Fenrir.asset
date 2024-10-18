@@ -12,20 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e337efe9978a8409654b2b05bb0c8c, type: 3}
   m_Name: Fenrir
   m_EditorClassIdentifier: 
-  level: 8
+  level: 57
   currentXP: 200
-  xpToNextLevel: 800
+  xpToNextLevel: 500
   nameOfCharacter: Fenrir
-  health: 4000
-  maxHealth: 4000
-  maxMana: 310
-  mana: 310
-  combatSpeed: 0
+  health: 18000
+  maxHealth: 18000
+  maxMana: 5910
+  mana: 5910
+  combatSpeed: 266
   skillDamage: 300
-  attackDamage: 243
+  attackDamage: 14243
   critChance: 0
   effectChance: 0
-  Defence: 0
+  Defence: 5920
   maxHealthOG: 4000
   maxManaOG: 310
   combatSpeedOG: 210
@@ -57,7 +57,7 @@ MonoBehaviour:
     Ptargit: 0
     AOE: 0
   regions: 2
-  isTurn: 0
+  isTurn: 1
   isStuned: 0
   special: 0
   special_count: 0
