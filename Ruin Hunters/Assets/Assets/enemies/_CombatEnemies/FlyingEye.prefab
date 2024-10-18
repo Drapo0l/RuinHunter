@@ -101,7 +101,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyName: Flying Eye
-  enemyStats: {fileID: 11400000, guid: 12d9a3370b93aef409fd43037db124cf, type: 2}
+  enemyStats: {fileID: 0}
+  scriptableStats: {fileID: 11400000, guid: 12d9a3370b93aef409fd43037db124cf, type: 2}
+  questPlayerCompleted: {fileID: 0}
+  givePlayerQuest: {fileID: 0}
   weaponsWeakness: []
   elementWeakness: []
   ty: 0

@@ -149,7 +149,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyName: Rat
-  enemyStats: {fileID: 11400000, guid: 9989997e2e713324ab861267b94ea0a4, type: 2}
+  enemyStats: {fileID: 0}
+  scriptableStats: {fileID: 11400000, guid: 9989997e2e713324ab861267b94ea0a4, type: 2}
+  questPlayerCompleted: {fileID: 0}
+  givePlayerQuest: {fileID: 0}
   weaponsWeakness:
   - weaponType: 1
     weaponMultiplier: 2
