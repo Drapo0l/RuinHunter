@@ -26,18 +26,23 @@ public abstract class NPCManager : MonoBehaviour, NPCInteractable
     // Update is called once per frame
     void Update()
     {
-        if (Keyboard.current.eKey.wasPressedThisFrame && IsWithingInteractDistance())
+        bool withinDistance = IsWithingInteractDistance();
+
+        if (Keyboard.current.eKey.wasPressedThisFrame && withinDistance)
         {
             // Interact with NPC
             Interact();
         }
 
         // Enable or disable the interact sprite and text based on distance
-        if (IsWithingInteractDistance())
+        if (withinDistance)
         {
             if (!interactSprite.gameObject.activeSelf)
             {
                 interactSprite.gameObject.SetActive(true); // Show sprite
+            }
+            if (!interactText.gameObject.activeSelf)
+            {
                 interactText.gameObject.SetActive(true); // Show text
             }
         }
