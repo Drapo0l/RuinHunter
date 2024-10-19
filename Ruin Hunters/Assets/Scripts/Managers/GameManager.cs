@@ -484,14 +484,20 @@ public class GameManager : MonoBehaviour
 
         foreach (GameObject player in battleParty)
         {
-            player.SetActive(false);
-            player.transform.position = lastPlayerPosition;
-            player.transform.SetParent(playerParent.transform);
-            player.transform.GetComponent<SphereCollider>().enabled = true;
+            if (player != null)
+            {
+                player.SetActive(false);
+                player.transform.position = lastPlayerPosition;
+                player.transform.SetParent(playerParent.transform);
+                player.transform.GetComponent<SphereCollider>().enabled = true;
+            }
         }
         battleParty[0].SetActive(true);
-        playerCam.Follow = battleParty[0].transform;
-        playerCam.LookAt = battleParty[0].transform;
+        if (playerCam != null)
+        {
+            playerCam.Follow = battleParty[0].transform;
+            playerCam.LookAt = battleParty[0].transform;
+        }
         QuestManager.instance.questParent.SetActive(true);
         if (!leveling)
             worldEnemyParent.SetActive(true);

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using static UnityEditor.Progress;
+//using static UnityEditor.Progress;
 //using static UnityEditor.Progress;
 
 [CreateAssetMenu(fileName = "NewCharacterAttributes", menuName = "Character/Attributes")]
@@ -59,7 +59,7 @@ public class CharacterAttributes : ScriptableObject
     {
         level++;
         currentXP -= xpToNextLevel;
-        xpToNextLevel =+ 500;
+        xpToNextLevel =+ (int)(xpToNextLevel * 1.7);
         maxHealth += 500;
         health = maxHealth;
         maxMana += 200;

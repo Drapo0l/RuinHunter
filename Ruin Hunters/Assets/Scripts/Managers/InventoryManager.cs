@@ -31,15 +31,15 @@ public class InventoryManager : MonoBehaviour
 
     public void AddItem(Item item)
     {
-        Item existingItem = items.Find(i => i.name == item.name);
-        if (existingItem != null) 
-        {
-            existingItem.amountOfItem += item.amountOfItem;
-        }
-        else
-        {
+        //Item existingItem = items.Find(i => i.name == item.name);
+        //if (existingItem != null) 
+        //{
+        //    existingItem.amountOfItem += item.amountOfItem;
+        //}
+        //else
+        //{
             items.Add(item);
-        }
+        //}
     }
 
     public void RemoveItem(Item item)
