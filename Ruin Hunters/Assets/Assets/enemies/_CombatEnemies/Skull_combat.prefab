@@ -123,7 +123,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyName: Skull
-  enemyStats: {fileID: 11400000, guid: 101b68ff67347614296278ea9617edcf, type: 2}
+  enemyStats: {fileID: 0}
+  scriptableStats: {fileID: 11400000, guid: 101b68ff67347614296278ea9617edcf, type: 2}
+  questPlayerCompleted: {fileID: 0}
+  givePlayerQuest: {fileID: 0}
   weaponsWeakness:
   - weaponType: 0
     weaponMultiplier: 1
@@ -184,7 +187,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 0.32
   m_Center: {x: 0, y: 0, z: 0}

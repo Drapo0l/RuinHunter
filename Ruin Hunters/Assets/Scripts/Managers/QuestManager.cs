@@ -19,7 +19,6 @@ public class QuestManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -34,44 +33,45 @@ public class QuestManager : MonoBehaviour
 
     public void UpdateQuestDisplay()
     {
-        if (questPanels != null)
+        if (!GameManager.Instance.combat && !GameManager.Instance.leveling)
         {
-            foreach (GameObject panel in questPanels)
+            if (questPanels != null)
             {
-                Destroy(panel);
+                foreach (GameObject panel in questPanels)
+                {
+                    Destroy(panel);
+                }
+                questPanels.Clear();
             }
-            questPanels.Clear();
+
+            float spacing = 0;
+            questParent.SetActive(true);
+
+            foreach (Quest quest in activeQuests)
+            {
+                GameObject questCopy = Instantiate(questPanel);
+                questCopy.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = quest.questName;
+                questCopy.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = quest.description;
+                questCopy.transform.SetParent(questParent.transform);
+                questCopy.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, spacing);
+                spacing -= 120;
+                questPanels.Add(questCopy);
+            }
         }
-
-        float spacing = 0;
-        questParent.SetActive(true);
-
-        foreach (Quest quest in activeQuests)
-        {
-            GameObject questCopy = Instantiate(questPanel);
-            questCopy.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = quest.questName;
-            questCopy.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = quest.description;
-            questCopy.transform.SetParent(questParent.transform);
-            questCopy.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, spacing);
-            spacing -= 120;
-            questPanels.Add(questCopy);
-        }
-
     }
 
 public void CompleteQuest(Quest quest)
 {
-    if (activeQuests.Contains(quest))
-    {
+   
 
-        quest.isCompleted = true;
-        activeQuests.Remove(quest);
-        completedQuests.Add(quest);
+    quest.isCompleted = true;
+    activeQuests.Remove(quest);
+    completedQuests.Add(quest);
 
-        GrantQuestRewards(quest);
+    GrantQuestRewards(quest);
 
-        UpdateQuestDisplay();
-    }
+    UpdateQuestDisplay();
+    
 }
 
 private void GrantQuestRewards(Quest quest)
@@ -86,7 +86,7 @@ private void GrantQuestRewards(Quest quest)
 
 public void AddQuest(Quest newQuest)
 {
-    if (!activeQuests.Contains(newQuest))
+    if (!activeQuests.Contains(newQuest) && !completedQuests.Contains(newQuest))
     {
         activeQuests.Add(newQuest);
 

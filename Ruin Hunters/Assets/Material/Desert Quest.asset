@@ -20,7 +20,7 @@ MonoBehaviour:
   - buttonText: A
     playerText: I want to explore the desert
     nextDialogue: {fileID: 11400000, guid: a5d45d0645f10cf41a4212650c2cb5bf, type: 2}
-    actionType: 0
+    actionType: 1
     conditions: []
     consequences: []
   - buttonText: B

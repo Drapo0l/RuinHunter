@@ -14,15 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NPCName: ...
   sentences:
-  - First the movement
-  - 'You can move by presing the usual keys: W for up, D for tight, S for down and
-    A for left'
-  - And the E key is for interactions with NPCs, and pass to the next dialogue
-  - What else you want to know?
+  - 'First the movement. You can move by presing the usual keys: W for up, D for
+    tight, S for down and A for left. And the E key is for interactions with NPCs,
+    and pass to the next dialogue.  What else you want to know?'
   choices:
   - buttonText: A
     playerText: I will like to know about combat
-    nextDialogue: {fileID: 11400000, guid: ebd5e4f79e5d9c040987944bef553a54, type: 2}
+    nextDialogue: {fileID: 11400000, guid: d56ab23c4ff865144ba398cfa743ea19, type: 2}
     actionType: 0
     conditions: []
     consequences: []

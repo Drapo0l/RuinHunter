@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Elite Golem Armor stats
   m_EditorClassIdentifier: 
   level: 1
-  currentXP: 0
+  currentXP: 1000
   xpToNextLevel: 100
   nameOfCharacter: 
   health: 5000

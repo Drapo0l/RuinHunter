@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Golem
   m_EditorClassIdentifier: 
   level: 1
-  currentXP: 0
+  currentXP: 1000
   xpToNextLevel: 100
   nameOfCharacter: 
   health: 1000

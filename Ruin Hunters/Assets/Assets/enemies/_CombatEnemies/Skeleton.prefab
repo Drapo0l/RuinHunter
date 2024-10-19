@@ -101,7 +101,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyName: Skeleton
-  enemyStats: {fileID: 11400000, guid: f154aa5485c971d45965f458312a9863, type: 2}
+  enemyStats: {fileID: 0}
+  scriptableStats: {fileID: 11400000, guid: f154aa5485c971d45965f458312a9863, type: 2}
+  questPlayerCompleted: {fileID: 0}
+  givePlayerQuest: {fileID: 0}
   weaponsWeakness: []
   elementWeakness: []
   ty: 0
@@ -130,7 +133,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 0.2
   m_Center: {x: 0, y: 0, z: 0}

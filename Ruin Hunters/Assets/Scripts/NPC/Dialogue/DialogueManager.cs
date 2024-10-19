@@ -21,7 +21,7 @@ public class DialogueManager : MonoBehaviour
     private const float Max_Type_Time = 0.1f; // Controls typing speed
     private Coroutine typeDialogueCoroutine;
     private NPC currentNPC;
-
+   
     public void StartDialogue(Dialogue dialogue)
     {
         if (!gameObject.activeSelf)
@@ -37,11 +37,12 @@ public class DialogueManager : MonoBehaviour
             sentences.Enqueue(sentence);
         }
 
-        DisplayNextSentence(dialogue);
+        DisplayNextSentence(dialogue, currentNPC);
     }
 
-    public void DisplayNextSentence(Dialogue dialogue)
+    public void DisplayNextSentence(Dialogue dialogue, NPC npc)
     {
+        currentNPC = npc;
         // If there are no sentences left
         if (sentences.Count == 0)
         {
@@ -94,12 +95,17 @@ public class DialogueManager : MonoBehaviour
     {
         sentences.Clear();
         endConversation = false;
-
         if (gameObject.activeSelf)
         {
             gameObject.SetActive(false);
+            if (currentNPC != null && (currentNPC.isPartyMemeber || currentNPC.questForPlayer != null))
+            {
+                currentNPC.gameObject.SetActive(false); // Turn off the NPC after dialogue ends
+                currentNPC.HideInteractElements(); // Call method to hide interact elements
+            }
         }
     }
+
 
     public void ExecuteAction(ActionType actionType, DialogueChoice choice)
     {

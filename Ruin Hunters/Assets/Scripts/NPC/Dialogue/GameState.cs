@@ -50,7 +50,7 @@ public class GameState : MonoBehaviour
     public void UnlockQuest(string questId)
     {
         questUnlocked = true; // Set quest unlocked to true (add more logic as needed)
-        Debug.Log($"Quest {questId} unlocked!");
+        //Debug.Log($"Quest {questId} unlocked!");
     }
 
     public void UpdateInventory(Item item)

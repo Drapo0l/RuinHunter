@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NPCName: Helga
   sentences:
-  - Okay, go and explore then
+  - I'll go with you, theres is this enemy that I need help defating
   choices: []
