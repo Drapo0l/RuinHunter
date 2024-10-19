@@ -12,22 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e337efe9978a8409654b2b05bb0c8c, type: 3}
   m_Name: Healer
   m_EditorClassIdentifier: 
-  level: 8
-  currentXP: 200
+  level: 1
+  currentXP: 1
   xpToNextLevel: 800
   nameOfCharacter: Healer
-  health: 2420
+  health: 400
   maxHealth: 2420
-  maxMana: 360
+  maxMana: 3600
   mana: 360
-  combatSpeed: 0
+  combatSpeed: 20
   skillDamage: 200
   attackDamage: 45
-  critChance: 0
+  critChance: 1
   effectChance: 0
-  Defence: 0
+  Defence: 100
   maxHealthOG: 2420
-  maxManaOG: 360
+  maxManaOG: 3600
   combatSpeedOG: 222
   skillDamageOG: 200
   attackDamageOG: 45

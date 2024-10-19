@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: forest_elitePool
   m_EditorClassIdentifier: 
   region: 2
-  collidingEnemy: {fileID: 2074794736699707982, guid: 79a1d2e6d52e8af46948a7a842de4db4,
+  collidingEnemy: {fileID: 2074794736699707982, guid: 3c7d2296703182a449b1adb8ad6e4a47,
     type: 3}
   enemyPrefabs:
   - {fileID: 4835426206954640703, guid: 4cb726be268b5514c92f3693c9d265f5, type: 3}
