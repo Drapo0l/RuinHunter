@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using static UnityEditor.Progress;
 //using static UnityEditor.Progress;
 
 [CreateAssetMenu(fileName = "NewCharacterAttributes", menuName = "Character/Attributes")]
@@ -76,6 +78,36 @@ public class CharacterAttributes : ScriptableObject
         attackDamage += 500;
         Defence += 200;
         combatSpeed += 2;
+    }
+
+    public CharacterAttributes deepCopy()
+    {
+        CharacterAttributes copy = ScriptableObject.CreateInstance<CharacterAttributes>();
+        copy.level = this.health;
+        copy.currentXP = this.currentXP;
+        copy.xpToNextLevel = this.xpToNextLevel;
+        copy.nameOfCharacter = this.nameOfCharacter;
+        copy.health = this.health;
+        copy.maxHealth = this.maxHealthOG;
+        copy.maxMana = this.maxMana;
+        copy.mana = this.mana;
+        copy.combatSpeed = this.combatSpeed;
+        copy.skillDamage = this.skillDamage;
+        copy.attackDamage = this.attackDamage;
+        copy.critChance = this.critChance;
+        copy.effectChance = this.effectChance;
+        copy.Defence = this.Defence;
+        copy.expGive = this.expGive;
+        copy.skills = this.skills; // List 
+        copy.regions = this.regions;
+        copy.isTurn = this.isTurn; 
+        copy.isStuned = this.isStuned;
+        copy.special =this.special;
+        copy.special_count = this.special_count;
+        copy.weapon = this.weapon;
+        copy.equipment = this.equipment;
+
+        return copy;
     }
 }
 

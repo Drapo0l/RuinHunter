@@ -9,15 +9,7 @@ public class Teleporter : MonoBehaviour
     public Vector3 teleportDestinationInScene;
     public string sceneToLoad;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.CompareTag("Player"))
-        {
-            TeleportPlayer(other.transform);
-        }
-    }
-
-    private void TeleportPlayer(Transform player)
+    public void TeleportPlayer(Transform player)
     {
         if(!string.IsNullOrEmpty(sceneToLoad)) 
         {

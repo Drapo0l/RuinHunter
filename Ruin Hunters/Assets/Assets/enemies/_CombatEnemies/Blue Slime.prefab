@@ -121,7 +121,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyName: Blue Slime
-  enemyStats: {fileID: 11400000, guid: 22762e405d8dea742a658c4344abdb87, type: 2}
+  enemyStats: {fileID: 0}
+  scriptableStats: {fileID: 11400000, guid: 22762e405d8dea742a658c4344abdb87, type: 2}
+  questPlayerCompleted: {fileID: 0}
+  givePlayerQuest: {fileID: 0}
   weaponsWeakness: []
   elementWeakness: []
   ty: 0

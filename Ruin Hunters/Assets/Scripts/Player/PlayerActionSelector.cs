@@ -19,6 +19,7 @@ public class PlayerActionSelector : MonoBehaviour
     public GameObject actionMenu;                 //action menu buttons
     public List<Button> subMenuButtons;           //buttons for skill/item menu
     public GameObject subMenuParent;
+    public GameObject characterName;
 
     private int currentSelection = 0;              // Index of the currently selected button
     private Stack<List<Button>> menuStack = new Stack<List<Button>>(); // Stack for managing menus
@@ -168,23 +169,7 @@ public class PlayerActionSelector : MonoBehaviour
 
         menuPanel.SetActive(true); // enable the menu
 
-        SetMenuPositionToLeftOfPlayer();
-    }
-
-    private void SetMenuPositionToLeftOfPlayer()
-    {
-        Vector3 playerWorldPos = playerTransform.position;
-
-        Vector3 offset = new Vector3(-2f, 0, 0);
-
-        Vector3 screenPos = battleCamera.WorldToScreenPoint(playerWorldPos + offset);
-
-        if (screenPos.z < 0) // if it's behind the camera
-        {
-            return;
-        }
-
-        actionMenu.GetComponent<RectTransform>().anchoredPosition = screenPos;
+        characterName.GetComponent<TextMeshProUGUI>().text = playerController.playerStats.nameOfCharacter;
     }
 
     public void HideMenu()

@@ -98,7 +98,7 @@ public class PartyManager : MonoBehaviour
         else if (!startingPlayerParty.Contains(newMember))
         {
             startingPlayerParty.Add(newMember); // add char
-            playerParty.Add(newMember.GetComponent<CharacterAttributes>());
+            playerParty.Add(newMember.GetComponent<playerController>().playerStats);
             return true;
         }
         else

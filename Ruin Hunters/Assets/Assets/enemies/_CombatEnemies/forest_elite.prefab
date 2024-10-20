@@ -149,7 +149,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyName: Slime
-  enemyStats: {fileID: 11400000, guid: 08019b8869b287e4db3e6fb071db4efc, type: 2}
+  enemyStats: {fileID: 0}
+  scriptableStats: {fileID: 11400000, guid: 08019b8869b287e4db3e6fb071db4efc, type: 2}
+  questPlayerCompleted: {fileID: 11400000, guid: 627dc717832839445bb575f384409ea9,
+    type: 2}
+  givePlayerQuest: {fileID: 11400000, guid: f01471afda47a394d968995511b4c5ba, type: 2}
   weaponsWeakness:
   - weaponType: 0
     weaponMultiplier: 1

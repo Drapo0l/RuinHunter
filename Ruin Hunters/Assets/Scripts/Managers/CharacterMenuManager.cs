@@ -72,12 +72,25 @@ public class CharacterMenuManager : MonoBehaviour
 
     int currentSelection;
 
+    [Header("Audio")]
+    [SerializeField] AudioSource Aud;
+    [SerializeField] AudioClip AudButtonPressed;
+    [SerializeField] float ButtonPressedVol;
+    [SerializeField] AudioClip AudClosemenu;
+    [SerializeField] float ClosemenuVol;
+    [SerializeField] AudioClip AudEquip;
+    [SerializeField] float EquipVol;
+    [SerializeField] AudioClip AudOpenMenu;
+    [SerializeField] float OpenMenuVol;
+    [SerializeField] AudioClip ButtonDownAud;
+    [SerializeField] float ButtonDownVol;
 
-
+   private bool isPlaying;
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape) && statMenu.activeSelf)
         {
+          
             cursor.transform.SetParent(statMenu.transform);
             weaponStats.SetActive(false);
             equipmentStats.SetActive(false);
@@ -104,10 +117,11 @@ public class CharacterMenuManager : MonoBehaviour
             skillsButtons.Clear();
             weaponButtons.Clear();
             equipmentButtons.Clear();
+            if (!isPlaying) Aud.PlayOneShot(AudClosemenu, ClosemenuVol);
         }
         else if (!GameManager.Instance.combat && !GameManager.Instance.leveling && statMenu.activeSelf && !weaponMenu && !equipmentMenu && !ItemMenu && !skillMenu) 
         {
-            if (Input.GetKeyDown(KeyCode.W)) { Navigate(-1);}
+            if (Input.GetKeyDown(KeyCode.W)) { Navigate(-1) ;}
             if (Input.GetKeyDown(KeyCode.S)) { Navigate(1);}
             if (Input.GetKeyDown(KeyCode.A)) {ChangeMenu();}
             if (Input.GetKeyDown(KeyCode.D)) { ChangeMenu();}
@@ -236,20 +250,25 @@ public class CharacterMenuManager : MonoBehaviour
     private void ExecuteCurrentAction()
     {
         // Trigger the onClick event for the currently selected button
+        Aud.PlayOneShot(AudButtonPressed, ButtonPressedVol);
         currentMenu[currentSelection].onClick.Invoke();
+       
     }
 
     private void Navigate(int direction)
     {
+     
         playerScrollIndex += direction;
         currentSelection += direction;
         if (currentSelection < 0)
         {
+            Aud.PlayOneShot(AudButtonPressed, ButtonPressedVol);
             currentSelection = currentMenu.Count - 1; // Loop to end
             playerScrollIndex = currentMenu.Count - 1; // Loop to end
         }
         if (currentSelection >= playerParty.Count * 2)
         {
+            Aud.PlayOneShot(AudButtonPressed, ButtonPressedVol);
             currentSelection = 0;      // Loop to start
             playerScrollIndex = 0;      // Loop to start
         }
@@ -323,6 +342,7 @@ public class CharacterMenuManager : MonoBehaviour
         for (int i = 0; i < buttons.Count && i < actions.Length; i++)
         {
             buttons[i].onClick.AddListener(actions[i]);
+ 
         }
     }
 
@@ -444,6 +464,7 @@ public class CharacterMenuManager : MonoBehaviour
         else if (currentSelection >= skillScrollIndex + 6)
         {
             skillScrollIndex = Mathf.Min(playerSkills.Count - 6, skillScrollIndex + 1); //scroll down
+            //Aud.PlayOneShot(ButtonDownAud, ButtonDownVol);
             PopulateSkillMenu();
         }
 
@@ -962,6 +983,7 @@ public class CharacterMenuManager : MonoBehaviour
         //unequip item
         if (charStats.weapon != null)
         {
+            if (!isPlaying) Aud.PlayOneShot(AudEquip, EquipVol);
             InventoryManager.instance.AddItem(charStats.weapon);
             charStats.weapon = null;
         }
@@ -986,6 +1008,7 @@ public class CharacterMenuManager : MonoBehaviour
         
         if (charStats.equipment != null) 
         {
+            if (!isPlaying) Aud.PlayOneShot(AudEquip, EquipVol);
             InventoryManager.instance.AddItem(charStats.equipment);
             charStats.equipment = null;
         }
@@ -1074,6 +1097,7 @@ public class CharacterMenuManager : MonoBehaviour
     {
         foreach (var stat in stats)
         {
+            Aud.PlayOneShot(AudClosemenu, ClosemenuVol);
             stat.SetActive(false);
         }
     }private void ShowStats()
@@ -1082,6 +1106,7 @@ public class CharacterMenuManager : MonoBehaviour
         foreach (var player in playerParty)
         {
             stats[index].SetActive(true);
+           if(!isPlaying) Aud.PlayOneShot(AudOpenMenu, OpenMenuVol);
             CharacterAttributes playerStats = player.GetComponent<playerController>().playerStats;
             stats[index].transform.GetChild(0).gameObject.transform.GetComponent<Image>().sprite = player.GetComponent<playerController>().Sprite;
             stats[index].transform.GetChild(1).gameObject.transform.GetComponent<TextMeshProUGUI>().text = playerStats.name;

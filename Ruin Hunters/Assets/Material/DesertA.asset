@@ -14,21 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NPCName: Angel
   sentences:
-  - I wouldn't recomend exploring the desert
-  - I wasn't alone befor
-  - 'But '
-  - The monster kill everyone I once love
-  - now I'm a assasing, that roams these deserted lands
-  choices:
-  - buttonText: A
-    playerText: I'm sorry to heard that
-    nextDialogue: {fileID: 11400000, guid: db8302bd5fc531a4eb860f03c46bd6a0, type: 2}
-    actionType: 0
-    conditions: []
-    consequences: []
-  - buttonText: B
-    playerText: You should join my party, that way you don't have to be alone
-    nextDialogue: {fileID: 11400000, guid: cfdb357d0e711c84db4ae2b242669814, type: 2}
-    actionType: 1
-    conditions: []
-    consequences: []
+  - If you must, I will go with you
+  choices: []

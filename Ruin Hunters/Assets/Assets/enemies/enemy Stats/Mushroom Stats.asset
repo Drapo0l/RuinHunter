@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Mushroom Stats
   m_EditorClassIdentifier: 
   level: 1
-  currentXP: 0
+  currentXP: 1000
   xpToNextLevel: 100
   nameOfCharacter: 
   health: 0
@@ -22,7 +22,7 @@ MonoBehaviour:
   mana: 0
   combatSpeed: 10
   skillDamage: 200
-  attackDamage: 190
+  attackDamage: 200
   critChance: 0
   effectChance: 0
   Defence: 150

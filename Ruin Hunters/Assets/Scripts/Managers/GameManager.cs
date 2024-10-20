@@ -7,6 +7,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem.HID;
+using UnityEngine.Rendering;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 //using UnityEngine.UIElements;
@@ -41,6 +42,21 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject levelUpScreen;
 
     [SerializeField] CinemachineVirtualCamera playerCam;
+
+    [Header("Sounds")]
+    [SerializeField] AudioSource Aud;
+    [SerializeField] AudioClip defeatSound;
+    [SerializeField] float AudiodefeatVol;
+    [SerializeField] AudioClip defeatMusic;
+    [SerializeField] float AudiodefeatMVol;
+    [SerializeField] AudioClip levelUpSound;
+    [SerializeField] float AudioLevelUpVol;
+    [SerializeField] AudioClip levelUpMusic;
+    [SerializeField] float AudioLevelUpMVol;
+    [SerializeField] AudioClip winSound;
+    [SerializeField] float AudioWinVol;
+
+
 
     [Header("Dependencies - No touching")]
     public bool combat = false;
@@ -88,9 +104,11 @@ public class GameManager : MonoBehaviour
                 leveling = false;
                 for (int i = 0; i < 4; i++)
                 {
-                    levelUpScreen.transform.GetChild(i).gameObject.SetActive(true);
+                    levelUpScreen.transform.GetChild(i).gameObject.SetActive(false);
                 }
                 levelUpScreen.SetActive(false);
+                worldEnemyParent.SetActive(true);
+                QuestManager.instance.UpdateQuestDisplay();
             }
         }
         else if (deadMenu.activeSelf)
@@ -225,27 +243,24 @@ public class GameManager : MonoBehaviour
         if (colliderPool != null)
         {
             enemyObj = colliderPool.GetEnemies();
+            int index = 0;
             foreach (var enemy in enemyObj)
             {
-                for (int i = 0; i < characters.Count; i++)
-                {
-                    enemy.GetComponent<EnemyAI>().enemyStats.maxMana = enemy.GetComponent<EnemyAI>().enemyStats.maxManaOG;
-                    enemy.GetComponent<EnemyAI>().enemyStats.maxHealth = enemy.GetComponent<EnemyAI>().enemyStats.maxHealthOG;
-                    enemy.GetComponent<EnemyAI>().enemyStats.Defence = enemy.GetComponent<EnemyAI>().enemyStats.DefenceOG;
-                    enemy.GetComponent<EnemyAI>().enemyStats.combatSpeed = enemy.GetComponent<EnemyAI>().enemyStats.combatSpeedOG;
-                    enemy.GetComponent<EnemyAI>().enemyStats.skillDamage = enemy.GetComponent<EnemyAI>().enemyStats.skillDamageOG;
-                    enemy.GetComponent<EnemyAI>().enemyStats.attackDamage = enemy.GetComponent<EnemyAI>().enemyStats.attackDamageOG;
-                    enemy.GetComponent<EnemyAI>().enemyStats.critChance = enemy.GetComponent<EnemyAI>().enemyStats.critChanceOG;
-                    enemy.GetComponent<EnemyAI>().enemyStats.effectChance = enemy.GetComponent<EnemyAI>().enemyStats.effectChanceOG;
-                    characters.Add(enemy.GetComponent<EnemyAI>().enemyStats);
-                    enemy.GetComponent<EnemyAI>().postionOG = enemy.transform.position;
-                }
-            }
-        }
+                enemy.GetComponent<EnemyAI>().setUpStats();
+                currentEnemies.Add(enemy.GetComponent<EnemyAI>().enemyStats);
 
-        foreach (CharacterAttributes enemyObj in currentEnemies)
-        {
-            characters.Add(enemyObj);
+                currentEnemies[index].maxMana = currentEnemies[index].maxManaOG;
+                currentEnemies[index].maxHealth = currentEnemies[index].maxHealthOG;
+                currentEnemies[index].Defence = currentEnemies[index].DefenceOG;
+                currentEnemies[index].combatSpeed = currentEnemies[index].combatSpeedOG;
+                currentEnemies[index].skillDamage = currentEnemies[index].skillDamageOG;
+                currentEnemies[index].attackDamage = currentEnemies[index].attackDamageOG;
+                currentEnemies[index].critChance = currentEnemies[index].critChanceOG;
+                currentEnemies[index].effectChance = currentEnemies[index].effectChanceOG;
+                characters.Add(enemy.GetComponent<EnemyAI>().enemyStats);
+                enemy.GetComponent<EnemyAI>().postionOG = enemy.transform.position;
+                index++;
+            }
         }
 
     }
@@ -365,6 +380,9 @@ public class GameManager : MonoBehaviour
         turnOrder.Remove(enemy.GetComponent<EnemyAI>().enemyStats);
         if (enemyObj.Count == 0)
         {
+            //Aud.clip = winSound;
+            //Aud.volume = AudioWinVol;
+            //Aud.Play();
             StartCoroutine(EndCombat());
         }
     }
@@ -372,6 +390,7 @@ public class GameManager : MonoBehaviour
     public IEnumerator PlayerDeath(GameObject player)
     {
         yield return new WaitForSeconds(1f);
+
         currentTurnIndex--;
         battleParty.Remove(player);
         if(turnOrder != null)
@@ -379,6 +398,9 @@ public class GameManager : MonoBehaviour
         Grave_Yard.Add(player);
         if (battleParty.Count == 0)
         {
+            //Aud.clip = defeatSound;
+            //Aud.volume = AudiodefeatVol; 
+            //Aud.Play();
             deadMenu.SetActive(true);
         }
     }
@@ -463,7 +485,7 @@ public class GameManager : MonoBehaviour
         foreach (GameObject player in battleParty)
         {
             player.SetActive(false);
-            player.transform.localPosition = lastPlayerPosition;
+            player.transform.position = lastPlayerPosition;
             player.transform.SetParent(playerParent.transform);
             player.transform.GetComponent<SphereCollider>().enabled = true;
         }
@@ -471,7 +493,8 @@ public class GameManager : MonoBehaviour
         playerCam.Follow = battleParty[0].transform;
         playerCam.LookAt = battleParty[0].transform;
         QuestManager.instance.questParent.SetActive(true);
-        worldEnemyParent.SetActive(true);
+        if (!leveling)
+            worldEnemyParent.SetActive(true);
         //move to the next character in the list
     }
     public void FleeCombat()
@@ -488,6 +511,11 @@ public class GameManager : MonoBehaviour
             characters[i].effectChance = characters[i].effectChanceOG;
             characters[i].AddExperience(expTotal);
         }
+        while (enemyObj.Count != 0 )
+        {
+            Destroy(enemyObj[0]);
+            enemyObj.RemoveAt(0);
+        }
         combat = false;
         battleUI.SetActive(false);
         characters.Clear();
@@ -501,7 +529,7 @@ public class GameManager : MonoBehaviour
         foreach (GameObject player in battleParty)
         {
             player.SetActive(false);
-            player.transform.localPosition = lastPlayerPosition;
+            player.transform.position = lastPlayerPosition;
             player.transform.SetParent(playerParent.transform);
             player.transform.GetComponent<SphereCollider>().enabled = true;
         }
@@ -509,7 +537,9 @@ public class GameManager : MonoBehaviour
         playerCam.Follow = battleParty[0].transform;
         playerCam.LookAt = battleParty[0].transform;
         QuestManager.instance.questParent.SetActive(true);
-        worldEnemyParent.SetActive(true);
+        if (!leveling)
+            worldEnemyParent.SetActive(true);
+            QuestManager.instance.UpdateQuestDisplay();        
     }
 
     private void ShowLevelUpScreen()
@@ -561,31 +591,37 @@ public class GameManager : MonoBehaviour
         FleeCombat();
     }
 
-    //public void playerEndCombat()
-    //{
-    //    FleeCombat();
-    //    StartCoroutine(EndCombatRoutine());
-    //}
 
-    //private IEnumerator EndCombatRoutine()
-    //{
-    //    // Perform any clean-up needed to end combat
-    //    foreach (var player in battleParty)
-    //    {
-    //        player.SetActive(false); // Disable player game objects
-    //    }
-    //    foreach (var enemy in enemyObj)
-    //    {
-    //        enemy.SetActive(false); // Disable enemy game objects
-    //    }
-    //    combat = false;
-    //    battleUI.SetActive(false);
-    //    playerHealthsParent.SetActive(false);
+    public void FinalBossDefeated()
+    {
+        WinMenu winMenu = FindObjectOfType<WinMenu>();
+        winMenu.ShowWinMenu();
+    }
+        //public void playerEndCombat()
+        //{
+        //    FleeCombat();
+        //    StartCoroutine(EndCombatRoutine());
+        //}
 
-    //    // Activate the death menu
-    //    //deathMenu.SetActive(true);
+        //private IEnumerator EndCombatRoutine()
+        //{
+        //    // Perform any clean-up needed to end combat
+        //    foreach (var player in battleParty)
+        //    {
+        //        player.SetActive(false); // Disable player game objects
+        //    }
+        //    foreach (var enemy in enemyObj)
+        //    {
+        //        enemy.SetActive(false); // Disable enemy game objects
+        //    }
+        //    combat = false;
+        //    battleUI.SetActive(false);
+        //    playerHealthsParent.SetActive(false);
 
-    //    yield return null;
+        //    // Activate the death menu
+        //    //deathMenu.SetActive(true);
 
-    //}
-}
+        //    yield return null;
+
+        //}
+    }

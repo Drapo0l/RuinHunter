@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NPCName: Helga
   sentences:
-  - I'll join your party if you can prove that you are strong
-  - Help me defeta the Elite enemy in this rigion
-  - 'we need to cointinue foward and a litel to the south '
+  - I'll join your party if you can prove that you are strong. Help me defeta the
+    Elite enemy in this rigion
   choices: []

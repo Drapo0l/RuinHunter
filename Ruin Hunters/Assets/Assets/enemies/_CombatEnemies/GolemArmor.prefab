@@ -79,7 +79,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 0.1
   m_Center: {x: 0, y: 0, z: 0}
@@ -96,7 +96,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyName: GolemArmor
-  enemyStats: {fileID: 11400000, guid: e5381970083ac3542af6e9909969b649, type: 2}
+  enemyStats: {fileID: 0}
+  scriptableStats: {fileID: 11400000, guid: e5381970083ac3542af6e9909969b649, type: 2}
+  questPlayerCompleted: {fileID: 0}
+  givePlayerQuest: {fileID: 0}
   weaponsWeakness: []
   elementWeakness:
   - elementType: 0
