@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> battleParty = new List<GameObject>();
     private List<CharacterAttributes> characters; //list to hold enmies and allies
 
-    public List<GameObject> playerHealths;          // list of player health/mana
+    public List<GameObject> playerHealths;  // list of player health/mana
     public GameObject playerHealthsParent;
     private int currentTurnIndex = 0; // index of the current character's turn
 
@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
 
     public Vector3 lastPlayerPosition;
     public List<GameObject> playerLeveled = new List<GameObject>();
-
+    private List<AudioClip[]> Effect_Sounds = new List<AudioClip[]>();
     private int totalXpForParty;
     private bool wasCombatInitialized = false;
 

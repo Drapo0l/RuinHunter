@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+//using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
@@ -377,10 +378,14 @@ public class EnemyAI : MonoBehaviour
             else if (enemyStats.special_count != 5 | enemyStats.special_count != 0) // normaly tho he has a 50/50 chance to use a skill or normal attack
             {
                 enemyStats.special_count++;
+                if (enemyStats.special_count == 5)
+                {
+                    enemyStats.attacker.PlayOneShot(enemyStats.special_sounds[0][enemyStats.special_sounds[0].Length], enemyStats.special_soundsV);
+                }
                 int ran;
                 ran = Random.Range(0, 101);
                 if (ran < 0)
-                {
+                { 
                     ran = 1;
                 }
                 if (ran < 40)

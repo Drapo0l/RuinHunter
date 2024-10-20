@@ -616,7 +616,7 @@ public class PlayerActionSelector : MonoBehaviour
                 if (playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.health > playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.maxHealth)
                     playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.health = playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.maxHealth;
             }
-            if (item.potionEffect == PublicEnums.Effects.AttackUp)
+                if (item.potionEffect == PublicEnums.Effects.AttackUp)
             {
                 DamageNumberManager.Instance.ShowString(playerParty[selectedPartyIndex].transform.position, "ATT UP", Color.red);
                 playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage = playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage * 2;
@@ -725,6 +725,34 @@ public class PlayerActionSelector : MonoBehaviour
                         enemies[i].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element);
                     }
                 }
+                
+            }
+            if (item.potionEffect == PublicEnums.Effects.Crit)
+            {
+                int chance = Random.Range(1, 101);
+                if (chance <= 50)
+                {
+                    DamageNumberManager.Instance.ShowString(enemies[selectedEnemyIndex].transform.position, "CRIT", Color.yellow);
+                    item.effectAmount = item.effectAmount * 2;
+                }
+                enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element);
+            }
+            if (item.potionEffect == PublicEnums.Effects.Party_Crit)
+            {
+                for (int i = 0; i < playerParty.Count; i++)
+                {
+                    if (enemies[i].GetComponent<playerController>().playerStats.health <= 0)
+                    {
+                        int chance = Random.Range(1, 101);
+                        if (chance <= 50)
+                        {
+                            DamageNumberManager.Instance.ShowString(enemies[i].transform.position, "CRIT", Color.yellow);
+                            item.effectAmount = item.effectAmount * 2;
+                        }
+                        enemies[i].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element);
+                    }
+                }
+                
                 
             }
             if (item.potionEffect == PublicEnums.Effects.AttackDown)

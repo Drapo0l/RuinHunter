@@ -43,6 +43,12 @@ public class CharacterAttributes : ScriptableObject
     public float Activation_SoundV;
     public AudioClip[] Hit_Sound;
     public float Hit_SoundV;
+    public List<AudioClip[]> special_sounds = new List<AudioClip[]>();
+    public float special_soundsV;
+    public  ParticleManager ParticleForBasicAttack;
+    public ParticleManager ParticleForSpecial;
+   
+
     public void AddExperience (int xpAmount)
     {
         currentXP += xpAmount;

@@ -53,6 +53,7 @@ public class Skill
         if (targetHit != null) 
         {
             caster.PlayOneShot(Hit_Sound[Hit_Sound.Length], Hit_SoundV);
+          
             targetHit.TakeSkillDamage(damage, elementType);
         }
     }
@@ -94,6 +95,7 @@ public class Skill
          int chance = Random.Range(1, 101);
             if(chance <= C)
             {
+                DamageNumberManager.Instance.ShowString(T.transform.position, "CRIT", Color.yellow);
                 D = D * 2;
             }
         }
