@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using static UnityEditor.Progress;
+//using static UnityEditor.Progress;
 //using static UnityEditor.Progress;
 
 [CreateAssetMenu(fileName = "NewCharacterAttributes", menuName = "Character/Attributes")]
@@ -44,6 +44,7 @@ public class CharacterAttributes : ScriptableObject
     public AudioClip[] Activation_Sound;
     public float Activation_SoundV;
     public AudioClip[] Hit_Sound;
+    public AudioClip DMG_sound;
     public float Hit_SoundV;
     public List<AudioClip[]> special_sounds = new List<AudioClip[]>();
     public float special_soundsV;

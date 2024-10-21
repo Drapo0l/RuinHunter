@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour
 
     public Vector3 lastPlayerPosition;
     public List<GameObject> playerLeveled = new List<GameObject>();
-    private List<AudioClip[]> Effect_Sounds = new List<AudioClip[]>();
+    public List<AudioClip> Effect_Sounds = new List<AudioClip>();
     private int totalXpForParty;
     private bool wasCombatInitialized = false;
 
