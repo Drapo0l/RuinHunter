@@ -27,8 +27,9 @@ public class EnemyAI : MonoBehaviour
     public int minGold;
     public int maxGold;
     public bool finalBoss;
-    private bool animatingAttack;    
+    private bool animatingAttack;
    
+
     void Start()
     {
         if (enemyStats.skills != null)
