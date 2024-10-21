@@ -70,13 +70,13 @@ public class CharacterAttributes : ScriptableObject
         level++;
         currentXP -= xpToNextLevel;
         xpToNextLevel =+ 500;
-        maxHealth += 500;
+        maxHealth += 900;
         health = maxHealth;
-        maxMana += 200;
+        maxMana += 400;
         mana = maxMana;
-        attackDamage += 500;
-        Defence += 200;
-        combatSpeed += 2;
+        attackDamage += 700;
+        Defence += 250;
+        combatSpeed += 3;
     }
 
     public CharacterAttributes deepCopy()

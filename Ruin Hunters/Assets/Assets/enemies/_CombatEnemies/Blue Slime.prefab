@@ -125,7 +125,9 @@ MonoBehaviour:
   scriptableStats: {fileID: 11400000, guid: 22762e405d8dea742a658c4344abdb87, type: 2}
   questPlayerCompleted: {fileID: 0}
   givePlayerQuest: {fileID: 0}
-  weaponsWeakness: []
+  weaponsWeakness:
+  - weaponType: 1
+    weaponMultiplier: 2
   elementWeakness: []
   ty: 0
   postionOG: {x: 0, y: 0, z: 0}
@@ -136,3 +138,4 @@ MonoBehaviour:
   dropableItems: []
   minGold: 400
   maxGold: 500
+  finalBoss: 0

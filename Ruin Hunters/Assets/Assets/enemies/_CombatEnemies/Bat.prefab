@@ -65,6 +65,7 @@ MonoBehaviour:
   dropableItems: []
   minGold: 200
   maxGold: 400
+  finalBoss: 0
 --- !u!54 &-4663613319893184389
 Rigidbody:
   m_ObjectHideFlags: 0

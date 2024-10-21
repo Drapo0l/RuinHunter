@@ -128,11 +128,11 @@ MonoBehaviour:
   questPlayerCompleted: {fileID: 0}
   givePlayerQuest: {fileID: 0}
   weaponsWeakness:
-  - weaponType: 0
-    weaponMultiplier: 1
+  - weaponType: 3
+    weaponMultiplier: 1.7
   elementWeakness:
-  - elementType: 0
-    elementMultiplier: 1
+  - elementType: 2
+    elementMultiplier: 1.5
   ty: 0
   postionOG: {x: 0, y: 0, z: 0}
   cam: {fileID: 0}
@@ -143,6 +143,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 193cad2bd9da55b40b360529299dd39e, type: 2}
   minGold: 10
   maxGold: 90
+  finalBoss: 0
 --- !u!54 &7956586562812018318
 Rigidbody:
   m_ObjectHideFlags: 0
