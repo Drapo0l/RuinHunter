@@ -10888,34 +10888,11 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   battleParty: []
-  weaknessBars:
-  - {fileID: 1298779277739554256}
-  - {fileID: 2016007437149127178}
-  - {fileID: 397898109564457160}
-  - {fileID: 371669578914817158}
   playerHealths:
   - {fileID: 5952388999661752336}
   - {fileID: 3042730242908048091}
   - {fileID: 767277837821660365}
   - {fileID: 2496448495775169244}
-  turnOrderSprytes:
-  - {fileID: 5106493508882968537}
-  - {fileID: 4981422450486378946}
-  - {fileID: 6393002175967986287}
-  - {fileID: 4135630266160197229}
-  - {fileID: 4536235838381001082}
-  - {fileID: 4424243675862649559}
-  - {fileID: 3812529746175594073}
-  - {fileID: 5818711428323346602}
-  - {fileID: 4942545298570949102}
-  - {fileID: 7506853647394664979}
-  - {fileID: 267777875309322416}
-  - {fileID: 7222442388401901063}
-  - {fileID: 9030247112945143847}
-  - {fileID: 4304057274176698959}
-  - {fileID: 1551266151937310844}
-  - {fileID: 6384206271966777755}
-  turnOrderDividor: {fileID: 315064564530403108}
   playerHealthsParent: {fileID: 2094658714711711785}
   levelUpScreen: {fileID: 6652213091767448799}
   playerCam: {fileID: 5307809390615168463}
@@ -10930,15 +10907,7 @@ MonoBehaviour:
   AudioLevelUpMVol: 0.5
   winSound: {fileID: 8300000, guid: f12095ec3b560784a856a075cffeb646, type: 3}
   AudioWinVol: 0.5
-  fightMusic:
-  - {fileID: 8300000, guid: 764045f466506a34d89c16a96b2936c2, type: 3}
-  - {fileID: 8300000, guid: f40e88a4f052a9344b520faa8e92fdae, type: 3}
-  - {fileID: 8300000, guid: 264597116783c1248ab7627d562600f2, type: 3}
-  - {fileID: 8300000, guid: 991f996135f011a4c80c70a0ae01cbb4, type: 3}
-  - {fileID: 8300000, guid: 6bffaae5c89807b45b3d33f1a69ccc41, type: 3}
-  - {fileID: 8300000, guid: cc4bfcf2b5ae8ef4f84fec0995b0eded, type: 3}
-  - {fileID: 8300000, guid: f8b5c87fb64374b4f98a1a7acaecf72c, type: 3}
-  AudioFightVol: 0.3
+  BattleMusic: {fileID: 0}
   combat: 0
   leveling: 0
   enemyObj:
@@ -11075,6 +11044,9 @@ MonoBehaviour:
   cursor: {fileID: 5767541963966194069}
   shop: {fileID: 3513894782754643548}
   noGold: {fileID: 6254458055876557386}
+  Aud: {fileID: 0}
+  PurchaseAud: {fileID: 0}
+  PurchaseVol: 0
 --- !u!114 &7587230226877833882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11111,12 +11083,23 @@ MonoBehaviour:
   skillStats: {fileID: 4588997737743024846}
   choosePlayer: {fileID: 7166596595028733175}
   playerRevivedAlive: {fileID: 6855183806436945089}
-  cursor: {fileID: 1665492974345835994}
+  cursor: {fileID: 6126822440280824372}
   statMenu: {fileID: 3317770955814930648}
   subMenuParent: {fileID: 3187856840968865438}
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   equippedColor: {r: 0, g: 1, b: 0, a: 1}
   inUI: 0
+  Aud: {fileID: 0}
+  AudButtonPressed: {fileID: 8300000, guid: e4aac386b32e03f44af81a9316b01a1a, type: 3}
+  ButtonPressedVol: 1
+  AudClosemenu: {fileID: 8300000, guid: b842bdaecd3072d40ba025218b710114, type: 3}
+  ClosemenuVol: 1
+  AudEquip: {fileID: 8300000, guid: 1e1a3fe27cd0db2448c4f32bf95fd8ed, type: 3}
+  EquipVol: 1
+  AudOpenMenu: {fileID: 8300000, guid: 605a9fdfdb3546c4d9c46db7ac4198f4, type: 3}
+  OpenMenuVol: 1
+  ButtonDownAud: {fileID: 0}
+  ButtonDownVol: 1
 --- !u!1 &1955186082739599617
 GameObject:
   m_ObjectHideFlags: 0
@@ -51815,17 +51798,17 @@ PrefabInstance:
     - target: {fileID: 5557617416698451414, guid: 3eeb7e58cf6b0ca4a97d394de0439239,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -196.17358
+      value: -635.08966
       objectReference: {fileID: 0}
     - target: {fileID: 5557617416698451414, guid: 3eeb7e58cf6b0ca4a97d394de0439239,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.1192331
+      value: -16.716553
       objectReference: {fileID: 0}
     - target: {fileID: 5557617416698451414, guid: 3eeb7e58cf6b0ca4a97d394de0439239,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -68.263504
+      value: -295.12793
       objectReference: {fileID: 0}
     - target: {fileID: 5557617416698451414, guid: 3eeb7e58cf6b0ca4a97d394de0439239,
         type: 3}
@@ -52660,6 +52643,11 @@ PrefabInstance:
       objectReference: {fileID: 1665492974345835994}
     - target: {fileID: 867105473199966630, guid: 9a5e340e77f59b3498d5c041738b5dad,
         type: 3}
+      propertyPath: EquipVol
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 867105473199966630, guid: 9a5e340e77f59b3498d5c041738b5dad,
+        type: 3}
       propertyPath: statMenu
       value: 
       objectReference: {fileID: 3317770955814930648}
@@ -52675,14 +52663,29 @@ PrefabInstance:
       objectReference: {fileID: 4588997737743024846}
     - target: {fileID: 867105473199966630, guid: 9a5e340e77f59b3498d5c041738b5dad,
         type: 3}
+      propertyPath: OpenMenuVol
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 867105473199966630, guid: 9a5e340e77f59b3498d5c041738b5dad,
+        type: 3}
       propertyPath: weaponStats
       value: 
       objectReference: {fileID: 6084408282306129776}
     - target: {fileID: 867105473199966630, guid: 9a5e340e77f59b3498d5c041738b5dad,
         type: 3}
+      propertyPath: ClosemenuVol
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 867105473199966630, guid: 9a5e340e77f59b3498d5c041738b5dad,
+        type: 3}
       propertyPath: choosePlayer
       value: 
       objectReference: {fileID: 7166596595028733175}
+    - target: {fileID: 867105473199966630, guid: 9a5e340e77f59b3498d5c041738b5dad,
+        type: 3}
+      propertyPath: ButtonDownVol
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 867105473199966630, guid: 9a5e340e77f59b3498d5c041738b5dad,
         type: 3}
       propertyPath: subMenuParent
@@ -52693,6 +52696,11 @@ PrefabInstance:
       propertyPath: equipmentStats
       value: 
       objectReference: {fileID: 569130413877621039}
+    - target: {fileID: 867105473199966630, guid: 9a5e340e77f59b3498d5c041738b5dad,
+        type: 3}
+      propertyPath: ButtonPressedVol
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 867105473199966630, guid: 9a5e340e77f59b3498d5c041738b5dad,
         type: 3}
       propertyPath: playerRevivedAlive

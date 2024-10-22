@@ -10,7 +10,7 @@ public class Chest : MonoBehaviour
     public List<Item> items;
     public List<EquipmentItem> Armors;
     public List<WeaponItem> Weapons;
-    private InventoryItem item;
+    private InventoryManager item; 
     public GameObject chest;
     public int MaxRange;
     public int MinRange;

@@ -256,7 +256,7 @@ public class GameManager : MonoBehaviour
                 currentEnemies[index].skillDamage = currentEnemies[index].skillDamageOG;
                 currentEnemies[index].attackDamage = currentEnemies[index].attackDamageOG;
                 currentEnemies[index].critChance = currentEnemies[index].critChanceOG;
-                currentEnemies[index].effectChance = currentEnemies[index].effectChanceOG;
+                currentEnemies[index].effectChance = currentEnemies[index].effectChanceOG; 
                 characters.Add(enemy.GetComponent<EnemyAI>().enemyStats);
                 enemy.GetComponent<EnemyAI>().postionOG = enemy.transform.position;
                 index++;
@@ -421,7 +421,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < characters.Count; i++)
         {
             characters[i].maxMana = characters[i].maxManaOG;
-            characters[i].maxHealth = characters[i].maxHealthOG;
+            characters[i].maxHealth = characters[i].maxHealthOG; 
             characters[i].Defence = characters[i].DefenceOG;
             characters[i].combatSpeed = characters[i].combatSpeedOG;
             characters[i].skillDamage = characters[i].skillDamageOG;
