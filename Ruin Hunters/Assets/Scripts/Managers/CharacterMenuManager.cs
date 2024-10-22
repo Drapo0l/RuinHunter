@@ -297,12 +297,15 @@ public class CharacterMenuManager : MonoBehaviour
         Vector3 buttonPosition = Vector3.zero;
         if (choosingPlayer)
         {
+            Aud.PlayOneShot(ButtonDownAud, ButtonDownVol);
             if (currentSelection < 0)
             {
+                Aud.PlayOneShot(ButtonDownAud, ButtonDownVol);
                 currentSelection = playerParty.Count - 1; 
             }
             else if (currentSelection >= playerParty.Count)
             {
+                Aud.PlayOneShot(ButtonDownAud, ButtonDownVol);
                 currentSelection = 0; 
             }
 
@@ -313,25 +316,31 @@ public class CharacterMenuManager : MonoBehaviour
         }
         else if (inMenu)
         {
+            Aud.PlayOneShot(ButtonDownAud, ButtonDownVol);
             int visibleIndex = currentSelection - itemSelection;
 
             if (visibleIndex >= 0 && visibleIndex < currentMenu.Count)
             {
+                Aud.PlayOneShot(ButtonDownAud, ButtonDownVol);
                 buttonPosition = currentMenu[visibleIndex].transform.position;
             }
+ 
         }
         else
         {
             if (currentSelection > currentMenu.Count - 1)
             { currentSelection = currentMenu.Count - 1; }
+            Aud.PlayOneShot(ButtonDownAud, ButtonDownVol);
             buttonPosition = currentMenu[currentSelection].transform.position;
         }
         if (weaponMenu || equipmentMenu || skillMenu || ItemMenu)
         {
+            Aud.PlayOneShot(ButtonDownAud, ButtonDownVol);
             cursor.transform.position = new Vector3(buttonPosition.x - 300f, buttonPosition.y, buttonPosition.z);
         }
         else
         {
+            Aud.PlayOneShot(ButtonDownAud, ButtonDownVol);
             cursor.transform.position = new Vector3(buttonPosition.x - 150f, buttonPosition.y, buttonPosition.z);
         }
             

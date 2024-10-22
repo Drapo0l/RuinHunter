@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] float AudioLevelUpMVol;
     [SerializeField] AudioClip winSound;
     [SerializeField] float AudioWinVol;
+    [SerializeField] AudioSource BattleMusic;
 
 
 
@@ -77,9 +78,6 @@ public class GameManager : MonoBehaviour
     private int totalGold;
 
     public Vector3 lastSavedPosition;
-    //Polo Angel's code
-    // Player Spawn Location
-    //public GameObject PlayerSpawnLoc;
 
     private void Awake()
     {
@@ -91,7 +89,6 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        //PlayerSpawnLoc = GameObject.FindGameObjectWithTag("PlaySpawnPos");
         Cursor.visible = false;
     }
 
@@ -162,6 +159,7 @@ public class GameManager : MonoBehaviour
         
         if (deadMenuIndex > deadButtons.Count - 1)
         { deadMenuIndex = deadButtons.Count - 1; }
+      
         buttonPosition = deadButtons[deadMenuIndex].transform.position;        
        
         cursor.transform.position = new Vector3(buttonPosition.x - 150f, buttonPosition.y, buttonPosition.z);
@@ -175,6 +173,7 @@ public class GameManager : MonoBehaviour
 
     void StartCombat()
     {
+        BattleMusic.Play();
         worldEnemyParent.SetActive(false);
         QuestManager.instance.questParent.SetActive(false);
 
