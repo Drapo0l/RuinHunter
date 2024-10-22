@@ -171,6 +171,8 @@ MonoBehaviour:
   minGold: 100
   maxGold: 1000
   finalBoss: 0
+  animator: {fileID: 7124089947134731855}
+  weaknesBar: {fileID: 0}
 --- !u!135 &-6849948899026143703
 SphereCollider:
   m_ObjectHideFlags: 0

@@ -8,6 +8,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewCharacterAttributes", menuName = "Character/Attributes")]
 public class CharacterAttributes : ScriptableObject
 {
+    public Sprite Sprite;
     public int level = 1;
     public int currentXP = 0;
     public int xpToNextLevel = 100;
@@ -39,6 +40,7 @@ public class CharacterAttributes : ScriptableObject
     public int special_count;
     public WeaponItem weapon;
     public EquipmentItem equipment;
+    public List<Sprite> weaknessIcons;
 
     public void AddExperience (int xpAmount)
     {
@@ -59,19 +61,20 @@ public class CharacterAttributes : ScriptableObject
     {
         level++;
         currentXP -= xpToNextLevel;
-        xpToNextLevel =+ (int)(xpToNextLevel * 1.7);
-        maxHealth += 500;
+        xpToNextLevel =+ (int)(xpToNextLevel * 1.4);
+        maxHealth += 457;
         health = maxHealth;
-        maxMana += 200;
+        maxMana += 7;
         mana = maxMana;
-        attackDamage += 500;
-        Defence += 200;
+        attackDamage += 24;
+        Defence += 11;
         combatSpeed += 2;
     }
 
     public CharacterAttributes deepCopy()
     {
         CharacterAttributes copy = ScriptableObject.CreateInstance<CharacterAttributes>();
+        copy.Sprite = this.Sprite;
         copy.level = this.health;
         copy.currentXP = this.currentXP;
         copy.xpToNextLevel = this.xpToNextLevel;
@@ -95,6 +98,7 @@ public class CharacterAttributes : ScriptableObject
         copy.special_count = this.special_count;
         copy.weapon = this.weapon;
         copy.equipment = this.equipment;
+        copy.weaknessIcons = this.weaknessIcons;
 
         return copy;
     }

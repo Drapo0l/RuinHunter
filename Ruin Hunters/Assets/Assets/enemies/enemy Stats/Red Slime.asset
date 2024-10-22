@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e337efe9978a8409654b2b05bb0c8c, type: 3}
   m_Name: Red Slime
   m_EditorClassIdentifier: 
+  Sprite: {fileID: 4367289792872251007, guid: d4e8a5c5eececab46942986a743fd7d8, type: 3}
   level: 1
   currentXP: 1000
   xpToNextLevel: 100

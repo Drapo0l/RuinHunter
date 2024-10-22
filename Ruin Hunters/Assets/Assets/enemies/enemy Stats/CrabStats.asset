@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e337efe9978a8409654b2b05bb0c8c, type: 3}
   m_Name: CrabStats
   m_EditorClassIdentifier: 
+  Sprite: {fileID: 6197056623017412966, guid: 25e3c3e2a286eee48bba19e8d339e062, type: 3}
   level: 1
   currentXP: 1000
   xpToNextLevel: 100

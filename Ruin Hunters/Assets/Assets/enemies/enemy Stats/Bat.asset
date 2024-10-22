@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e337efe9978a8409654b2b05bb0c8c, type: 3}
   m_Name: Bat
   m_EditorClassIdentifier: 
+  Sprite: {fileID: -6869589605592600110, guid: 4c92fdf190c298f43a958ea64410319e, type: 3}
   level: 1
   currentXP: 1000
   xpToNextLevel: 100

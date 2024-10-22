@@ -38,11 +38,13 @@ public class PlayerActionSelector : MonoBehaviour
 
     private Transform playerTransform; // track player position
 
+    public bool setup = false;
     private bool attacking = false;
     private bool skillAttack = false;
     private bool targetingParty = false;
     private bool usingItem = false;
     private bool animating = false;
+    private bool stop = false;
     
 
 
@@ -70,7 +72,7 @@ public class PlayerActionSelector : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.Instance.combat)
+        if (GameManager.Instance.combat && !stop)
         {
             if (!animating)
             {
@@ -154,7 +156,11 @@ public class PlayerActionSelector : MonoBehaviour
         }
         else
         {
-            menuPanel.SetActive(false);
+            if (!stop)
+            {
+                menuPanel.SetActive(false);
+            }
+            
         }
     }
 
@@ -165,9 +171,15 @@ public class PlayerActionSelector : MonoBehaviour
         playerSkills = currentSkills;
         playerTransform = player;
         playerController = _playerController;
-        enemies = GameManager.Instance.enemyObj;       
+        enemies = GameManager.Instance.enemyObj;
 
-        menuPanel.SetActive(true); // enable the menu
+        if (!setup)
+        {
+            menuPanel.SetActive(true);
+            actionMenu.SetActive(true); // enable the menu
+            setup = true;
+            stop = false;
+        }
 
         characterName.GetComponent<TextMeshProUGUI>().text = playerController.playerStats.nameOfCharacter;
     }
@@ -175,17 +187,32 @@ public class PlayerActionSelector : MonoBehaviour
     public void HideMenu()
     {
         actionMenu.SetActive(true);
-        menuPanel.SetActive(false);
+        //actionMenu.SetActive(false);
         targetIndicator.SetActive(false);
         attacking = false;
         targetingParty = false;
         usingItem = false;
         skillAttack = false;
+        setup = false;
         HandleBackspace();
+    }
+    public void EndTurnMenu()
+    {
+        actionMenu.SetActive(false);
+        //actionMenu.SetActive(false);
+        targetIndicator.SetActive(false);
+        attacking = false;
+        targetingParty = false;
+        usingItem = false;
+        skillAttack = false;
+        setup = false;
+        HandleBackspace();
+        stop = true;
     }
 
     void HideActionMenu()
     {
+
         actionMenu.SetActive(false);
         subMenuParent.SetActive(false);
     }
@@ -515,28 +542,36 @@ public class PlayerActionSelector : MonoBehaviour
     {
         if (!usingItem)
         {
-            animating = true;
             Vector3 origininalPosition = playerTransform.position;
-            Transform enemyTransform = enemies[selectedEnemyIndex].transform;
-            
-            Vector3 directionToEnemy = (enemyTransform.position - playerTransform.position).normalized;
 
-            float distanceInFrontOfEnemy = 3f;
-            Vector3 targetPosition = enemyTransform.position - directionToEnemy * distanceInFrontOfEnemy;
-
-            playerController.playerAnimator.SetBool("moving", true);
-            while (Vector3.Distance(playerTransform.position, targetPosition) > 0.1f)
+            if (!skillAttack)
             {
-               playerTransform.position = Vector3.MoveTowards(playerTransform.position, targetPosition, playerController.speed * Time.deltaTime);
-               yield return null;
-            }                     
+                animating = true;                
+                Vector3 enemyTransform = Vector3.zero;
+                if (enemies[selectedEnemyIndex] != null)
+                    enemyTransform = enemies[selectedEnemyIndex].transform.position;
 
-            playerController.playerAnimator.SetTrigger("Attack");
+                Vector3 directionToEnemy = (enemyTransform - playerTransform.position).normalized;
 
-            yield return new WaitForSeconds(playerController.playerAnimator.GetCurrentAnimatorStateInfo(0).length);
+                float distanceInFrontOfEnemy = 3f;
+                Vector3 targetPosition = enemyTransform - directionToEnemy * distanceInFrontOfEnemy;
+
+                playerController.playerAnimator.SetBool("moving", true);
+                while (Vector3.Distance(playerTransform.position, targetPosition) > 0.1f)
+                {
+                    playerTransform.position = Vector3.MoveTowards(playerTransform.position, targetPosition, playerController.speed * Time.deltaTime);
+                    yield return null;
+                }
+
+                playerController.playerAnimator.SetTrigger("Attack");
+
+                yield return new WaitForSeconds(playerController.playerAnimator.GetCurrentAnimatorStateInfo(0).length);
+            }
 
             if (skillAttack)
             {
+                ParticleManager.instance.ShootParticle(enemies[selectedEnemyIndex], playerTransform, playerSkills[skillScrollIndex].ParticleForSkill);
+                yield return new WaitForSeconds(2.2f);
                 if (playerSkills[skillScrollIndex].AOE)
                 {
                     int currentMax = enemies.Count;
@@ -548,41 +583,43 @@ public class PlayerActionSelector : MonoBehaviour
                             currentMax--;
                         }
                         if (playerController.playerStats.weapon != null)
-                            enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(playerSkills[skillScrollIndex].baseDamage + playerController.playerStats.weapon.skillDamage, playerSkills[skillScrollIndex].elementType);
+                            StartCoroutine(enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(playerSkills[skillScrollIndex].baseDamage + playerController.playerStats.weapon.skillDamage, playerSkills[skillScrollIndex].elementType));
                         else
-                            enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(playerSkills[skillScrollIndex].baseDamage, playerSkills[skillScrollIndex].elementType);
+                            StartCoroutine(enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(playerSkills[skillScrollIndex].baseDamage, playerSkills[skillScrollIndex].elementType));
                     }
                 }
                 else
                 {
                     if (playerController.playerStats.weapon != null)
-                        enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(playerSkills[skillScrollIndex].baseDamage + playerController.playerStats.weapon.skillDamage, playerSkills[skillScrollIndex].elementType);
+                        StartCoroutine(enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(playerSkills[skillScrollIndex].baseDamage + playerController.playerStats.weapon.skillDamage, playerSkills[skillScrollIndex].elementType));
                     else
-                        enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(playerSkills[skillScrollIndex].baseDamage, playerSkills[skillScrollIndex].elementType);
+                        StartCoroutine(enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(playerSkills[skillScrollIndex].baseDamage, playerSkills[skillScrollIndex].elementType));
                 }
             }            
             else
             {
                 if(playerController.playerStats.weapon != null)
-                    enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeMeleeDamage(playerController.playerStats.attackDamage + playerController.playerStats.weapon.damage, playerController.playerStats.weapon.weaponType);
+                    StartCoroutine(enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeMeleeDamage(playerController.playerStats.attackDamage + playerController.playerStats.weapon.damage, playerController.playerStats.weapon.weaponType));
                 else
-                    enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeMeleeDamage(playerController.playerStats.attackDamage, playerController.playerWeapon);
+                    StartCoroutine(enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeMeleeDamage(playerController.playerStats.attackDamage, playerController.playerWeapon));
             }
 
-
-            playerController.playerAnimator.SetBool("moving", true);
-            while (Vector3.Distance(playerTransform.position, origininalPosition) > 0.1f)
+            if (!skillAttack)
             {
-                playerTransform.position = Vector3.MoveTowards(playerTransform.position, origininalPosition, playerController.speed * Time.deltaTime);
-                yield return null;
+                playerController.playerAnimator.SetBool("moving", true);
+                while (Vector3.Distance(playerTransform.position, origininalPosition) > 0.1f)
+                {
+                    playerTransform.position = Vector3.MoveTowards(playerTransform.position, origininalPosition, playerController.speed * Time.deltaTime);
+                    yield return null;
+                }
+                playerController.playerAnimator.SetBool("moving", false);
             }
-            playerController.playerAnimator.SetBool("moving", false);
         }
         else
         {
             consumeItem();
         }
-        HideMenu();
+        EndTurnMenu();
         if (enemies.Count != 0)        
             GameManager.Instance.EndTurn();
         animating = false;
@@ -699,7 +736,7 @@ public class PlayerActionSelector : MonoBehaviour
         {
             if (item.potionEffect == PublicEnums.Effects.None)
             {
-                enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element);
+                StartCoroutine(enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element));
             }
             if (item.potionEffect == PublicEnums.Effects.Party_None)
             {
@@ -707,7 +744,7 @@ public class PlayerActionSelector : MonoBehaviour
                 {
                     if (enemies[i].GetComponent<playerController>().playerStats.health <= 0)
                     {
-                        enemies[i].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element);
+                        StartCoroutine(enemies[i].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element));
                     }
                 }
                 
@@ -717,28 +754,28 @@ public class PlayerActionSelector : MonoBehaviour
                 DamageNumberManager.Instance.ShowString(enemies[selectedEnemyIndex].transform.position, "ATT DOWN", Color.black);
                 enemies[selectedEnemyIndex].GetComponent<EnemyAI>().enemyStats.attackDamage = enemies[selectedEnemyIndex].GetComponent<playerController>().playerStats.attackDamage / 2;
                 pause.Epause();
-                enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element);
+                StartCoroutine(enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element));
             }
             if (item.potionEffect == PublicEnums.Effects.DefenceDown)
             {
                 DamageNumberManager.Instance.ShowString(enemies[selectedEnemyIndex].transform.position, "DEF DOWN", Color.black);
                 enemies[selectedEnemyIndex].GetComponent<EnemyAI>().enemyStats.Defence = enemies[selectedEnemyIndex].GetComponent<playerController>().playerStats.attackDamage / 2;
                 pause.Epause();
-                enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element);
+                StartCoroutine(enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element));
             }
             if (item.potionEffect == PublicEnums.Effects.SpeedDown)
             {
                 DamageNumberManager.Instance.ShowString(enemies[selectedEnemyIndex].transform.position, "SPD DOWN", Color.black);
                 enemies[selectedEnemyIndex].GetComponent<EnemyAI>().enemyStats.combatSpeed = enemies[selectedEnemyIndex].GetComponent<playerController>().playerStats.attackDamage / 2;
                 pause.Epause();
-                enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element);
+                StartCoroutine(enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element));
             }
             if (item.potionEffect == PublicEnums.Effects.SkillPDown)
             {
                 DamageNumberManager.Instance.ShowString(enemies[selectedEnemyIndex].transform.position, "SKL DOWN", Color.black);
                 enemies[selectedEnemyIndex].GetComponent<EnemyAI>().enemyStats.skillDamage = enemies[selectedEnemyIndex].GetComponent<playerController>().playerStats.attackDamage / 2;
                 pause.Epause();
-                enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element);
+                StartCoroutine(enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element));
             }
             if (item.potionEffect == PublicEnums.Effects.Party_AttackDown)
             {
@@ -748,7 +785,7 @@ public class PlayerActionSelector : MonoBehaviour
                     {
                         DamageNumberManager.Instance.ShowString(enemies[selectedEnemyIndex].transform.position, "ATT DOWN", Color.black);
                         pause.Epause();
-                        enemies[i].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element);
+                        StartCoroutine(enemies[i].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element));
                     }
                 }
             }
@@ -760,7 +797,7 @@ public class PlayerActionSelector : MonoBehaviour
                     {
                         DamageNumberManager.Instance.ShowString(enemies[selectedEnemyIndex].transform.position, "DEF DOWN", Color.black);
                         pause.Epause();
-                        enemies[i].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element);
+                        StartCoroutine(enemies[i].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element));
                     }
                 }
             }
@@ -772,7 +809,7 @@ public class PlayerActionSelector : MonoBehaviour
                     {
                         DamageNumberManager.Instance.ShowString(enemies[selectedEnemyIndex].transform.position, "SPD DOWN", Color.black);
                         pause.Epause();
-                        enemies[i].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element);
+                        StartCoroutine(enemies[i].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element));
                     }
                 }
             }
@@ -784,7 +821,7 @@ public class PlayerActionSelector : MonoBehaviour
                     {
                         DamageNumberManager.Instance.ShowString(enemies[selectedEnemyIndex].transform.position, "SKL DOWN", Color.black);
                         pause.Epause();
-                        enemies[i].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element);
+                        StartCoroutine(enemies[i].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element));
                     }
                 }
             }
@@ -797,13 +834,13 @@ public class PlayerActionSelector : MonoBehaviour
         {
             InventoryManager.instance.RemoveItem(item);
         }
-        HideMenu();
+        EndTurnMenu();
     }
     private void DefendFunc()
     {
         playerController.defended = playerController.playerStats.Defence;
         playerController.playerStats.Defence = playerController.playerStats.Defence * 2;
-        HideMenu();
+        EndTurnMenu();
         GameManager.Instance.EndTurn();
     }
 

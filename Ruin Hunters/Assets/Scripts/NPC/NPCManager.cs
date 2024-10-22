@@ -14,7 +14,7 @@ public abstract class NPCManager : MonoBehaviour, NPCInteractable
 
     public GameObject player { get; set; }
     public bool IsInteractable { get; set; }
-    public static UnityAction<ShopSystem, InventoryItemLists> OnShoWindowRequest;
+    //public static UnityAction<ShopSystem, InventoryItemLists> OnShoWindowRequest;
 
     private void Start()
     {

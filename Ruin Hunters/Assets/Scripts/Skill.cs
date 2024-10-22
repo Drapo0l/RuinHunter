@@ -18,13 +18,13 @@ public class Skill
     public PublicEnums.Effects effect;
     public int Ptargit; // set as 1 for enemys set as 0 for party members
     public bool AOE; // is it an aoe
-    private ParticleManager ParticleForSkill; 
+    public ParticleSystem ParticleForSkill; 
 
 
-    public void ActivateSkill(GameObject target, int attackerPower, float multiplier,int crit, PublicEnums.Effects effects)
+    public void ActivateSkill(GameObject target, int attackerPower, int crit, PublicEnums.Effects effects)
     {
         // Simple damage calculation (adjust as necessary)
-        int damage = Mathf.FloorToInt(baseDamage * multiplier) + attackerPower;
+        int damage = Mathf.FloorToInt(baseDamage) + attackerPower;
         damage = Seffect(target, crit, damage, effects);
         if (effect != PublicEnums.Effects.Heal)
         {
@@ -51,10 +51,10 @@ public class Skill
         }
     }
    
-    public void ActivateWeaponAttack(GameObject target, int attackerPower, float multiplier,int crit, PublicEnums.Effects effects)
+    public void ActivateWeaponAttack(GameObject target, int attackerPower,int crit, PublicEnums.Effects effects)
     {
         // Simple damage calculation (adjust as necessary)
-        int damage = Mathf.FloorToInt(baseDamage * multiplier) + attackerPower;
+        int damage = Mathf.FloorToInt(baseDamage) + attackerPower;
         damage = Seffect(target, crit, damage, effects);
         if (target.tag.Equals("Player"))
         {
