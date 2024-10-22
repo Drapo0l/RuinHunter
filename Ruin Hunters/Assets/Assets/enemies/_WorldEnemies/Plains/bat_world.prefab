@@ -135,7 +135,7 @@ MonoBehaviour:
   enemyAnimator: {fileID: 9203461776976544981}
   rb: {fileID: 5432194690981867329}
   enemyTransform: {fileID: 3309385924945892599}
-  colliderPool: {fileID: 0}
+  colliderPool: {fileID: 11400000, guid: 6a7dc0b0c9f6f6c42be93009a3f39b24, type: 2}
   WalkPoint: {x: 0, y: 0, z: 0}
   walkpointRange: 10
   Sightrange: 20

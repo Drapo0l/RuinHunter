@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e337efe9978a8409654b2b05bb0c8c, type: 3}
   m_Name: desert_elite
   m_EditorClassIdentifier: 
+  Sprite: {fileID: 468951296, guid: 73b570fd11546d14d98501221fc74921, type: 3}
   level: 1
   currentXP: 1000
   xpToNextLevel: 100
@@ -24,7 +25,6 @@ MonoBehaviour:
   skillDamage: 1500
   attackDamage: 1200
   critChance: 70
-  effectChance: 0
   Defence: 1000
   maxHealthOG: 50000
   maxManaOG: 0
@@ -32,7 +32,6 @@ MonoBehaviour:
   skillDamageOG: 1500
   attackDamageOG: 1200
   critChanceOG: 50
-  effectChanceOG: 0
   DefenceOG: 1000
   expGive: 15000
   skills:
@@ -46,6 +45,13 @@ MonoBehaviour:
     effect: 4
     Ptargit: 1
     AOE: 0
+    ParticleForSkill: {fileID: 0}
+    caster: {fileID: 0}
+    target: {fileID: 0}
+    Activation_Sound: []
+    Activation_SoundV: 0
+    Hit_Sound: []
+    Hit_SoundV: 0
   - sprite: {fileID: 0}
     description: 
     skillName: howl_H
@@ -56,6 +62,13 @@ MonoBehaviour:
     effect: 2
     Ptargit: 1
     AOE: 0
+    ParticleForSkill: {fileID: 0}
+    caster: {fileID: 0}
+    target: {fileID: 0}
+    Activation_Sound: []
+    Activation_SoundV: 0
+    Hit_Sound: []
+    Hit_SoundV: 0
   - sprite: {fileID: 0}
     description: 
     skillName: full_moon
@@ -66,6 +79,13 @@ MonoBehaviour:
     effect: 0
     Ptargit: 0
     AOE: 0
+    ParticleForSkill: {fileID: 0}
+    caster: {fileID: 0}
+    target: {fileID: 0}
+    Activation_Sound: []
+    Activation_SoundV: 0
+    Hit_Sound: []
+    Hit_SoundV: 0
   - sprite: {fileID: 0}
     description: 
     skillName: new_moon
@@ -76,6 +96,13 @@ MonoBehaviour:
     effect: 0
     Ptargit: 0
     AOE: 0
+    ParticleForSkill: {fileID: 0}
+    caster: {fileID: 0}
+    target: {fileID: 0}
+    Activation_Sound: []
+    Activation_SoundV: 0
+    Hit_Sound: []
+    Hit_SoundV: 0
   - sprite: {fileID: 0}
     description: 
     skillName: clense
@@ -86,6 +113,13 @@ MonoBehaviour:
     effect: 12
     Ptargit: 1
     AOE: 0
+    ParticleForSkill: {fileID: 0}
+    caster: {fileID: 0}
+    target: {fileID: 0}
+    Activation_Sound: []
+    Activation_SoundV: 0
+    Hit_Sound: []
+    Hit_SoundV: 0
   - sprite: {fileID: 0}
     description: 
     skillName: ice_bite
@@ -96,6 +130,13 @@ MonoBehaviour:
     effect: 1
     Ptargit: 0
     AOE: 0
+    ParticleForSkill: {fileID: 0}
+    caster: {fileID: 0}
+    target: {fileID: 0}
+    Activation_Sound: []
+    Activation_SoundV: 0
+    Hit_Sound: []
+    Hit_SoundV: 0
   - sprite: {fileID: 0}
     description: 
     skillName: body_bash
@@ -106,6 +147,13 @@ MonoBehaviour:
     effect: 3
     Ptargit: 0
     AOE: 0
+    ParticleForSkill: {fileID: 0}
+    caster: {fileID: 0}
+    target: {fileID: 0}
+    Activation_Sound: []
+    Activation_SoundV: 0
+    Hit_Sound: []
+    Hit_SoundV: 0
   - sprite: {fileID: 0}
     description: 
     skillName: blizzard
@@ -116,6 +164,13 @@ MonoBehaviour:
     effect: 9
     Ptargit: 0
     AOE: 1
+    ParticleForSkill: {fileID: 0}
+    caster: {fileID: 0}
+    target: {fileID: 0}
+    Activation_Sound: []
+    Activation_SoundV: 0
+    Hit_Sound: []
+    Hit_SoundV: 0
   - sprite: {fileID: 0}
     description: 
     skillName: new dawn
@@ -126,6 +181,13 @@ MonoBehaviour:
     effect: 11
     Ptargit: 1
     AOE: 0
+    ParticleForSkill: {fileID: 0}
+    caster: {fileID: 0}
+    target: {fileID: 0}
+    Activation_Sound: []
+    Activation_SoundV: 0
+    Hit_Sound: []
+    Hit_SoundV: 0
   regions: 0
   isTurn: 0
   isStuned: 0
@@ -133,3 +195,14 @@ MonoBehaviour:
   special_count: 0
   weapon: {fileID: 0}
   equipment: {fileID: 0}
+  weaknessIcons: []
+  attacker: {fileID: 0}
+  target_BA: {fileID: 0}
+  Activation_Sound: []
+  Activation_SoundV: 0
+  Hit_Sound: []
+  DMG_sound: {fileID: 0}
+  Hit_SoundV: 0
+  special_soundsV: 0
+  ParticleForBasicAttack: {fileID: 0}
+  ParticleForSpecial: {fileID: 0}

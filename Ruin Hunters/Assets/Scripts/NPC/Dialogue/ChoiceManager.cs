@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using static PublicEnums;
 
 public class ChoiceManager : MonoBehaviour
 {
@@ -11,14 +12,14 @@ public class ChoiceManager : MonoBehaviour
     [SerializeField] private GameObject choicePreviewWindow; // The secondary window for choice previews
     [SerializeField] private TextMeshProUGUI choicePreviewText; // Text component for the choice preview
     [SerializeField] private GameObject hoverIndicator; // Visual indicator for current selection
-
+    [SerializeField] private ChoiceManager choiceManager;
     private List<Button> choiceButtons = new List<Button>();
     private int currentSelection = 0;
 
     public void ShowChoices(List<DialogueChoice> choices)
     {
-        // Activate the choices parent to make sure it's visible
-        choicesParent.gameObject.SetActive(true);
+        // Log to confirm clearing choices
+        Debug.Log("Clearing existing choices.");
 
         // Clear existing choices
         foreach (Transform child in choicesParent)
@@ -27,29 +28,50 @@ public class ChoiceManager : MonoBehaviour
         }
         choiceButtons.Clear();
 
+        // Activate parent after clearing choices
+        choicesParent.gameObject.SetActive(true);
+
         // Instantiate a button for each choice
         foreach (var choice in choices)
         {
-            ChoiceButton choiceButtonComponent = Instantiate(choiceButtonPrefab, choicesParent).GetComponent<ChoiceButton>();
-            choiceButtonComponent.Setup(choice.buttonText, choice.playerText, () => OnChoiceSelected(choice), choicePreviewWindow, choicePreviewText);
-            choiceButtons.Add(choiceButtonComponent.GetComponent<Button>());
+            if (!choice.choiceMade || choice.neverDisable)
+            {
+                ChoiceButton choiceButtonComponent = Instantiate(choiceButtonPrefab, choicesParent).GetComponent<ChoiceButton>();
+                choiceButtonComponent.Setup(choice.buttonText, choice.playerText, () => OnChoiceSelected(choice), choicePreviewWindow, choicePreviewText);
+                choiceButtons.Add(choiceButtonComponent.GetComponent<Button>());
+            }
         }
 
-        // Ensure the scroll view starts at the top
         if (choicesScrollRect != null)
         {
             choicesScrollRect.verticalNormalizedPosition = 1;
         }
-
         UpdateHoverIndicator();
+        Debug.Log("Choices displayed: " + choices.Count);
     }
 
-    private void UpdateHoverIndicator()
+
+        private void UpdateHoverIndicator()
     {
         if (choiceButtons.Count > 0)
         {
             Vector3 buttonPosition = choiceButtons[currentSelection].transform.position;
-            hoverIndicator.transform.position = new Vector3(buttonPosition.x - 150f, buttonPosition.y, buttonPosition.z);
+            hoverIndicator.transform.position = new Vector3(buttonPosition.x, buttonPosition.y, buttonPosition.z); // Removed fixed offset
+
+            // Optionally change button color or add visual effect to highlight selected button
+            for (int i = 0; i < choiceButtons.Count; i++)
+            {
+                ColorBlock colors = choiceButtons[i].colors;
+                if (i == currentSelection)
+                {
+                    colors.normalColor = Color.yellow; // Highlight color
+                }
+                else
+                {
+                    colors.normalColor = Color.white; // Default color
+                }
+                choiceButtons[i].colors = colors;
+            }
 
             // Update the choice preview
             ShowPreview(choiceButtons[currentSelection]);
@@ -64,35 +86,44 @@ public class ChoiceManager : MonoBehaviour
         UpdateHoverIndicator();
     }
 
-    private void OnChoiceSelected(DialogueChoice choice)
+    public void OnChoiceSelected(DialogueChoice choice)
     {
-        // Call a method in DialogueManager to handle the choice
         DialogueManager dialogueManager = FindObjectOfType<DialogueManager>();
-        dialogueManager.ExecuteAction(choice.actionType, choice);
-
-        // Hide choice buttons and choice preview window
-        HideChoices();
-        choicePreviewWindow.SetActive(false);
-
-        // Display the next dialogue (NPC's response)
-        if (choice.nextDialogue != null)
+        if (dialogueManager != null)
         {
-            dialogueManager.StartDialogue(choice.nextDialogue);
+            dialogueManager.ExecuteAction(choice.actionType, choice);
+            HideChoices();
+            choicePreviewWindow.SetActive(false);
+
+            if (choice.nextDialogue != null && choice.actionType != ActionType.ChangeNPCState)
+            {
+                dialogueManager.StartDialogue(choice.nextDialogue);
+            }
+            else
+            {
+                dialogueManager.DisplayNextSentence(new Dialogue() { sentences = new string[] { "." } }, null);
+            }
         }
         else
         {
-            dialogueManager.DisplayNextSentence(new Dialogue() { sentences = new string[] { "." } }, null); // Display the NPC's response before ending
+            Debug.LogError("DialogueManager instance is null.");
         }
     }
 
+
+
     public void HideChoices()
     {
-        // Clear existing choices
+        // Log to confirm hiding choices
+        Debug.Log("Hiding choices.");
+
+        // Clear and hide choices
         foreach (Transform child in choicesParent)
         {
             Destroy(child.gameObject);
         }
-        choicesParent.gameObject.SetActive(false); // Hide the choices panel
+        choiceButtons.Clear();
+        choicesParent.gameObject.SetActive(false);
     }
 
     void Update()

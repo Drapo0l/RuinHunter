@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 9027176317299421963}
   - component: {fileID: 591751711769180182}
   - component: {fileID: 2701898371481392847}
+  - component: {fileID: 3444044793047252080}
   m_Layer: 0
   m_Name: Golem
   m_TagString: Untagged
@@ -119,6 +120,8 @@ MonoBehaviour:
   minGold: 200
   maxGold: 300
   finalBoss: 0
+  animator: {fileID: 0}
+  weaknesBar: {fileID: 0}
 --- !u!135 &591751711769180182
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -167,3 +170,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!95 &3444044793047252080
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5739565135106881911}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: de73cdbd51b1a4e429a03c2fe0f351a1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

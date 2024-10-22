@@ -36,10 +36,19 @@ public class EnemyAI : MonoBehaviour, IDamage
     private bool hasAttacked;
     public GameObject weaknesBar;
 
+    [Header("Audio")]
+    [SerializeField] AudioSource Aud;
+    [SerializeField] AudioClip AttackAud;
+    [SerializeField] float AttackVol;
+    [SerializeField] AudioClip HitAud;
+    [SerializeField] float HitVol;
+    [SerializeField] AudioClip DeathAud;
+    [SerializeField] float DeathVol;
+
     void Start()
     {
-        if (enemyStats.skills != null)
-            availableSkills = enemyStats.skills;
+        if (scriptableStats.skills != null)
+            availableSkills = scriptableStats.skills;
         animatingAttack = false;       
     }
 
@@ -49,7 +58,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         {
             if (GameManager.Instance.combat && enemyStats.isTurn && !animatingAttack && !GameManager.Instance.deadMenu.activeSelf)
             {
-                StartCoroutine(HandleTurnSequence());
+                 StartCoroutine(HandleTurnSequence());
             }
         }
     }
@@ -65,7 +74,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         //move forward       
         animatingAttack = true;
         postionOG = enemyModel.transform.position;
-
+        yield return new WaitForSeconds(1f);
         //attack
         HandleCombatActions();
         yield return new WaitForSeconds(1f);
@@ -102,11 +111,20 @@ public class EnemyAI : MonoBehaviour, IDamage
         }
 
         enemyModel.transform.position = targetPosition;
-        if (HasParameter(animator, "Attack") && !hasAttacked)
+        if(animator !=null)
         {
-            animator.SetTrigger("Attack");
-            hasAttacked = true;
+            if (HasParameter(animator, "Attack") && !hasAttacked)
+            {
+                animator.SetTrigger("Attack");
+                hasAttacked = true;
+            }
         }
+        else
+        {
+            Debug.Log("Animator is null, skipping attack animator."); 
+        }
+    
+
         yield return new WaitForSeconds(1f);
         while (timeElapsed < duration)
         {
@@ -233,8 +251,8 @@ public class EnemyAI : MonoBehaviour, IDamage
 
                     //float weaponMultiplier = GetWeaponMultiplier(PublicEnums.WeaponType.Sword);
                     enemyStats.attacker = enemyModel.GetComponent<AudioSource>();
-                    availableSkills[4].ActivateSkill(GameManager.Instance.enemyObj[0], 0, enemyStats.critChance, availableSkills[4].effect); // this clenses all his effects
-                    availableSkills[0].ActivateSkill(GameManager.Instance.enemyObj[0], 0, enemyStats.critChance, availableSkills[0].effect); // and gives him an attack buff 
+                    //availableSkills[4].ActivateSkill(GameManager.Instance.enemyObj[0], 0, enemyStats.critChance, availableSkills[4].effect); // this clenses all his effects
+                    //availableSkills[0].ActivateSkill(GameManager.Instance.enemyObj[0], 0, enemyStats.critChance, availableSkills[0].effect); // and gives him an attack buff 
 
                     int kc;
                     kc = GameManager.Instance.battleParty.Count - 1;
@@ -274,10 +292,10 @@ public class EnemyAI : MonoBehaviour, IDamage
 
                     //float weaponMultiplier = GetWeaponMultiplier(PublicEnums.WeaponType.Sword);
                     enemyStats.attacker = enemyModel.GetComponent<AudioSource>();
-                    availableSkills[4].ActivateSkill(GameManager.Instance.enemyObj[0],0, enemyStats.critChance, availableSkills[4].effect); // he will clense his debuffs 
-                    availableSkills[1].ActivateSkill(GameManager.Instance.enemyObj[0], 0, enemyStats.critChance, availableSkills[1].effect); // and heal himself 
+                    //availableSkills[4].ActivateSkill(GameManager.Instance.enemyObj[0],0, enemyStats.critChance, availableSkills[4].effect); // he will clense his debuffs 
+                    //availableSkills[1].ActivateSkill(GameManager.Instance.enemyObj[0], 0, enemyStats.critChance, availableSkills[1].effect); // and heal himself 
 
-                    
+
 
                     int kc;
                     kc = GameManager.Instance.battleParty.Count - 1;
@@ -388,7 +406,7 @@ public class EnemyAI : MonoBehaviour, IDamage
 
                 //float weaponMultiplier = GetWeaponMultiplier(PublicEnums.WeaponType.Sword);
                 enemyStats.attacker = enemyModel.GetComponent<AudioSource>();
-                availableSkills[3].ActivateSkill(GameManager.Instance.enemyObj[0], 0, enemyStats.critChance, availableSkills[3].effect);
+                //availableSkills[3].ActivateSkill(GameManager.Instance.enemyObj[0], 0, enemyStats.critChance, availableSkills[3].effect);
 
                 enemyStats.special_count++;
             }
@@ -444,8 +462,8 @@ public class EnemyAI : MonoBehaviour, IDamage
                 Skill chosenSkill = availableSkills[0];
 
                 //float weaponMultiplier = GetWeaponMultiplier(PublicEnums.WeaponType.Sword);
-                availableSkills[0].ActivateSkill(GameManager.Instance.enemyObj[0], 0, enemyStats.critChance, availableSkills[0].effect);
-                availableSkills[1].ActivateSkill(GameManager.Instance.enemyObj[0], 0, enemyStats.critChance, availableSkills[1].effect);
+                //availableSkills[0].ActivateSkill(GameManager.Instance.enemyObj[0], 0, enemyStats.critChance, availableSkills[0].effect);
+                //availableSkills[1].ActivateSkill(GameManager.Instance.enemyObj[0], 0, enemyStats.critChance, availableSkills[1].effect);
                 enemyStats.attacker = enemyModel.GetComponent<AudioSource>();
                 enemyStats.target_BA = GameManager.Instance.enemyObj[0].GetComponent<AudioSource>();
 
@@ -515,7 +533,7 @@ public class EnemyAI : MonoBehaviour, IDamage
                 PerformBasicAttack();
 
                 //float weaponMultiplier = GetWeaponMultiplier(PublicEnums.WeaponType.Sword);
-                availableSkills[0].ActivateSkill(GameManager.Instance.enemyObj[0], 0, enemyStats.critChance, availableSkills[0].effect); // this lowers his own defence
+                //availableSkills[0].ActivateSkill(GameManager.Instance.enemyObj[0], 0, enemyStats.critChance, availableSkills[0].effect); // this lowers his own defence
                 enemyStats.target_BA = GameManager.Instance.enemyObj[0].GetComponent<AudioSource>();
 
             }
@@ -563,7 +581,7 @@ public class EnemyAI : MonoBehaviour, IDamage
             {
 
                 //float weaponMultiplier = GetWeaponMultiplier(PublicEnums.WeaponType.Sword);
-                availableSkills[1].ActivateSkill(GameManager.Instance.enemyObj[0], 0, enemyStats.critChance, availableSkills[1].effect); // after that he will clense his debuffs 
+                //availableSkills[1].ActivateSkill(GameManager.Instance.enemyObj[0], 0, enemyStats.critChance, availableSkills[1].effect); // after that he will clense his debuffs 
                 enemyStats.attacker = enemyModel.GetComponent<AudioSource>();
                 enemyStats.target_BA = GameManager.Instance.enemyObj[0].GetComponent<AudioSource>();
 
@@ -783,7 +801,9 @@ public class EnemyAI : MonoBehaviour, IDamage
         // Find the player to target
         int ran;
         GameObject target;
+
         enemyStats.attacker = enemyModel.GetComponent<AudioSource>();
+        Aud.PlayOneShot(AttackAud, AttackVol);
         if (skill.AOE == true)
         {
 
@@ -885,6 +905,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         int ran;
         GameObject target;
         enemyStats.attacker = enemyModel.GetComponent<AudioSource>();
+        Aud.PlayOneShot(AttackAud, AttackVol);
         while (true)
         {
             ran = Random.Range(0, PartyManager.Instance.startingPlayerParty.Count);
@@ -944,6 +965,10 @@ public class EnemyAI : MonoBehaviour, IDamage
             {
                 animator.SetTrigger("Death");
             }
+            if (animator == null)
+            {
+                Debug.Log("Animator is null, skipping death animator.");
+            }
             if (dropableItems.Count != 0)
                 GameManager.Instance.EnemyDeath(gameObject, dropableItems[Random.Range(0, dropableItems.Count)], Random.Range(minGold, maxGold));
             else
@@ -967,9 +992,16 @@ public class EnemyAI : MonoBehaviour, IDamage
         }
         else if (HasParameter(animator, "Hit"))
         {
+            Aud.PlayOneShot(HitAud,HitVol); 
             animator.SetTrigger("Hit");            
             yield return new WaitForSeconds(0.5f);
         }
+        else if (animator == null)
+        {
+            Aud.PlayOneShot(HitAud, HitVol);
+            Debug.Log("Animator is null, skipping hit animator.");
+        }
+
     }
    
     public IEnumerator TakeSkillDamage(int damage, PublicEnums.ElementType elementType)
@@ -998,7 +1030,13 @@ public class EnemyAI : MonoBehaviour, IDamage
         {
             if (HasParameter(animator, "Death") && !hasAttacked)
             {
+                Aud.PlayOneShot(DeathAud, DeathVol);
                 animator.SetTrigger("Death");
+            }
+            else if (animator = null)
+            {
+                Aud.PlayOneShot(DeathAud, DeathVol);
+                Debug.Log("Animator is null, skipping death animator.");
             }
             if (dropableItems.Count != 0)
                 GameManager.Instance.EnemyDeath(gameObject, dropableItems[Random.Range(0, dropableItems.Count)], Random.Range(minGold, maxGold));  
@@ -1023,8 +1061,14 @@ public class EnemyAI : MonoBehaviour, IDamage
         }
         else if (HasParameter(animator, "Hit"))
         {
+            Aud.PlayOneShot(HitAud, HitVol);
             animator.SetTrigger("Hit");            
             yield return new WaitForSeconds(0.5f);
+        }
+        else if(animator =null)
+        {
+            Aud.PlayOneShot(HitAud, HitVol);
+            Debug.Log("Animator is null, skipping hit animator.");
         }
     }
 

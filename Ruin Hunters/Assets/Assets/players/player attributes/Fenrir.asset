@@ -25,16 +25,14 @@ MonoBehaviour:
   skillDamage: 100
   attackDamage: 1144
   critChance: 0
-  effectChance: 0
   Defence: 213
-  maxHealthOG: 5370
-  maxManaOG: 100
-  combatSpeedOG: 27
+  maxHealthOG: 6284
+  maxManaOG: 114
+  combatSpeedOG: 31
   skillDamageOG: 100
-  attackDamageOG: 1096
+  attackDamageOG: 1144
   critChanceOG: 0
-  effectChanceOG: 0
-  DefenceOG: 176
+  DefenceOG: 213
   expGive: 0
   skills:
   - sprite: {fileID: 0}
@@ -49,6 +47,12 @@ MonoBehaviour:
     AOE: 0
     ParticleForSkill: {fileID: 7226583673155636403, guid: a2ab56839e1c9504ea9d141e95d0b16b,
       type: 3}
+    caster: {fileID: 0}
+    target: {fileID: 0}
+    Activation_Sound: []
+    Activation_SoundV: 0
+    Hit_Sound: []
+    Hit_SoundV: 0
   - sprite: {fileID: 0}
     description: 
     skillName: Mega Slash
@@ -60,11 +64,27 @@ MonoBehaviour:
     Ptargit: 0
     AOE: 0
     ParticleForSkill: {fileID: 0}
+    caster: {fileID: 0}
+    target: {fileID: 0}
+    Activation_Sound: []
+    Activation_SoundV: 0
+    Hit_Sound: []
+    Hit_SoundV: 0
   regions: 2
-  isTurn: 1
+  isTurn: 0
   isStuned: 0
   special: 0
   special_count: 0
   weapon: {fileID: 0}
   equipment: {fileID: 0}
   weaknessIcons: []
+  attacker: {fileID: 0}
+  target_BA: {fileID: 0}
+  Activation_Sound: []
+  Activation_SoundV: 0
+  Hit_Sound: []
+  DMG_sound: {fileID: 0}
+  Hit_SoundV: 0
+  special_soundsV: 0
+  ParticleForBasicAttack: {fileID: 0}
+  ParticleForSpecial: {fileID: 0}

@@ -8,6 +8,12 @@ TagManager:
   - Enemy
   - PlaySpawnPos
   - FinalBoss
+  - Grass
+  - Desert
+  - Snow
+  - Ruin
+  - Forest
+  - Dungeon
   layers:
   - Default
   - TransparentFX

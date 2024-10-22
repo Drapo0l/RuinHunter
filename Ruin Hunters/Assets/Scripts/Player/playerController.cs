@@ -32,6 +32,16 @@ public class playerController : MonoBehaviour, IDamage
     public int defended = 0;
 
     public Animator playerAnimator;
+
+    // New variables for footstep sounds
+    public AudioSource footstepSource;
+    public List<AudioClip> grassFootstepClips;
+    public List<AudioClip> desertFootstepClips;
+    public List<AudioClip> snowFootstepClips;
+    public List<AudioClip> ruinFootstepClips;
+    public float footstepDelay = 0.5f;
+    private float nextFootstepTime = 0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -65,7 +75,7 @@ public class playerController : MonoBehaviour, IDamage
         
 
     }
-   
+
 
 
     //// Polo Angel's code
@@ -111,48 +121,82 @@ public class playerController : MonoBehaviour, IDamage
     //}
     public void CharacterMovement()
     {
-        // raycast to check ground
         RaycastHit hit;
-        Vector3 castPos = transform.position;
-        castPos.y += 1;
-
-        if (Physics.Raycast(castPos, -transform.up, out hit, Mathf.Infinity, terrainLayer & ~ignorePlayerLayer))
+        Vector3 castPos = transform.position + Vector3.up;
+        if (Physics.Raycast(castPos, -Vector3.up, out hit, Mathf.Infinity, terrainLayer & ~ignorePlayerLayer))
         {
             if (hit.collider != null)
             {
-                //only adjust player y based on the distance from gound
+               // Debug.Log("Terrain hit detected: " + hit.collider.gameObject.tag); // Debug log for raycast hit
                 Vector3 movePos = transform.position;
                 movePos.y = hit.point.y + GroundDist;
                 transform.position = movePos;
+
+                // Ensure we get the correct tag from the terrain collider
+                string terrainTag = hit.collider.gameObject.tag;
+                PlayFootsteps(terrainTag);
             }
         }
 
-        //horizontal movement
         float x = Input.GetAxis("Horizontal");
         float y = Input.GetAxis("Vertical");
         Vector3 moveDir = new Vector3(x, 0, y);
         rb.velocity = moveDir * speed;
-        if (rb.velocity.magnitude != 0f) 
+
+        if (rb.velocity.magnitude != 0f)
         {
             playerAnimator.SetBool("moving", true);
         }
-        else 
+        else
         {
             playerAnimator.SetBool("moving", false);
         }
 
-        //flip sprite depending on direction
         if (x != 0 && x < 0)
         {
             transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * -1, transform.localScale.y, transform.localScale.z);
         }
         else if (x != 0 && x > 0)
         {
-            transform.localScale = new Vector3 (Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
     }
 
-    public void AttackAnimation()
+    private void PlayFootsteps(string terrainTag)
+    {
+        if (rb.velocity.magnitude > 0f && Time.time > nextFootstepTime)
+        {
+            nextFootstepTime = Time.time + footstepDelay;
+
+            AudioClip[] footstepClips;
+
+            Debug.Log("Playing footsteps for terrain tag: " + terrainTag); // Debug log for terrain tag
+
+            switch (terrainTag)
+            {
+                case "Grass":
+                    footstepClips = grassFootstepClips.ToArray();
+                    break;
+                case "Desert":
+                    footstepClips = desertFootstepClips.ToArray();
+                    break;
+                case "Snow":
+                    footstepClips = snowFootstepClips.ToArray();
+                    break;
+                case "Ruin":
+                    footstepClips = ruinFootstepClips.ToArray();
+                    break;
+                default:
+                    footstepClips = grassFootstepClips.ToArray(); // Default to grass
+                    break;
+            }
+
+            Debug.Log("Selected footstep clip: " + footstepClips[Random.Range(0, footstepClips.Length)].name); // Debug log for selected clip
+            footstepSource.clip = footstepClips[Random.Range(0, footstepClips.Length)];
+            footstepSource.Play();
+        }
+    }
+        public void AttackAnimation()
     {
         playerAnimator.SetTrigger("Attack");
     }
@@ -176,7 +220,7 @@ public class playerController : MonoBehaviour, IDamage
         if (playerStats.health <= 0)
         {
             playerAnimator.SetBool("death", true);
-            StartCoroutine(GameManager.Instance.PlayerDeath(gameObject));
+            GameManager.Instance.PlayerDeath(gameObject);
         }
         else
         {
@@ -204,7 +248,7 @@ public class playerController : MonoBehaviour, IDamage
         if (playerStats.health <= 0)
         {
             playerAnimator.SetBool("death", true);
-            StartCoroutine(GameManager.Instance.PlayerDeath(gameObject));
+            GameManager.Instance.PlayerDeath(gameObject);
         }
         else
         {
