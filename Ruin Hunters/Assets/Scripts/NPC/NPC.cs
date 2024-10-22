@@ -39,8 +39,9 @@ public class NPC : NPCManager, NPCTalkable
     public void GiveQuest()
     {
         QuestManager.instance.CompleteQuest(completeQuest);
-        QuestManager.instance.AddQuest(questForPlayer);        
-        PartyManager.Instance.AddPartyMember(playerGmaeOBject);
+        QuestManager.instance.AddQuest(questForPlayer);   
+        if(playerGmaeOBject != null)
+            PartyManager.Instance.AddPartyMember(playerGmaeOBject);
     }
 
 }

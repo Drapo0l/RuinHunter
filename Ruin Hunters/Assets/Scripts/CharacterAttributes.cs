@@ -8,6 +8,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewCharacterAttributes", menuName = "Character/Attributes")]
 public class CharacterAttributes : ScriptableObject
 {
+    public Sprite Sprite;
     public int level = 1;
     public int currentXP = 0;
     public int xpToNextLevel = 100;
@@ -37,6 +38,9 @@ public class CharacterAttributes : ScriptableObject
     public int special_count;
     public WeaponItem weapon;
     public EquipmentItem equipment;
+
+    public List<Sprite> weaknessIcons;
+
     public AudioSource attacker;
     public AudioSource target_BA;
     public AudioClip[] Activation_Sound;
@@ -49,6 +53,7 @@ public class CharacterAttributes : ScriptableObject
     public  ParticleManager ParticleForBasicAttack;
     public ParticleManager ParticleForSpecial;
    
+
 
     public void AddExperience (int xpAmount)
     {
@@ -82,6 +87,7 @@ public class CharacterAttributes : ScriptableObject
     public CharacterAttributes deepCopy()
     {
         CharacterAttributes copy = ScriptableObject.CreateInstance<CharacterAttributes>();
+        copy.Sprite = this.Sprite;
         copy.level = this.health;
         copy.currentXP = this.currentXP;
         copy.xpToNextLevel = this.xpToNextLevel;
@@ -104,6 +110,7 @@ public class CharacterAttributes : ScriptableObject
         copy.special_count = this.special_count;
         copy.weapon = this.weapon;
         copy.equipment = this.equipment;
+        copy.weaknessIcons = this.weaknessIcons;
 
         return copy;
     }

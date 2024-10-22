@@ -12,6 +12,8 @@ public class PublicEnums : Item
         Dagger,
         Bow,
         Lance,
+        Axe,
+        Staff,
         
     }
 
@@ -41,6 +43,7 @@ public class PublicEnums : Item
         Ice,
         Lightning,
         Earth,
+        Water,
         
     }
 
@@ -120,27 +123,27 @@ public class PublicEnums : Item
 
   
 
-    [CreateAssetMenu(fileName = "NewConsumable", menuName = "Items/Consumable")]
-    public class ConsumableItem : Item
-    {
-        public int healingAmount; // Specific to consumables
+    //[CreateAssetMenu(fileName = "NewConsumable", menuName = "Items/Consumable")]
+    //public class ConsumableItem : Item
+    //{
+    //    public int healingAmount; // Specific to consumables
 
-        public void Use()
-        {
-            // Logic for using the consumable item
-        }
-    }
+    //    public void Use()
+    //    {
+    //        // Logic for using the consumable item
+    //    }
+    //}
 
-    [CreateAssetMenu(fileName = "NewWeapon", menuName = "Items/Weapon")]
-    public class Weapon : Item
-    {
-        public int attackPower; // Specific to weapons
+    //[CreateAssetMenu(fileName = "NewWeapon", menuName = "Items/Weapon")]
+    //public class Weapon : Item
+    //{
+    //    public int attackPower; // Specific to weapons
 
-        public void Equip()
-        {
-            // Logic for equipping the weapon
-        }
-    }
+    //    public void Equip()
+    //    {
+    //        // Logic for equipping the weapon
+    //    }
+    //}
 
     //You can now easily categorize and retrieve items:
     //var consumables = InventoryManager.instance.GetItems(ItemType.Consumable);

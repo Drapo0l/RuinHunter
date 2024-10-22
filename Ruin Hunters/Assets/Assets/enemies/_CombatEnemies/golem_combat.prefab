@@ -136,7 +136,9 @@ MonoBehaviour:
     type: 3}
   targetIndicatorE: {fileID: 7827821399089975602, guid: 2765472d77292394c81e1d422285baeb,
     type: 3}
-  dropableItems:
-  - {fileID: 11400000, guid: 860c7a54f6fbe9549a4f2954c1a97ce5, type: 2}
+  dropableItems: []
   minGold: 0
   maxGold: 10
+  finalBoss: 0
+  animator: {fileID: 2383726327400841980}
+  weaknesBar: {fileID: 0}

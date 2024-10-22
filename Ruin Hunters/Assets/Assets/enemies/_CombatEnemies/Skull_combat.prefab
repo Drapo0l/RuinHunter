@@ -99,7 +99,7 @@ Animator:
   m_GameObject: {fileID: 8641859716527120936}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e413092401060d74ea775863461c110d, type: 2}
+  m_Controller: {fileID: 9100000, guid: eee5ae94b5fdd4949a11c40843de3ff3, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -144,6 +144,8 @@ MonoBehaviour:
   minGold: 10
   maxGold: 90
   finalBoss: 0
+  animator: {fileID: 8898317188921346340}
+  weaknesBar: {fileID: 0}
 --- !u!54 &7956586562812018318
 Rigidbody:
   m_ObjectHideFlags: 0

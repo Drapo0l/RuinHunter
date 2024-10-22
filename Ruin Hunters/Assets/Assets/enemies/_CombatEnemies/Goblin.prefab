@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2397886002269592735}
   - component: {fileID: 5581589077209218}
   - component: {fileID: 7196757360549044663}
+  - component: {fileID: -7631381451400294529}
   m_Layer: 0
   m_Name: Goblin
   m_TagString: Untagged
@@ -167,3 +168,26 @@ MonoBehaviour:
   minGold: 0
   maxGold: 20
   finalBoss: 0
+  animator: {fileID: -7631381451400294529}
+  weaknesBar: {fileID: 0}
+--- !u!95 &-7631381451400294529
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 720076381183387591}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4f230fa6acf87ff4aa55a06a9691101d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

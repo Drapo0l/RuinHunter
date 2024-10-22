@@ -139,3 +139,5 @@ MonoBehaviour:
   minGold: 400
   maxGold: 500
   finalBoss: 0
+  animator: {fileID: 4285832717402228169}
+  weaknesBar: {fileID: 0}
