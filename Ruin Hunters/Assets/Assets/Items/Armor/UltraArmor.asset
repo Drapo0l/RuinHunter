@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: UltraArmor
   m_EditorClassIdentifier: Assembly-CSharp::EquipmentItem
   Sprite: {fileID: 0}
-  itemName: Ultra Elemental Armor
-  description: Found in the greatest depths of a far away dungeon, no adventurer
-    has ever explored this level yet by some miracle it is in this store
-  armor: 200
-  itemPrice: 800
-  armourType: 0
+  itemName: 
+  description: 
+  armor: 1000
+  itemPrice: 2500
+  armourType: 4

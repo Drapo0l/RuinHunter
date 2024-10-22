@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: RareArmor
   m_EditorClassIdentifier: Assembly-CSharp::EquipmentItem
   Sprite: {fileID: 0}
-  itemName: Rare Armor
-  description: rare armor found in a dungeon when an adventuring party stumbled accross
-    it
-  armor: 60
-  itemPrice: 120
-  armourType: 0
+  itemName: 
+  description: 
+  armor: 500
+  itemPrice: 200
+  armourType: 3

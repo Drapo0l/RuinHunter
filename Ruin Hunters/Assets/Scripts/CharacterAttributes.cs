@@ -75,7 +75,7 @@ public class CharacterAttributes : ScriptableObject
         maxMana += 400;
         mana = maxMana;
         attackDamage += 700;
-        Defence += 250;
+        Defence += 150;
         combatSpeed += 3;
     }
 

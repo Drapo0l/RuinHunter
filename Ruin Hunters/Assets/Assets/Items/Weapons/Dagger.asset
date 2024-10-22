@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: Dagger
   m_EditorClassIdentifier: Assembly-CSharp::WeaponItem
   Sprite: {fileID: 0}
-  itemName: Common Dagger
-  description: A nice dagger crafted by a smithy
-  damage: 40
-  skillDamage: 15
-  itemPrice: 55
-  equipped: 0
-  weaponType: 10
+  itemName: 
+  description: 
+  damage: 0
+  skillDamage: 0
+  itemPrice: 0
+  weaponType: 0

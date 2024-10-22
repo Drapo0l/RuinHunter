@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Item
   Sprite: {fileID: 0}
   itemName: Small Potion
-  description: Heals user for 100HP
-  effectAmount: 100
+  description: Heals user for 500HP
+  effectAmount: 500
   amountOfItem: 5
   itemPrice: 2
   damageable: 0
   potionEffect: 2
+  Element: 0
+  itemType: 0

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: CommonArmor
   m_EditorClassIdentifier: Assembly-CSharp::EquipmentItem
   Sprite: {fileID: 0}
-  itemName: Common Armor
-  description: some random armor found in the woods
-  armor: 35
-  itemPrice: 20
+  itemName: 
+  description: 
+  armor: 100
+  itemPrice: 50
   armourType: 0
