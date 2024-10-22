@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1219606644045973906}
   - component: {fileID: 1421993185222770529}
   - component: {fileID: 7021075192013788822}
+  - component: {fileID: 2699185931274835597}
   m_Layer: 0
   m_Name: 5 guys
   m_TagString: Untagged
@@ -131,7 +132,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 4
   m_Center: {x: 0, y: 0, z: 0}
@@ -164,3 +165,26 @@ MonoBehaviour:
   minGold: 5000
   maxGold: 5000
   finalBoss: 0
+  animator: {fileID: 2699185931274835597}
+  weaknesBar: {fileID: 0}
+--- !u!95 &2699185931274835597
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8528953423542038023}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

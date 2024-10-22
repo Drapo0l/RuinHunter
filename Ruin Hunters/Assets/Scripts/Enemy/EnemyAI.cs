@@ -36,6 +36,15 @@ public class EnemyAI : MonoBehaviour
     private bool hasAttacked;
     public GameObject weaknesBar;
 
+    [Header("Audio")]
+    [SerializeField] AudioSource Aud;
+    [SerializeField] AudioClip AttackAud;
+    [SerializeField] float AttackVol;
+    [SerializeField] AudioClip HitAud;
+    [SerializeField] float HitVol;
+    [SerializeField] AudioClip DeathAud;
+    [SerializeField] float DeathVol;
+
     void Start()
     {
         if (enemyStats.skills != null)
@@ -102,11 +111,20 @@ public class EnemyAI : MonoBehaviour
         }
 
         enemyModel.transform.position = targetPosition;
-        if (HasParameter(animator, "Attack") && !hasAttacked)
+        if(animator !=null)
         {
-            animator.SetTrigger("Attack");
-            hasAttacked = true;
+            if (HasParameter(animator, "Attack") && !hasAttacked)
+            {
+                animator.SetTrigger("Attack");
+                hasAttacked = true;
+            }
         }
+        else
+        {
+            Debug.Log("Animator is null, skipping attack animator."); 
+        }
+    
+
         yield return new WaitForSeconds(1f);
         while (timeElapsed < duration)
         {
@@ -783,7 +801,9 @@ public class EnemyAI : MonoBehaviour
         // Find the player to target
         int ran;
         GameObject target;
+
         enemyStats.attacker = enemyModel.GetComponent<AudioSource>();
+        Aud.PlayOneShot(AttackAud, AttackVol);
         if (skill.AOE == true)
         {
 
@@ -885,6 +905,7 @@ public class EnemyAI : MonoBehaviour
         int ran;
         GameObject target;
         enemyStats.attacker = enemyModel.GetComponent<AudioSource>();
+        Aud.PlayOneShot(AttackAud, AttackVol);
         while (true)
         {
             ran = Random.Range(0, PartyManager.Instance.startingPlayerParty.Count);
@@ -944,6 +965,10 @@ public class EnemyAI : MonoBehaviour
             {
                 animator.SetTrigger("Death");
             }
+            if (animator == null)
+            {
+                Debug.Log("Animator is null, skipping death animator.");
+            }
             if (dropableItems.Count != 0)
                 GameManager.Instance.EnemyDeath(gameObject, dropableItems[Random.Range(0, dropableItems.Count)], Random.Range(minGold, maxGold));
             else
@@ -967,9 +992,16 @@ public class EnemyAI : MonoBehaviour
         }
         else if (HasParameter(animator, "Hit"))
         {
+            Aud.PlayOneShot(HitAud,HitVol); 
             animator.SetTrigger("Hit");            
             yield return new WaitForSeconds(0.5f);
         }
+        else if (animator == null)
+        {
+            Aud.PlayOneShot(HitAud, HitVol);
+            Debug.Log("Animator is null, skipping hit animator.");
+        }
+
     }
    
     public IEnumerator TakeSkillDamage(int damage, PublicEnums.ElementType elementType)
@@ -998,7 +1030,13 @@ public class EnemyAI : MonoBehaviour
         {
             if (HasParameter(animator, "Death") && !hasAttacked)
             {
+                Aud.PlayOneShot(DeathAud, DeathVol);
                 animator.SetTrigger("Death");
+            }
+            else if (animator = null)
+            {
+                Aud.PlayOneShot(DeathAud, DeathVol);
+                Debug.Log("Animator is null, skipping death animator.");
             }
             if (dropableItems.Count != 0)
                 GameManager.Instance.EnemyDeath(gameObject, dropableItems[Random.Range(0, dropableItems.Count)], Random.Range(minGold, maxGold));  
@@ -1023,8 +1061,14 @@ public class EnemyAI : MonoBehaviour
         }
         else if (HasParameter(animator, "Hit"))
         {
+            Aud.PlayOneShot(HitAud, HitVol);
             animator.SetTrigger("Hit");            
             yield return new WaitForSeconds(0.5f);
+        }
+        else if(animator =null)
+        {
+            Aud.PlayOneShot(HitAud, HitVol);
+            Debug.Log("Animator is null, skipping hit animator.");
         }
     }
 
