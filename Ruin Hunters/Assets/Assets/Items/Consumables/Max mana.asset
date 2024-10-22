@@ -9,12 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: UltraArmor
-  m_EditorClassIdentifier: Assembly-CSharp::EquipmentItem
+  m_Script: {fileID: 11500000, guid: de3db85fc5fc25247ae25b6f4468445d, type: 3}
+  m_Name: Max mana
+  m_EditorClassIdentifier: 
   Sprite: {fileID: 0}
-  itemName: 
+  itemName: Max mana
   description: 
-  armor: 1000
-  itemPrice: 2500
-  armourType: 4
+  effectAmount: 0
+  amountOfItem: 0
+  itemPrice: 0
+  damageable: 0
+  potionEffect: 0
+  Element: 0
+  itemType: 0

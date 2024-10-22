@@ -640,7 +640,16 @@ public class PlayerActionSelector : MonoBehaviour
                 if (playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.health > playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.maxHealth)
                     playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.health = playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.maxHealth;
             }
-                if (item.potionEffect == PublicEnums.Effects.AttackUp)
+            if (item.potionEffect == PublicEnums.Effects.mana)
+            {
+
+                DamageNumberManager.Instance.ShowNumbers(playerParty[selectedPartyIndex].transform.position, item.effectAmount, Color.green);
+                playerParty[selectedPartyIndex].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[13]);
+                playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.mana += item.effectAmount;
+                if (playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.mana > playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.maxMana)
+                    playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.mana = playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.maxMana;
+            }
+            if (item.potionEffect == PublicEnums.Effects.AttackUp)
             {
                 DamageNumberManager.Instance.ShowString(playerParty[selectedPartyIndex].transform.position, "ATT UP", Color.red);
                 playerParty[selectedPartyIndex].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[3]);
@@ -687,6 +696,22 @@ public class PlayerActionSelector : MonoBehaviour
                         playerParty[i].GetComponent<playerController>().playerStats.health += item.effectAmount;
                         if (playerParty[i].GetComponent<playerController>().playerStats.health > playerParty[i].GetComponent<playerController>().playerStats.maxHealth)
                             playerParty[i].GetComponent<playerController>().playerStats.health = playerParty[i].GetComponent<playerController>().playerStats.maxHealth;
+                    }
+
+
+                }
+            }
+            if (item.potionEffect == PublicEnums.Effects.Party_mana)
+            {
+                for (int i = 0; i < playerParty.Count; i++)
+                {
+                    if (playerParty[i].GetComponent<playerController>().playerStats.health > 0)
+                    {
+                        DamageNumberManager.Instance.ShowNumbers(playerParty[i].transform.position, item.effectAmount, Color.green);
+                        playerParty[i].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[13]);
+                        playerParty[i].GetComponent<playerController>().playerStats.mana += item.effectAmount;
+                        if (playerParty[i].GetComponent<playerController>().playerStats.mana > playerParty[i].GetComponent<playerController>().playerStats.maxMana)
+                            playerParty[i].GetComponent<playerController>().playerStats.mana = playerParty[i].GetComponent<playerController>().playerStats.maxMana;
                     }
 
 
