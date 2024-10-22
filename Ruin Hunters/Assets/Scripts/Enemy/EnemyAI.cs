@@ -458,7 +458,8 @@ public class EnemyAI : MonoBehaviour
                 if (enemyStats.special_count == 5)
                 {
                     enemyStats.attacker = enemyModel.GetComponent<AudioSource>();
-                    enemyStats.attacker.PlayOneShot(enemyStats.special_sounds[0][enemyStats.special_sounds[0].Length], enemyStats.special_soundsV);
+                    if (enemyStats.DMG_sound != null)
+                        enemyStats.attacker.PlayOneShot(enemyStats.special_sounds[0][enemyStats.special_sounds[0].Length], enemyStats.special_soundsV);
                 }
                 int ran;
                 ran = Random.Range(0, 101);
@@ -931,7 +932,8 @@ public class EnemyAI : MonoBehaviour
         else
         {
             DamageNumberManager.Instance.ShowNumbers(targetPosition, damage, Color.red);
-            enemyStats.attacker.PlayOneShot(enemyStats.DMG_sound, enemyStats.Activation_SoundV);
+            if (enemyStats.DMG_sound != null)
+                enemyStats.attacker.PlayOneShot(enemyStats.DMG_sound, enemyStats.Activation_SoundV);
         }
 
 
@@ -985,7 +987,8 @@ public class EnemyAI : MonoBehaviour
         else
         {
             DamageNumberManager.Instance.ShowNumbers(targetPosition, damage, Color.red);
-            enemyStats.attacker.PlayOneShot(enemyStats.DMG_sound, enemyStats.Activation_SoundV);
+            if(enemyStats.DMG_sound != null)
+                enemyStats.attacker.PlayOneShot(enemyStats.DMG_sound, enemyStats.Activation_SoundV);
         }
 
        
