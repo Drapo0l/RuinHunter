@@ -10,7 +10,11 @@ public abstract class NPCManager : MonoBehaviour, NPCInteractable
     [SerializeField] SpriteRenderer interactSprite;
     [SerializeField] TMP_Text interactText; // Reference to the TMP_Text for the button hint
     [SerializeField] float interactDst;
+    [SerializeField] List<AudioClip> proximitySounds; // Add this line for multiple proximity sounds
+    [SerializeField] AudioSource audioSource; // AudioSource to play the sounds
+
     private Transform playerTransform;
+    private bool hasPlayedProximitySound = false; // Flag to track if the sound has played
 
     public GameObject player { get; set; }
     public bool IsInteractable { get; set; }
@@ -45,6 +49,13 @@ public abstract class NPCManager : MonoBehaviour, NPCInteractable
             {
                 interactText.gameObject.SetActive(true); // Show text
             }
+            if (!hasPlayedProximitySound && proximitySounds.Count > 0)
+            {
+                AudioClip randomClip = proximitySounds[Random.Range(0, proximitySounds.Count)];
+                audioSource.clip = randomClip;
+                audioSource.Play(); // Play proximity sound once
+                hasPlayedProximitySound = true; // Set the flag to true
+            }
         }
         else
         {
@@ -56,6 +67,7 @@ public abstract class NPCManager : MonoBehaviour, NPCInteractable
             {
                 interactText.gameObject.SetActive(false); // Hide text
             }
+            hasPlayedProximitySound = false; // Reset the flag when player leaves the area
         }
     }
 

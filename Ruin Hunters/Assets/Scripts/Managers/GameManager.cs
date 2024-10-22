@@ -26,10 +26,11 @@ public class GameManager : MonoBehaviour
     public GameObject worldEnemyParent;
     public GameObject deadMenu;
     public GameObject cursor;
+    public GameObject endingScreenUI; 
     public List<Button> deadButtons;
     private int deadMenuIndex;
     public int expTotal;
-    private List<CharacterAttributes> playerParty; // list to hold player party
+    public List<CharacterAttributes> playerParty; // list to hold player party
     public List<GameObject> Grave_Yard = new List<GameObject>();
     public List<GameObject> battlePartyHealth = new List<GameObject>();
     public List<GameObject> battleParty = new List<GameObject>();
@@ -74,7 +75,7 @@ public class GameManager : MonoBehaviour
     private bool wasCombatInitialized = false;
 
     private List<Item> randomItems = new List<Item>();
-    private int totalGold;
+    public int totalGold;
 
     public Vector3 lastSavedPosition;
     //Polo Angel's code
@@ -591,11 +592,10 @@ public class GameManager : MonoBehaviour
         FleeCombat();
     }
 
-
-    public void FinalBossDefeated()
+    public void PlayerBeatsGame()
     {
-        WinMenu winMenu = FindObjectOfType<WinMenu>();
-        winMenu.ShowWinMenu();
+        // Show the ending screen UI
+        endingScreenUI.SetActive(true);
     }
         //public void playerEndCombat()
         //{

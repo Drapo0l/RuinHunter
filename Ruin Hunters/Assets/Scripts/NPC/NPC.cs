@@ -7,7 +7,7 @@ public class NPC : NPCManager, NPCTalkable
 {
     [SerializeField] public Dialogue dialogue;
     [SerializeField] private DialogueManager dialogueManager;
-    [SerializeField]  GameObject playerGmaeOBject;
+    [SerializeField] GameObject playerGmaeOBject;
     public Quest questForPlayer;
     public Quest completeQuest;
 
@@ -38,9 +38,30 @@ public class NPC : NPCManager, NPCTalkable
 
     public void GiveQuest()
     {
-        QuestManager.instance.CompleteQuest(completeQuest);
-        QuestManager.instance.AddQuest(questForPlayer);        
-        PartyManager.Instance.AddPartyMember(playerGmaeOBject);
-    }
+        if (QuestManager.instance != null)
+        {
+            if (completeQuest != null)
+            {
+                QuestManager.instance.CompleteQuest(completeQuest);
+            }
+            if (questForPlayer != null)
+            {
+                QuestManager.instance.AddQuest(questForPlayer);
+            }
 
+            // Only add to party if the playerGmaeOBject is not null
+            if (playerGmaeOBject != null)
+            {
+                PartyManager.Instance.AddPartyMember(playerGmaeOBject);
+            }
+            else
+            {
+                Debug.Log("No playerGmaeOBject to add to the party.");
+            }
+        }
+        else
+        {
+            Debug.LogError("QuestManager instance is null.");
+        }
+    }
 }

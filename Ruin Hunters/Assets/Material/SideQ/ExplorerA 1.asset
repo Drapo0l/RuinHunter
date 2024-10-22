@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e1e391a1e4d0ed4f9c79c3537092b2f, type: 3}
+  m_Name: ExplorerA 1
+  m_EditorClassIdentifier: 
+  NPCName: ExplorerSlime
+  sentences:
+  - Oh, in that case is there anything else I can help you with?
+  choices:
+  - buttonText: A
+    playerText: Yes, you're brotther is looking for you
+    nextDialogue: {fileID: 11400000, guid: 8a61441476d1b7b47838853abcbf1b4f, type: 2}
+    actionType: 2
+    conditions: []
+    consequences: []
+    choiceMade: 0
+    neverDisable: 0

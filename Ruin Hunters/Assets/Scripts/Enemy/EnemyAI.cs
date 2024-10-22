@@ -845,9 +845,9 @@ public class EnemyAI : MonoBehaviour
             if (finalBoss)
             {
                 GameManager.Instance.FleeCombat();
-                WinMenu.instance.ShowWinMenu();
+                GameManager.Instance.PlayerBeatsGame(); // Use PlayerBeatsGame to show the ending screen            }
             }
-            Destroy(gameObject);
+                Destroy(gameObject);
         }
     }
    
@@ -883,7 +883,7 @@ public class EnemyAI : MonoBehaviour
             if (finalBoss)
             {
                 GameManager.Instance.FleeCombat();
-                WinMenu.instance.ShowWinMenu();
+                GameManager.Instance.PlayerBeatsGame(); // Use PlayerBeatsGame to show the ending screen            }
             }
             Destroy(gameObject);
         }
