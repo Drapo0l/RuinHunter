@@ -35,6 +35,7 @@ public class Shop : MonoBehaviour
     private bool ShopOpened;
     private bool choice;
 
+
     void Start()
     {
 
@@ -86,6 +87,12 @@ public class Shop : MonoBehaviour
         //        Debug.LogError("Missing Weapon in Shop!");
         //}
     }
+
+
+    [Header("Audio")]
+    [SerializeField] AudioSource Aud;
+    [SerializeField] AudioClip PurchaseAud;
+    [SerializeField] float PurchaseVol;
 
     private void Update()
     {
@@ -437,6 +444,7 @@ public class Shop : MonoBehaviour
             {
                 if (InventoryManager.instance.Gold >= Items[currentSelection].itemPrice)
                 {
+                    Aud.PlayOneShot(PurchaseAud,PurchaseVol);
                     InventoryManager.instance.Gold -= Items[currentSelection].itemPrice;
                     InventoryManager.instance.AddItem(Items[currentSelection]);
                 }
@@ -451,6 +459,7 @@ public class Shop : MonoBehaviour
             {
                 if (InventoryManager.instance.Gold >= Armor[currentSelection].itemPrice)
                 {
+                    Aud.PlayOneShot(PurchaseAud, PurchaseVol);
                     InventoryManager.instance.Gold -= Armor[currentSelection].itemPrice;
                     InventoryManager.instance.AddItem(Armor[currentSelection]);
                 }
@@ -465,6 +474,7 @@ public class Shop : MonoBehaviour
             {
                 if(InventoryManager.instance.Gold >= Weapons[currentSelection].itemPrice)
                 {
+                    Aud.PlayOneShot(PurchaseAud, PurchaseVol);
                     InventoryManager.instance.Gold -= Weapons[currentSelection].itemPrice;
                     InventoryManager.instance.AddItem(Weapons[currentSelection]);
                 }

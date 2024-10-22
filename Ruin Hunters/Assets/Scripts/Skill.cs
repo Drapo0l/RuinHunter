@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEditor.Experimental.GraphView;
+//using UnityEditor.Experimental.GraphView;
 //using UnityEditor.Experimental.GraphView;
 
 
@@ -109,7 +109,7 @@ public class Skill
             if(chance <= C)
             {
                 DamageNumberManager.Instance.ShowString(T.transform.position, "CRIT", Color.yellow);
-                T.GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[0]);
+                //T.GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[0]);
                 D = D * 2;
             }
         }
@@ -117,7 +117,7 @@ public class Skill
             if (EN == PublicEnums.Effects.Stun)
             {
             DamageNumberManager.Instance.ShowString(T.transform.position, "STUN!", Color.yellow);
-            T.GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[2]);
+            //T.GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[2]);
             //Pause.Epause();
             if (T.tag.Equals("Player"))
                 {
@@ -132,13 +132,13 @@ public class Skill
             }
             if (EN == PublicEnums.Effects.Heal)
             {
-            T.GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[1]);
+            //T.GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[1]);
             D = D * -1;
             }
             if (EN == PublicEnums.Effects.AttackDown)
             {
             DamageNumberManager.Instance.ShowString(T.transform.position, "ATT DOWN", Color.black);
-            T.GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[4]);
+            //T.GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[4]);
             //Pause.Epause();
             if (T.tag.Equals("Player"))
                 {
@@ -154,7 +154,7 @@ public class Skill
             if (EN == PublicEnums.Effects.AttackUp)
             {
             DamageNumberManager.Instance.ShowString(T.transform.position, "ATT UP", Color.red);
-            T.GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[3]);
+            //T.GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[3]);
             //Pause.Epause();
             if (T.tag.Equals("Player"))
                 {
@@ -169,7 +169,7 @@ public class Skill
             }
             if (EN == PublicEnums.Effects.DefenceDown)
             {
-            T.GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[6]);
+            //T.GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[6]);
             DamageNumberManager.Instance.ShowString(T.transform.position, "DEF DOWN", Color.black);
             //Pause.Epause();
             if (T.tag.Equals("Player"))
@@ -186,7 +186,7 @@ public class Skill
             if (EN == PublicEnums.Effects.DefenceUp)
             {
             DamageNumberManager.Instance.ShowString(T.transform.position, "DEF UP", Color.blue);
-            T.GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[5]);
+            //T.GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[5]);
             //Pause.Epause();
             if (T.tag.Equals("Player"))
                 {
@@ -203,7 +203,7 @@ public class Skill
             if (EN == PublicEnums.Effects.SpeedDown)
             {
             DamageNumberManager.Instance.ShowString(T.transform.position, "SPD DOWN", Color.black);
-            T.GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[8]);
+            //T.GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[8]);
             //Pause.Epause();
 
             if (T.tag.Equals("Player"))
@@ -220,7 +220,7 @@ public class Skill
             if (EN == PublicEnums.Effects.SpeedUp)
             {
             DamageNumberManager.Instance.ShowString(T.transform.position, "SPD UP", Color.green);
-            T.GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[7]);
+            //T.GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[7]);
             //Pause.Epause();
             if (T.tag.Equals("Player"))
                 {
@@ -236,7 +236,7 @@ public class Skill
             if (EN == PublicEnums.Effects.SkillPDown)
             {
             DamageNumberManager.Instance.ShowString(T.transform.position, "SKL DOWN", Color.black);
-            T.GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[10]);
+            //T.GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[10]);
             //Pause.Epause();
             if (T.tag.Equals("Player"))
                 {
@@ -252,7 +252,7 @@ public class Skill
             if (EN == PublicEnums.Effects.SkillPUP)
             {
             DamageNumberManager.Instance.ShowString(T.transform.position, "SKL UP", Color.cyan);
-            T.GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[9]);
+            //T.GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[9]);
             //Pause.Epause();
             if (T.tag.Equals("Player"))
                 {
@@ -268,7 +268,7 @@ public class Skill
             if (EN == PublicEnums.Effects.Clense)
             {
             DamageNumberManager.Instance.ShowString(T.transform.position, "Clense", Color.gray);
-            T.GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[11]);
+            //T.GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[11]);
             //Pause.Epause();
             if (T.tag.Equals("Player"))
                 {

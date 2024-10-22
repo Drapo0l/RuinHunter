@@ -9,6 +9,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI NPCname;
     [SerializeField] private TextMeshProUGUI NPCdialogue;
     [SerializeField] private ChoiceManager choiceManager; // Reference to ChoiceManager
+    [SerializeField] private AudioSource typingSound; // Add this line for typing sound
     [Range(1, 10)][SerializeField] private int typingSpeed;
 
     private Queue<string> sentences = new Queue<string>();
@@ -16,70 +17,72 @@ public class DialogueManager : MonoBehaviour
     private bool endConversation;
     private bool isTyping;
     private bool waitingForPlayerInput = false;
-
     private const string HTML_Alpha = "<color=#00000000>"; // Used for typing effect
     private const float Max_Type_Time = 0.1f; // Controls typing speed
     private Coroutine typeDialogueCoroutine;
-    private NPC currentNPC;
-   
+    public NPC currentNPC;
+
     public void StartDialogue(Dialogue dialogue)
     {
         if (!gameObject.activeSelf)
         {
             gameObject.SetActive(true);
         }
-        NPCname.text = dialogue.NPCName;
 
-        // Add dialogue text to queue
+        // Ensure previous choices are hidden and cleared
+        Debug.Log("Hiding choices before starting new dialogue.");
+        choiceManager.HideChoices();
+
+        NPCname.text = dialogue.NPCName;
         sentences.Clear();
+
+        // Add new sentences to the queue
         foreach (var sentence in dialogue.sentences)
         {
             sentences.Enqueue(sentence);
         }
 
+        // Display the first sentence
         DisplayNextSentence(dialogue, currentNPC);
     }
 
     public void DisplayNextSentence(Dialogue dialogue, NPC npc)
     {
         currentNPC = npc;
-        // If there are no sentences left
+
         if (sentences.Count == 0)
         {
             if (!endConversation)
             {
                 EndDialogue();
             }
-            return; // Exit if there are no sentences
+            return;
         }
 
-        // If there are sentences, continue displaying
         if (!isTyping && sentences.Count > 0)
         {
-            currentSentence = sentences.Dequeue(); // Get the next sentence
-            typeDialogueCoroutine = StartCoroutine(TypeSentence(currentSentence)); // Type out the next sentence
+            currentSentence = sentences.Dequeue();
+            Debug.Log("Displaying sentence: " + currentSentence);
+            typeDialogueCoroutine = StartCoroutine(TypeSentence(currentSentence));
         }
         else if (isTyping)
         {
-            FinishParagraphEarly(); // Allow finishing the current sentence early if requested
+            FinishParagraphEarly();
         }
 
-        // Update the end conversation state
-        if (sentences.Count == 0)
+        if (sentences.Count == 0 && dialogue.choices.Count == 0)
         {
             endConversation = true;
-            // Show choices if available
-            if (dialogue.choices.Count > 0)
-            {
-                choiceManager.ShowChoices(dialogue.choices);
-            }
-            else
-            {
-                // Wait for player input to end the dialogue
-                waitingForPlayerInput = true;
-            }
+            choiceManager.HideChoices();
+            waitingForPlayerInput = true;
+        }
+        else if (sentences.Count == 0 && dialogue.choices.Count > 0)
+        {
+            Debug.Log("Showing choices for new dialogue.");
+            choiceManager.ShowChoices(dialogue.choices);
         }
     }
+
 
     private void Update()
     {
@@ -104,8 +107,10 @@ public class DialogueManager : MonoBehaviour
                 currentNPC.HideInteractElements(); // Call method to hide interact elements
             }
         }
-    }
 
+        // Hide choices
+        choiceManager.HideChoices();
+    }
 
     public void ExecuteAction(ActionType actionType, DialogueChoice choice)
     {
@@ -115,16 +120,10 @@ public class DialogueManager : MonoBehaviour
                 currentNPC.GiveQuest();
                 break;
             case ActionType.ChangeNPCState:
-             //   if (choice.changesNPCState)
-                {
-                    ChangeNPCState();
-                }
+                ChangeNPCState(choice);
                 break;
             case ActionType.UpdateInventory:
-               // if (choice.rewardItem != null)
-                {
-              //      UpdateInventory(choice.rewardItem);
-                }
+                // Existing logic...
                 break;
             case ActionType.None:
                 break;
@@ -136,13 +135,16 @@ public class DialogueManager : MonoBehaviour
         GameState.Instance.UnlockQuest(questId);
         //Debug.Log($"Quest {questId} unlocked!");
     }
-
-    private void ChangeNPCState()
+    private void ChangeNPCState(DialogueChoice choice)
     {
-        Debug.Log("NPC state changed!");
+        Debug.Log("Changing NPC state.");
+        currentNPC.dialogue = choice.nextDialogue;
+        Debug.Log("Starting new dialogue.");
+        StartDialogue(choice.nextDialogue);
+        choiceManager.HideChoices();
     }
 
-    private void UpdateInventory(Item item)
+        private void UpdateInventory(Item item)
     {
         GameState.Instance.UpdateInventory(item);
         Debug.Log($"{item.name} added to inventory!");
@@ -152,9 +154,13 @@ public class DialogueManager : MonoBehaviour
     {
         isTyping = true;
         NPCdialogue.text = "";
-
         string originalText = sentence;
         int alphaIndex = 0;
+
+        // Reset AudioSource settings
+        typingSound.volume = 1.0f;
+        typingSound.spatialBlend = 0.0f;
+        typingSound.pitch = 1.0f;
 
         foreach (char c in originalText)
         {
@@ -163,16 +169,29 @@ public class DialogueManager : MonoBehaviour
             string displayedText = NPCdialogue.text.Insert(alphaIndex, HTML_Alpha);
             NPCdialogue.text = displayedText; // Apply typing effect
 
-            yield return new WaitForSeconds(Max_Type_Time / typingSpeed);
+            // Play typing sound for each letter
+            if (typingSound != null)
+            {
+                typingSound.PlayOneShot(typingSound.clip, 0.1f); // Adjust the volume as needed
+            }
+
+            // Add a slight delay to avoid overlap and weirdness
+            yield return new WaitForSeconds((Max_Type_Time / typingSpeed) + 0.01f); // Slight delay added here
         }
 
         isTyping = false;
-    }
 
+        // Ensure typing sound stops when done
+        if (typingSound != null)
+        {
+            typingSound.Stop();
+        }
+    }
     private void FinishParagraphEarly()
     {
         StopCoroutine(typeDialogueCoroutine);
         NPCdialogue.text = currentSentence; // Show full sentence
         isTyping = false;
+        typingSound.Stop(); // Stop typing sound
     }
 }
