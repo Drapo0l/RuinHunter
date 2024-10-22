@@ -168,8 +168,9 @@ public class GameManager : MonoBehaviour
         {
             playerHealthsParent.SetActive(true);
             playerParty = PartyManager.Instance.GetCurrentPartyComponent();
-            StartCombat();
             wasCombatInitialized = true;
+            StartCombat();
+           
         }
         else if (combat)
         {
@@ -269,6 +270,8 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        
+
         // Sort characters based on speed in descending order
         turnOrder = new List<CharacterAttributes>(characters);
         characters.Sort((a, b) => b.combatSpeed.CompareTo(a.combatSpeed));
@@ -300,13 +303,13 @@ public class GameManager : MonoBehaviour
                 enemy.GetComponent<EnemyAI>().setUpStats();
                 currentEnemies.Add(enemy.GetComponent<EnemyAI>().enemyStats);
 
-                currentEnemies[index].maxMana = currentEnemies[index].maxManaOG;
-                currentEnemies[index].maxHealth = currentEnemies[index].maxHealthOG;
-                currentEnemies[index].Defence = currentEnemies[index].DefenceOG;
-                currentEnemies[index].combatSpeed = currentEnemies[index].combatSpeedOG;
-                currentEnemies[index].skillDamage = currentEnemies[index].skillDamageOG;
-                currentEnemies[index].attackDamage = currentEnemies[index].attackDamageOG;
-                currentEnemies[index].critChance = currentEnemies[index].critChanceOG;
+                currentEnemies[index].maxManaOG = currentEnemies[index].maxMana;
+                currentEnemies[index].maxHealthOG = currentEnemies[index].maxHealth;
+                currentEnemies[index].DefenceOG = currentEnemies[index].Defence;
+                currentEnemies[index].combatSpeedOG = currentEnemies[index].combatSpeed;
+                currentEnemies[index].skillDamageOG = currentEnemies[index].skillDamage;
+                currentEnemies[index].attackDamageOG = currentEnemies[index].attackDamage;
+                currentEnemies[index].critChanceOG = currentEnemies[index].critChance;
                 characters.Add(enemy.GetComponent<EnemyAI>().enemyStats);
                 enemy.GetComponent<EnemyAI>().postionOG = enemy.transform.position;
                 index++;
@@ -495,9 +498,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public IEnumerator PlayerDeath(GameObject player)
+    public void PlayerDeath(GameObject player)
     {
-        yield return new WaitForSeconds(1f);
+        //yield return new WaitForSeconds(1f);
         battleParty.Remove(player);
         if (turnOrder.Contains(player.GetComponent<playerController>().playerStats))
             turnOrder.Remove(player.GetComponent<playerController>().playerStats);
@@ -509,6 +512,7 @@ public class GameManager : MonoBehaviour
             Aud.clip = defeatSound;
             Aud.volume = AudiodefeatVol;
             Aud.Play();
+            battleUI.SetActive(false);
             deadMenu.SetActive(true);
         }
     }
