@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Mediocre Armor
   m_EditorClassIdentifier: Assembly-CSharp::EquipmentItem
   Sprite: {fileID: 0}
-  itemName: Mediocre Armor
-  description: definitely close to it's last days, held together by hopes and dreams
-  armor: 15
-  itemPrice: 8
-  armourType: 0
+  itemName: 
+  description: 
+  armor: 800
+  itemPrice: 650
+  armourType: 1

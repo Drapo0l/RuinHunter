@@ -154,11 +154,15 @@ MonoBehaviour:
   questPlayerCompleted: {fileID: 0}
   givePlayerQuest: {fileID: 0}
   weaponsWeakness:
-  - weaponType: 0
-    weaponMultiplier: 1
+  - weaponType: 2
+    weaponMultiplier: 1.5
   elementWeakness:
   - elementType: 1
     elementMultiplier: 1.5
+  - elementType: 2
+    elementMultiplier: 0.2
+  - elementType: 4
+    elementMultiplier: 0.5
   ty: 5
   postionOG: {x: 0, y: 0, z: 0}
   cam: {fileID: 2793435810526664582, guid: f7590eb4013331c4baab59ec332962fc, type: 3}
@@ -168,3 +172,4 @@ MonoBehaviour:
   dropableItems: []
   minGold: 100
   maxGold: 1000
+  finalBoss: 0

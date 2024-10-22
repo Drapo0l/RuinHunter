@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6703692366936006732}
   - component: {fileID: 3660669038055850734}
   - component: {fileID: -2009607564788563918}
+  - component: {fileID: 7301166761079061871}
   m_Layer: 0
   m_Name: Skeleton
   m_TagString: Untagged
@@ -105,8 +106,24 @@ MonoBehaviour:
   scriptableStats: {fileID: 11400000, guid: f154aa5485c971d45965f458312a9863, type: 2}
   questPlayerCompleted: {fileID: 0}
   givePlayerQuest: {fileID: 0}
-  weaponsWeakness: []
-  elementWeakness: []
+  weaponsWeakness:
+  - weaponType: 1
+    weaponMultiplier: 0.5
+  - weaponType: 2
+    weaponMultiplier: 0.5
+  - weaponType: 3
+    weaponMultiplier: 0.5
+  - weaponType: 4
+    weaponMultiplier: 0.5
+  elementWeakness:
+  - elementType: 2
+    elementMultiplier: 2
+  - elementType: 1
+    elementMultiplier: 2
+  - elementType: 4
+    elementMultiplier: 2
+  - elementType: 3
+    elementMultiplier: 2
   ty: 0
   postionOG: {x: 0, y: 0, z: 0}
   cam: {fileID: 0}
@@ -116,6 +133,9 @@ MonoBehaviour:
   dropableItems: []
   minGold: 400
   maxGold: 400
+  finalBoss: 0
+  animator: {fileID: 7301166761079061871}
+  weaknesBar: {fileID: 0}
 --- !u!135 &3660669038055850734
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -164,3 +184,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!95 &7301166761079061871
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1607624793923900521}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7052c8b4bb06f644ea75e62b72afedbd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

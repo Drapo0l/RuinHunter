@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 245832782444076290}
   - component: {fileID: 8390785740958131749}
   - component: {fileID: 2118053574948555170}
+  - component: {fileID: 481866168425863585}
   m_Layer: 0
   m_Name: MushRoom Man
   m_TagString: Untagged
@@ -105,8 +106,16 @@ MonoBehaviour:
   scriptableStats: {fileID: 11400000, guid: d92c5fb7ca808b34ea1ca0c44f75d497, type: 2}
   questPlayerCompleted: {fileID: 0}
   givePlayerQuest: {fileID: 0}
-  weaponsWeakness: []
-  elementWeakness: []
+  weaponsWeakness:
+  - weaponType: 1
+    weaponMultiplier: 1.5
+  elementWeakness:
+  - elementType: 1
+    elementMultiplier: 3
+  - elementType: 4
+    elementMultiplier: 0.1
+  - elementType: 3
+    elementMultiplier: 0.5
   ty: 0
   postionOG: {x: 0, y: 0, z: 0}
   cam: {fileID: 0}
@@ -164,3 +173,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!95 &481866168425863585
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5318663689987964869}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 739240ec3c850bd449c1aae3fd751554, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

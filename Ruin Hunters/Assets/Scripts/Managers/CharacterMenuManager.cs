@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+
 //using static UnityEditor.Progress;
 
 
@@ -416,9 +417,12 @@ public class CharacterMenuManager : MonoBehaviour
 
             if (itemIndex < playerItems.Count)
             {
-                subMenuButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = playerItems[itemIndex].itemName;
-                subMenuButtons[i].interactable = true;
-                itemIndex++;
+                if (playerItems[itemIndex] != null)
+                {
+                    subMenuButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = playerItems[itemIndex].itemName;
+                    subMenuButtons[i].interactable = true;
+                    itemIndex++;
+                }
             }
             else
             {
@@ -555,10 +559,13 @@ public class CharacterMenuManager : MonoBehaviour
 
             if (itemIndex < playerItems.Count)
             {
-                subMenuButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = playerItems[itemIndex].itemName;
-                if (playerItems[i] == playerParty[floor].GetComponent<playerController>().playerStats.weapon)
+                if (playerItems[itemIndex] != null)
                 {
-                    subMenuButtons[i].transform.parent.GetComponent<Image>().color = Color.green;
+                    subMenuButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = playerItems[itemIndex].itemName;
+                    if (playerItems[i] == playerParty[floor].GetComponent<playerController>().playerStats.weapon)
+                    {
+                        subMenuButtons[i].transform.parent.GetComponent<Image>().color = Color.green;
+                    }
                 }
                 else
                 {
@@ -621,10 +628,13 @@ public class CharacterMenuManager : MonoBehaviour
 
             if (itemIndex < playerItems.Count)
             {
-                subMenuButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = playerItems[itemIndex].itemName;
-                if (playerItems[i] == playerParty[floor].GetComponent<playerController>().playerStats.weapon)
+                if (playerItems[itemIndex] != null)
                 {
-                    subMenuButtons[i].transform.parent.GetComponent<Image>().color = Color.green;
+                    subMenuButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = playerItems[itemIndex].itemName;
+                    if (playerItems[i] == playerParty[floor].GetComponent<playerController>().playerStats.weapon)
+                    {
+                        subMenuButtons[i].transform.parent.GetComponent<Image>().color = Color.green;
+                    }
                 }
                 else
                 {
@@ -686,10 +696,13 @@ public class CharacterMenuManager : MonoBehaviour
 
             if (skillIndex < playerItems.Count)
             {
-                subMenuButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = playerItems[skillIndex].itemName;
-                if (playerItems[i] == playerParty[floor].GetComponent<playerController>().playerStats.equipment)
+                if (playerItems[skillIndex] != null)
                 {
-                    subMenuButtons[i].transform.parent.GetComponent<Image>().color = Color.green;
+                    subMenuButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = playerItems[skillIndex].itemName;
+                    if (playerItems[i] == playerParty[floor].GetComponent<playerController>().playerStats.equipment)
+                    {
+                        subMenuButtons[i].transform.parent.GetComponent<Image>().color = Color.green;
+                    }
                 }
                 else
                 {
