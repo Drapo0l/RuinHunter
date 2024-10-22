@@ -57,9 +57,9 @@ MonoBehaviour:
     Ptargit: 0
     AOE: 0
   regions: 2
-  isTurn: 1
+  isTurn: 0
   isStuned: 0
   special: 0
   special_count: 0
-  weapon: {fileID: 11400000, guid: 1c613a8a97282114d9be939b05d4d341, type: 2}
+  weapon: {fileID: 11400000, guid: 512e8ba0a66dfe54eb5202dc8615d195, type: 2}
   equipment: {fileID: 0}

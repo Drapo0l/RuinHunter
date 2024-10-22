@@ -173,3 +173,6 @@ MonoBehaviour:
   dropableItems: []
   minGold: 100
   maxGold: 1000
+  finalBoss: 0
+  animator: {fileID: 7124089947134731855}
+  weaknesBar: {fileID: 0}

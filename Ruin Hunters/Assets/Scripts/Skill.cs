@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEditor.Experimental.GraphView;
+//using UnityEditor.Experimental.GraphView;
 
 
 [System.Serializable]
@@ -18,13 +20,24 @@ public class Skill
     public PublicEnums.Effects effect;
     public int Ptargit; // set as 1 for enemys set as 0 for party members
     public bool AOE; // is it an aoe
-    private ParticleManager ParticleForSkill; 
+
+    public ParticleSystem ParticleForSkill; 
+
+    public AudioSource caster;
+    public AudioSource target;
+    public AudioClip[] Activation_Sound;
+    public float Activation_SoundV;
+    public AudioClip[] Hit_Sound;
+    public float Hit_SoundV;
 
 
-    public void ActivateSkill(GameObject target, int attackerPower, float multiplier,int crit, PublicEnums.Effects effects)
+
+    public void ActivateSkill(GameObject target, int attackerPower, int crit, PublicEnums.Effects effects)
     {
+        if (Activation_Sound != null)
+            caster.PlayOneShot(Activation_Sound[Activation_Sound.Length], Activation_SoundV);
         // Simple damage calculation (adjust as necessary)
-        int damage = Mathf.FloorToInt(baseDamage * multiplier) + attackerPower;
+        int damage = Mathf.FloorToInt(baseDamage) + attackerPower;
         damage = Seffect(target, crit, damage, effects);
         if (effect != PublicEnums.Effects.Heal)
         {
@@ -47,14 +60,21 @@ public class Skill
         IDamage targetHit = target.GetComponent<IDamage>();
         if (targetHit != null) 
         {
+            if (Activation_Sound != null)
+                caster.PlayOneShot(Hit_Sound[Hit_Sound.Length], Hit_SoundV);
+          
             targetHit.TakeSkillDamage(damage, elementType);
         }
     }
-   
-    public void ActivateWeaponAttack(GameObject target, int attackerPower, float multiplier,int crit, PublicEnums.Effects effects)
+
+
+    public void ActivateWeaponAttack(GameObject target, int attackerPower, int crit, PublicEnums.Effects effects, CharacterAttributes attacker)
+
     {
+        if (attacker.Activation_Sound != null)
+            attacker.attacker.PlayOneShot(attacker.Activation_Sound[attacker.Activation_Sound.Length], attacker.Activation_SoundV);
         // Simple damage calculation (adjust as necessary)
-        int damage = Mathf.FloorToInt(baseDamage * multiplier) + attackerPower;
+        int damage = Mathf.FloorToInt(baseDamage) + attackerPower;
         damage = Seffect(target, crit, damage, effects);
         if (target.tag.Equals("Player"))
         {
@@ -74,6 +94,8 @@ public class Skill
         IDamage targetHit = target.GetComponent<IDamage>();
         if (targetHit != null)
         {
+            if (attacker.Activation_Sound != null)
+                attacker.target_BA.PlayOneShot(attacker.Hit_Sound[attacker.Hit_Sound.Length], attacker.Hit_SoundV);
             targetHit.TakeMeleeDamage(damage, PublicEnums.WeaponType.None);
         }
     }
@@ -86,6 +108,8 @@ public class Skill
          int chance = Random.Range(1, 101);
             if(chance <= C)
             {
+                DamageNumberManager.Instance.ShowString(T.transform.position, "CRIT", Color.yellow);
+                T.GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[0]);
                 D = D * 2;
             }
         }
@@ -93,6 +117,7 @@ public class Skill
             if (EN == PublicEnums.Effects.Stun)
             {
             DamageNumberManager.Instance.ShowString(T.transform.position, "STUN!", Color.yellow);
+            T.GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[2]);
             //Pause.Epause();
             if (T.tag.Equals("Player"))
                 {
@@ -107,11 +132,13 @@ public class Skill
             }
             if (EN == PublicEnums.Effects.Heal)
             {
-                D = D * -1;
+            T.GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[1]);
+            D = D * -1;
             }
             if (EN == PublicEnums.Effects.AttackDown)
             {
             DamageNumberManager.Instance.ShowString(T.transform.position, "ATT DOWN", Color.black);
+            T.GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[4]);
             //Pause.Epause();
             if (T.tag.Equals("Player"))
                 {
@@ -127,6 +154,7 @@ public class Skill
             if (EN == PublicEnums.Effects.AttackUp)
             {
             DamageNumberManager.Instance.ShowString(T.transform.position, "ATT UP", Color.red);
+            T.GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[3]);
             //Pause.Epause();
             if (T.tag.Equals("Player"))
                 {
@@ -141,6 +169,7 @@ public class Skill
             }
             if (EN == PublicEnums.Effects.DefenceDown)
             {
+            T.GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[6]);
             DamageNumberManager.Instance.ShowString(T.transform.position, "DEF DOWN", Color.black);
             //Pause.Epause();
             if (T.tag.Equals("Player"))
@@ -157,6 +186,7 @@ public class Skill
             if (EN == PublicEnums.Effects.DefenceUp)
             {
             DamageNumberManager.Instance.ShowString(T.transform.position, "DEF UP", Color.blue);
+            T.GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[5]);
             //Pause.Epause();
             if (T.tag.Equals("Player"))
                 {
@@ -173,6 +203,7 @@ public class Skill
             if (EN == PublicEnums.Effects.SpeedDown)
             {
             DamageNumberManager.Instance.ShowString(T.transform.position, "SPD DOWN", Color.black);
+            T.GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[8]);
             //Pause.Epause();
 
             if (T.tag.Equals("Player"))
@@ -189,6 +220,7 @@ public class Skill
             if (EN == PublicEnums.Effects.SpeedUp)
             {
             DamageNumberManager.Instance.ShowString(T.transform.position, "SPD UP", Color.green);
+            T.GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[7]);
             //Pause.Epause();
             if (T.tag.Equals("Player"))
                 {
@@ -204,6 +236,7 @@ public class Skill
             if (EN == PublicEnums.Effects.SkillPDown)
             {
             DamageNumberManager.Instance.ShowString(T.transform.position, "SKL DOWN", Color.black);
+            T.GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[10]);
             //Pause.Epause();
             if (T.tag.Equals("Player"))
                 {
@@ -219,6 +252,7 @@ public class Skill
             if (EN == PublicEnums.Effects.SkillPUP)
             {
             DamageNumberManager.Instance.ShowString(T.transform.position, "SKL UP", Color.cyan);
+            T.GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[9]);
             //Pause.Epause();
             if (T.tag.Equals("Player"))
                 {
@@ -234,6 +268,7 @@ public class Skill
             if (EN == PublicEnums.Effects.Clense)
             {
             DamageNumberManager.Instance.ShowString(T.transform.position, "Clense", Color.gray);
+            T.GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[11]);
             //Pause.Epause();
             if (T.tag.Equals("Player"))
                 {
@@ -244,7 +279,7 @@ public class Skill
                     T.GetComponent<playerController>().playerStats.skillDamage = T.GetComponent<playerController>().playerStats.skillDamageOG;
                     T.GetComponent<playerController>().playerStats.attackDamage = T.GetComponent<playerController>().playerStats.attackDamageOG;
                     T.GetComponent<playerController>().playerStats.critChance = T.GetComponent<playerController>().playerStats.critChanceOG;
-                    T.GetComponent<playerController>().playerStats.effectChance = T.GetComponent<playerController>().playerStats.effectChanceOG;
+                    
                 }
                 else
                 {
@@ -255,7 +290,7 @@ public class Skill
                     T.GetComponent<EnemyAI>().enemyStats.skillDamage = T.GetComponent<EnemyAI>().enemyStats.skillDamageOG;
                     T.GetComponent<EnemyAI>().enemyStats.attackDamage = T.GetComponent<EnemyAI>().enemyStats.attackDamageOG;
                     T.GetComponent<EnemyAI>().enemyStats.critChance = T.GetComponent<EnemyAI>().enemyStats.critChanceOG;
-                    T.GetComponent<EnemyAI>().enemyStats.effectChance = T.GetComponent<EnemyAI>().enemyStats.effectChanceOG;
+                   
                 }
 
 

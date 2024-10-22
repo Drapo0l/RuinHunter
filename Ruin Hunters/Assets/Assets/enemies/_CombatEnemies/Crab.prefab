@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6485680041945285381}
   - component: {fileID: 2492059780744149411}
   - component: {fileID: 1297650339536679477}
+  - component: {fileID: -2699023816098423015}
   m_Layer: 0
   m_Name: Crab
   m_TagString: Untagged
@@ -154,7 +155,9 @@ MonoBehaviour:
   questPlayerCompleted: {fileID: 0}
   givePlayerQuest: {fileID: 0}
   weaponsWeakness: []
-  elementWeakness: []
+  elementWeakness:
+  - elementType: 1
+    elementMultiplier: 2
   ty: 0
   postionOG: {x: 0, y: 0, z: 0}
   cam: {fileID: 0}
@@ -164,3 +167,27 @@ MonoBehaviour:
   dropableItems: []
   minGold: 100
   maxGold: 200
+  finalBoss: 0
+  animator: {fileID: -2699023816098423015}
+  weaknesBar: {fileID: 0}
+--- !u!95 &-2699023816098423015
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7982593359653728736}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: baa67eee7fa8b9c4ba2715714aefac30, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

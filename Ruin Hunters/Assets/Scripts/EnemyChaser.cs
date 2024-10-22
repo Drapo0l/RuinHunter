@@ -28,11 +28,18 @@ public class EnemyChaser : MonoBehaviour
     [SerializeField] float Sightrange;
     bool isinSight;
 
+    [SerializeField] AudioSource Aud;
+    [SerializeField] AudioClip walkSound;
+    [SerializeField] float AudioWalkVol;
+    private bool isWalkingSoundPlaying = false;
+
     void Start()
     {
        
         flipTransform = enemyTransform;
         flipTransform.transform.localScale = new Vector3(-enemyTransform.localScale.x, enemyTransform.localScale.y, enemyTransform.localScale.z);
+        Aud.clip = walkSound;
+        Aud.volume = AudioWalkVol;
     }
 
 
@@ -41,18 +48,41 @@ public class EnemyChaser : MonoBehaviour
         // Prevent rotation by overriding it to always face a certain direction       
         transform.rotation = Quaternion.Euler(0f, 0f, 0f);
 
+        if (!isWalkingSoundPlaying)
+        {
+            StartCoroutine(PlayWalkingSound());
+        }
+
         isinSight = Physics.CheckSphere(transform.position, Sightrange, WherePlayer);
         if (!isinSight)
         {
-            enemyAnimator.SetBool("Run", false);
-            Patroling();
+            if (HasParameter(enemyAnimator, "Run"))
+            {
+                enemyAnimator.SetBool("Run", false);
+                Patroling();
+            }
 
         }
         if (isinSight)
         {
-            enemyAnimator.SetBool("Run", true);
-            Chase();
+            if (HasParameter(enemyAnimator, "Run"))
+            {
+                enemyAnimator.SetBool("Run", true);
+                Chase();
+            }
         }
+    }
+
+    bool HasParameter(Animator animator, string paramName)
+    {
+        foreach (AnimatorControllerParameter param in animator.parameters)
+        {
+            if (param.name == paramName)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void OnTriggerEnter(Collider collision)
@@ -94,6 +124,7 @@ public class EnemyChaser : MonoBehaviour
         if (!isCheckingFlip)
         {
             StartCoroutine(CheckForFlip(WalkPoint));
+           
         }
 
         if (Physics.Raycast(WalkPoint, -transform.up, 2f, Ground))
@@ -103,6 +134,14 @@ public class EnemyChaser : MonoBehaviour
 
     }
     
+    private IEnumerator PlayWalkingSound()
+    {
+        isWalkingSoundPlaying = true;
+        Aud.Play();
+        yield return new WaitForSeconds(Aud.clip.length);
+        isWalkingSoundPlaying = false;
+    }
+
     public void Chase()
     {
         if(!isCheckingFlip)

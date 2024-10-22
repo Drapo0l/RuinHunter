@@ -152,8 +152,9 @@ MonoBehaviour:
   enemyName: Slime
   enemyStats: {fileID: 0}
   scriptableStats: {fileID: 11400000, guid: d8290e5681d443147adc4a3ccb758264, type: 2}
-  questPlayerCompleted: {fileID: 0}
-  givePlayerQuest: {fileID: 0}
+  questPlayerCompleted: {fileID: 11400000, guid: 627dc717832839445bb575f384409ea9,
+    type: 2}
+  givePlayerQuest: {fileID: 11400000, guid: f01471afda47a394d968995511b4c5ba, type: 2}
   weaponsWeakness:
   - weaponType: 0
     weaponMultiplier: 1
@@ -169,6 +170,9 @@ MonoBehaviour:
   dropableItems: []
   minGold: 100
   maxGold: 1000
+  finalBoss: 0
+  animator: {fileID: 7124089947134731855}
+  weaknesBar: {fileID: 0}
 --- !u!135 &-6849948899026143703
 SphereCollider:
   m_ObjectHideFlags: 0
