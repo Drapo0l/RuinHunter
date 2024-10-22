@@ -17,7 +17,7 @@ MonoBehaviour:
   description: clenses all stats
   effectAmount: 0
   amountOfItem: 0
-  itemPrice: 0
+  itemPrice: 1200
   damageable: 0
   potionEffect: 12
   Element: 0

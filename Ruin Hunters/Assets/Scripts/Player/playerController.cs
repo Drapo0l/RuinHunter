@@ -157,7 +157,7 @@ public class playerController : MonoBehaviour, IDamage
         playerAnimator.SetTrigger("Attack");
     }
 
-    public void TakeSkillDamage(int damage, PublicEnums.ElementType elementType)
+    public void TakeSkillDamage1(int damage, PublicEnums.ElementType elementType)
     {
         float multiplier = GetSkillMultiplier(elementType);
         damage = Mathf.FloorToInt(damage * multiplier);
@@ -184,7 +184,7 @@ public class playerController : MonoBehaviour, IDamage
         }
     }
 
-    public void TakeMeleeDamage(int damage, PublicEnums.WeaponType weaponType)
+    public void TakeMeleeDamage1(int damage, PublicEnums.WeaponType weaponType)
     {
         float multiplier = GetMeleeMultiplier(weaponType);
         damage = Mathf.FloorToInt(damage * multiplier);

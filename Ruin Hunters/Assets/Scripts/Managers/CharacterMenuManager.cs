@@ -947,11 +947,13 @@ public class CharacterMenuManager : MonoBehaviour
                 {
                     if (playerParty[i].GetComponent<playerController>().playerStats.health <= 0)
                     {
-                       
-                       
-                        
+
+                        playerParty[i].GetComponent<playerController>().playerStats.health = playerParty[i].GetComponent<playerController>().playerStats.maxHealth;
+
+
                     }
                 }
+                item.amountOfItem--;
             }
             if (item.potionEffect == PublicEnums.Effects.mana && playerStats.health <= 0)
             {
@@ -975,7 +977,7 @@ public class CharacterMenuManager : MonoBehaviour
 
 
                 }
-               
+                item.amountOfItem--;
             }
             else if(item.potionEffect == PublicEnums.Effects.Heal && playerStats.health != playerStats.maxHealth)
             {
@@ -998,6 +1000,7 @@ public class CharacterMenuManager : MonoBehaviour
 
 
                 }
+                item.amountOfItem--;
             }
             else if(item.potionEffect == PublicEnums.Effects.Revive && playerStats.health > 0)
             {

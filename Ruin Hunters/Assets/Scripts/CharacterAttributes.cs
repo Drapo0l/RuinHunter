@@ -77,7 +77,7 @@ public class CharacterAttributes : ScriptableObject
         xpToNextLevel =+ 1000;
         maxHealth += 900;
         health = maxHealth;
-        maxMana += 400;
+        maxMana += 100;
         mana = maxMana;
         attackDamage += 300;
         Defence += 50;

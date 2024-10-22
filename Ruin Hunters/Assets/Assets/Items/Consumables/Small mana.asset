@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sprite: {fileID: 0}
   itemName: Small mana
-  description: 
-  effectAmount: 0
+  description: gives  40 mana
+  effectAmount: 40
   amountOfItem: 0
-  itemPrice: 0
+  itemPrice: 10
   damageable: 0
-  potionEffect: 0
+  potionEffect: 14
   Element: 0
   itemType: 0

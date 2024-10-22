@@ -17,7 +17,7 @@ MonoBehaviour:
   description: Heals 4000hp
   effectAmount: 4000
   amountOfItem: 0
-  itemPrice: 0
+  itemPrice: 250
   damageable: 0
   potionEffect: 2
   Element: 0

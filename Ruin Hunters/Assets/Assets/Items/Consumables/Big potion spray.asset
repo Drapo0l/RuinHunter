@@ -17,7 +17,7 @@ MonoBehaviour:
   description: heals 1000hp to all party members
   effectAmount: 1000
   amountOfItem: 0
-  itemPrice: 0
+  itemPrice: 50
   damageable: 0
   potionEffect: 15
   Element: 0

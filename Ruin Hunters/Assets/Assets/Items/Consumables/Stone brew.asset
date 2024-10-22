@@ -17,7 +17,7 @@ MonoBehaviour:
   description: boosts defence stat
   effectAmount: 0
   amountOfItem: 0
-  itemPrice: 0
+  itemPrice: 1000
   damageable: 0
   potionEffect: 6
   Element: 0
