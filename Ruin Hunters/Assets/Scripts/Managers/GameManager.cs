@@ -37,9 +37,11 @@ public class GameManager : MonoBehaviour
     public List<GameObject> weaknessBars;
     private List<CharacterAttributes> characters; //list to hold enmies and allies
 
+
     public List<GameObject> playerHealths;          // list of player health/mana
     public List<GameObject> turnOrderSprytes;         
     public GameObject turnOrderDividor;         
+
     public GameObject playerHealthsParent;
     //private int currentTurnIndex = 0; // index of the current character's turn
 
@@ -78,7 +80,7 @@ public class GameManager : MonoBehaviour
 
     public Vector3 lastPlayerPosition;
     public List<GameObject> playerLeveled = new List<GameObject>();
-
+    public List<AudioClip> Effect_Sounds = new List<AudioClip>();
     private int totalXpForParty;
     private bool wasCombatInitialized = false;
 
@@ -230,6 +232,9 @@ public class GameManager : MonoBehaviour
 
         AddRandomEnemies();
         SetupBattleField();
+
+
+       
         
         
 
@@ -257,7 +262,6 @@ public class GameManager : MonoBehaviour
             characters[i].skillDamageOG = characters[i].skillDamage;
             characters[i].attackDamageOG = characters[i].attackDamage;
             characters[i].critChanceOG = characters[i].critChance;
-            characters[i].effectChanceOG = characters[i].effectChance;
             expTotal = characters[i].expGive + expTotal;
             if (characters[i].equipment != null)
             {
@@ -303,7 +307,6 @@ public class GameManager : MonoBehaviour
                 currentEnemies[index].skillDamage = currentEnemies[index].skillDamageOG;
                 currentEnemies[index].attackDamage = currentEnemies[index].attackDamageOG;
                 currentEnemies[index].critChance = currentEnemies[index].critChanceOG;
-                currentEnemies[index].effectChance = currentEnemies[index].effectChanceOG;
                 characters.Add(enemy.GetComponent<EnemyAI>().enemyStats);
                 enemy.GetComponent<EnemyAI>().postionOG = enemy.transform.position;
                 index++;
@@ -534,7 +537,6 @@ public class GameManager : MonoBehaviour
             characters[i].skillDamage = characters[i].skillDamageOG;
             characters[i].attackDamage = characters[i].attackDamageOG;
             characters[i].critChance = characters[i].critChanceOG;
-            characters[i].effectChance = characters[i].effectChanceOG;
             characters[i].AddExperience(expTotal);
         }
 
@@ -624,7 +626,6 @@ public class GameManager : MonoBehaviour
             characters[i].skillDamage = characters[i].skillDamageOG;
             characters[i].attackDamage = characters[i].attackDamageOG;
             characters[i].critChance = characters[i].critChanceOG;
-            characters[i].effectChance = characters[i].effectChanceOG;
             characters[i].AddExperience(expTotal);
         }
         while (enemyObj.Count != 0 )

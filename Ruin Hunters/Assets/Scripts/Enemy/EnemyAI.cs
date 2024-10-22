@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+//using UnityEditor.Experimental.GraphView;
+
+//using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.ProBuilder.Shapes;
 using static PublicEnums;
@@ -26,6 +29,7 @@ public class EnemyAI : MonoBehaviour
     public int minGold;
     public int maxGold;
     public bool finalBoss;
+
     public Animator animator;
     private bool animatingAttack;
     private bool attackSkill;
@@ -138,7 +142,7 @@ public class EnemyAI : MonoBehaviour
             if (enemyStats.special == true)
             {
                 Skill chosenSkill = availableSkills[Random.Range(0, 4)];
-
+                enemyStats.attacker = enemyModel.GetComponent<AudioSource>();
                 if (chosenSkill == availableSkills[0] | chosenSkill == availableSkills[1])
                 {
                     int kc;
@@ -149,6 +153,7 @@ public class EnemyAI : MonoBehaviour
                         target = GameManager.Instance.battleParty[i];
                         if (target.GetComponent<playerController>().playerStats.health <= 0)
                         {
+                            enemyStats.target_BA = target.GetComponent<AudioSource>();
                             if (target != null)
                             {
                                 if (kc < GameManager.Instance.battleParty.Count - 1)
@@ -173,6 +178,7 @@ public class EnemyAI : MonoBehaviour
                 }
                 else
                 {
+
                     UseAttackSkill(chosenSkill); // the last 2 are direct attacks 1 with a high crit rate another that drops the attack of the target 
                     PerformBasicAttack(); // then do a basic attack 
                 }
@@ -183,6 +189,7 @@ public class EnemyAI : MonoBehaviour
             {
                 int ran2;
                 ran2 = Random.Range(0, 101);
+                enemyStats.attacker = enemyModel.GetComponent<AudioSource>();
                 if (ran2 < 0)
                 {
                     ran2 = 1;
@@ -223,9 +230,12 @@ public class EnemyAI : MonoBehaviour
                 if (enemyStats.special == false) // this will change the day time dessert to a full moon blizzard 
                 {
                     enemyStats.special_count = 4;
+
                     //float weaponMultiplier = GetWeaponMultiplier(PublicEnums.WeaponType.Sword);
+                    enemyStats.attacker = enemyModel.GetComponent<AudioSource>();
                     availableSkills[4].ActivateSkill(GameManager.Instance.enemyObj[0], 0, enemyStats.critChance, availableSkills[4].effect); // this clenses all his effects
                     availableSkills[0].ActivateSkill(GameManager.Instance.enemyObj[0], 0, enemyStats.critChance, availableSkills[0].effect); // and gives him an attack buff 
+
                     int kc;
                     kc = GameManager.Instance.battleParty.Count - 1;
                     GameObject target = null;
@@ -261,9 +271,14 @@ public class EnemyAI : MonoBehaviour
                 else if (enemyStats.special == true) // if the full moon is out it will change to a new moon the blizzard will stop 
                 {
                     enemyStats.special_count = 4;
+
                     //float weaponMultiplier = GetWeaponMultiplier(PublicEnums.WeaponType.Sword);
+                    enemyStats.attacker = enemyModel.GetComponent<AudioSource>();
                     availableSkills[4].ActivateSkill(GameManager.Instance.enemyObj[0],0, enemyStats.critChance, availableSkills[4].effect); // he will clense his debuffs 
                     availableSkills[1].ActivateSkill(GameManager.Instance.enemyObj[0], 0, enemyStats.critChance, availableSkills[1].effect); // and heal himself 
+
+                    
+
                     int kc;
                     kc = GameManager.Instance.battleParty.Count - 1;
                     GameObject target;
@@ -272,6 +287,7 @@ public class EnemyAI : MonoBehaviour
                         target = GameManager.Instance.battleParty[i];
                         if (target.GetComponent<playerController>().playerStats.health >= 0)
                         {
+                            enemyStats.target_BA = target.GetComponent<AudioSource>();
                             if (target != null)
                             {
                                 if (kc < GameManager.Instance.battleParty.Count - 1)
@@ -303,6 +319,7 @@ public class EnemyAI : MonoBehaviour
             {
                 int ran2;
                 ran2 = Random.Range(0, 101);
+                enemyStats.attacker = enemyModel.GetComponent<AudioSource>();
                 if (ran2 < 0)
                 {
                     ran2 = 1;
@@ -334,6 +351,7 @@ public class EnemyAI : MonoBehaviour
             enemyStats.special_count--;
             int ran;
             ran = Random.Range(0, 101);
+            enemyStats.attacker = enemyModel.GetComponent<AudioSource>();
             if (ran < 0)
             {
                 ran = 1;
@@ -367,14 +385,21 @@ public class EnemyAI : MonoBehaviour
             if (enemyStats.special_count == 0) // this will start at 1 but at 0 he will clense his debuffs from his explosive finish
             {
 
+
                 //float weaponMultiplier = GetWeaponMultiplier(PublicEnums.WeaponType.Sword);
+                enemyStats.attacker = enemyModel.GetComponent<AudioSource>();
                 availableSkills[3].ActivateSkill(GameManager.Instance.enemyObj[0], 0, enemyStats.critChance, availableSkills[3].effect);
+
                 enemyStats.special_count++;
             }
 
             if (enemyStats.special_count == 5) // at 5 he over clocks doing 4 basic attacks then he explodes doing masive dmg to the whole party
             {
+
                 //float weaponMultiplier = GetWeaponMultiplier(PublicEnums.WeaponType.Sword);
+
+                enemyStats.attacker = enemyModel.GetComponent<AudioSource>();
+
                 PerformBasicAttack();
                 PerformBasicAttack();
                 PerformBasicAttack();
@@ -387,6 +412,7 @@ public class EnemyAI : MonoBehaviour
                     target = GameManager.Instance.battleParty[i];
                     if (target.GetComponent<playerController>().playerStats.health >= 0)
                     {
+                        enemyStats.target_BA = target.GetComponent<AudioSource>();
                         if (target != null)
                         {
                             if (kc < GameManager.Instance.battleParty.Count - 1)
@@ -416,19 +442,29 @@ public class EnemyAI : MonoBehaviour
             if (enemyStats.special == true) // after that tho he loses defence and speed
             {
                 Skill chosenSkill = availableSkills[0];
+
                 //float weaponMultiplier = GetWeaponMultiplier(PublicEnums.WeaponType.Sword);
                 availableSkills[0].ActivateSkill(GameManager.Instance.enemyObj[0], 0, enemyStats.critChance, availableSkills[0].effect);
                 availableSkills[1].ActivateSkill(GameManager.Instance.enemyObj[0], 0, enemyStats.critChance, availableSkills[1].effect);
+                enemyStats.attacker = enemyModel.GetComponent<AudioSource>();
+                enemyStats.target_BA = GameManager.Instance.enemyObj[0].GetComponent<AudioSource>();
+
 
                 enemyStats.special = false;
             }
             else if (enemyStats.special_count != 5 | enemyStats.special_count != 0) // normaly tho he has a 50/50 chance to use a skill or normal attack
             {
                 enemyStats.special_count++;
+                if (enemyStats.special_count == 5)
+                {
+                    enemyStats.attacker = enemyModel.GetComponent<AudioSource>();
+                    enemyStats.attacker.PlayOneShot(enemyStats.special_sounds[0][enemyStats.special_sounds[0].Length], enemyStats.special_soundsV);
+                }
                 int ran;
                 ran = Random.Range(0, 101);
+                enemyStats.attacker = enemyModel.GetComponent<AudioSource>();
                 if (ran < 0)
-                {
+                { 
                     ran = 1;
                 }
                 if (ran < 40)
@@ -470,19 +506,24 @@ public class EnemyAI : MonoBehaviour
             }
             if (enemyStats.special == true)
             {
+                enemyStats.attacker = enemyModel.GetComponent<AudioSource>();
                 PerformBasicAttack();
                 PerformBasicAttack();
                 PerformBasicAttack();
                 PerformBasicAttack();
                 PerformBasicAttack();
+
                 //float weaponMultiplier = GetWeaponMultiplier(PublicEnums.WeaponType.Sword);
                 availableSkills[0].ActivateSkill(GameManager.Instance.enemyObj[0], 0, enemyStats.critChance, availableSkills[0].effect); // this lowers his own defence
+                enemyStats.target_BA = GameManager.Instance.enemyObj[0].GetComponent<AudioSource>();
+
             }
             else
             {
                 enemyStats.special_count--;
                 int ran;
                 ran = Random.Range(0, 101);
+                enemyStats.attacker = enemyModel.GetComponent<AudioSource>();
                 if (ran < 0)
                 {
                     ran = 1;
@@ -519,14 +560,19 @@ public class EnemyAI : MonoBehaviour
             }
             if (enemyStats.special_count == 3)
             {
+
                 //float weaponMultiplier = GetWeaponMultiplier(PublicEnums.WeaponType.Sword);
                 availableSkills[1].ActivateSkill(GameManager.Instance.enemyObj[0], 0, enemyStats.critChance, availableSkills[1].effect); // after that he will clense his debuffs 
+                enemyStats.attacker = enemyModel.GetComponent<AudioSource>();
+                enemyStats.target_BA = GameManager.Instance.enemyObj[0].GetComponent<AudioSource>();
+
             }
 
         }
         if (ty == PublicEnums.EnemyTypes.Boss_1_Main) // the main boss is a ruin beast its 1 great gem in the shape of an eye that then makes 2 diffrent arms 1 being made of red gems being the left arm and a blue one made of blue gems
         {
             Skill chosenSkill2 = availableSkills[Random.Range(0, availableSkills.Count)];
+            enemyStats.attacker = enemyModel.GetComponent<AudioSource>();
             if (chosenSkill2.Ptargit == 1)
             {
 
@@ -544,6 +590,7 @@ public class EnemyAI : MonoBehaviour
         }
         if (ty == PublicEnums.EnemyTypes.Boss_1_L_arm) // the left arm is pure basic attack with a 50% chance to stun when below 50% health 
         {
+            enemyStats.attacker = enemyModel.GetComponent<AudioSource>();
             if (enemyStats.health <= enemyStats.maxHealth/2)
             {
                 int ran;
@@ -562,6 +609,7 @@ public class EnemyAI : MonoBehaviour
                         target = GameManager.Instance.battleParty[i];
                         if (target.GetComponent<playerController>().playerStats.health >= 0)
                         {
+                            enemyStats.target_BA = target.GetComponent<AudioSource>();
                             if (target != null)
                             {
                                 if (kc < GameManager.Instance.battleParty.Count - 1)
@@ -595,6 +643,7 @@ public class EnemyAI : MonoBehaviour
             {
                 int ran;
                 ran = Random.Range(0, 101);
+                enemyStats.attacker = enemyModel.GetComponent<AudioSource>();
                 if (ran < 0)
                 {
                     ran = 1;
@@ -604,6 +653,7 @@ public class EnemyAI : MonoBehaviour
                     UseAttackSkill(availableSkills[0]);
                 }
             }
+            enemyStats.attacker = enemyModel.GetComponent<AudioSource>();
             Skill chosenSkill2 = availableSkills[Random.Range(0, availableSkills.Count )];
 
             if (chosenSkill2.Ptargit == 1)
@@ -661,6 +711,7 @@ public class EnemyAI : MonoBehaviour
     {
         int ran;
         GameObject target;
+        enemyStats.attacker = enemyModel.GetComponent<AudioSource>();
         if (skill.AOE == true)
         {
             int kc;
@@ -670,6 +721,7 @@ public class EnemyAI : MonoBehaviour
                 target = GameManager.Instance.battleParty[i];
                 if (target.GetComponent<EnemyAI>().enemyStats.health >= 0)
                 {
+                    enemyStats.target_BA = target.GetComponent<AudioSource>();
                     if (target != null)
                     {
                         if (kc < GameManager.Instance.battleParty.Count - 1)
@@ -709,6 +761,7 @@ public class EnemyAI : MonoBehaviour
                 }
                 else
                 {
+                    enemyStats.target_BA = target.GetComponent<AudioSource>();
                     break;
                 }
             }
@@ -729,6 +782,7 @@ public class EnemyAI : MonoBehaviour
         // Find the player to target
         int ran;
         GameObject target;
+        enemyStats.attacker = enemyModel.GetComponent<AudioSource>();
         if (skill.AOE == true)
         {
 
@@ -739,6 +793,7 @@ public class EnemyAI : MonoBehaviour
                 target = GameManager.Instance.battleParty[i];
                 if (target.GetComponent<playerController>().playerStats.health >= 0)
                 {
+                    enemyStats.target_BA = target.GetComponent<AudioSource>();
                     if (target != null)
                     {
                         if(kc < GameManager.Instance.battleParty.Count - 1)
@@ -780,6 +835,7 @@ public class EnemyAI : MonoBehaviour
                 }
                 else
                 {
+                    enemyStats.target_BA = target.GetComponent<AudioSource>();
                     break;
                 }
             }
@@ -827,6 +883,7 @@ public class EnemyAI : MonoBehaviour
     {
         int ran;
         GameObject target;
+        enemyStats.attacker = enemyModel.GetComponent<AudioSource>();
         while (true)
         {
             ran = Random.Range(0, PartyManager.Instance.startingPlayerParty.Count);
@@ -841,6 +898,7 @@ public class EnemyAI : MonoBehaviour
             }
             else
             {
+                enemyStats.target_BA = target.GetComponent<AudioSource>();
                 break;
             }
         }
@@ -851,8 +909,10 @@ public class EnemyAI : MonoBehaviour
 
             // Activate the weapon attack
             Skill weaponAttack = new Skill();
+
             StartCoroutine(MoveToPosition(target.transform.position, 1f));
-            weaponAttack.ActivateWeaponAttack(target, enemyStats.attackDamage, enemyStats.critChance, weaponAttack.effect); // Example power 10
+            weaponAttack.ActivateWeaponAttack(target, enemyStats.attackDamage, enemyStats.critChance, weaponAttack.effect, enemyStats); // Example power 10
+
             targetIndicatorE.SetActive(false);
         }
     }
@@ -871,6 +931,7 @@ public class EnemyAI : MonoBehaviour
         else
         {
             DamageNumberManager.Instance.ShowNumbers(targetPosition, damage, Color.red);
+            enemyStats.attacker.PlayOneShot(enemyStats.DMG_sound, enemyStats.Activation_SoundV);
         }
 
 
@@ -889,12 +950,17 @@ public class EnemyAI : MonoBehaviour
                 QuestManager.instance.CompleteQuest(questPlayerCompleted);
             if (givePlayerQuest != null)
                 QuestManager.instance.AddQuest(givePlayerQuest);
-            if (finalBoss)
-            {
-                GameManager.Instance.FleeCombat();
-                WinMenu.instance.ShowWinMenu();
-            }
+            /*  if (finalBoss)
+              {
+                  GameManager.Instance.FleeCombat();
+                  WinMenu.instance.ShowWinMenu();
+
+              }
+             }*/
             weaknesBar.SetActive(false);
+
+           
+
             Destroy(gameObject);
         }
         else if (HasParameter(animator, "Hit"))
@@ -908,6 +974,7 @@ public class EnemyAI : MonoBehaviour
     {
         float multiplier = GetSkillMultiplier(elementType);
         damage = Mathf.FloorToInt(damage * multiplier);
+        enemyStats.attacker = enemyModel.GetComponent<AudioSource>();
         enemyStats.health -= damage;
         Vector3 targetPosition = transform.position;
         if(damage < 0)
@@ -918,6 +985,7 @@ public class EnemyAI : MonoBehaviour
         else
         {
             DamageNumberManager.Instance.ShowNumbers(targetPosition, damage, Color.red);
+            enemyStats.attacker.PlayOneShot(enemyStats.DMG_sound, enemyStats.Activation_SoundV);
         }
 
        
@@ -937,12 +1005,17 @@ public class EnemyAI : MonoBehaviour
                 QuestManager.instance.CompleteQuest(questPlayerCompleted);
             if (givePlayerQuest != null)
                 QuestManager.instance.AddQuest(givePlayerQuest);
-            if (finalBoss)
-            {
-                GameManager.Instance.FleeCombat();
-                WinMenu.instance.ShowWinMenu();
-            }
+            /*  if (finalBoss)
+              {
+                  GameManager.Instance.FleeCombat();
+                  WinMenu.instance.ShowWinMenu();
+
+              }
+              }*/
             weaknesBar.SetActive(false);
+
+          
+
             Destroy(gameObject);
         }
         else if (HasParameter(animator, "Hit"))

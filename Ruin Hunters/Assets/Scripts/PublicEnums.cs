@@ -82,6 +82,7 @@ public class PublicEnums : Item
         Party_DefenceDown,
         Party_SpeedDown,
         Party_SkillDown,
+        Party_Crit,
        
     }
 
