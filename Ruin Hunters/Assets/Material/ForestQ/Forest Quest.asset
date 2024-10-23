@@ -26,19 +26,3 @@ MonoBehaviour:
     consequences: []
     choiceMade: 0
     neverDisable: 0
-  - buttonText: B
-    playerText: I'm lost
-    nextDialogue: {fileID: 11400000, guid: b2b189be44beb8f46b7e1dfae6a7a959, type: 2}
-    actionType: 1
-    conditions: []
-    consequences: []
-    choiceMade: 0
-    neverDisable: 0
-  - buttonText: C
-    playerText: I'm only looking around
-    nextDialogue: {fileID: 11400000, guid: b2b189be44beb8f46b7e1dfae6a7a959, type: 2}
-    actionType: 0
-    conditions: []
-    consequences: []
-    choiceMade: 0
-    neverDisable: 1

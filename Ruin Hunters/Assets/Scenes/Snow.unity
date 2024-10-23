@@ -185,6 +185,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7439046723695810622, guid: f1cc465b30089fa48a73c21b0b0c5029,
+        type: 3}
+      propertyPath: m_Name
+      value: ChefSlime
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
