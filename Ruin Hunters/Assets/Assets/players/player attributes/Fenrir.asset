@@ -14,25 +14,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sprite: {fileID: -3318188226485093758, guid: ae72133dacba6ec4eb33ecde48f50e56, type: 3}
   level: 14
-  currentXP: 4483
+  currentXP: 7683
   xpToNextLevel: 7904
   nameOfCharacter: Fenrir
-  health: 6284
+  health: 3840
   maxHealth: 6284
   maxMana: 114
   mana: 114
   combatSpeed: 31
   skillDamage: 100
-  attackDamage: 1144
+  attackDamage: 5000
   critChance: 0
   Defence: 213
   maxHealthOG: 6284
   maxManaOG: 114
   combatSpeedOG: 31
   skillDamageOG: 100
-  attackDamageOG: 1144
+  attackDamageOG: 5000
   critChanceOG: 0
   DefenceOG: 213
+  effectChance: 0
+  effectChanceOG: 0
   expGive: 0
   skills:
   - sprite: {fileID: 0}
@@ -71,7 +73,7 @@ MonoBehaviour:
     Hit_Sound: []
     Hit_SoundV: 0
   regions: 2
-  isTurn: 0
+  isTurn: 1
   isStuned: 0
   special: 0
   special_count: 0

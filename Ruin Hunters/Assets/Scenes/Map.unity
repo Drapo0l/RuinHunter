@@ -1548,6 +1548,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4014578770622759765, guid: 2274f3d72bfb8434c874fba90a5fe725,
+        type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4014578770622759765, guid: 2274f3d72bfb8434c874fba90a5fe725,
+        type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 4014578770622759765, guid: 2274f3d72bfb8434c874fba90a5fe725,
+        type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
+      objectReference: {fileID: 0}
     - target: {fileID: 4510362568171986856, guid: 2274f3d72bfb8434c874fba90a5fe725,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -3970,6 +3985,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.x
       value: -245.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6098989602595443305, guid: b49ff913e22193f4da0765b8c3825301,
+        type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6098989602595443305, guid: b49ff913e22193f4da0765b8c3825301,
+        type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 6098989602595443305, guid: b49ff913e22193f4da0765b8c3825301,
+        type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
       objectReference: {fileID: 0}
     - target: {fileID: 6236259047947077714, guid: b49ff913e22193f4da0765b8c3825301,
         type: 3}

@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
     public GameObject turnOrderDividor;
     public List<GameObject> playerHealths;          // list of player health/mana
     public GameObject playerHealthsParent;
+    public GameObject turnOrderParent;
     private int currentTurnIndex = 0; // index of the current character's turn
 
     [SerializeField] GameObject levelUpScreen;
@@ -211,6 +212,7 @@ public class GameManager : MonoBehaviour
 
     void StartCombat()
     {
+        
         battleUI.SetActive(true);
         randomSound = UnityEngine.Random.Range(0, fightMusic.Count);
         Aud.volume = AudioFightVol;
@@ -240,7 +242,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                PlayerDeath(battleParty[i]);
+                Grave_Yard.Add(battleParty[i]);
                 count--;
             }
         }
@@ -328,6 +330,7 @@ public class GameManager : MonoBehaviour
             player.transform.SetParent(battleCamera.transform);
             player.transform.localPosition = new Vector3(2.03f + pos, -1.28f, 7.5f + pos);
             pos++;
+
         }
         Vector3[] positions = new Vector3[]
         {
@@ -405,7 +408,8 @@ public class GameManager : MonoBehaviour
 
     public void EndTurn()
     {
-        futureTurnOrder.Sort((a, b) => b.combatSpeed.CompareTo(a.combatSpeed));
+        if (futureTurnOrder != null)
+            futureTurnOrder.Sort((a, b) => b.combatSpeed.CompareTo(a.combatSpeed));
         turnOrder.RemoveAt(0);
         //move to the next character in the list
         if (turnOrder.Count == 0)
@@ -497,11 +501,18 @@ public class GameManager : MonoBehaviour
         if (futureTurnOrder != null)
             futureTurnOrder.Remove(player.GetComponent<playerController>().playerStats);
         Grave_Yard.Add(player);
+        battleParty.Remove(player);
         if (battleParty.Count == 0)
         {
             Aud.clip = defeatSound;
             Aud.volume = AudiodefeatVol;
             Aud.Play();
+            foreach(var health in playerHealths)
+            {
+                health.SetActive(false);
+            }
+            battleUI.SetActive(false);
+
             deadMenu.SetActive(true);
         }
     }
@@ -548,16 +559,16 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        foreach (var item in randomItems)
-        {
-            InventoryManager.instance.AddItem(item);
-            foreach (var player in battleParty)
-            {
-                DamageNumberManager.Instance.ShowString(player.transform.position, item.itemName, Color.yellow);
-            }
-            yield return new WaitForSeconds(1f);
+        //foreach (var item in randomItems)
+        //{
+        //    InventoryManager.instance.AddItem(item);
+        //    foreach (var player in battleParty)
+        //    {
+        //        DamageNumberManager.Instance.ShowString(player.transform.position, item.itemName, Color.yellow);
+        //    }
+        //    yield return new WaitForSeconds(1f);
 
-        }
+        //}
 
         foreach (var player in battleParty)
         {

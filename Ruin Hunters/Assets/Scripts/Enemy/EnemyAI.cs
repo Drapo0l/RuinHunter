@@ -803,7 +803,8 @@ public class EnemyAI : MonoBehaviour
         GameObject target;
 
         enemyStats.attacker = enemyModel.GetComponent<AudioSource>();
-        Aud.PlayOneShot(AttackAud, AttackVol);
+        if (AttackAud != null)
+            Aud.PlayOneShot(AttackAud, AttackVol);
         if (skill.AOE == true)
         {
 
@@ -905,7 +906,8 @@ public class EnemyAI : MonoBehaviour
         int ran;
         GameObject target;
         enemyStats.attacker = enemyModel.GetComponent<AudioSource>();
-        Aud.PlayOneShot(AttackAud, AttackVol);
+        if (AttackAud != null)
+            Aud.PlayOneShot(AttackAud, AttackVol);
         while (true)
         {
             ran = Random.Range(0, PartyManager.Instance.startingPlayerParty.Count);
