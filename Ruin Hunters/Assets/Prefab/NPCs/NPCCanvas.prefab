@@ -854,6 +854,7 @@ MonoBehaviour:
   choicePreviewWindow: {fileID: 6103804382925725525}
   choicePreviewText: {fileID: 7058641968741689549}
   hoverIndicator: {fileID: 0}
+  choiceManager: {fileID: 0}
 --- !u!1 &6103804382925725525
 GameObject:
   m_ObjectHideFlags: 0
@@ -1417,6 +1418,7 @@ MonoBehaviour:
   choiceManager: {fileID: 3351065213408383184}
   typingSound: {fileID: 7455967710983093237}
   typingSpeed: 5
+  currentNPC: {fileID: 0}
 --- !u!82 &7455967710983093237
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1429,8 +1431,8 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: fe0efc1cbfef1c642a98c54c52dd07a3, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
+  m_Volume: 0.08
+  m_Pitch: 0.34
   Loop: 0
   Mute: 0
   Spatialize: 0

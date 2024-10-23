@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sprite: {fileID: -7078261816480267791, guid: bfeede70efd14484683f5956b4f1194b, type: 3}
   level: 1
-  currentXP: 1000
+  currentXP: 1500
   xpToNextLevel: 100
   nameOfCharacter: 
   health: 14000
@@ -33,6 +33,8 @@ MonoBehaviour:
   attackDamageOG: 0
   critChanceOG: 0
   DefenceOG: 0
+  effectChance: 0
+  effectChanceOG: 0
   expGive: 0
   skills: []
   regions: 0

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sprite: {fileID: 1862638606, guid: bd94190b74b4e29459d33e8c3db990ad, type: 3}
   level: 1
-  currentXP: 1000
+  currentXP: 8500
   xpToNextLevel: 100
   nameOfCharacter: mariachi_bot
   health: 70000
@@ -33,6 +33,8 @@ MonoBehaviour:
   attackDamageOG: 3000
   critChanceOG: 50
   DefenceOG: 2500
+  effectChance: 0
+  effectChanceOG: 0
   expGive: 75000
   skills:
   - sprite: {fileID: 0}

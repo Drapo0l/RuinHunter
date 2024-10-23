@@ -949,11 +949,66 @@ public class CharacterMenuManager : MonoBehaviour
                     playerStats.health = playerStats.maxHealth;
                 item.amountOfItem--;
             }
+            if(item.potionEffect == PublicEnums.Effects.Party_Revive)
+            {
+                bool res;
+                for (int i = 0; i < playerParty.Count; i++)
+                {
+                    if (playerParty[i].GetComponent<playerController>().playerStats.health <= 0)
+                    {
+
+                        playerParty[i].GetComponent<playerController>().playerStats.health = playerParty[i].GetComponent<playerController>().playerStats.maxHealth;
+
+
+                    }
+                }
+                item.amountOfItem--;
+            }
+            if (item.potionEffect == PublicEnums.Effects.mana && playerStats.health <= 0)
+            {
+                playerStats.mana += item.effectAmount;
+                if (playerStats.mana > playerStats.maxMana)
+                    playerStats.mana = playerStats.maxMana;
+                item.amountOfItem--;
+            }
+            if (item.potionEffect == PublicEnums.Effects.Party_mana && playerStats.health <= 0)
+            {
+                for (int i = 0; i < playerParty.Count; i++)
+                {
+                    if (playerParty[i].GetComponent<playerController>().playerStats.health > 0)
+                    {
+                      
+                       
+                        playerParty[i].GetComponent<playerController>().playerStats.mana += item.effectAmount;
+                        if (playerParty[i].GetComponent<playerController>().playerStats.mana > playerParty[i].GetComponent<playerController>().playerStats.maxMana)
+                            playerParty[i].GetComponent<playerController>().playerStats.mana = playerParty[i].GetComponent<playerController>().playerStats.maxMana;
+                    }
+
+
+                }
+                item.amountOfItem--;
+            }
             else if(item.potionEffect == PublicEnums.Effects.Heal && playerStats.health != playerStats.maxHealth)
             {
                 playerStats.health += item.effectAmount;
                 if (playerStats.health > playerStats.maxHealth)
                     playerStats.health = playerStats.maxHealth;
+                item.amountOfItem--;
+            }
+            else if (item.potionEffect == PublicEnums.Effects.Party_Heal)
+            {
+                for (int i = 0; i < playerParty.Count; i++)
+                {
+                    if (playerParty[i].GetComponent<playerController>().playerStats.health > 0)
+                    {
+                       
+                        playerParty[i].GetComponent<playerController>().playerStats.health += item.effectAmount;
+                        if (playerParty[i].GetComponent<playerController>().playerStats.health > playerParty[i].GetComponent<playerController>().playerStats.maxHealth)
+                            playerParty[i].GetComponent<playerController>().playerStats.health = playerParty[i].GetComponent<playerController>().playerStats.maxHealth;
+                    }
+
+
+                }
                 item.amountOfItem--;
             }
             else if(item.potionEffect == PublicEnums.Effects.Revive && playerStats.health > 0)

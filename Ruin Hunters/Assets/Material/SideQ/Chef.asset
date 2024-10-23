@@ -22,7 +22,7 @@ MonoBehaviour:
   - buttonText: A
     playerText: 'You''re brothers and sister are looking for youg '
     nextDialogue: {fileID: 11400000, guid: 70a608bf3eb3afa4a9a5485b34173738, type: 2}
-    actionType: 2
+    actionType: 1
     conditions: []
     consequences: []
     choiceMade: 0

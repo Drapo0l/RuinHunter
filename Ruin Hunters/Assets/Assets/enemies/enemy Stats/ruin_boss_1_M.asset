@@ -15,7 +15,7 @@ MonoBehaviour:
   Sprite: {fileID: 1771317969, guid: 90266ea2a1c70c8449ac77c59072b56f, type: 3}
   level: 1
   currentXP: 0
-  xpToNextLevel: 100
+  xpToNextLevel: 90000
   nameOfCharacter: 
   health: 100000
   maxHealth: 100000
@@ -33,6 +33,8 @@ MonoBehaviour:
   attackDamageOG: 0
   critChanceOG: 0
   DefenceOG: 2500
+  effectChance: 0
+  effectChanceOG: 0
   expGive: 0
   skills:
   - sprite: {fileID: 0}

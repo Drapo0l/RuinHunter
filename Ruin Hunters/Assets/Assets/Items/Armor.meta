@@ -1,6 +1,10 @@
 fileFormatVersion: 2
-guid: c742ea81d79bbcb49a81d5a52a4811f5
+<<<<<<<< HEAD:Ruin Hunters/Assets/Assets/Items/Armor.meta
+guid: b065054218c34f5498886ba7b830f45b
 folderAsset: yes
+========
+guid: 76d46c648637b284a98c0966ac98d7ec
+>>>>>>>> 87585179c63242c3456091894aa3c1a36fc44672:Ruin Hunters/Assets/Assets/Audio/Snow.m4a.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
