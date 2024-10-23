@@ -1128,7 +1128,7 @@ public class CharacterMenuManager : MonoBehaviour
         foreach (var player in playerParty)
         {
             stats[index].SetActive(true);
-           if(!isPlaying) Aud.PlayOneShot(AudOpenMenu, OpenMenuVol);
+            if(!isPlaying) Aud.PlayOneShot(AudOpenMenu, OpenMenuVol);
             CharacterAttributes playerStats = player.GetComponent<playerController>().playerStats;
             stats[index].transform.GetChild(0).gameObject.transform.GetComponent<Image>().sprite = player.GetComponent<playerController>().Sprite;
             stats[index].transform.GetChild(1).gameObject.transform.GetComponent<TextMeshProUGUI>().text = playerStats.name;
