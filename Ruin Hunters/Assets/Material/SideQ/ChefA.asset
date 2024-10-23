@@ -14,6 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NPCName: ChefSlime
   sentences:
-  - My brothers and sisters you say. Oh yes I got to get back thanks for telling
-    me
-  choices: []
+  - My brothers and sisters you say
+  - Let me think for a second
+  - .....
+  - Nope
+  - I have no idea who you're talking about
+  choices:
+  - buttonText: A
+    playerText: You're brothers and sister, you guys got turn into slimes
+    nextDialogue: {fileID: 11400000, guid: 855e360d33b438543be6d210ae3a0b59, type: 2}
+    actionType: 2
+    conditions: []
+    consequences: []
+    choiceMade: 0
+    neverDisable: 0

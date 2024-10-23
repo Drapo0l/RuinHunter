@@ -14,8 +14,6 @@ TagManager:
   - Ruin
   - Forest
   - Dungeon
-  - TestForAngel
-  - ForestTown
   layers:
   - Default
   - TransparentFX

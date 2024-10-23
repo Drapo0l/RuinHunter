@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e337efe9978a8409654b2b05bb0c8c, type: 3}
   m_Name: Pebble
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 0}
   level: 1
-  currentXP: 250
+  currentXP: 1000
   xpToNextLevel: 100
   nameOfCharacter: 
   health: 50
@@ -25,6 +24,7 @@ MonoBehaviour:
   skillDamage: 0
   attackDamage: 0
   critChance: 0
+  effectChance: 0
   Defence: 1
   maxHealthOG: 0
   maxManaOG: 0
@@ -32,9 +32,8 @@ MonoBehaviour:
   skillDamageOG: 0
   attackDamageOG: 0
   critChanceOG: 0
-  DefenceOG: 0
-  effectChance: 0
   effectChanceOG: 0
+  DefenceOG: 0
   expGive: 0
   skills: []
   regions: 0
@@ -44,14 +43,3 @@ MonoBehaviour:
   special_count: 0
   weapon: {fileID: 0}
   equipment: {fileID: 0}
-  weaknessIcons: []
-  attacker: {fileID: 0}
-  target_BA: {fileID: 0}
-  Activation_Sound: []
-  Activation_SoundV: 0
-  Hit_Sound: []
-  DMG_sound: {fileID: 0}
-  Hit_SoundV: 0
-  special_soundsV: 0
-  ParticleForBasicAttack: {fileID: 0}
-  ParticleForSpecial: {fileID: 0}

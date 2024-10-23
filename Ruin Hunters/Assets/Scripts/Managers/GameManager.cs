@@ -166,13 +166,14 @@ public class GameManager : MonoBehaviour
         }
         else if (combat)
         {
+            if (!Aud.isPlaying)
+            {
+                Aud.Play();
+            }
             SetHealthBars();
             
         }
-        if (!Aud.isPlaying)
-        {
-            Aud.Play();
-        }
+        
     }
 
     private void Navigate(int direction)

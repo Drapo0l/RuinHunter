@@ -15,7 +15,7 @@ public class PrefabSpawner : MonoBehaviour
     private void Start()
     {
         spawnedObjects = new List<GameObject>();
-        StartCoroutine(spawnEnemies());
+        spawnEnemies();
     }
 
     private void Update()
@@ -30,9 +30,9 @@ public class PrefabSpawner : MonoBehaviour
     {
         yield return new WaitForSeconds(timeBetweenSpawn);
         if (spawnedObjects.Count < maxAmount)
-        {            
+        {
             int randomNum = Random.Range(0, spawnedPrefabs.Count);
-            GameObject gameObject = spawnedPrefabs[randomNum];           
+            GameObject gameObject = spawnedPrefabs[randomNum];
 
             GameObject newEnemy = Instantiate(gameObject, this.transform.position, Quaternion.identity);
             newEnemy.SetActive(true);
@@ -41,11 +41,17 @@ public class PrefabSpawner : MonoBehaviour
         }
     }
 
-    private IEnumerator spawnEnemies()
+    private void spawnEnemies()
     {
         while(spawnedObjects.Count < maxAmount)
         {
-            yield return StartCoroutine(spawnObject());
+            int randomNum = Random.Range(0, spawnedPrefabs.Count);
+            GameObject gameObject = spawnedPrefabs[randomNum];
+
+            GameObject newEnemy = Instantiate(gameObject, this.transform.position, Quaternion.identity);
+            newEnemy.SetActive(true);
+            newEnemy.transform.parent = enemyParent.transform;
+            spawnedObjects.Add(newEnemy);
         }
     }
 }

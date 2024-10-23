@@ -76,13 +76,13 @@ public class CharacterAttributes : ScriptableObject
     {
         level++;
         currentXP -= xpToNextLevel;
-        xpToNextLevel =+ 1000;
+        xpToNextLevel =+ 500;
         maxHealth += 900;
         health = maxHealth;
-        maxMana += 100;
+        maxMana += 400;
         mana = maxMana;
-        attackDamage += 300;
-        Defence += 50;
+        attackDamage += 700;
+        Defence += 150;
         combatSpeed += 3;
     }
 

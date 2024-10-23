@@ -310,13 +310,10 @@ MonoBehaviour:
   deadMenu: {fileID: 8885905753316972237, guid: 109d3d49a95f795499572e5b970fd48d,
     type: 3}
   cursor: {fileID: 8281324259120998309}
-  endingScreenUI: {fileID: 57383327218929587, guid: 2274f3d72bfb8434c874fba90a5fe725,
-    type: 3}
   deadButtons:
   - {fileID: 0}
   - {fileID: 0}
   expTotal: 0
-  playerParty: []
   Grave_Yard: []
   battlePartyHealth:
   - {fileID: 0}
@@ -351,7 +348,6 @@ MonoBehaviour:
   - {fileID: 0}
   lastPlayerPosition: {x: 0, y: 0, z: 0}
   playerLeveled: []
-  totalGold: 0
   lastSavedPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &7422705642251674866
 MonoBehaviour:
@@ -539,12 +535,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cfb450b807f94428676e2027789bd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xpText: {fileID: 0}
-  goldText: {fileID: 0}
-  levelsText: {fileID: 0}
-  creditsText: {fileID: 0}
-  congratulationsText: {fileID: 0}
-  restartButton: {fileID: 0}
+  winMenuUI: {fileID: 4146865414443852209, guid: 9a234e3ee4bc8494ab5428339cc22153,
+    type: 3}
   quitButton: {fileID: 3058933650801885316}
 --- !u!114 &487352417345568060
 MonoBehaviour:

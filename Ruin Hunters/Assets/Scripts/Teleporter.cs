@@ -9,6 +9,9 @@ public class Teleporter : MonoBehaviour
     public Vector3 teleportDestinationInScene;
     public string sceneToLoad;
     public AudioClip teleportSoundClip; // Use AudioClip instead of AudioSource
+    [SerializeField] GameObject worldEnemies;
+    [SerializeField] GameObject desertEnemies;
+    [SerializeField] GameObject snowEnemies;
 
     public void TeleportPlayer(Transform player)
     {
@@ -27,6 +30,7 @@ public class Teleporter : MonoBehaviour
         // Perform the teleport
         if (!string.IsNullOrEmpty(sceneToLoad))
         {
+            CheckScene();
             SceneManager.LoadScene(sceneToLoad);
             player.transform.position = teleportDestinationInScene;
         }
@@ -35,4 +39,27 @@ public class Teleporter : MonoBehaviour
             player.position = teleportDestination.position;
         }
     }
+
+    private void CheckScene()
+    {
+        if (sceneToLoad == "Desert")
+        {
+            worldEnemies.SetActive(false);
+            snowEnemies.SetActive(false);
+            desertEnemies.SetActive(true);
+        }
+        else if (sceneToLoad == "Snow")
+        {
+            worldEnemies.SetActive(false);
+            snowEnemies.SetActive(true);
+            desertEnemies.SetActive(false);
+        }
+        else if (sceneToLoad == "Map")
+        {
+            worldEnemies.SetActive(true);
+            snowEnemies.SetActive(false);
+            desertEnemies.SetActive(false);
+        }
+    }
+
 }

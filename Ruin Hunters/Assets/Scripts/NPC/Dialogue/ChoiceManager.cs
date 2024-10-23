@@ -7,7 +7,7 @@ using static PublicEnums;
 public class ChoiceManager : MonoBehaviour
 {
     [SerializeField] private GameObject choiceButtonPrefab; // Prefab for the choice button
-    [SerializeField] public  Transform choicesParent; // Parent transform for choice buttons
+    [SerializeField] private Transform choicesParent; // Parent transform for choice buttons
     [SerializeField] private ScrollRect choicesScrollRect; // Reference to ScrollRect (optional)
     [SerializeField] private GameObject choicePreviewWindow; // The secondary window for choice previews
     [SerializeField] private TextMeshProUGUI choicePreviewText; // Text component for the choice preview
@@ -18,20 +18,28 @@ public class ChoiceManager : MonoBehaviour
 
     public void ShowChoices(List<DialogueChoice> choices)
     {
+        // Log to confirm clearing choices
         Debug.Log("Clearing existing choices.");
+
+        // Clear existing choices
         foreach (Transform child in choicesParent)
         {
             Destroy(child.gameObject);
         }
         choiceButtons.Clear();
 
+        // Activate parent after clearing choices
         choicesParent.gameObject.SetActive(true);
 
+        // Instantiate a button for each choice
         foreach (var choice in choices)
         {
-            ChoiceButton choiceButtonComponent = Instantiate(choiceButtonPrefab, choicesParent).GetComponent<ChoiceButton>();
-            choiceButtonComponent.Setup(choice.buttonText, choice.playerText, () => OnChoiceSelected(choice), choicePreviewWindow, choicePreviewText);
-            choiceButtons.Add(choiceButtonComponent.GetComponent<Button>());
+            if (!choice.choiceMade || choice.neverDisable)
+            {
+                ChoiceButton choiceButtonComponent = Instantiate(choiceButtonPrefab, choicesParent).GetComponent<ChoiceButton>();
+                choiceButtonComponent.Setup(choice.buttonText, choice.playerText, () => OnChoiceSelected(choice), choicePreviewWindow, choicePreviewText);
+                choiceButtons.Add(choiceButtonComponent.GetComponent<Button>());
+            }
         }
 
         if (choicesScrollRect != null)
@@ -42,7 +50,8 @@ public class ChoiceManager : MonoBehaviour
         Debug.Log("Choices displayed: " + choices.Count);
     }
 
-    private void UpdateHoverIndicator()
+
+        private void UpdateHoverIndicator()
     {
         if (choiceButtons.Count > 0)
         {
@@ -80,16 +89,35 @@ public class ChoiceManager : MonoBehaviour
     public void OnChoiceSelected(DialogueChoice choice)
     {
         DialogueManager dialogueManager = FindObjectOfType<DialogueManager>();
-        dialogueManager.ExecuteAction(choice.actionType, choice);
-        HideChoices();
-        choicePreviewWindow.SetActive(false);
+        if (dialogueManager != null)
+        {
+            dialogueManager.ExecuteAction(choice.actionType, choice);
+            HideChoices();
+            choicePreviewWindow.SetActive(false);
+
+            if (choice.nextDialogue != null && choice.actionType != ActionType.ChangeNPCState)
+            {
+                dialogueManager.StartDialogue(choice.nextDialogue);
+            }
+            else
+            {
+                dialogueManager.DisplayNextSentence(new Dialogue() { sentences = new string[] { "." } }, null);
+            }
+        }
+        else
+        {
+            Debug.LogError("DialogueManager instance is null.");
+        }
     }
 
 
 
     public void HideChoices()
     {
+        // Log to confirm hiding choices
         Debug.Log("Hiding choices.");
+
+        // Clear and hide choices
         foreach (Transform child in choicesParent)
         {
             Destroy(child.gameObject);
@@ -98,8 +126,7 @@ public class ChoiceManager : MonoBehaviour
         choicesParent.gameObject.SetActive(false);
     }
 
-
-        void Update()
+    void Update()
     {
         if (Input.GetKeyDown(KeyCode.W))
         {

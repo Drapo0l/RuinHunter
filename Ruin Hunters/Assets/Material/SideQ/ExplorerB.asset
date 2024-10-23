@@ -14,5 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NPCName: ExplorerSlime
   sentences:
-  - My brother you said, ok  thanks, can you go and look for my siter
-  choices: []
+  - My brother you said
+  - .....
+  - Oh yes,  I rememberd
+  - Don't worry I will go back with him once I'm done with my investigation
+  - Were is he rigth now?
+  choices:
+  - buttonText: A
+    playerText: He is in the town northwest of here
+    nextDialogue: {fileID: 11400000, guid: 804fa9cf99da20b4481c363023ad60d7, type: 2}
+    actionType: 2
+    conditions: []
+    consequences: []
+    choiceMade: 0
+    neverDisable: 0

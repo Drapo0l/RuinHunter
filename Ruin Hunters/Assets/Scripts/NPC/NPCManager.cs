@@ -12,6 +12,7 @@ public abstract class NPCManager : MonoBehaviour, NPCInteractable
     [SerializeField] float interactDst;
     [SerializeField] List<AudioClip> proximitySounds; // Add this line for multiple proximity sounds
     [SerializeField] AudioSource audioSource; // AudioSource to play the sounds
+    
 
     private Transform playerTransform;
     private bool hasPlayedProximitySound = false; // Flag to track if the sound has played
