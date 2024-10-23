@@ -69,12 +69,12 @@ MonoBehaviour:
   animator: {fileID: -9017677409473832138}
   weaknesBar: {fileID: 0}
   Aud: {fileID: 8140526100768089542}
-  AttackAud: {fileID: 0}
-  AttackVol: 0
+  AttackAud: {fileID: 8300000, guid: 56703418e3aed4c47a5f6622816b8e41, type: 3}
+  AttackVol: 1
   HitAud: {fileID: 0}
-  HitVol: 0
-  DeathAud: {fileID: 0}
-  DeathVol: 0
+  HitVol: 1
+  DeathAud: {fileID: 8300000, guid: 566d2ea6240b489479a6e9fd608c2621, type: 3}
+  DeathVol: 1
 --- !u!95 &-9017677409473832138
 Animator:
   serializedVersion: 5

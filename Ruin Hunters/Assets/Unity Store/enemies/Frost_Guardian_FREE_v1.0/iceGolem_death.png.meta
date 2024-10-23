@@ -1,0 +1,444 @@
+fileFormatVersion: 2
+guid: 89d0e1b14ac86ae42a8ef42f7ad3a536
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: iceGolem_death_0
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 17
+        width: 82
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c0f048a016f8dba47866704f9072713c
+      internalID: 2112947023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iceGolem_death_1
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 17
+        width: 74
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 10bedf6a146611242a480f239aab22c1
+      internalID: -400132785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iceGolem_death_2
+      rect:
+        serializedVersion: 2
+        x: 444
+        y: 17
+        width: 70
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c773883ea8191b248a8cb056deef6ef5
+      internalID: -1435495293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iceGolem_death_3
+      rect:
+        serializedVersion: 2
+        x: 638
+        y: 17
+        width: 71
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d43c735145e2cb4f86b414c91ac1598
+      internalID: 1476987230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iceGolem_death_4
+      rect:
+        serializedVersion: 2
+        x: 817
+        y: 17
+        width: 106
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c9dcc5aac58188459935c93dd530fe3
+      internalID: -438739981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iceGolem_death_5
+      rect:
+        serializedVersion: 2
+        x: 998
+        y: 17
+        width: 120
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53c4ca91286fae54db7e550754c7b79f
+      internalID: 1914658663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iceGolem_death_6
+      rect:
+        serializedVersion: 2
+        x: 1191
+        y: 17
+        width: 121
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f053e48435cf0424187165e6cd87654d
+      internalID: 630084673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iceGolem_death_7
+      rect:
+        serializedVersion: 2
+        x: 1383
+        y: 15
+        width: 116
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3b69a79d2ff5cc4184ad47b8b0e0715
+      internalID: 860626834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iceGolem_death_14
+      rect:
+        serializedVersion: 2
+        x: 1544
+        y: 15
+        width: 167
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63e52cec8387a814db6984c94defcd33
+      internalID: -806507901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iceGolem_death_25
+      rect:
+        serializedVersion: 2
+        x: 1730
+        y: 15
+        width: 186
+        height: 81
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29d70a53e62799b4e962cceffcda5a07
+      internalID: 88288621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iceGolem_death_26
+      rect:
+        serializedVersion: 2
+        x: 1923
+        y: 15
+        width: 186
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6c92b9d4556ce644b503eaef387f75b
+      internalID: 1605936317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iceGolem_death_30
+      rect:
+        serializedVersion: 2
+        x: 2323
+        y: 15
+        width: 163
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 632503549b8a11640b1fb3755a2c6564
+      internalID: 1598129482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iceGolem_death_31
+      rect:
+        serializedVersion: 2
+        x: 2114
+        y: 15
+        width: 186
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 012d702ec98609940b790faf03c141d2
+      internalID: 238762828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iceGolem_death_35
+      rect:
+        serializedVersion: 2
+        x: 2516
+        y: 14
+        width: 159
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c43e00d0266ab124a920b4acf3142885
+      internalID: 1021120051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      iceGolem_death_0: 2112947023
+      iceGolem_death_1: -400132785
+      iceGolem_death_10: 179724333
+      iceGolem_death_11: -645301169
+      iceGolem_death_12: 1549541808
+      iceGolem_death_13: 1665344686
+      iceGolem_death_14: -806507901
+      iceGolem_death_15: 278255694
+      iceGolem_death_16: -598084654
+      iceGolem_death_17: -1240394757
+      iceGolem_death_18: 1218270509
+      iceGolem_death_19: -1056892501
+      iceGolem_death_2: -1435495293
+      iceGolem_death_20: -1037860235
+      iceGolem_death_21: 1011953367
+      iceGolem_death_22: 580784216
+      iceGolem_death_23: -878318892
+      iceGolem_death_24: -1395361883
+      iceGolem_death_25: 88288621
+      iceGolem_death_26: 1605936317
+      iceGolem_death_27: 757434300
+      iceGolem_death_28: -1536915133
+      iceGolem_death_29: 1143141382
+      iceGolem_death_3: 1476987230
+      iceGolem_death_30: 1598129482
+      iceGolem_death_31: 238762828
+      iceGolem_death_32: 1435704913
+      iceGolem_death_33: -1408839432
+      iceGolem_death_34: -1342337328
+      iceGolem_death_35: 1021120051
+      iceGolem_death_4: -438739981
+      iceGolem_death_5: 1914658663
+      iceGolem_death_6: 630084673
+      iceGolem_death_7: 860626834
+      iceGolem_death_8: -366344477
+      iceGolem_death_9: -913234071
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

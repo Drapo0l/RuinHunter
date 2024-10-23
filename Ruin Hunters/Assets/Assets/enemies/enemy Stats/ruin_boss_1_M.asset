@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e337efe9978a8409654b2b05bb0c8c, type: 3}
   m_Name: ruin_boss_1_M
   m_EditorClassIdentifier: 
+  Sprite: {fileID: 1771317969, guid: 90266ea2a1c70c8449ac77c59072b56f, type: 3}
   level: 1
   currentXP: 0
-  xpToNextLevel: 100
+  xpToNextLevel: 90000
   nameOfCharacter: 
   health: 100000
   maxHealth: 100000
@@ -24,7 +25,6 @@ MonoBehaviour:
   skillDamage: 8000
   attackDamage: 0
   critChance: 0
-  effectChance: 0
   Defence: 2500
   maxHealthOG: 100000
   maxManaOG: 0
@@ -32,8 +32,9 @@ MonoBehaviour:
   skillDamageOG: 8000
   attackDamageOG: 0
   critChanceOG: 0
-  effectChanceOG: 0
   DefenceOG: 2500
+  effectChance: 0
+  effectChanceOG: 0
   expGive: 0
   skills:
   - sprite: {fileID: 0}
@@ -46,6 +47,13 @@ MonoBehaviour:
     effect: 2
     Ptargit: 1
     AOE: 1
+    ParticleForSkill: {fileID: 0}
+    caster: {fileID: 0}
+    target: {fileID: 0}
+    Activation_Sound: []
+    Activation_SoundV: 0
+    Hit_Sound: []
+    Hit_SoundV: 0
   - sprite: {fileID: 0}
     description: 
     skillName: heart_fire
@@ -56,6 +64,13 @@ MonoBehaviour:
     effect: 4
     Ptargit: 1
     AOE: 1
+    ParticleForSkill: {fileID: 0}
+    caster: {fileID: 0}
+    target: {fileID: 0}
+    Activation_Sound: []
+    Activation_SoundV: 0
+    Hit_Sound: []
+    Hit_SoundV: 0
   - sprite: {fileID: 0}
     description: 
     skillName: heart_ice
@@ -66,6 +81,13 @@ MonoBehaviour:
     effect: 6
     Ptargit: 1
     AOE: 1
+    ParticleForSkill: {fileID: 0}
+    caster: {fileID: 0}
+    target: {fileID: 0}
+    Activation_Sound: []
+    Activation_SoundV: 0
+    Hit_Sound: []
+    Hit_SoundV: 0
   - sprite: {fileID: 0}
     description: 
     skillName: heart_earth
@@ -76,6 +98,13 @@ MonoBehaviour:
     effect: 8
     Ptargit: 1
     AOE: 1
+    ParticleForSkill: {fileID: 0}
+    caster: {fileID: 0}
+    target: {fileID: 0}
+    Activation_Sound: []
+    Activation_SoundV: 0
+    Hit_Sound: []
+    Hit_SoundV: 0
   - sprite: {fileID: 0}
     description: 
     skillName: heart_lightning
@@ -86,6 +115,13 @@ MonoBehaviour:
     effect: 3
     Ptargit: 0
     AOE: 1
+    ParticleForSkill: {fileID: 0}
+    caster: {fileID: 0}
+    target: {fileID: 0}
+    Activation_Sound: []
+    Activation_SoundV: 0
+    Hit_Sound: []
+    Hit_SoundV: 0
   - sprite: {fileID: 0}
     description: 
     skillName: heart_pure
@@ -96,6 +132,13 @@ MonoBehaviour:
     effect: 12
     Ptargit: 1
     AOE: 1
+    ParticleForSkill: {fileID: 0}
+    caster: {fileID: 0}
+    target: {fileID: 0}
+    Activation_Sound: []
+    Activation_SoundV: 0
+    Hit_Sound: []
+    Hit_SoundV: 0
   regions: 0
   isTurn: 0
   isStuned: 0
@@ -103,3 +146,14 @@ MonoBehaviour:
   special_count: 0
   weapon: {fileID: 0}
   equipment: {fileID: 0}
+  weaknessIcons: []
+  attacker: {fileID: 0}
+  target_BA: {fileID: 0}
+  Activation_Sound: []
+  Activation_SoundV: 0
+  Hit_Sound: []
+  DMG_sound: {fileID: 0}
+  Hit_SoundV: 0
+  special_soundsV: 0
+  ParticleForBasicAttack: {fileID: 0}
+  ParticleForSpecial: {fileID: 0}

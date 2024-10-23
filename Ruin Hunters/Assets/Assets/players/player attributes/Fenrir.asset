@@ -12,40 +12,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e337efe9978a8409654b2b05bb0c8c, type: 3}
   m_Name: Fenrir
   m_EditorClassIdentifier: 
-  level: 139
-  currentXP: 201
-  xpToNextLevel: 500
+  Sprite: {fileID: -3318188226485093758, guid: ae72133dacba6ec4eb33ecde48f50e56, type: 3}
+  level: 14
+  currentXP: 4483
+  xpToNextLevel: 7904
   nameOfCharacter: Fenrir
-  health: 13000
-  maxHealth: 13000
-  maxMana: 3910
-  mana: 3910
-  combatSpeed: 246
-  skillDamage: 300
-  attackDamage: 9243
+  health: 6284
+  maxHealth: 6284
+  maxMana: 114
+  mana: 114
+  combatSpeed: 31
+  skillDamage: 100
+  attackDamage: 1144
   critChance: 0
-  effectChance: 0
-  Defence: 3920
-  maxHealthOG: 4000
-  maxManaOG: 310
-  combatSpeedOG: 210
-  skillDamageOG: 300
-  attackDamageOG: 243
+  Defence: 213
+  maxHealthOG: 6284
+  maxManaOG: 114
+  combatSpeedOG: 31
+  skillDamageOG: 100
+  attackDamageOG: 1144
   critChanceOG: 0
-  effectChanceOG: 0
-  DefenceOG: 320
+  DefenceOG: 213
   expGive: 0
   skills:
   - sprite: {fileID: 0}
     description: 
-    skillName: Giga Slash
-    elementType: 0
-    weaponType: 1
+    skillName: FireBall
+    elementType: 1
+    weaponType: 0
     baseDamage: 350
     manaCost: 10
     effect: 0
     Ptargit: 0
     AOE: 0
+    ParticleForSkill: {fileID: 7226583673155636403, guid: a2ab56839e1c9504ea9d141e95d0b16b,
+      type: 3}
+    caster: {fileID: 0}
+    target: {fileID: 0}
+    Activation_Sound: []
+    Activation_SoundV: 0
+    Hit_Sound: []
+    Hit_SoundV: 0
   - sprite: {fileID: 0}
     description: 
     skillName: Mega Slash
@@ -56,10 +63,28 @@ MonoBehaviour:
     effect: 0
     Ptargit: 0
     AOE: 0
+    ParticleForSkill: {fileID: 0}
+    caster: {fileID: 0}
+    target: {fileID: 0}
+    Activation_Sound: []
+    Activation_SoundV: 0
+    Hit_Sound: []
+    Hit_SoundV: 0
   regions: 2
   isTurn: 0
   isStuned: 0
   special: 0
   special_count: 0
-  weapon: {fileID: 11400000, guid: 512e8ba0a66dfe54eb5202dc8615d195, type: 2}
+  weapon: {fileID: 0}
   equipment: {fileID: 0}
+  weaknessIcons: []
+  attacker: {fileID: 0}
+  target_BA: {fileID: 0}
+  Activation_Sound: []
+  Activation_SoundV: 0
+  Hit_Sound: []
+  DMG_sound: {fileID: 0}
+  Hit_SoundV: 0
+  special_soundsV: 0
+  ParticleForBasicAttack: {fileID: 0}
+  ParticleForSpecial: {fileID: 0}

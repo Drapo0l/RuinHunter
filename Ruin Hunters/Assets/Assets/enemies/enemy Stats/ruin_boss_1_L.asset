@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e337efe9978a8409654b2b05bb0c8c, type: 3}
   m_Name: ruin_boss_1_L
   m_EditorClassIdentifier: 
+  Sprite: {fileID: 4517011205545875929, guid: f738d4160643ac1428a9cac4f9b6a39a, type: 3}
   level: 1
   currentXP: 1000
-  xpToNextLevel: 100
+  xpToNextLevel: 90000
   nameOfCharacter: 
   health: 900000
   maxHealth: 900000
@@ -24,7 +25,6 @@ MonoBehaviour:
   skillDamage: 8000
   attackDamage: 4000
   critChance: 0
-  effectChance: 0
   Defence: 4000
   maxHealthOG: 900000
   maxManaOG: 0
@@ -32,8 +32,9 @@ MonoBehaviour:
   skillDamageOG: 8000
   attackDamageOG: 4000
   critChanceOG: 0
-  effectChanceOG: 0
   DefenceOG: 4000
+  effectChance: 0
+  effectChanceOG: 0
   expGive: 0
   skills:
   - sprite: {fileID: 0}
@@ -46,6 +47,13 @@ MonoBehaviour:
     effect: 3
     Ptargit: 0
     AOE: 0
+    ParticleForSkill: {fileID: 0}
+    caster: {fileID: 0}
+    target: {fileID: 0}
+    Activation_Sound: []
+    Activation_SoundV: 0
+    Hit_Sound: []
+    Hit_SoundV: 0
   regions: 0
   isTurn: 0
   isStuned: 0
@@ -53,3 +61,14 @@ MonoBehaviour:
   special_count: 0
   weapon: {fileID: 0}
   equipment: {fileID: 0}
+  weaknessIcons: []
+  attacker: {fileID: 0}
+  target_BA: {fileID: 0}
+  Activation_Sound: []
+  Activation_SoundV: 0
+  Hit_Sound: []
+  DMG_sound: {fileID: 0}
+  Hit_SoundV: 0
+  special_soundsV: 0
+  ParticleForBasicAttack: {fileID: 0}
+  ParticleForSpecial: {fileID: 0}

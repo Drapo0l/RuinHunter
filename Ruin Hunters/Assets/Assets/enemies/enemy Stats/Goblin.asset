@@ -14,18 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sprite: {fileID: 4723107735738678597, guid: c1cdd26cc09ad224884556bc4d8296ae, type: 3}
   level: 1
-  currentXP: 1000
+  currentXP: 850
   xpToNextLevel: 100
   nameOfCharacter: Goblin
   health: 600
-  maxHealth: 6000
+  maxHealth: 600
   maxMana: 0
   mana: 0
   combatSpeed: 35
   skillDamage: 45
   attackDamage: 50
   critChance: 0
-  effectChance: 0
   Defence: 0
   maxHealthOG: 300
   maxManaOG: 0
@@ -33,8 +32,9 @@ MonoBehaviour:
   skillDamageOG: 50
   attackDamageOG: 60
   critChanceOG: 0
-  effectChanceOG: 0
   DefenceOG: 0
+  effectChance: 0
+  effectChanceOG: 0
   expGive: 0
   skills:
   - sprite: {fileID: 0}
@@ -47,6 +47,13 @@ MonoBehaviour:
     effect: 0
     Ptargit: 0
     AOE: 0
+    ParticleForSkill: {fileID: 0}
+    caster: {fileID: 0}
+    target: {fileID: 0}
+    Activation_Sound: []
+    Activation_SoundV: 0
+    Hit_Sound: []
+    Hit_SoundV: 0
   - sprite: {fileID: 0}
     description: 
     skillName: 
@@ -57,6 +64,13 @@ MonoBehaviour:
     effect: 0
     Ptargit: 0
     AOE: 0
+    ParticleForSkill: {fileID: 0}
+    caster: {fileID: 0}
+    target: {fileID: 0}
+    Activation_Sound: []
+    Activation_SoundV: 0
+    Hit_Sound: []
+    Hit_SoundV: 0
   - sprite: {fileID: 0}
     description: 
     skillName: 
@@ -67,6 +81,13 @@ MonoBehaviour:
     effect: 0
     Ptargit: 0
     AOE: 0
+    ParticleForSkill: {fileID: 0}
+    caster: {fileID: 0}
+    target: {fileID: 0}
+    Activation_Sound: []
+    Activation_SoundV: 0
+    Hit_Sound: []
+    Hit_SoundV: 0
   regions: 0
   isTurn: 0
   isStuned: 0
@@ -74,3 +95,14 @@ MonoBehaviour:
   special_count: 0
   weapon: {fileID: 0}
   equipment: {fileID: 0}
+  weaknessIcons: []
+  attacker: {fileID: 0}
+  target_BA: {fileID: 0}
+  Activation_Sound: []
+  Activation_SoundV: 0
+  Hit_Sound: []
+  DMG_sound: {fileID: 0}
+  Hit_SoundV: 0
+  special_soundsV: 0
+  ParticleForBasicAttack: {fileID: 0}
+  ParticleForSpecial: {fileID: 0}

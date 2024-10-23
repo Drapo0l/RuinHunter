@@ -14,27 +14,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sprite: {fileID: -7078261816480267791, guid: bfeede70efd14484683f5956b4f1194b, type: 3}
   level: 1
-  currentXP: 1000
+  currentXP: 1500
   xpToNextLevel: 100
   nameOfCharacter: 
-  health: 400
-  maxHealth: 400
+  health: 14000
+  maxHealth: 14000
   maxMana: 0
   mana: 0
-  combatSpeed: 150
-  skillDamage: 170
-  attackDamage: 160
+  combatSpeed: 35
+  skillDamage: 600
+  attackDamage: 600
   critChance: 0
-  effectChance: 0
-  Defence: 70
+  Defence: 700
   maxHealthOG: 0
   maxManaOG: 0
   combatSpeedOG: 0
   skillDamageOG: 0
   attackDamageOG: 0
   critChanceOG: 0
-  effectChanceOG: 0
   DefenceOG: 0
+  effectChance: 0
+  effectChanceOG: 0
   expGive: 0
   skills: []
   regions: 0
@@ -44,3 +44,14 @@ MonoBehaviour:
   special_count: 0
   weapon: {fileID: 0}
   equipment: {fileID: 0}
+  weaknessIcons: []
+  attacker: {fileID: 0}
+  target_BA: {fileID: 0}
+  Activation_Sound: []
+  Activation_SoundV: 0
+  Hit_Sound: []
+  DMG_sound: {fileID: 0}
+  Hit_SoundV: 0
+  special_soundsV: 0
+  ParticleForBasicAttack: {fileID: 0}
+  ParticleForSpecial: {fileID: 0}

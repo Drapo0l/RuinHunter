@@ -35,10 +35,65 @@ public class Shop : MonoBehaviour
     private bool ShopOpened;
     private bool choice;
 
+
+    void Start()
+    {
+
+        //Item[] items = Resources.LoadAll<Item>("Items");
+        //EquipmentItem[] armors = Resources.LoadAll<EquipmentItem>("Items");
+        //WeaponItem[] weapons = Resources.LoadAll<WeaponItem>("Items");
+        //foreach (Item item in items)
+        //{
+        //    if (item != null)
+        //    {
+        //        Items.Add(item);
+        //        Debug.Log("Loaded Item: " + item.itemName);
+        //    }
+        //}
+
+        //foreach (EquipmentItem armor in armors)
+        //{
+        //    if (armor != null)
+        //    {
+        //        Armor.Add(armor);
+        //        Debug.Log("Loaded Armor: " + armor.itemName);
+        //    }
+        //}
+
+        //foreach (WeaponItem weapon in weapons)
+        //{
+        //    if (weapon != null)
+        //    {
+        //        Weapons.Add(weapon);
+        //        Debug.Log("Loaded Weapon: " + weapon.itemName);
+        //    }
+        //}
+
+        //foreach (var item in Items)
+        //{
+        //    if (item == null)
+        //        Debug.LogError("Missing Item in Shop!");
+        //}
+
+        //foreach (var armor in Armor)
+        //{
+        //    if (armor == null)
+        //        Debug.LogError("Missing Armor in Shop!");
+        //}
+
+        //foreach (var weapon in Weapons)
+        //{
+        //    if (weapon == null)
+        //        Debug.LogError("Missing Weapon in Shop!");
+        //}
+    }
+
+
     [Header("Audio")]
     [SerializeField] AudioSource Aud;
     [SerializeField] AudioClip PurchaseAud;
     [SerializeField] float PurchaseVol;
+
     private void Update()
     {
         

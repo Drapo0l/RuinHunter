@@ -34,11 +34,11 @@ public class Skill
 
     public void ActivateSkill(GameObject target, int attackerPower, int crit, PublicEnums.Effects effects)
     {
-        if (Activation_Sound != null)
-            caster.PlayOneShot(Activation_Sound[Activation_Sound.Length], Activation_SoundV);
+        //if (Activation_Sound != null)
+        //    caster.PlayOneShot(Activation_Sound[Activation_Sound.Length], Activation_SoundV);
         // Simple damage calculation (adjust as necessary)
         int damage = Mathf.FloorToInt(baseDamage) + attackerPower;
-        damage = Seffect(target, crit, damage, effects);
+        //damage = Seffect(target, crit, damage, effects);
         if (effect != PublicEnums.Effects.Heal)
         {
             if (target.tag.Equals("Player"))
@@ -60,10 +60,10 @@ public class Skill
         IDamage targetHit = target.GetComponent<IDamage>();
         if (targetHit != null) 
         {
-            if (Activation_Sound != null)
-                caster.PlayOneShot(Hit_Sound[Hit_Sound.Length], Hit_SoundV);
+            //if (Activation_Sound != null)
+            //    caster.PlayOneShot(Hit_Sound[Hit_Sound.Length], Hit_SoundV);
           
-            targetHit.TakeSkillDamage(damage, elementType);
+            //targetHit.TakeSkillDamage(damage, elementType);
         }
     }
 
@@ -71,11 +71,11 @@ public class Skill
     public void ActivateWeaponAttack(GameObject target, int attackerPower, int crit, PublicEnums.Effects effects, CharacterAttributes attacker)
 
     {
-        if (attacker.Activation_Sound != null)
-            attacker.attacker.PlayOneShot(attacker.Activation_Sound[attacker.Activation_Sound.Length], attacker.Activation_SoundV);
+        //if (attacker.Activation_Sound != null)
+        //    attacker.attacker.PlayOneShot(attacker.Activation_Sound[attacker.Activation_Sound.Length], attacker.Activation_SoundV);
         // Simple damage calculation (adjust as necessary)
         int damage = Mathf.FloorToInt(baseDamage) + attackerPower;
-        damage = Seffect(target, crit, damage, effects);
+        //damage = Seffect(target, crit, damage, effects);
         if (target.tag.Equals("Player"))
         {
             damage = damage - target.GetComponent<playerController>().playerStats.Defence;
@@ -94,9 +94,9 @@ public class Skill
         IDamage targetHit = target.GetComponent<IDamage>();
         if (targetHit != null)
         {
-            if (attacker.Activation_Sound != null)
-                attacker.target_BA.PlayOneShot(attacker.Hit_Sound[attacker.Hit_Sound.Length], attacker.Hit_SoundV);
-            targetHit.TakeMeleeDamage(damage, PublicEnums.WeaponType.None);
+            //if (attacker.Activation_Sound != null)
+            //    attacker.target_BA.PlayOneShot(attacker.Hit_Sound[attacker.Hit_Sound.Length], attacker.Hit_SoundV);
+            //targetHit.TakeMeleeDamage(damage, PublicEnums.WeaponType.None);
         }
     }
     

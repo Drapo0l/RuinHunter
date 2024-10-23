@@ -129,8 +129,9 @@ public class GameManager : MonoBehaviour
         {
             playerHealthsParent.SetActive(true);
             playerParty = PartyManager.Instance.GetCurrentPartyComponent();
-            StartCombat();
             wasCombatInitialized = true;
+            StartCombat();
+           
         }
         else if (combat)
         {
@@ -219,7 +220,25 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        // Sort characters based on speed in descending order
+
+        for (int i = 0; i < characters.Count; i++) // makes it so that your og stats are now saved 
+        {
+            characters[i].maxManaOG = characters[i].maxMana;
+            characters[i].maxHealthOG = characters[i].maxHealth;
+            characters[i].DefenceOG = characters[i].Defence;
+            characters[i].combatSpeedOG = characters[i].combatSpeed;
+            characters[i].skillDamageOG = characters[i].skillDamage;
+            characters[i].attackDamageOG = characters[i].attackDamage;
+            characters[i].critChanceOG = characters[i].critChance;
+            expTotal = characters[i].expGive + expTotal;
+            if (characters[i].equipment != null)
+            {
+                characters[i].Defence += characters[i].equipment.armor;
+            }
+        }
+
+        
+
         turnOrder = new List<CharacterAttributes>(characters);
         characters.Sort((a, b) => b.combatSpeed.CompareTo(a.combatSpeed));
         turnOrder = characters;
@@ -249,14 +268,14 @@ public class GameManager : MonoBehaviour
                 enemy.GetComponent<EnemyAI>().setUpStats();
                 currentEnemies.Add(enemy.GetComponent<EnemyAI>().enemyStats);
 
-                currentEnemies[index].maxMana = currentEnemies[index].maxManaOG;
-                currentEnemies[index].maxHealth = currentEnemies[index].maxHealthOG;
-                currentEnemies[index].Defence = currentEnemies[index].DefenceOG;
-                currentEnemies[index].combatSpeed = currentEnemies[index].combatSpeedOG;
-                currentEnemies[index].skillDamage = currentEnemies[index].skillDamageOG;
-                currentEnemies[index].attackDamage = currentEnemies[index].attackDamageOG;
-                currentEnemies[index].critChance = currentEnemies[index].critChanceOG;
-                currentEnemies[index].effectChance = currentEnemies[index].effectChanceOG; 
+
+                currentEnemies[index].maxManaOG = currentEnemies[index].maxMana;
+                currentEnemies[index].maxHealthOG = currentEnemies[index].maxHealth;
+                currentEnemies[index].DefenceOG = currentEnemies[index].Defence;
+                currentEnemies[index].combatSpeedOG = currentEnemies[index].combatSpeed;
+                currentEnemies[index].skillDamageOG = currentEnemies[index].skillDamage;
+                currentEnemies[index].attackDamageOG = currentEnemies[index].attackDamage;
+                currentEnemies[index].critChanceOG = currentEnemies[index].critChance;
                 characters.Add(enemy.GetComponent<EnemyAI>().enemyStats);
                 enemy.GetComponent<EnemyAI>().postionOG = enemy.transform.position;
                 index++;
@@ -387,20 +406,21 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public IEnumerator PlayerDeath(GameObject player)
+    public void PlayerDeath(GameObject player)
     {
-        yield return new WaitForSeconds(1f);
+        //yield return new WaitForSeconds(1f);
 
-        currentTurnIndex--;
         battleParty.Remove(player);
         if(turnOrder != null)
             turnOrder.Remove(player.GetComponent<playerController>().playerStats);
         Grave_Yard.Add(player);
         if (battleParty.Count == 0)
         {
-            //Aud.clip = defeatSound;
-            //Aud.volume = AudiodefeatVol; 
-            //Aud.Play();
+
+            Aud.clip = defeatSound;
+            Aud.volume = AudiodefeatVol;
+            Aud.Play();
+            battleUI.SetActive(false);
             deadMenu.SetActive(true);
         }
     }
