@@ -635,7 +635,7 @@ public class PlayerActionSelector : MonoBehaviour
             {
                
                 DamageNumberManager.Instance.ShowNumbers(playerParty[selectedPartyIndex].transform.position, item.effectAmount, Color.green);
-                playerParty[selectedPartyIndex].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[1]);
+              //  playerParty[selectedPartyIndex].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[1]);
                 playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.health += item.effectAmount;
                 if (playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.health > playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.maxHealth)
                     playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.health = playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.maxHealth;
@@ -644,7 +644,7 @@ public class PlayerActionSelector : MonoBehaviour
             {
 
                 DamageNumberManager.Instance.ShowNumbers(playerParty[selectedPartyIndex].transform.position, item.effectAmount, Color.green);
-                playerParty[selectedPartyIndex].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[13]);
+               // playerParty[selectedPartyIndex].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[13]);
                 playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.mana += item.effectAmount;
                 if (playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.mana > playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.maxMana)
                     playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.mana = playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.maxMana;
@@ -652,37 +652,37 @@ public class PlayerActionSelector : MonoBehaviour
             if (item.potionEffect == PublicEnums.Effects.AttackUp)
             {
                 DamageNumberManager.Instance.ShowString(playerParty[selectedPartyIndex].transform.position, "ATT UP", Color.red);
-                playerParty[selectedPartyIndex].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[3]);
+               // playerParty[selectedPartyIndex].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[3]);
                 playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage = playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage * 2;
             }
             if (item.potionEffect == PublicEnums.Effects.DefenceUp)
             {
                 DamageNumberManager.Instance.ShowString(playerParty[selectedPartyIndex].transform.position, "DEF UP", Color.blue);
-                playerParty[selectedPartyIndex].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[5]);
+              //  playerParty[selectedPartyIndex].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[5]);
                 playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage = playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage * 2;
             }
             if (item.potionEffect == PublicEnums.Effects.SpeedUp)
             {
                 DamageNumberManager.Instance.ShowString(playerParty[selectedPartyIndex].transform.position, "SPD UP", Color.green);
-                playerParty[selectedPartyIndex].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[7]);
+             //   playerParty[selectedPartyIndex].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[7]);
                 playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage = playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage * 2;
             }
             if (item.potionEffect == PublicEnums.Effects.SkillPUP)
             {
                 DamageNumberManager.Instance.ShowString(playerParty[selectedPartyIndex].transform.position, "SKL UP", Color.cyan);
-                playerParty[selectedPartyIndex].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[9]);
+               // playerParty[selectedPartyIndex].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[9]);
                 playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage = playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage * 2;
             }
             if (item.potionEffect == PublicEnums.Effects.Clense)
             {
                 DamageNumberManager.Instance.ShowString(playerParty[selectedPartyIndex].transform.position, "Clense", Color.gray);
-                playerParty[selectedPartyIndex].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[11]);
+              //  playerParty[selectedPartyIndex].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[11]);
                 playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage = playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.attackDamage * 2;
             }
             if (item.potionEffect == PublicEnums.Effects.Revive)
             {
                 DamageNumberManager.Instance.ShowString(playerParty[selectedPartyIndex].transform.position, "REBORN", Color.yellow);
-                playerParty[selectedPartyIndex].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[12]);
+               // playerParty[selectedPartyIndex].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[12]);
                 GameManager.Instance.PlayerReborn(playerParty[selectedPartyIndex]);
             }
             if (item.potionEffect == PublicEnums.Effects.Party_Heal)
@@ -692,7 +692,7 @@ public class PlayerActionSelector : MonoBehaviour
                     if (playerParty[i].GetComponent<playerController>().playerStats.health > 0)
                     {
                         DamageNumberManager.Instance.ShowNumbers(playerParty[i].transform.position, item.effectAmount, Color.green);
-                        playerParty[i].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[1]);
+                      //  playerParty[i].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[1]);
                         playerParty[i].GetComponent<playerController>().playerStats.health += item.effectAmount;
                         if (playerParty[i].GetComponent<playerController>().playerStats.health > playerParty[i].GetComponent<playerController>().playerStats.maxHealth)
                             playerParty[i].GetComponent<playerController>().playerStats.health = playerParty[i].GetComponent<playerController>().playerStats.maxHealth;
@@ -708,7 +708,7 @@ public class PlayerActionSelector : MonoBehaviour
                     if (playerParty[i].GetComponent<playerController>().playerStats.health > 0)
                     {
                         DamageNumberManager.Instance.ShowNumbers(playerParty[i].transform.position, item.effectAmount, Color.green);
-                        playerParty[i].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[13]);
+                       // playerParty[i].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[13]);
                         playerParty[i].GetComponent<playerController>().playerStats.mana += item.effectAmount;
                         if (playerParty[i].GetComponent<playerController>().playerStats.mana > playerParty[i].GetComponent<playerController>().playerStats.maxMana)
                             playerParty[i].GetComponent<playerController>().playerStats.mana = playerParty[i].GetComponent<playerController>().playerStats.maxMana;
@@ -724,7 +724,7 @@ public class PlayerActionSelector : MonoBehaviour
                     if (playerParty[i].GetComponent<playerController>().playerStats.health > 0)
                     {
                         DamageNumberManager.Instance.ShowString(playerParty[i].transform.position, "ATT UP", Color.red);
-                        playerParty[i].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[3]);
+                      //  playerParty[i].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[3]);
                         playerParty[i].GetComponent<playerController>().playerStats.attackDamage = playerParty[i].GetComponent<playerController>().playerStats.attackDamage * 2;
                     }
 
@@ -738,7 +738,7 @@ public class PlayerActionSelector : MonoBehaviour
                     if (playerParty[i].GetComponent<playerController>().playerStats.health > 0)
                     {
                         DamageNumberManager.Instance.ShowString(playerParty[i].transform.position, "DEF UP", Color.blue);
-                        playerParty[i].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[5]);
+                      //  playerParty[i].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[5]);
                         playerParty[i].GetComponent<playerController>().playerStats.Defence = playerParty[i].GetComponent<playerController>().playerStats.Defence * 2;
                     }
 
@@ -752,7 +752,7 @@ public class PlayerActionSelector : MonoBehaviour
                     if (playerParty[i].GetComponent<playerController>().playerStats.health > 0)
                     {
                         DamageNumberManager.Instance.ShowString(playerParty[i].transform.position, "SPD UP", Color.green);
-                        playerParty[i].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[7]);
+                       // playerParty[i].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[7]);
                         playerParty[i].GetComponent<playerController>().playerStats.combatSpeed = playerParty[i].GetComponent<playerController>().playerStats.combatSpeed * 2;
                     }
 
@@ -766,7 +766,7 @@ public class PlayerActionSelector : MonoBehaviour
                     if (playerParty[i].GetComponent<playerController>().playerStats.health > 0)
                     {
                         DamageNumberManager.Instance.ShowString(playerParty[i].transform.position, "SKL UP", Color.cyan);
-                        playerParty[i].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[9]);
+                      //  playerParty[i].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[9]);
                         playerParty[i].GetComponent<playerController>().playerStats.skillDamage = playerParty[i].GetComponent<playerController>().playerStats.skillDamage * 2;
                     }
 
@@ -780,7 +780,7 @@ public class PlayerActionSelector : MonoBehaviour
                     if (playerParty[i].GetComponent<playerController>().playerStats.health <= 0)
                     {
                         DamageNumberManager.Instance.ShowString(playerParty[i].transform.position, "REBORN", Color.yellow);
-                        playerParty[i].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[12]);
+                      //  playerParty[i].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[12]);
                         GameManager.Instance.PlayerReborn(playerParty[i]);
                     }
                 }
@@ -809,7 +809,7 @@ public class PlayerActionSelector : MonoBehaviour
                 if (chance <= 50)
                 {
                     DamageNumberManager.Instance.ShowString(enemies[selectedEnemyIndex].transform.position, "CRIT", Color.yellow);
-                    enemies[selectedEnemyIndex].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[1]);
+                   // enemies[selectedEnemyIndex].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[1]);
                     item.effectAmount = item.effectAmount * 2;
                 }
                 enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element);
@@ -824,7 +824,7 @@ public class PlayerActionSelector : MonoBehaviour
                         if (chance <= 50)
                         {
                             DamageNumberManager.Instance.ShowString(enemies[i].transform.position, "CRIT", Color.yellow);
-                            enemies[i].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[1]);
+                           // enemies[i].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[1]);
                             item.effectAmount = item.effectAmount * 2;
                         }
                         enemies[i].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element);
@@ -836,7 +836,7 @@ public class PlayerActionSelector : MonoBehaviour
             if (item.potionEffect == PublicEnums.Effects.AttackDown)
             {
                 DamageNumberManager.Instance.ShowString(enemies[selectedEnemyIndex].transform.position, "ATT DOWN", Color.black);
-                enemies[selectedEnemyIndex].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[4]);
+              //  enemies[selectedEnemyIndex].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[4]);
                 enemies[selectedEnemyIndex].GetComponent<EnemyAI>().enemyStats.attackDamage = enemies[selectedEnemyIndex].GetComponent<playerController>().playerStats.attackDamage / 2;
                 pause.Epause();
                 StartCoroutine(enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element));
@@ -844,7 +844,7 @@ public class PlayerActionSelector : MonoBehaviour
             if (item.potionEffect == PublicEnums.Effects.DefenceDown)
             {
                 DamageNumberManager.Instance.ShowString(enemies[selectedEnemyIndex].transform.position, "DEF DOWN", Color.black);
-                enemies[selectedEnemyIndex].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[6]);
+               // enemies[selectedEnemyIndex].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[6]);
                 enemies[selectedEnemyIndex].GetComponent<EnemyAI>().enemyStats.Defence = enemies[selectedEnemyIndex].GetComponent<playerController>().playerStats.attackDamage / 2;
                 pause.Epause();
                 StartCoroutine(enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element));
@@ -852,7 +852,7 @@ public class PlayerActionSelector : MonoBehaviour
             if (item.potionEffect == PublicEnums.Effects.SpeedDown)
             {
                 DamageNumberManager.Instance.ShowString(enemies[selectedEnemyIndex].transform.position, "SPD DOWN", Color.black);
-                enemies[selectedEnemyIndex].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[8]);
+              //  enemies[selectedEnemyIndex].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[8]);
                 enemies[selectedEnemyIndex].GetComponent<EnemyAI>().enemyStats.combatSpeed = enemies[selectedEnemyIndex].GetComponent<playerController>().playerStats.attackDamage / 2;
                 pause.Epause();
                 StartCoroutine(enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element));
@@ -860,7 +860,7 @@ public class PlayerActionSelector : MonoBehaviour
             if (item.potionEffect == PublicEnums.Effects.SkillPDown)
             {
                 DamageNumberManager.Instance.ShowString(enemies[selectedEnemyIndex].transform.position, "SKL DOWN", Color.black);
-                enemies[selectedEnemyIndex].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[10]);
+                //enemies[selectedEnemyIndex].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[10]);
                 enemies[selectedEnemyIndex].GetComponent<EnemyAI>().enemyStats.skillDamage = enemies[selectedEnemyIndex].GetComponent<playerController>().playerStats.attackDamage / 2;
                 pause.Epause();
                 StartCoroutine(enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element));
@@ -872,7 +872,7 @@ public class PlayerActionSelector : MonoBehaviour
                     if (enemies[i].GetComponent<playerController>().playerStats.health <= 0)
                     {
                         DamageNumberManager.Instance.ShowString(enemies[selectedEnemyIndex].transform.position, "ATT DOWN", Color.black);
-                        enemies[i].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[4]);
+                        //enemies[i].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[4]);
                         pause.Epause();
                         StartCoroutine(enemies[i].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element));
                     }
@@ -885,7 +885,7 @@ public class PlayerActionSelector : MonoBehaviour
                     if (enemies[i].GetComponent<playerController>().playerStats.health <= 0)
                     {
                         DamageNumberManager.Instance.ShowString(enemies[selectedEnemyIndex].transform.position, "DEF DOWN", Color.black);
-                        enemies[i].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[6]);
+                       // enemies[i].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[6]);
                         pause.Epause();
                         StartCoroutine(enemies[i].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element));
                     }
@@ -898,7 +898,7 @@ public class PlayerActionSelector : MonoBehaviour
                     if (enemies[i].GetComponent<playerController>().playerStats.health <= 0)
                     {
                         DamageNumberManager.Instance.ShowString(enemies[selectedEnemyIndex].transform.position, "SPD DOWN", Color.black);
-                        enemies[i].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[8]);
+                        //enemies[i].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[8]);
                         pause.Epause();
                         StartCoroutine(enemies[i].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element));
                     }
@@ -911,7 +911,7 @@ public class PlayerActionSelector : MonoBehaviour
                     if (enemies[i].GetComponent<playerController>().playerStats.health <= 0)
                     {
                         DamageNumberManager.Instance.ShowString(enemies[selectedEnemyIndex].transform.position, "SKL DOWN", Color.black);
-                        enemies[i].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[10]);
+                       // enemies[i].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[10]);
                         pause.Epause();
                         StartCoroutine(enemies[i].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element));
                     }
