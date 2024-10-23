@@ -17,23 +17,21 @@ MonoBehaviour:
   currentXP: 1000
   xpToNextLevel: 100
   nameOfCharacter: 
-  health: 200
-  maxHealth: 200
+  health: 35000
+  maxHealth: 35000
   maxMana: 0
   mana: 0
-  combatSpeed: 60
-  skillDamage: 40
-  attackDamage: 30
+  combatSpeed: 33
+  skillDamage: 1500
+  attackDamage: 1500
   critChance: 0
-  effectChance: 0
-  Defence: 20
+  Defence: 1300
   maxHealthOG: 0
   maxManaOG: 0
   combatSpeedOG: 0
   skillDamageOG: 0
   attackDamageOG: 0
   critChanceOG: 0
-  effectChanceOG: 0
   DefenceOG: 0
   expGive: 0
   skills: []
@@ -44,3 +42,14 @@ MonoBehaviour:
   special_count: 0
   weapon: {fileID: 0}
   equipment: {fileID: 0}
+  weaknessIcons: []
+  attacker: {fileID: 0}
+  target_BA: {fileID: 0}
+  Activation_Sound: []
+  Activation_SoundV: 0
+  Hit_Sound: []
+  DMG_sound: {fileID: 0}
+  Hit_SoundV: 0
+  special_soundsV: 0
+  ParticleForBasicAttack: {fileID: 0}
+  ParticleForSpecial: {fileID: 0}

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e337efe9978a8409654b2b05bb0c8c, type: 3}
   m_Name: forest_elite
   m_EditorClassIdentifier: 
+  Sprite: {fileID: 1765277621, guid: e297a2c1c169f22438b3c7632f140bb7, type: 3}
   level: 1
   currentXP: 0
   xpToNextLevel: 100
@@ -24,7 +25,6 @@ MonoBehaviour:
   skillDamage: 1500
   attackDamage: 1500
   critChance: 70
-  effectChance: 0
   Defence: 400
   maxHealthOG: 9000
   maxManaOG: 0
@@ -32,7 +32,6 @@ MonoBehaviour:
   skillDamageOG: 1500
   attackDamageOG: 1500
   critChanceOG: 70
-  effectChanceOG: 0
   DefenceOG: 400
   expGive: 8900
   skills:
@@ -46,6 +45,13 @@ MonoBehaviour:
     effect: 3
     Ptargit: 0
     AOE: 0
+    ParticleForSkill: {fileID: 0}
+    caster: {fileID: 0}
+    target: {fileID: 0}
+    Activation_Sound: []
+    Activation_SoundV: 0
+    Hit_Sound: []
+    Hit_SoundV: 0
   - sprite: {fileID: 0}
     description: 
     skillName: knife_shower
@@ -56,6 +62,13 @@ MonoBehaviour:
     effect: 1
     Ptargit: 0
     AOE: 0
+    ParticleForSkill: {fileID: 0}
+    caster: {fileID: 0}
+    target: {fileID: 0}
+    Activation_Sound: []
+    Activation_SoundV: 0
+    Hit_Sound: []
+    Hit_SoundV: 0
   - sprite: {fileID: 0}
     description: 
     skillName: back_stab
@@ -66,6 +79,13 @@ MonoBehaviour:
     effect: 1
     Ptargit: 0
     AOE: 0
+    ParticleForSkill: {fileID: 0}
+    caster: {fileID: 0}
+    target: {fileID: 0}
+    Activation_Sound: []
+    Activation_SoundV: 0
+    Hit_Sound: []
+    Hit_SoundV: 0
   - sprite: {fileID: 0}
     description: 
     skillName: entangle
@@ -76,6 +96,13 @@ MonoBehaviour:
     effect: 5
     Ptargit: 0
     AOE: 0
+    ParticleForSkill: {fileID: 0}
+    caster: {fileID: 0}
+    target: {fileID: 0}
+    Activation_Sound: []
+    Activation_SoundV: 0
+    Hit_Sound: []
+    Hit_SoundV: 0
   - sprite: {fileID: 0}
     description: 
     skillName: entangle
@@ -86,6 +113,13 @@ MonoBehaviour:
     effect: 5
     Ptargit: 0
     AOE: 0
+    ParticleForSkill: {fileID: 0}
+    caster: {fileID: 0}
+    target: {fileID: 0}
+    Activation_Sound: []
+    Activation_SoundV: 0
+    Hit_Sound: []
+    Hit_SoundV: 0
   - sprite: {fileID: 0}
     description: 
     skillName: blitz
@@ -96,6 +130,13 @@ MonoBehaviour:
     effect: 1
     Ptargit: 0
     AOE: 0
+    ParticleForSkill: {fileID: 0}
+    caster: {fileID: 0}
+    target: {fileID: 0}
+    Activation_Sound: []
+    Activation_SoundV: 0
+    Hit_Sound: []
+    Hit_SoundV: 0
   - sprite: {fileID: 0}
     description: 
     skillName: knife_dance
@@ -106,6 +147,13 @@ MonoBehaviour:
     effect: 1
     Ptargit: 0
     AOE: 1
+    ParticleForSkill: {fileID: 0}
+    caster: {fileID: 0}
+    target: {fileID: 0}
+    Activation_Sound: []
+    Activation_SoundV: 0
+    Hit_Sound: []
+    Hit_SoundV: 0
   - sprite: {fileID: 0}
     description: 
     skillName: sharpen
@@ -116,6 +164,13 @@ MonoBehaviour:
     effect: 4
     Ptargit: 1
     AOE: 0
+    ParticleForSkill: {fileID: 0}
+    caster: {fileID: 0}
+    target: {fileID: 0}
+    Activation_Sound: []
+    Activation_SoundV: 0
+    Hit_Sound: []
+    Hit_SoundV: 0
   - sprite: {fileID: 0}
     description: 
     skillName: cloak
@@ -126,6 +181,13 @@ MonoBehaviour:
     effect: 6
     Ptargit: 1
     AOE: 0
+    ParticleForSkill: {fileID: 0}
+    caster: {fileID: 0}
+    target: {fileID: 0}
+    Activation_Sound: []
+    Activation_SoundV: 0
+    Hit_Sound: []
+    Hit_SoundV: 0
   regions: 0
   isTurn: 0
   isStuned: 0
@@ -133,3 +195,14 @@ MonoBehaviour:
   special_count: 2
   weapon: {fileID: 0}
   equipment: {fileID: 0}
+  weaknessIcons: []
+  attacker: {fileID: 0}
+  target_BA: {fileID: 0}
+  Activation_Sound: []
+  Activation_SoundV: 0
+  Hit_Sound: []
+  DMG_sound: {fileID: 0}
+  Hit_SoundV: 0
+  special_soundsV: 0
+  ParticleForBasicAttack: {fileID: 0}
+  ParticleForSpecial: {fileID: 0}

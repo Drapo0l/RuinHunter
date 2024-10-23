@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8817630950669777041}
   - component: {fileID: -5953810303273220024}
   - component: {fileID: 3109116786109056571}
+  - component: {fileID: 1575637305019062867}
   m_Layer: 0
   m_Name: dessert_eliteWorld
   m_TagString: Untagged
@@ -100,7 +101,7 @@ Animator:
   m_GameObject: {fileID: 2074794736699707982}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 65854fce219a78b42a73c4b389a36237, type: 2}
+  m_Controller: {fileID: 9100000, guid: 2017c10035265d44bb21d5320b8b82e8, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -331,3 +332,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!135 &1575637305019062867
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074794736699707982}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.32
+  m_Center: {x: 0, y: 0, z: 0}

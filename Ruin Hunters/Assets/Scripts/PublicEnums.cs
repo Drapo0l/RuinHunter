@@ -71,6 +71,7 @@ public class PublicEnums : Item
         SkillPUP,
         Clense,
         Revive,
+        mana,
         Party_Heal,
         Party_AttackUp,
         Party_DefenceUp,
@@ -83,6 +84,7 @@ public class PublicEnums : Item
         Party_SpeedDown,
         Party_SkillDown,
         Party_Crit,
+        Party_mana,
        
     }
 

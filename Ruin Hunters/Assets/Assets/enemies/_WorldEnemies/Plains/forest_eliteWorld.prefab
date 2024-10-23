@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6957327316350421248}
   - component: {fileID: -8684434632982938802}
   - component: {fileID: -7492854127568492385}
+  - component: {fileID: -4817890374757147896}
   m_Layer: 0
   m_Name: forest_eliteWorld
   m_TagString: Untagged
@@ -100,7 +101,7 @@ Animator:
   m_GameObject: {fileID: 2074794736699707982}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 65854fce219a78b42a73c4b389a36237, type: 2}
+  m_Controller: {fileID: 9100000, guid: d0df28c954e794e42ab62f366daa6b39, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -331,3 +332,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!135 &-4817890374757147896
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074794736699707982}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.32
+  m_Center: {x: 0, y: 0, z: 0}
