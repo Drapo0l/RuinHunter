@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e337efe9978a8409654b2b05bb0c8c, type: 3}
   m_Name: desert_elite
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 468951296, guid: 73b570fd11546d14d98501221fc74921, type: 3}
   level: 1
-  currentXP: 6500
+  currentXP: 1000
   xpToNextLevel: 100
   nameOfCharacter: cold_moon_wolf
   health: 50000
@@ -33,8 +33,6 @@ MonoBehaviour:
   attackDamageOG: 1200
   critChanceOG: 50
   DefenceOG: 1000
-  effectChance: 0
-  effectChanceOG: 0
   expGive: 15000
   skills:
   - sprite: {fileID: 0}

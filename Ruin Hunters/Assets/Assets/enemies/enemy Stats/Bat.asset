@@ -14,18 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sprite: {fileID: -6869589605592600110, guid: 4c92fdf190c298f43a958ea64410319e, type: 3}
   level: 1
-  currentXP: 250
+  currentXP: 400
   xpToNextLevel: 100
   nameOfCharacter: Bat
-  health: 300
-  maxHealth: 300
+  health: 2000
+  maxHealth: 2000
   maxMana: 0
   mana: 0
-  combatSpeed: 15
-  skillDamage: 50
-  attackDamage: 60
+  combatSpeed: 25
+  skillDamage: 300
+  attackDamage: 300
   critChance: 0
-  Defence: 0
+  Defence: 100
   maxHealthOG: 300
   maxManaOG: 0
   combatSpeedOG: 15
@@ -33,8 +33,6 @@ MonoBehaviour:
   attackDamageOG: 60
   critChanceOG: 0
   DefenceOG: 0
-  effectChance: 0
-  effectChanceOG: 0
   expGive: 0
   skills:
   - sprite: {fileID: 0}

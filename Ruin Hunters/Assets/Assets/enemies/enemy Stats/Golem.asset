@@ -12,20 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e337efe9978a8409654b2b05bb0c8c, type: 3}
   m_Name: Golem
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 2091495657284362832, guid: f738d4160643ac1428a9cac4f9b6a39a, type: 3}
   level: 1
-  currentXP: 2000
+  currentXP: 1000
   xpToNextLevel: 100
   nameOfCharacter: 
-  health: 10000
-  maxHealth: 10000
+  health: 40000
+  maxHealth: 40000
   maxMana: 0
   mana: 0
-  combatSpeed: 5
-  skillDamage: 8050
-  attackDamage: 8000
+  combatSpeed: 49
+  skillDamage: 2400
+  attackDamage: 2400
   critChance: 0
-  Defence: 12000
+  Defence: 800
   maxHealthOG: 0
   maxManaOG: 0
   combatSpeedOG: 0
@@ -33,8 +33,6 @@ MonoBehaviour:
   attackDamageOG: 0
   critChanceOG: 0
   DefenceOG: 0
-  effectChance: 0
-  effectChanceOG: 0
   expGive: 0
   skills: []
   regions: 0

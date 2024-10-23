@@ -42,10 +42,10 @@ public class EndingScreenManager : MonoBehaviour
         // Populate Credits
         creditsText.text = "Game Credits\n\n" +
                        "Developers:\n" +
-                       "1. [Developer Name 1]\n" +
-                       "2. [Developer Name 2]\n" +
-                       "3. [Developer Name 3]\n" +
-                       "4. [Developer Name 4]\n\n" +
+                       "1. Josean\n" +
+                       "2. Angel\n" +
+                       "3. Angel\n" +
+                       "4. Jacob\n\n" +
                        "Art:\n" +
                        "Unity-chan\n";
 

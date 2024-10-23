@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e337efe9978a8409654b2b05bb0c8c, type: 3}
   m_Name: ruin_boss_1_R
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 0}
+  Sprite: {fileID: -1985263156231031030, guid: 38d9e19709461bc47bd5b6e570f9e4ed, type: 3}
   level: 1
   currentXP: 0
-  xpToNextLevel: 90000
+  xpToNextLevel: 100
   nameOfCharacter: 
   health: 900000
   maxHealth: 900000
@@ -33,8 +33,6 @@ MonoBehaviour:
   attackDamageOG: 100
   critChanceOG: 0
   DefenceOG: 2000
-  effectChance: 0
-  effectChanceOG: 0
   expGive: 0
   skills:
   - sprite: {fileID: 0}

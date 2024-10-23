@@ -29,20 +29,17 @@ public class DialogueManager : MonoBehaviour
             gameObject.SetActive(true);
         }
 
-        // Ensure previous choices are hidden and cleared
         Debug.Log("Hiding choices before starting new dialogue.");
         choiceManager.HideChoices();
 
         NPCname.text = dialogue.NPCName;
         sentences.Clear();
 
-        // Add new sentences to the queue
         foreach (var sentence in dialogue.sentences)
         {
             sentences.Enqueue(sentence);
         }
 
-        // Display the first sentence
         DisplayNextSentence(dialogue, currentNPC);
     }
 
@@ -84,13 +81,25 @@ public class DialogueManager : MonoBehaviour
     }
 
 
+
     private void Update()
     {
-        // Check for player input to end the dialogue if it's the last sentence
-        if (waitingForPlayerInput && Input.GetKeyDown(KeyCode.E))
+        if (choiceManager.choicesParent.gameObject.activeSelf)
         {
-            EndDialogue();
-            waitingForPlayerInput = false;
+            // Disable 'E' key when choices are displayed
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                return; // Do nothing
+            }
+        }
+        else
+        {
+            // Check for player input to end the dialogue if it's the last sentence
+            if (waitingForPlayerInput && Input.GetKeyDown(KeyCode.E))
+            {
+                EndDialogue();
+                waitingForPlayerInput = false;
+            }
         }
     }
 
@@ -98,13 +107,17 @@ public class DialogueManager : MonoBehaviour
     {
         sentences.Clear();
         endConversation = false;
-        if (gameObject.activeSelf)
+
+        if (!choiceManager.choicesParent.gameObject.activeSelf) // Ensure choices are not displayed
         {
-            gameObject.SetActive(false);
-            if (currentNPC != null && (currentNPC.isPartyMemeber || currentNPC.questForPlayer != null))
+            if (gameObject.activeSelf)
             {
-                currentNPC.gameObject.SetActive(false); // Turn off the NPC after dialogue ends
-                currentNPC.HideInteractElements(); // Call method to hide interact elements
+                gameObject.SetActive(false);
+                if (currentNPC != null && (currentNPC.isPartyMemeber || currentNPC.questForPlayer != null))
+                {
+                    currentNPC.gameObject.SetActive(false); // Turn off the NPC after dialogue ends
+                    currentNPC.HideInteractElements(); // Call method to hide interact elements
+                }
             }
         }
 
@@ -112,21 +125,24 @@ public class DialogueManager : MonoBehaviour
         choiceManager.HideChoices();
     }
 
+
     public void ExecuteAction(ActionType actionType, DialogueChoice choice)
     {
         switch (actionType)
         {
             case ActionType.UnlockQuest:
                 currentNPC.GiveQuest();
-                break;
-            case ActionType.ChangeNPCState:
-                ChangeNPCState(choice);
-                break;
-            case ActionType.UpdateInventory:
-                // Existing logic...
+                EndDialogue();
                 break;
             case ActionType.None:
+                // No specific action, just proceed to next dialogue
                 break;
+        }
+
+        // Proceed to the next dialogue and update choices directly from nextDialogue
+        if (choice.nextDialogue != null)
+        {
+            StartDialogue(choice.nextDialogue);
         }
     }
 
@@ -144,7 +160,7 @@ public class DialogueManager : MonoBehaviour
         choiceManager.HideChoices();
     }
 
-        private void UpdateInventory(Item item)
+    private void UpdateInventory(Item item)
     {
         GameState.Instance.UpdateInventory(item);
         Debug.Log($"{item.name} added to inventory!");

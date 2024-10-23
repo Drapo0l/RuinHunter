@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e337efe9978a8409654b2b05bb0c8c, type: 3}
   m_Name: Elite Golem Armor stats
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 4517011205545875929, guid: f738d4160643ac1428a9cac4f9b6a39a, type: 3}
   level: 1
-  currentXP: 4000
+  currentXP: 1000
   xpToNextLevel: 100
   nameOfCharacter: 
   health: 5000
@@ -33,8 +33,6 @@ MonoBehaviour:
   attackDamageOG: 0
   critChanceOG: 0
   DefenceOG: 0
-  effectChance: 0
-  effectChanceOG: 0
   expGive: 0
   skills: []
   regions: 0

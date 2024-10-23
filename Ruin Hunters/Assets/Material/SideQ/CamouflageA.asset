@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NPCName: CamouflageSlime
   sentences:
-  - I know that
+  - How did you found me
   - Was mi camoflage that bad
   - Was mi camoflage that bad
   - dosen't matter
@@ -26,7 +26,7 @@ MonoBehaviour:
   - buttonText: A
     playerText: Your brother is looking for you
     nextDialogue: {fileID: 11400000, guid: 6baf38001f6aa7b45919841d835dec2e, type: 2}
-    actionType: 0
+    actionType: 1
     conditions: []
     consequences: []
     choiceMade: 0

@@ -18,20 +18,13 @@ MonoBehaviour:
   - I don't remember
   - "I\u2019ve been turned into a slime by an eviel monster"
   - I do rember having brothers and sisters befor I got turn into a slime
+  - Can you help me find my brothers and sisters?
   choices:
   - buttonText: A
-    playerText: Brother and sisters?
+    playerText: Yeah I will help you
     nextDialogue: {fileID: 11400000, guid: e03005229ace47c429e5cfe8b75bc332, type: 2}
-    actionType: 2
+    actionType: 1
     conditions: []
     consequences: []
     choiceMade: 0
-    neverDisable: 0
-  - buttonText: B
-    playerText: this slime is crazy
-    nextDialogue: {fileID: 11400000, guid: cd2dee01675c96b428601a6c7fe4518f, type: 2}
-    actionType: 2
-    conditions: []
-    consequences: []
-    choiceMade: 1
     neverDisable: 0

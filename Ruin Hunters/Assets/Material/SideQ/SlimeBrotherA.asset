@@ -14,15 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NPCName: SlimeBrother
   sentences:
-  - Yes my brothers and sisters
-  - We were separated when this curse hit us
-  - Can you help me find my brothers and sisters?
-  choices:
-  - buttonText: A
-    playerText: 'I''ll help you '
-    nextDialogue: {fileID: 11400000, guid: 77f52dcf9954dec47bd02ccefc44286b, type: 2}
-    actionType: 2
-    conditions: []
-    consequences: []
-    choiceMade: 0
-    neverDisable: 0
+  - Thank you
+  choices: []

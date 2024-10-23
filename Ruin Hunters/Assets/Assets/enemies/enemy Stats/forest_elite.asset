@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e337efe9978a8409654b2b05bb0c8c, type: 3}
   m_Name: forest_elite
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 1765277621, guid: e297a2c1c169f22438b3c7632f140bb7, type: 3}
   level: 1
-  currentXP: 1850
+  currentXP: 0
   xpToNextLevel: 100
   nameOfCharacter: Jax.
   health: 9000
@@ -33,8 +33,6 @@ MonoBehaviour:
   attackDamageOG: 1500
   critChanceOG: 70
   DefenceOG: 400
-  effectChance: 0
-  effectChanceOG: 0
   expGive: 8900
   skills:
   - sprite: {fileID: 0}

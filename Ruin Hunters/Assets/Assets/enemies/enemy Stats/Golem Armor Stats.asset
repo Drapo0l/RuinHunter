@@ -12,20 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e337efe9978a8409654b2b05bb0c8c, type: 3}
   m_Name: Golem Armor Stats
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 0}
+  Sprite: {fileID: -7678252057889715739, guid: f738d4160643ac1428a9cac4f9b6a39a, type: 3}
   level: 1
-  currentXP: 2900
+  currentXP: 1000
   xpToNextLevel: 100
   nameOfCharacter: 
-  health: 15000
-  maxHealth: 15000
+  health: 40000
+  maxHealth: 40000
   maxMana: 0
   mana: 0
-  combatSpeed: 10
-  skillDamage: 10000
-  attackDamage: 10000
+  combatSpeed: 49
+  skillDamage: 2400
+  attackDamage: 2400
   critChance: 0
-  Defence: 12000
+  Defence: 800
   maxHealthOG: 0
   maxManaOG: 0
   combatSpeedOG: 0
@@ -33,8 +33,6 @@ MonoBehaviour:
   attackDamageOG: 0
   critChanceOG: 0
   DefenceOG: 0
-  effectChance: 0
-  effectChanceOG: 0
   expGive: 0
   skills: []
   regions: 0

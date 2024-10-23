@@ -15,6 +15,7 @@ MonoBehaviour:
   NPCName: CamouflageSlime
   sentences:
   - How did you found me
+  - How did you found me
   choices:
   - buttonText: A
     playerText: I saw you
