@@ -11,14 +11,21 @@ public class QuitMenu : MonoBehaviour
 
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.R) && !QuitRestartMenu.activeSelf)
         {
          
             OpenQuitMenu();
         }
+        else if (Input.GetKeyDown(KeyCode.T) && QuitRestartMenu.activeSelf)
+        {
+            isQuit = false;
+            QuitRestartMenu.SetActive(false);
+            Time.timeScale = 1;
+        }
     }
+    
 
     public void OpenQuitMenu()
     {

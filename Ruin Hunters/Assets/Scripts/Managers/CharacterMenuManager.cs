@@ -201,6 +201,36 @@ public class CharacterMenuManager : MonoBehaviour
             ShowMenu();
             
         }
+        else if (GameManager.Instance.combat && statMenu.activeSelf)
+        {
+            //HideStats();
+            cursor.transform.SetParent(statMenu.transform);
+            weaponStats.SetActive(false);
+            equipmentStats.SetActive(false);
+            subMenuParent.SetActive(false);
+            statMenu.SetActive(false);
+            itemStats.SetActive(false);
+            skillStats.SetActive(false);
+            inUI = false;
+            inMenu = false;
+            equipmentMenu = false;
+            weaponMenu = false;
+            skillMenu = false;
+            ItemMenu = false;
+            choosingPlayer = false;
+            skillScrollIndex = 0;
+            itemSelection = 0;
+            weaponScrollIndex = 0;
+            equipmentScrollIndex = 0;
+            playerScrollIndex = 0;
+            currentSelection = 0;
+            leftMenu.Clear();
+            rightMenu.Clear();
+            itemsButtons.Clear();
+            skillsButtons.Clear();
+            weaponButtons.Clear();
+            equipmentButtons.Clear();
+        }
     }
 
     private void ShowMenu()

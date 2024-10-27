@@ -9,12 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 680e0fe69aa776f4ab7c7fd264c38651, type: 3}
   m_Name: Mediocre Armor
   m_EditorClassIdentifier: Assembly-CSharp::EquipmentItem
   Sprite: {fileID: 0}
-  itemName: 
+  itemName: Mediocre Armor
   description: 
-  armor: 800
-  itemPrice: 650
-  armourType: 1
+  armor: 0
+  itemPrice: 0
