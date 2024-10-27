@@ -9,12 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 680e0fe69aa776f4ab7c7fd264c38651, type: 3}
   m_Name: RareArmor
   m_EditorClassIdentifier: Assembly-CSharp::EquipmentItem
   Sprite: {fileID: 0}
-  itemName: 
+  itemName: RareArmor
   description: 
-  armor: 500
-  itemPrice: 200
-  armourType: 3
+  armor: 0
+  itemPrice: 0

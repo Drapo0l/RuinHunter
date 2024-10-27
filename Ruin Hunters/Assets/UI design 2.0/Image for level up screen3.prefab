@@ -280,7 +280,7 @@ GameObject:
   - component: {fileID: 2360426368280683928}
   - component: {fileID: 4187887194674139723}
   m_Layer: 5
-  m_Name: Image (3)
+  m_Name: Image for level up screen3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 //using static UnityEditor.Progress;
@@ -28,7 +29,7 @@ public class CharacterMenuManager : MonoBehaviour
     private List<WeaponItem> weaponItems;
     private List<EquipmentItem> equipmentItems;
     private List<Skill> playerSkills;
-
+    [Header("Menu Buttons")]
     private Stack<List<Button>> menuStack = new Stack<List<Button>>(); // Stack for managing menus
     private List<Button> equipmentButtons = new List<Button>();
     private List<Button> weaponButtons = new List<Button>();
@@ -86,7 +87,8 @@ public class CharacterMenuManager : MonoBehaviour
     //[SerializeField] AudioClip ButtonDownAud;
     //[SerializeField] float ButtonDownVol;
 
-   private bool isPlaying;
+
+    private bool isPlaying;
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape) && statMenu.activeSelf)
@@ -199,6 +201,36 @@ public class CharacterMenuManager : MonoBehaviour
             ShowMenu();
             
         }
+        else if (GameManager.Instance.combat && statMenu.activeSelf)
+        {
+            //HideStats();
+            cursor.transform.SetParent(statMenu.transform);
+            weaponStats.SetActive(false);
+            equipmentStats.SetActive(false);
+            subMenuParent.SetActive(false);
+            statMenu.SetActive(false);
+            itemStats.SetActive(false);
+            skillStats.SetActive(false);
+            inUI = false;
+            inMenu = false;
+            equipmentMenu = false;
+            weaponMenu = false;
+            skillMenu = false;
+            ItemMenu = false;
+            choosingPlayer = false;
+            skillScrollIndex = 0;
+            itemSelection = 0;
+            weaponScrollIndex = 0;
+            equipmentScrollIndex = 0;
+            playerScrollIndex = 0;
+            currentSelection = 0;
+            leftMenu.Clear();
+            rightMenu.Clear();
+            itemsButtons.Clear();
+            skillsButtons.Clear();
+            weaponButtons.Clear();
+            equipmentButtons.Clear();
+        }
     }
 
     private void ShowMenu()
@@ -251,6 +283,7 @@ public class CharacterMenuManager : MonoBehaviour
             UpdateHoverIndicator();
         }
     }
+
 
     private void ExecuteCurrentAction()
     {

@@ -9,16 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: de3db85fc5fc25247ae25b6f4468445d, type: 3}
   m_Name: Medium Potion
   m_EditorClassIdentifier: Assembly-CSharp::Item
   Sprite: {fileID: 0}
   itemName: Medium Potion
-  description: Heals Player 1000HP
-  effectAmount: 1000
-  amountOfItem: 3
-  itemPrice: 5
+  description: 
+  effectAmount: 0
+  amountOfItem: 0
+  itemPrice: 0
   damageable: 0
-  potionEffect: 2
+  potionEffect: 0
   Element: 0
   itemType: 0
