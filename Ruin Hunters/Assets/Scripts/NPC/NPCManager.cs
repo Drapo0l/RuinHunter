@@ -12,14 +12,11 @@ public abstract class NPCManager : MonoBehaviour, NPCInteractable
     [SerializeField] float interactDst;
     [SerializeField] List<AudioClip> proximitySounds; // Add this line for multiple proximity sounds
     [SerializeField] AudioSource audioSource; // AudioSource to play the sounds
-    
-
     private Transform playerTransform;
     private bool hasPlayedProximitySound = false; // Flag to track if the sound has played
-
+    private bool isDialogueActive = false; // Track if dialogue is active
     public GameObject player { get; set; }
     public bool IsInteractable { get; set; }
-    //public static UnityAction<ShopSystem, InventoryItemLists> OnShoWindowRequest;
 
     private void Start()
     {
@@ -28,16 +25,9 @@ public abstract class NPCManager : MonoBehaviour, NPCInteractable
         interactText.gameObject.SetActive(false); // Ensure the text is initially disabled
     }
 
-    // Update is called once per frame
     void Update()
     {
-        bool withinDistance = IsWithingInteractDistance();
-
-        if (Keyboard.current.eKey.wasPressedThisFrame && withinDistance)
-        {
-            // Interact with NPC
-            Interact();
-        }
+        bool withinDistance = IsWithinInteractDistance();
 
         // Enable or disable the interact sprite and text based on distance
         if (withinDistance)
@@ -57,6 +47,13 @@ public abstract class NPCManager : MonoBehaviour, NPCInteractable
                 audioSource.Play(); // Play proximity sound once
                 hasPlayedProximitySound = true; // Set the flag to true
             }
+
+            if (Keyboard.current.eKey.wasPressedThisFrame)
+            {
+                // Interact with NPC
+                Interact();
+                isDialogueActive = true;
+            }
         }
         else
         {
@@ -69,12 +66,23 @@ public abstract class NPCManager : MonoBehaviour, NPCInteractable
                 interactText.gameObject.SetActive(false); // Hide text
             }
             hasPlayedProximitySound = false; // Reset the flag when player leaves the area
+
+            // Check if dialogue needs to be ended
+            if (isDialogueActive)
+            {
+                DialogueManager dialogueManager = FindObjectOfType<DialogueManager>();
+                if (dialogueManager != null && dialogueManager.gameObject.activeSelf)
+                {
+                    dialogueManager.EndDialogue(); // End the dialogue if player moves away
+                    isDialogueActive = false;
+                }
+            }
         }
     }
 
     public abstract void Interact(); // Can be used for anything
 
-    private bool IsWithingInteractDistance()
+    private bool IsWithinInteractDistance()
     {
         return Vector3.Distance(playerTransform.position, transform.position) < interactDst;
     }
@@ -84,15 +92,15 @@ public abstract class NPCManager : MonoBehaviour, NPCInteractable
         interactSprite.gameObject.SetActive(false); // Hide sprite
         interactText.gameObject.SetActive(false); // Hide text
     }
-
-    public void OpenShopUI()
-    {
-        // ShopUI shopUI = FindObjectOfType<ShopUI>(); // Find the ShopUI component in the scene
-        // if (shopUI != null)
-        // {
-        //     // Pass the shop items and player gold to the UI
-        //     shopUI.Initialize(shopSystem, InventoryManager.instance.GetCurrentGold());
-        //     shopUI.gameObject.SetActive(true); // Show the shop UI
-        // }
-    }
 }
+//public void OpenShopUI()
+//    {
+//        // ShopUI shopUI = FindObjectOfType<ShopUI>(); // Find the ShopUI component in the scene
+//        // if (shopUI != null)
+//        // {
+//        //     // Pass the shop items and player gold to the UI
+//        //     shopUI.Initialize(shopSystem, InventoryManager.instance.GetCurrentGold());
+//        //     shopUI.gameObject.SetActive(true); // Show the shop UI
+//        // }
+//    }
+//}
