@@ -63,7 +63,7 @@ public class Skill
             //if (Activation_Sound != null)
             //    caster.PlayOneShot(Hit_Sound[Hit_Sound.Length], Hit_SoundV);
           
-            //targetHit.TakeSkillDamage(damage, elementType);
+            targetHit.TakeSkillDamage(damage, elementType);
         }
     }
 
@@ -96,7 +96,7 @@ public class Skill
         {
             //if (attacker.Activation_Sound != null)
             //    attacker.target_BA.PlayOneShot(attacker.Hit_Sound[attacker.Hit_Sound.Length], attacker.Hit_SoundV);
-            //targetHit.TakeMeleeDamage(damage, PublicEnums.WeaponType.None);
+            targetHit.TakeMeleeDamage(damage, PublicEnums.WeaponType.None);
         }
     }
     

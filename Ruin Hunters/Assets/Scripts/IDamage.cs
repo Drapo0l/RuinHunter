@@ -4,6 +4,6 @@ using UnityEngine;
 
 public interface IDamage 
 {
-    void TakeSkillDamage1(int damage, PublicEnums.ElementType elementType);
-    void TakeMeleeDamage1(int damage, PublicEnums.WeaponType weaponType);   
+    void TakeSkillDamage(int damage, PublicEnums.ElementType elementType);
+    void TakeMeleeDamage(int damage, PublicEnums.WeaponType weaponType);   
 }

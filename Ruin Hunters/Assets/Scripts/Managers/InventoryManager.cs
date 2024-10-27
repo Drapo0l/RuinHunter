@@ -35,13 +35,57 @@ public class InventoryManager : MonoBehaviour
         Item existingItem = items.Find(i => i.name == item.name);
         if (existingItem != null)
         {
-            existingItem.amountOfItem += item.amountOfItem;
+            if(item.amountOfItem == 0)
+            {
+                existingItem.amountOfItem++;
+            }
+            else
+                existingItem.amountOfItem += item.amountOfItem;
         }
         else
         {
             items.Add(item);
         }
     }
+    public void AddShopItem(Item item)
+    {
+        Item existingItem = items.Find(i => i.name == item.name);
+        if (existingItem != null)
+        {
+            existingItem.amountOfItem++;            
+        }
+        else
+        {
+            items.Add(item);
+        }
+    }
+    public void AddShopItem(EquipmentItem item)
+    {
+        Item existingItem = items.Find(i => i.name == item.name);
+        if (existingItem != null)
+        {
+            existingItem.amountOfItem++;            
+        }
+        else
+        {
+            equipmentItems.Add(item);
+        }
+    }
+    
+    public void AddShopItem(WeaponItem item)
+    {
+        Item existingItem = items.Find(i => i.name == item.name);
+        if (existingItem != null)
+        {
+            existingItem.amountOfItem++;            
+        }
+        else
+        {
+            weaponItems.Add(item);
+        }
+    }
+
+
 
     public void RemoveItem(Item item)
     {

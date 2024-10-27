@@ -14,6 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NPCName: CamouflageSlime
   sentences:
-  - 'Yeah I will be back once I figure out the perfect camuflage, in the mean time
-    you can go look for my sister. She is in the desert somewhere '
-  choices: []
+  - My brother???
+  - 'Oh yes, I remeber '
+  - Yeah I will be back once I figure out the perfect camuflage
+  - In the mean time you can go look for my sister
+  - 'She is in the desert somewhere '
+  choices:
+  - buttonText: A
+    playerText: Okay, your brother is in the town outside this forest
+    nextDialogue: {fileID: 11400000, guid: 2e03ebae6ec9d194db098161ba234c71, type: 2}
+    actionType: 0
+    conditions: []
+    consequences: []
+    choiceMade: 0
+    neverDisable: 0

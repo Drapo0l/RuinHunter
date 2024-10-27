@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.ProBuilder.Shapes;
 using static PublicEnums;
 
-public class EnemyAI : MonoBehaviour, IDamage
+public class EnemyAI : MonoBehaviour
 {
     public string enemyName;
     public CharacterAttributes enemyStats;
@@ -803,7 +803,8 @@ public class EnemyAI : MonoBehaviour, IDamage
         GameObject target;
 
         enemyStats.attacker = enemyModel.GetComponent<AudioSource>();
-        Aud.PlayOneShot(AttackAud, AttackVol);
+        if (AttackAud != null)
+            Aud.PlayOneShot(AttackAud, AttackVol);
         if (skill.AOE == true)
         {
 
@@ -905,7 +906,8 @@ public class EnemyAI : MonoBehaviour, IDamage
         int ran;
         GameObject target;
         enemyStats.attacker = enemyModel.GetComponent<AudioSource>();
-        Aud.PlayOneShot(AttackAud, AttackVol);
+        if (AttackAud != null)
+            Aud.PlayOneShot(AttackAud, AttackVol);
         while (true)
         {
             ran = Random.Range(0, PartyManager.Instance.startingPlayerParty.Count);
@@ -1130,13 +1132,6 @@ public class EnemyAI : MonoBehaviour, IDamage
         enemyStats.isTurn = true;
     }
 
-    public void TakeSkillDamage1(int damage, PublicEnums.ElementType elementType)
-    {
 
-    }
-   public void TakeMeleeDamage1(int damage, PublicEnums.WeaponType weaponType)
-    {
-
-    }
 }
 

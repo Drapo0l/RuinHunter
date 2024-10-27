@@ -176,11 +176,11 @@ MonoBehaviour:
   weaknesBar: {fileID: 0}
   Aud: {fileID: 4986288400332730973}
   AttackAud: {fileID: 8300000, guid: 323e15cfe809e114ab92c9f4b25e8bc2, type: 3}
-  AttackVol: 1
-  HitAud: {fileID: 8300000, guid: 8b23b175a78d6b5458322e3a6c9905d0, type: 3}
-  HitVol: 1
-  DeathAud: {fileID: 8300000, guid: 566d2ea6240b489479a6e9fd608c2621, type: 3}
-  DeathVol: 1
+  AttackVol: 0
+  HitAud: {fileID: 0}
+  HitVol: 0
+  DeathAud: {fileID: 0}
+  DeathVol: 0
 --- !u!82 &4986288400332730973
 AudioSource:
   m_ObjectHideFlags: 0

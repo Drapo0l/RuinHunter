@@ -164,36 +164,42 @@ public class playerController : MonoBehaviour, IDamage
 
     private void PlayFootsteps(string terrainTag)
     {
-        if (rb.velocity.magnitude > 0f && Time.time > nextFootstepTime)
+        if (footstepSource != null)
         {
-            nextFootstepTime = Time.time + footstepDelay;
-
-            AudioClip[] footstepClips;
-
-            Debug.Log("Playing footsteps for terrain tag: " + terrainTag); // Debug log for terrain tag
-
-            switch (terrainTag)
+            if (rb.velocity.magnitude > 0f && Time.time > nextFootstepTime)
             {
-                case "Grass":
-                    footstepClips = grassFootstepClips.ToArray();
-                    break;
-                case "Desert":
-                    footstepClips = desertFootstepClips.ToArray();
-                    break;
-                case "Snow":
-                    footstepClips = snowFootstepClips.ToArray();
-                    break;
-                case "Ruin":
-                    footstepClips = ruinFootstepClips.ToArray();
-                    break;
-                default:
-                    footstepClips = grassFootstepClips.ToArray(); // Default to grass
-                    break;
-            }
+                nextFootstepTime = Time.time + footstepDelay;
 
-            Debug.Log("Selected footstep clip: " + footstepClips[Random.Range(0, footstepClips.Length)].name); // Debug log for selected clip
-            footstepSource.clip = footstepClips[Random.Range(0, footstepClips.Length)];
-            footstepSource.Play();
+                AudioClip[] footstepClips;
+
+                //Debug.Log("Playing footsteps for terrain tag: " + terrainTag); // Debug log for terrain tag
+
+                switch (terrainTag)
+                {
+                    case "Grass":
+                        footstepClips = grassFootstepClips.ToArray();
+                        break;
+                    case "Desert":
+                        footstepClips = desertFootstepClips.ToArray();
+                        break;
+                    case "Snow":
+                        footstepClips = snowFootstepClips.ToArray();
+                        break;
+                    case "Ruin":
+                        footstepClips = ruinFootstepClips.ToArray();
+                        break;
+                    default:
+                        footstepClips = grassFootstepClips.ToArray(); // Default to grass
+                        break;
+                }
+
+                //Debug.Log("Selected footstep clip: " + footstepClips[Random.Range(0, footstepClips.Length)].name); // Debug log for selected clip
+                if (footstepClips != null)
+                {
+                    footstepSource.clip = footstepClips[Random.Range(0, footstepClips.Length)];
+                    footstepSource.Play();
+                }
+            }
         }
     }
         public void AttackAnimation()
@@ -201,7 +207,7 @@ public class playerController : MonoBehaviour, IDamage
         playerAnimator.SetTrigger("Attack");
     }
 
-    public void TakeSkillDamage1(int damage, PublicEnums.ElementType elementType)
+    public void TakeSkillDamage(int damage, PublicEnums.ElementType elementType)
     {
         float multiplier = GetSkillMultiplier(elementType);
         damage = Mathf.FloorToInt(damage * multiplier);
@@ -228,7 +234,7 @@ public class playerController : MonoBehaviour, IDamage
         }
     }
 
-    public void TakeMeleeDamage1(int damage, PublicEnums.WeaponType weaponType)
+    public void TakeMeleeDamage(int damage, PublicEnums.WeaponType weaponType)
     {
         float multiplier = GetMeleeMultiplier(weaponType);
         damage = Mathf.FloorToInt(damage * multiplier);

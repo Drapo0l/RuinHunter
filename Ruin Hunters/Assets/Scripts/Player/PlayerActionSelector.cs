@@ -502,6 +502,12 @@ public class PlayerActionSelector : MonoBehaviour
     private void UseItem()
     {
         if (InventoryManager.instance.GetItems()[itemScrollIndex] == null) return;
+        if (InventoryManager.instance.GetItems()[itemScrollIndex].amountOfItem == 0)
+        {
+            DamageNumberManager.Instance.ShowString(playerTransform.position, "Amount: 0", Color.white);
+            HandleBackspace();
+            return;
+        }
         if (InventoryManager.instance.GetItems()[itemScrollIndex].damageable)
         {
             PerformAttack();
@@ -570,6 +576,7 @@ public class PlayerActionSelector : MonoBehaviour
 
             if (skillAttack)
             {
+                stop = true;
                 ParticleManager.instance.ShootParticle(enemies[selectedEnemyIndex], playerTransform, playerSkills[skillScrollIndex].ParticleForSkill);
                 yield return new WaitForSeconds(2.2f);
                 if (playerSkills[skillScrollIndex].AOE)
@@ -619,6 +626,7 @@ public class PlayerActionSelector : MonoBehaviour
         {
             consumeItem();
         }
+        stop = false;
         EndTurnMenu();
         if (enemies.Count != 0)        
             GameManager.Instance.EndTurn();
@@ -633,21 +641,12 @@ public class PlayerActionSelector : MonoBehaviour
         {
             if (item.potionEffect == PublicEnums.Effects.Heal)
             {
-               
+
                 DamageNumberManager.Instance.ShowNumbers(playerParty[selectedPartyIndex].transform.position, item.effectAmount, Color.green);
                 //playerParty[selectedPartyIndex].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[1]);
                 playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.health += item.effectAmount;
                 if (playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.health > playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.maxHealth)
                     playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.health = playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.maxHealth;
-            }
-            if (item.potionEffect == PublicEnums.Effects.mana)
-            {
-
-                DamageNumberManager.Instance.ShowNumbers(playerParty[selectedPartyIndex].transform.position, item.effectAmount, Color.green);
-                //playerParty[selectedPartyIndex].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[13]);
-                playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.mana += item.effectAmount;
-                if (playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.mana > playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.maxMana)
-                    playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.mana = playerParty[selectedPartyIndex].GetComponent<playerController>().playerStats.maxMana;
             }
             if (item.potionEffect == PublicEnums.Effects.AttackUp)
             {
@@ -696,22 +695,6 @@ public class PlayerActionSelector : MonoBehaviour
                         playerParty[i].GetComponent<playerController>().playerStats.health += item.effectAmount;
                         if (playerParty[i].GetComponent<playerController>().playerStats.health > playerParty[i].GetComponent<playerController>().playerStats.maxHealth)
                             playerParty[i].GetComponent<playerController>().playerStats.health = playerParty[i].GetComponent<playerController>().playerStats.maxHealth;
-                    }
-
-
-                }
-            }
-            if (item.potionEffect == PublicEnums.Effects.Party_mana)
-            {
-                for (int i = 0; i < playerParty.Count; i++)
-                {
-                    if (playerParty[i].GetComponent<playerController>().playerStats.health > 0)
-                    {
-                        DamageNumberManager.Instance.ShowNumbers(playerParty[i].transform.position, item.effectAmount, Color.green);
-                        //playerParty[i].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[13]);
-                        playerParty[i].GetComponent<playerController>().playerStats.mana += item.effectAmount;
-                        if (playerParty[i].GetComponent<playerController>().playerStats.mana > playerParty[i].GetComponent<playerController>().playerStats.maxMana)
-                            playerParty[i].GetComponent<playerController>().playerStats.mana = playerParty[i].GetComponent<playerController>().playerStats.maxMana;
                     }
 
 
@@ -780,11 +763,14 @@ public class PlayerActionSelector : MonoBehaviour
                     if (playerParty[i].GetComponent<playerController>().playerStats.health <= 0)
                     {
                         DamageNumberManager.Instance.ShowString(playerParty[i].transform.position, "REBORN", Color.yellow);
-                        //playerParty[i].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[12]);
+                       //playerParty[i].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[12]);
                         GameManager.Instance.PlayerReborn(playerParty[i]);
                     }
                 }
             }
+            EndTurnMenu();
+            if (enemies.Count != 0)
+                GameManager.Instance.EndTurn();
         }
         else
         {
@@ -801,7 +787,7 @@ public class PlayerActionSelector : MonoBehaviour
                         StartCoroutine(enemies[i].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element));
                     }
                 }
-                
+
             }
             if (item.potionEffect == PublicEnums.Effects.Crit)
             {
@@ -830,8 +816,8 @@ public class PlayerActionSelector : MonoBehaviour
                         enemies[i].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element);
                     }
                 }
-                
-                
+
+
             }
             if (item.potionEffect == PublicEnums.Effects.AttackDown)
             {
@@ -844,7 +830,7 @@ public class PlayerActionSelector : MonoBehaviour
             if (item.potionEffect == PublicEnums.Effects.DefenceDown)
             {
                 DamageNumberManager.Instance.ShowString(enemies[selectedEnemyIndex].transform.position, "DEF DOWN", Color.black);
-                //enemies[selectedEnemyIndex].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[6]);
+               // enemies[selectedEnemyIndex].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[6]);
                 enemies[selectedEnemyIndex].GetComponent<EnemyAI>().enemyStats.Defence = enemies[selectedEnemyIndex].GetComponent<playerController>().playerStats.attackDamage / 2;
                 pause.Epause();
                 StartCoroutine(enemies[selectedEnemyIndex].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element));
@@ -872,7 +858,7 @@ public class PlayerActionSelector : MonoBehaviour
                     if (enemies[i].GetComponent<playerController>().playerStats.health <= 0)
                     {
                         DamageNumberManager.Instance.ShowString(enemies[selectedEnemyIndex].transform.position, "ATT DOWN", Color.black);
-                        //enemies[i].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[4]);
+                       // enemies[i].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[4]);
                         pause.Epause();
                         StartCoroutine(enemies[i].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element));
                     }
@@ -885,7 +871,7 @@ public class PlayerActionSelector : MonoBehaviour
                     if (enemies[i].GetComponent<playerController>().playerStats.health <= 0)
                     {
                         DamageNumberManager.Instance.ShowString(enemies[selectedEnemyIndex].transform.position, "DEF DOWN", Color.black);
-                        //enemies[i].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[6]);
+                       // enemies[i].GetComponent<AudioSource>().PlayOneShot(GameManager.Instance.Effect_Sounds[6]);
                         pause.Epause();
                         StartCoroutine(enemies[i].GetComponent<EnemyAI>().TakeSkillDamage(item.effectAmount, item.Element));
                     }
@@ -918,16 +904,18 @@ public class PlayerActionSelector : MonoBehaviour
                 }
             }
         }
-        
+
         //continue if statements for other item types
         //leave this at the end to consume the item
         item.amountOfItem--;
-        if(item.amountOfItem <= 0 )
+        if (item.amountOfItem <= 0)
         {
             InventoryManager.instance.RemoveItem(item);
         }
         EndTurnMenu();
     }
+
+
     private void DefendFunc()
     {
         playerController.defended = playerController.playerStats.Defence;
@@ -940,11 +928,12 @@ public class PlayerActionSelector : MonoBehaviour
     {
         if(Random.value > 0.5f)
         { 
+
             GameManager.Instance.FleeCombat();
         }
         else
         {
-            HideMenu();
+            EndTurnMenu();
             GameManager.Instance.EndTurn();
         }
     }

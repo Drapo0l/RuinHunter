@@ -14,14 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NPCName: LostSlime
   sentences:
-  - Aahh! don't kill me
-  - 'you''re really not going to kill me '
-  - that's a relief
+  - Aaaah!
+  - Don't kill me
   choices:
   - buttonText: A
-    playerText: Your sister is looking for you
+    playerText: I'm not goint to kill you, youre sister send me here to find you
     nextDialogue: {fileID: 11400000, guid: d68389fe5a535854084d9090f19d666b, type: 2}
-    actionType: 1
+    actionType: 2
     conditions: []
     consequences: []
     choiceMade: 0

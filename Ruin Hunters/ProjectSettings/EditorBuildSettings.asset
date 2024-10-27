@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/testWorld.unity
     guid: 44c9f1d8b5b47b7408f86c952aac552d
+  - enabled: 1
+    path: Assets/Scenes/Dungeon.unity
+    guid: 298217caa8e78044586ce07e76c03024
   m_configObjects: {}

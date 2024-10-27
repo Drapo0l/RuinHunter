@@ -14,5 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NPCName: LostSlime
   sentences:
-  - I will go back, make sure to look for my brothwer he is in the Snow region
-  choices: []
+  - Really
+  - 'you''re really not going to kill me '
+  - that's a relief
+  - wait, did you say sister?
+  choices:
+  - buttonText: A
+    playerText: Yes
+    nextDialogue: {fileID: 11400000, guid: 4a6a6e853bd6a2e4ca9f6cda3254eed6, type: 2}
+    actionType: 2
+    conditions: []
+    consequences: []
+    choiceMade: 0
+    neverDisable: 0

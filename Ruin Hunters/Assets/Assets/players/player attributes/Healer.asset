@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e337efe9978a8409654b2b05bb0c8c, type: 3}
   m_Name: Healer
   m_EditorClassIdentifier: 
+  Sprite: {fileID: 0}
   level: 1
   currentXP: 1
   xpToNextLevel: 800
   nameOfCharacter: Healer
-  health: 400
+  health: 2420
   maxHealth: 2420
   maxMana: 3600
   mana: 360
@@ -24,7 +25,6 @@ MonoBehaviour:
   skillDamage: 200
   attackDamage: 45
   critChance: 1
-  effectChance: 0
   Defence: 100
   maxHealthOG: 2420
   maxManaOG: 3600
@@ -32,8 +32,9 @@ MonoBehaviour:
   skillDamageOG: 200
   attackDamageOG: 45
   critChanceOG: 0
-  effectChanceOG: 0
   DefenceOG: 310
+  effectChance: 0
+  effectChanceOG: 0
   expGive: 0
   skills:
   - sprite: {fileID: 0}
@@ -46,6 +47,13 @@ MonoBehaviour:
     effect: 0
     Ptargit: 0
     AOE: 1
+    ParticleForSkill: {fileID: 0}
+    caster: {fileID: 0}
+    target: {fileID: 0}
+    Activation_Sound: []
+    Activation_SoundV: 0
+    Hit_Sound: []
+    Hit_SoundV: 0
   regions: 0
   isTurn: 0
   isStuned: 0
@@ -53,3 +61,14 @@ MonoBehaviour:
   special_count: 0
   weapon: {fileID: 0}
   equipment: {fileID: 0}
+  weaknessIcons: []
+  attacker: {fileID: 0}
+  target_BA: {fileID: 0}
+  Activation_Sound: []
+  Activation_SoundV: 0
+  Hit_Sound: []
+  DMG_sound: {fileID: 0}
+  Hit_SoundV: 0
+  special_soundsV: 0
+  ParticleForBasicAttack: {fileID: 0}
+  ParticleForSpecial: {fileID: 0}

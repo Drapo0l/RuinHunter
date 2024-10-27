@@ -11,6 +11,7 @@ using UnityEngine.InputSystem.HID;
 using UnityEngine.Rendering;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
+using static UnityEngine.EventSystems.EventTrigger;
 //using UnityEngine.UIElements;
 //using static UnityEditor.Progress;
 //using static UnityEditor.PlayerSettings;
@@ -35,10 +36,15 @@ public class GameManager : MonoBehaviour
     public List<GameObject> Grave_Yard = new List<GameObject>();
     public List<GameObject> battlePartyHealth = new List<GameObject>();
     public List<GameObject> battleParty = new List<GameObject>();
+    public List<GameObject> weaknessBars;
     private List<CharacterAttributes> characters; //list to hold enmies and allies
 
+    public List<GameObject> turnOrderSprytes;
+    public GameObject turnOrderDividor;
     public List<GameObject> playerHealths;          // list of player health/mana
     public GameObject playerHealthsParent;
+    public GameObject turnOrderParent;
+
     private int currentTurnIndex = 0; // index of the current character's turn
 
     [SerializeField] GameObject levelUpScreen;
@@ -57,14 +63,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] float AudioLevelUpMVol;
     [SerializeField] AudioClip winSound;
     [SerializeField] float AudioWinVol;
-    [SerializeField] AudioSource BattleMusic;
+    [SerializeField] List<AudioClip> fightMusic;
+    [SerializeField] float AudioFightVol;
 
-
+    private int randomSound;
 
     [Header("Dependencies - No touching")]
     public bool combat = false;
     public bool leveling = false;
     private List<CharacterAttributes> turnOrder;
+    private List<CharacterAttributes> futureTurnOrder;
 
     private List<CharacterAttributes> currentEnemies;// current enemies in combat
     public List<GameObject> enemyObj;
@@ -103,6 +111,7 @@ public class GameManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Return))
             {
+                Aud.Stop();
                 leveling = false;
                 for (int i = 0; i < 4; i++)
                 {
@@ -111,6 +120,32 @@ public class GameManager : MonoBehaviour
                 levelUpScreen.SetActive(false);
                 worldEnemyParent.SetActive(true);
                 QuestManager.instance.UpdateQuestDisplay();
+                foreach (GameObject player in battleParty)
+                {
+                    if (player != null)
+                    {
+                        player.SetActive(false);
+                        player.transform.position = lastPlayerPosition;
+                        player.transform.SetParent(playerParent.transform);
+                        player.transform.GetComponent<SphereCollider>().enabled = true;
+                    }
+                }
+                battleParty[0].SetActive(true);
+                characters.Clear();
+                playerParty.Clear();
+                wasCombatInitialized = false;
+                battleCamera.SetActive(false);
+                playerCamera.SetActive(true);
+                playerHealthsParent.SetActive(false);
+
+            }
+            if (!Aud.isPlaying)
+            {
+                if (Aud.clip != null)
+                {
+                    Aud.clip = levelUpMusic;
+                    Aud.Play();
+                }
             }
         }
         else if (deadMenu.activeSelf)
@@ -139,9 +174,14 @@ public class GameManager : MonoBehaviour
         }
         else if (combat)
         {
+            if (!Aud.isPlaying)
+            {
+                Aud.Play();
+            }
             SetHealthBars();
             
         }
+        
     }
 
     private void Navigate(int direction)
@@ -179,7 +219,14 @@ public class GameManager : MonoBehaviour
 
     void StartCombat()
     {
-        BattleMusic.Play();
+        playerCam.gameObject.SetActive(false);
+        battleCamera.SetActive(true);
+        battleUI.SetActive(true);
+        randomSound = UnityEngine.Random.Range(0, fightMusic.Count);
+        Aud.volume = AudioFightVol;
+        Aud.clip = fightMusic[randomSound];
+
+        //BattleMusic.Play();
         worldEnemyParent.SetActive(false);
         QuestManager.instance.questParent.SetActive(false);
 
@@ -191,22 +238,6 @@ public class GameManager : MonoBehaviour
         }
 
         AddRandomEnemies();
-        for (int i = 0; i < characters.Count; i++) // makes it so that your og stats are now saved 
-        {
-            characters[i].maxManaOG = characters[i].maxMana;
-            characters[i].maxHealthOG = characters[i].maxHealth;
-            characters[i].DefenceOG = characters[i].Defence;
-            characters[i].combatSpeedOG = characters[i].combatSpeed;
-            characters[i].skillDamageOG = characters[i].skillDamage;
-            characters[i].attackDamageOG = characters[i].attackDamage;
-            characters[i].critChanceOG = characters[i].critChance;
-            characters[i].effectChanceOG = characters[i].effectChance;
-            expTotal = characters[i].expGive + expTotal;
-            if(characters[i].equipment != null)
-            {
-                characters[i].Defence += characters[i].equipment.armor;
-            }           
-        }
         SetupBattleField();
 
         int count = battleParty.Count;
@@ -219,7 +250,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                PlayerDeath(battleParty[i]);
+                Grave_Yard.Add(battleParty[i]);
                 count--;
             }
         }
@@ -246,6 +277,8 @@ public class GameManager : MonoBehaviour
         turnOrder = new List<CharacterAttributes>(characters);
         characters.Sort((a, b) => b.combatSpeed.CompareTo(a.combatSpeed));
         turnOrder = characters;
+        futureTurnOrder = new List<CharacterAttributes>(turnOrder);
+        ShowCurrentTurnOrder();
         currentTurnIndex = 0; // start at the first character
         StartTurn(); // start the first character's turn
     }
@@ -297,6 +330,7 @@ public class GameManager : MonoBehaviour
         int pos = 0;
         foreach (GameObject player in battleParty)
         {
+            player.GetComponent<playerController>().playerAnimator.SetBool("moving", false);
             player.GetComponent<SphereCollider>().enabled = false;
             player.GetComponent<Rigidbody>().velocity = Vector3.zero * 0;
             if (player.transform.localScale.x > 0)
@@ -305,14 +339,25 @@ public class GameManager : MonoBehaviour
             player.transform.SetParent(battleCamera.transform);
             player.transform.localPosition = new Vector3(2.03f + pos, -1.28f, 7.5f + pos);
             pos++;
+
         }
+        Vector3[] positions = new Vector3[]
+        {
+            new Vector3(629.849976f,3.51999998f,297.48999f),   // Enemy 1: Top
+            new Vector3(628.929993f,3.16000009f,294.589996f),  // Enemy 2: Middle-left
+            new Vector3(634.309998f,3.17000008f,294.179993f),   // Enemy 3: Middle-right
+            new Vector3(632.200012f,2.52999997f,291.799988f)   // Enemy 4: Bottom
+        };
+
         pos = 0;
    
         foreach (GameObject enemy in enemyObj)
         {
-            enemy.SetActive(true);
-            enemy.transform.SetParent(battleCamera.transform);
-            enemy.transform.localPosition = new Vector3(-7.25f + pos, -1.28f, 10.5f + pos);
+            enemy.transform.localPosition = positions[pos];
+            enemy.GetComponent<EnemyAI>().weaknesBar = weaknessBars[pos];
+            weaknessBars[pos].SetActive(true);
+            enemy.GetComponent<EnemyAI>().weaknesBar.GetComponent<WeknessManager>().weaknessBar = weaknessBars[pos];
+            enemy.GetComponent<EnemyAI>().weaknesBar.GetComponent<WeknessManager>().SettupWeakness(enemy.GetComponent<EnemyAI>().enemyStats.weaknessIcons, enemy.transform.position, battleCamera.GetComponent<Camera>(), enemy.GetComponent<EnemyAI>());
             pos++;
         }
     }
@@ -349,14 +394,14 @@ public class GameManager : MonoBehaviour
     public void StartTurn()
     {
 
-        foreach (var chara in turnOrder)
+        foreach (var chara in futureTurnOrder)
         {
             chara.isTurn = false;
         }
 
         combat = true;
 
-        CharacterAttributes currentCharacter = turnOrder[currentTurnIndex];
+        CharacterAttributes currentCharacter = turnOrder[0];
         if (currentCharacter.isStuned == true)
         {
 
@@ -372,11 +417,53 @@ public class GameManager : MonoBehaviour
 
     public void EndTurn()
     {
+        if (futureTurnOrder != null)
+            futureTurnOrder.Sort((a, b) => b.combatSpeed.CompareTo(a.combatSpeed));
+        turnOrder.RemoveAt(0);
         //move to the next character in the list
-        currentTurnIndex = (currentTurnIndex + 1) % characters.Count;
-
+        if (turnOrder.Count == 0)
+        {
+            SetNextTurnOrder();
+        }
+        ShowCurrentTurnOrder();
         //start the next character's turn
         StartTurn();
+    }
+
+    private void SetNextTurnOrder()
+    {
+        turnOrder = new List<CharacterAttributes>(futureTurnOrder);
+    }
+    private void ShowCurrentTurnOrder()
+    {
+        int index = 0;
+        foreach (var chara in turnOrder)
+        {
+            turnOrderSprytes[index].SetActive(true);
+            if (chara.Sprite != null)
+            {
+                turnOrderSprytes[index].GetComponent<Image>().sprite = chara.Sprite;
+                turnOrderSprytes[index].GetComponent<Image>().SetNativeSize();
+            }
+            index++;
+        }
+        turnOrderDividor.transform.position = turnOrderSprytes[index].transform.position;
+        turnOrderDividor.transform.position -= new Vector3(40, 0, 0);
+        foreach (var chara in futureTurnOrder)
+        {
+            turnOrderSprytes[index].SetActive(true);
+            if (chara.Sprite != null)
+            {
+                turnOrderSprytes[index].GetComponent<Image>().sprite = chara.Sprite;
+                turnOrderSprytes[index].GetComponent<Image>().SetNativeSize();
+            }
+            index++;
+        }
+        while (index != turnOrderSprytes.Count)
+        {
+            turnOrderSprytes[index].SetActive(false);
+            index++;
+        }
     }
 
     public void EnemyDeath(GameObject enemy, Item item, int gold)
@@ -387,7 +474,9 @@ public class GameManager : MonoBehaviour
             currentTurnIndex--;
         totalXpForParty += enemy.GetComponent<EnemyAI>().enemyStats.currentXP;
         enemyObj.Remove(enemy);
-        turnOrder.Remove(enemy.GetComponent<EnemyAI>().enemyStats);
+        if (turnOrder.Contains(enemy.GetComponent<EnemyAI>().enemyStats))
+            turnOrder.Remove(enemy.GetComponent<EnemyAI>().enemyStats);
+        futureTurnOrder.Remove(enemy.GetComponent<EnemyAI>().enemyStats);
         if (enemyObj.Count == 0)
         {
             StartCoroutine(EndCombat());
@@ -400,12 +489,14 @@ public class GameManager : MonoBehaviour
             currentTurnIndex--;
         totalXpForParty += enemy.GetComponent<EnemyAI>().enemyStats.currentXP;
         enemyObj.Remove(enemy);
-        turnOrder.Remove(enemy.GetComponent<EnemyAI>().enemyStats);
+        if (turnOrder.Contains(enemy.GetComponent<EnemyAI>().enemyStats))
+            turnOrder.Remove(enemy.GetComponent<EnemyAI>().enemyStats);
+        futureTurnOrder.Remove(enemy.GetComponent<EnemyAI>().enemyStats);
         if (enemyObj.Count == 0)
         {
-            //Aud.clip = winSound;
-            //Aud.volume = AudioWinVol;
-            //Aud.Play();
+            Aud.clip = winSound;
+            Aud.volume = AudioWinVol;
+            Aud.Play();
             StartCoroutine(EndCombat());
         }
     }
@@ -414,17 +505,23 @@ public class GameManager : MonoBehaviour
     {
         //yield return new WaitForSeconds(1f);
 
-        battleParty.Remove(player);
-        if(turnOrder != null)
+        if (turnOrder.Contains(player.GetComponent<playerController>().playerStats))
             turnOrder.Remove(player.GetComponent<playerController>().playerStats);
+        if (futureTurnOrder != null)
+            futureTurnOrder.Remove(player.GetComponent<playerController>().playerStats);
         Grave_Yard.Add(player);
+        battleParty.Remove(player);
         if (battleParty.Count == 0)
         {
-
             Aud.clip = defeatSound;
             Aud.volume = AudiodefeatVol;
             Aud.Play();
+            foreach(var health in playerHealths)
+            {
+                health.SetActive(false);
+            }
             battleUI.SetActive(false);
+
             deadMenu.SetActive(true);
         }
     }
@@ -440,7 +537,11 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator EndCombat()
     {
-
+        playerCam.gameObject.SetActive(true);
+        foreach (var bar in weaknessBars)
+        {
+            bar.GetComponent<WeknessManager>().ClearWeakness();
+        }
 
         for (int i = 0; i < characters.Count; i++)
         {
@@ -468,16 +569,16 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        foreach (var item in randomItems)
-        {
-            InventoryManager.instance.AddItem(item);
-            foreach (var player in battleParty)
-            {
-                DamageNumberManager.Instance.ShowString(player.transform.position, item.itemName, Color.yellow);
-            }
-            yield return new WaitForSeconds(1f);
+        //foreach (var item in randomItems)
+        //{
+        //    InventoryManager.instance.AddItem(item);
+        //    foreach (var player in battleParty)
+        //    {
+        //        DamageNumberManager.Instance.ShowString(player.transform.position, item.itemName, Color.yellow);
+        //    }
+        //    yield return new WaitForSeconds(1f);
 
-        }
+        //}
 
         foreach (var player in battleParty)
         {
@@ -489,40 +590,56 @@ public class GameManager : MonoBehaviour
                 playerLeveled.Add(player);
             }
         }
-        yield return new WaitForSeconds(1f);
+        if (playerLeveled.Count != 0)
+        {
+            Aud.clip = levelUpSound;
+            Aud.volume = AudioLevelUpVol;
+            Aud.Play();
+        }
+        yield return new WaitForSeconds(1.5f);
 
 
         if (playerLeveled.Count != 0)
         {
+            Aud.clip = levelUpMusic;
+            Aud.volume = AudioLevelUpMVol;
+            Aud.Play();
             ShowLevelUpScreen();
             playerLeveled.Clear();
         }
 
-        characters.Clear();
-        playerParty.Clear();
-        wasCombatInitialized = false;
-
-        battleCamera.SetActive(false);
-        playerCamera.SetActive(true);
-        playerHealthsParent.SetActive(false);
-
-        foreach (GameObject player in battleParty)
+        if (playerCam != null)
         {
-            player.SetActive(false);
-            player.transform.position = lastPlayerPosition;
-            player.transform.SetParent(playerParent.transform);
-            player.transform.GetComponent<SphereCollider>().enabled = true;
+            playerCam.Follow = battleParty[0].transform;
+            playerCam.LookAt = battleParty[0].transform;
         }
-        battleParty[0].SetActive(true);
-        playerCam.Follow = battleParty[0].transform;
-        playerCam.LookAt = battleParty[0].transform;
         QuestManager.instance.questParent.SetActive(true);
         if (!leveling)
+        {
             worldEnemyParent.SetActive(true);
+            foreach (GameObject player in battleParty)
+            {
+                if (player != null)
+                {
+                    player.SetActive(false);
+                    player.transform.position = lastPlayerPosition;
+                    player.transform.SetParent(playerParent.transform);
+                    player.transform.GetComponent<SphereCollider>().enabled = true;
+                }
+            }
+            battleParty[0].SetActive(true);
+            characters.Clear();
+            playerParty.Clear();
+            wasCombatInitialized = false;
+            battleCamera.SetActive(false);
+            playerCamera.SetActive(true);
+            playerHealthsParent.SetActive(false);
+        }
         //move to the next character in the list
     }
     public void FleeCombat()
     {
+        playerCam.gameObject.SetActive(true);
         for (int i = 0; i < characters.Count; i++)
         {
             characters[i].maxMana = characters[i].maxManaOG;
