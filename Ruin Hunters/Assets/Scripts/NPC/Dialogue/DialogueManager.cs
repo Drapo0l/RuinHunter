@@ -98,18 +98,29 @@ public class DialogueManager : MonoBehaviour
     {
         sentences.Clear();
         endConversation = false;
-        if (gameObject.activeSelf)
+
+        // Resume the game (if needed)
+        // Time.timeScale = 1;
+
+        if (!choiceManager.choicesParent.gameObject.activeSelf) // Ensure choices are not displayed
         {
-            gameObject.SetActive(false);
-            if (currentNPC != null && (currentNPC.isPartyMemeber || currentNPC.questForPlayer != null))
+            if (gameObject.activeSelf)
             {
-                currentNPC.gameObject.SetActive(false); // Turn off the NPC after dialogue ends
-                currentNPC.HideInteractElements(); // Call method to hide interact elements
+                gameObject.SetActive(false);
+            }
+
+            if (currentNPC != null && currentNPC.isPartyMemeber && currentNPC.questForPlayer != null)
+            {
+                currentNPC.gameObject.SetActive(false); // Turn off the NPC after dialogue ends if not a party member and no quest for player
             }
         }
 
-        // Hide choices
+        // Hide choices and choice preview
         choiceManager.HideChoices();
+        if (currentNPC != null)
+        {
+            currentNPC.HideInteractElements(); // Call method to hide interact elements
+        }
     }
 
     public void ExecuteAction(ActionType actionType, DialogueChoice choice)

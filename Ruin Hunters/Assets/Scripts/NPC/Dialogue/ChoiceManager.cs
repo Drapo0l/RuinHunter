@@ -7,7 +7,7 @@ using static PublicEnums;
 public class ChoiceManager : MonoBehaviour
 {
     [SerializeField] private GameObject choiceButtonPrefab; // Prefab for the choice button
-    [SerializeField] private Transform choicesParent; // Parent transform for choice buttons
+    [SerializeField] public Transform choicesParent; // Parent transform for choice buttons
     [SerializeField] private ScrollRect choicesScrollRect; // Reference to ScrollRect (optional)
     [SerializeField] private GameObject choicePreviewWindow; // The secondary window for choice previews
     [SerializeField] private TextMeshProUGUI choicePreviewText; // Text component for the choice preview
@@ -114,18 +114,15 @@ public class ChoiceManager : MonoBehaviour
 
     public void HideChoices()
     {
-        // Log to confirm hiding choices
         Debug.Log("Hiding choices.");
-
-        // Clear and hide choices
         foreach (Transform child in choicesParent)
         {
             Destroy(child.gameObject);
         }
         choiceButtons.Clear();
         choicesParent.gameObject.SetActive(false);
+        choicePreviewWindow.SetActive(false); // Hide choice preview window as well
     }
-
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.W))
