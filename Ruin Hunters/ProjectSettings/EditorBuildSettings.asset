@@ -11,19 +11,19 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Cave.unity
     guid: 5216d4dbe3f188c4cb13b7aa95b32c3e
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Map.unity
     guid: bbfd9904deb73004faf51871a88d0ebf
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Desert.unity
     guid: 9149f02ad50867a4caa1e8f5b5e7d883
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Snow.unity
     guid: 389bbb3cff8a9944b887f0b028d28a4d
   - enabled: 0
     path: Assets/Scenes/Cave 1.unity
     guid: 74ebd2c6f4a707342ba3e8fa74cf9ddb
-  - enabled: 1
+  - enabled: 0
     path: Assets/testWorld.unity
     guid: 44c9f1d8b5b47b7408f86c952aac552d
   m_configObjects: {}

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 //using static UnityEditor.Progress;
@@ -28,7 +29,7 @@ public class CharacterMenuManager : MonoBehaviour
     private List<WeaponItem> weaponItems;
     private List<EquipmentItem> equipmentItems;
     private List<Skill> playerSkills;
-
+    [Header("Menu Buttons")]
     private Stack<List<Button>> menuStack = new Stack<List<Button>>(); // Stack for managing menus
     private List<Button> equipmentButtons = new List<Button>();
     private List<Button> weaponButtons = new List<Button>();
@@ -86,7 +87,8 @@ public class CharacterMenuManager : MonoBehaviour
     [SerializeField] AudioClip ButtonDownAud;
     [SerializeField] float ButtonDownVol;
 
-   private bool isPlaying;
+
+    private bool isPlaying;
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape) && statMenu.activeSelf)
@@ -247,6 +249,7 @@ public class CharacterMenuManager : MonoBehaviour
             UpdateHoverIndicator();
         }
     }
+
 
     private void ExecuteCurrentAction()
     {

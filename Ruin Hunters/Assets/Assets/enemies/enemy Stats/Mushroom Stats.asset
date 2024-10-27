@@ -17,10 +17,10 @@ MonoBehaviour:
   currentXP: 1000
   xpToNextLevel: 100
   nameOfCharacter: 
-  health: 7000
-  maxHealth: 7000
-  maxMana: 5000
-  mana: 0
+  health: 5000
+  maxHealth: 5000
+  maxMana: 500
+  mana: 500
   combatSpeed: 29
   skillDamage: 1200
   attackDamage: 1200
@@ -33,6 +33,8 @@ MonoBehaviour:
   attackDamageOG: 0
   critChanceOG: 0
   DefenceOG: 0
+  effectChance: 0
+  effectChanceOG: 0
   expGive: 0
   skills: []
   regions: 0

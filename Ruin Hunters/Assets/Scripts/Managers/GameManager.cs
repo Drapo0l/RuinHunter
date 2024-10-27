@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
+//using UnityEditor.ProBuilder;
 using UnityEngine;
 using UnityEngine.InputSystem.HID;
 using UnityEngine.Rendering;
@@ -80,6 +81,7 @@ public class GameManager : MonoBehaviour
 
     public Vector3 lastSavedPosition;
 
+
     private void Awake()
     {
         if (Instance == null)
@@ -91,6 +93,8 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
     }
 
     void Update()
@@ -616,31 +620,39 @@ public class GameManager : MonoBehaviour
         // Show the ending screen UI
         endingScreenUI.SetActive(true);
     }
-        //public void playerEndCombat()
-        //{
-        //    FleeCombat();
-        //    StartCoroutine(EndCombatRoutine());
-        //}
 
-        //private IEnumerator EndCombatRoutine()
-        //{
-        //    // Perform any clean-up needed to end combat
-        //    foreach (var player in battleParty)
-        //    {
-        //        player.SetActive(false); // Disable player game objects
-        //    }
-        //    foreach (var enemy in enemyObj)
-        //    {
-        //        enemy.SetActive(false); // Disable enemy game objects
-        //    }
-        //    combat = false;
-        //    battleUI.SetActive(false);
-        //    playerHealthsParent.SetActive(false);
 
-        //    // Activate the death menu
-        //    //deathMenu.SetActive(true);
+    //public void playerEndCombat()
+    //{
+    //    FleeCombat();
+    //    StartCoroutine(EndCombatRoutine());
+    //}
 
-        //    yield return null;
+    //private IEnumerator EndCombatRoutine()
+    //{
+    //    // Perform any clean-up needed to end combat
+    //    foreach (var player in battleParty)
+    //    {
+    //        player.SetActive(false); // Disable player game objects
+    //    }
+    //    foreach (var enemy in enemyObj)
+    //    {
+    //        enemy.SetActive(false); // Disable enemy game objects
+    //    }
+    //    combat = false;
+    //    battleUI.SetActive(false);
+    //    playerHealthsParent.SetActive(false);
 
-        //}
-    }
+    //    // Activate the death menu
+    //    //deathMenu.SetActive(true);
+
+    //    yield return null;
+
+    //}
+
+
+    //Polo Angel's code for quit/restart menu
+
+  
+
+}
