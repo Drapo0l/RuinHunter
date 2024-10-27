@@ -22,15 +22,15 @@ MonoBehaviour:
   - buttonText: A
     playerText: Tell me more about the ruins
     nextDialogue: {fileID: 11400000, guid: 86fe4a0766bb3ab46ad03f8c6d4b40a3, type: 2}
-    actionType: 2
+    actionType: 0
     conditions: []
     consequences: []
     choiceMade: 0
     neverDisable: 0
   - buttonText: B
-    playerText: You're brotther is looking for you
+    playerText: Your brother is looking for you
     nextDialogue: {fileID: 11400000, guid: 8a61441476d1b7b47838853abcbf1b4f, type: 2}
-    actionType: 2
+    actionType: 0
     conditions: []
     consequences: []
     choiceMade: 0

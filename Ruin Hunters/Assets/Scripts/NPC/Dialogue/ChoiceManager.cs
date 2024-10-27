@@ -18,28 +18,20 @@ public class ChoiceManager : MonoBehaviour
 
     public void ShowChoices(List<DialogueChoice> choices)
     {
-        // Log to confirm clearing choices
         Debug.Log("Clearing existing choices.");
-
-        // Clear existing choices
         foreach (Transform child in choicesParent)
         {
             Destroy(child.gameObject);
         }
         choiceButtons.Clear();
 
-        // Activate parent after clearing choices
         choicesParent.gameObject.SetActive(true);
 
-        // Instantiate a button for each choice
         foreach (var choice in choices)
         {
-            if (!choice.choiceMade || choice.neverDisable)
-            {
-                ChoiceButton choiceButtonComponent = Instantiate(choiceButtonPrefab, choicesParent).GetComponent<ChoiceButton>();
-                choiceButtonComponent.Setup(choice.buttonText, choice.playerText, () => OnChoiceSelected(choice), choicePreviewWindow, choicePreviewText);
-                choiceButtons.Add(choiceButtonComponent.GetComponent<Button>());
-            }
+            ChoiceButton choiceButtonComponent = Instantiate(choiceButtonPrefab, choicesParent).GetComponent<ChoiceButton>();
+            choiceButtonComponent.Setup(choice.buttonText, choice.playerText, () => OnChoiceSelected(choice), choicePreviewWindow, choicePreviewText);
+            choiceButtons.Add(choiceButtonComponent.GetComponent<Button>());
         }
 
         if (choicesScrollRect != null)
@@ -48,10 +40,17 @@ public class ChoiceManager : MonoBehaviour
         }
         UpdateHoverIndicator();
         Debug.Log("Choices displayed: " + choices.Count);
+
+        // Ensure the choice preview is updated immediately
+        if (choices.Count > 0)
+        {
+            choicePreviewWindow.SetActive(true);
+            choicePreviewText.text = choices[0].playerText;
+        }
     }
 
 
-        private void UpdateHoverIndicator()
+    private void UpdateHoverIndicator()
     {
         if (choiceButtons.Count > 0)
         {
@@ -89,30 +88,14 @@ public class ChoiceManager : MonoBehaviour
     public void OnChoiceSelected(DialogueChoice choice)
     {
         DialogueManager dialogueManager = FindObjectOfType<DialogueManager>();
-        if (dialogueManager != null)
-        {
-            dialogueManager.ExecuteAction(choice.actionType, choice);
-            HideChoices();
-            choicePreviewWindow.SetActive(false);
-
-            if (choice.nextDialogue != null && choice.actionType != ActionType.ChangeNPCState)
-            {
-                dialogueManager.StartDialogue(choice.nextDialogue);
-            }
-            else
-            {
-                dialogueManager.DisplayNextSentence(new Dialogue() { sentences = new string[] { "." } }, null);
-            }
-        }
-        else
-        {
-            Debug.LogError("DialogueManager instance is null.");
-        }
+        dialogueManager.ExecuteAction(choice.actionType, choice);
+        HideChoices();
+        choicePreviewWindow.SetActive(false);
     }
 
 
 
-    public void HideChoices()
+        public void HideChoices()
     {
         Debug.Log("Hiding choices.");
         foreach (Transform child in choicesParent)

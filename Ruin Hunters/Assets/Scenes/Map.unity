@@ -672,7 +672,7 @@ PrefabInstance:
     - target: {fileID: 3478408302654726048, guid: caa03fd80d5ecfb448e8a9de38aee5dd,
         type: 3}
       propertyPath: m_Name
-      value: NPCDesert (2)
+      value: NPCSnow
       objectReference: {fileID: 0}
     - target: {fileID: 3478408302654726048, guid: caa03fd80d5ecfb448e8a9de38aee5dd,
         type: 3}
@@ -1351,6 +1351,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Dependencies 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4286252130409918536, guid: 54327adbef490774a928c1ca1b08223b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -196.17358
+      objectReference: {fileID: 0}
+    - target: {fileID: 4286252130409918536, guid: 54327adbef490774a928c1ca1b08223b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.1192331
+      objectReference: {fileID: 0}
+    - target: {fileID: 4286252130409918536, guid: 54327adbef490774a928c1ca1b08223b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -68.263504
       objectReference: {fileID: 0}
     - target: {fileID: 5101514241638092933, guid: 54327adbef490774a928c1ca1b08223b,
         type: 3}
@@ -3487,6 +3502,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5984708668769924170, guid: 7ef0d7b1282b81446983f3a961018632,
         type: 3}
+    - target: {fileID: 4566032606578723773, guid: b668b576e070d0146ab1e96fe1474af3,
+        type: 3}
+      propertyPath: m_text
+      value: Click 'E' to interact and 'ENTER' to select
+      objectReference: {fileID: 0}
     - target: {fileID: 6301550997251170410, guid: b668b576e070d0146ab1e96fe1474af3,
         type: 3}
       propertyPath: m_IsActive
@@ -3703,6 +3723,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 597777923738474476, guid: 6daea32289f3ee0478e2d29a36b0ea3e,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.5193674
+      objectReference: {fileID: 0}
+    - target: {fileID: 597777923738474476, guid: 6daea32289f3ee0478e2d29a36b0ea3e,
+        type: 3}
+      propertyPath: m_Center.x
+      value: -0.11031631
+      objectReference: {fileID: 0}
+    - target: {fileID: 597777923738474476, guid: 6daea32289f3ee0478e2d29a36b0ea3e,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 752102370898055318, guid: 6daea32289f3ee0478e2d29a36b0ea3e,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -3712,6 +3747,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1445753425781775109, guid: 6daea32289f3ee0478e2d29a36b0ea3e,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.38203126
+      objectReference: {fileID: 0}
+    - target: {fileID: 1445753425781775109, guid: 6daea32289f3ee0478e2d29a36b0ea3e,
+        type: 3}
+      propertyPath: m_Center.x
+      value: -0.17898439
+      objectReference: {fileID: 0}
+    - target: {fileID: 1445753425781775109, guid: 6daea32289f3ee0478e2d29a36b0ea3e,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1762106949462039804, guid: 6daea32289f3ee0478e2d29a36b0ea3e,
+        type: 3}
+      propertyPath: m_Name
+      value: Forest
       objectReference: {fileID: 0}
     - target: {fileID: 2055102001737522799, guid: 6daea32289f3ee0478e2d29a36b0ea3e,
         type: 3}
@@ -3847,6 +3902,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MAP
+      objectReference: {fileID: 0}
+    - target: {fileID: 7366099786708783839, guid: 6daea32289f3ee0478e2d29a36b0ea3e,
+        type: 3}
+      propertyPath: m_text
+      value: Click 'E' to interact and 'ENTER' to select
       objectReference: {fileID: 0}
     - target: {fileID: 7664650902548448832, guid: 6daea32289f3ee0478e2d29a36b0ea3e,
         type: 3}

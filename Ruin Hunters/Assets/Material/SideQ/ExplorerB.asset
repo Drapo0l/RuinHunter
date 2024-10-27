@@ -23,7 +23,7 @@ MonoBehaviour:
   - buttonText: A
     playerText: He is in the town northwest of here
     nextDialogue: {fileID: 11400000, guid: 804fa9cf99da20b4481c363023ad60d7, type: 2}
-    actionType: 2
+    actionType: 0
     conditions: []
     consequences: []
     choiceMade: 0

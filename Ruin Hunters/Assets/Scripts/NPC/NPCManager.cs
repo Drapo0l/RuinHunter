@@ -73,7 +73,7 @@ public abstract class NPCManager : MonoBehaviour, NPCInteractable
                 DialogueManager dialogueManager = FindObjectOfType<DialogueManager>();
                 if (dialogueManager != null && dialogueManager.gameObject.activeSelf)
                 {
-                    dialogueManager.EndDialogue(); // End the dialogue if player moves away
+                    dialogueManager.EndChoicesAndDialogue(); // End the dialogue and choices if player moves away
                     isDialogueActive = false;
                 }
             }
@@ -92,15 +92,14 @@ public abstract class NPCManager : MonoBehaviour, NPCInteractable
         interactSprite.gameObject.SetActive(false); // Hide sprite
         interactText.gameObject.SetActive(false); // Hide text
     }
-}
-//public void OpenShopUI()
-//    {
-//        // ShopUI shopUI = FindObjectOfType<ShopUI>(); // Find the ShopUI component in the scene
-//        // if (shopUI != null)
-//        // {
-//        //     // Pass the shop items and player gold to the UI
-//        //     shopUI.Initialize(shopSystem, InventoryManager.instance.GetCurrentGold());
-//        //     shopUI.gameObject.SetActive(true); // Show the shop UI
-//        // }
-//    }
-//}
+}//public void OpenShopUI()
+ //    {
+ //        // ShopUI shopUI = FindObjectOfType<ShopUI>(); // Find the ShopUI component in the scene
+ //        // if (shopUI != null)
+ //        // {
+ //        //     // Pass the shop items and player gold to the UI
+ //        //     shopUI.Initialize(shopSystem, InventoryManager.instance.GetCurrentGold());
+ //        //     shopUI.gameObject.SetActive(true); // Show the shop UI
+ //        // }
+ //    }
+ //}

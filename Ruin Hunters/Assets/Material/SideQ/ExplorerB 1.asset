@@ -21,7 +21,7 @@ MonoBehaviour:
   - buttonText: A
     playerText: Okay, I will look for here
     nextDialogue: {fileID: 11400000, guid: 30899e2048ce85b4489ea4491dfdc2e3, type: 2}
-    actionType: 2
+    actionType: 0
     conditions: []
     consequences: []
     choiceMade: 0
