@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class Shop : MonoBehaviour
 {
@@ -89,10 +90,10 @@ public class Shop : MonoBehaviour
     }
 
 
-    [Header("Audio")]
-    [SerializeField] AudioSource Aud;
-    [SerializeField] AudioClip PurchaseAud;
-    [SerializeField] float PurchaseVol;
+    //[Header("Audio")]
+    //[SerializeField] AudioSource Aud;
+    //[SerializeField] AudioClip PurchaseAud;
+    //[SerializeField] float PurchaseVol;
 
     private void Update()
     {
@@ -444,9 +445,9 @@ public class Shop : MonoBehaviour
             {
                 if (InventoryManager.instance.Gold >= Items[currentSelection].itemPrice)
                 {
-                    Aud.PlayOneShot(PurchaseAud,PurchaseVol);
+                    //Aud.PlayOneShot(PurchaseAud,PurchaseVol);
                     InventoryManager.instance.Gold -= Items[currentSelection].itemPrice;
-                    InventoryManager.instance.AddItem(Items[currentSelection]);
+                    InventoryManager.instance.AddShopItem(Items[currentSelection]);
                 }
                 else
                 {
@@ -459,7 +460,7 @@ public class Shop : MonoBehaviour
             {
                 if (InventoryManager.instance.Gold >= Armor[currentSelection].itemPrice)
                 {
-                    Aud.PlayOneShot(PurchaseAud, PurchaseVol);
+                    //Aud.PlayOneShot(PurchaseAud, PurchaseVol);
                     InventoryManager.instance.Gold -= Armor[currentSelection].itemPrice;
                     InventoryManager.instance.AddItem(Armor[currentSelection]);
                 }
@@ -474,7 +475,7 @@ public class Shop : MonoBehaviour
             {
                 if(InventoryManager.instance.Gold >= Weapons[currentSelection].itemPrice)
                 {
-                    Aud.PlayOneShot(PurchaseAud, PurchaseVol);
+                    //Aud.PlayOneShot(PurchaseAud, PurchaseVol);
                     InventoryManager.instance.Gold -= Weapons[currentSelection].itemPrice;
                     InventoryManager.instance.AddItem(Weapons[currentSelection]);
                 }

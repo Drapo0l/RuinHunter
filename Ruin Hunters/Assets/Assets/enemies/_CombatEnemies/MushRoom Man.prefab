@@ -125,6 +125,16 @@ MonoBehaviour:
   dropableItems: []
   minGold: 30
   maxGold: 70
+  finalBoss: 0
+  animator: {fileID: 481866168425863585}
+  weaknesBar: {fileID: 0}
+  Aud: {fileID: 0}
+  AttackAud: {fileID: 0}
+  AttackVol: 0
+  HitAud: {fileID: 0}
+  HitVol: 0
+  DeathAud: {fileID: 0}
+  DeathVol: 0
 --- !u!135 &8390785740958131749
 SphereCollider:
   m_ObjectHideFlags: 0

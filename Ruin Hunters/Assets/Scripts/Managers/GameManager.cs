@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> playerHealths;          // list of player health/mana
     public GameObject playerHealthsParent;
     public GameObject turnOrderParent;
+
     private int currentTurnIndex = 0; // index of the current character's turn
 
     [SerializeField] GameObject levelUpScreen;
@@ -61,7 +62,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] float AudioLevelUpMVol;
     [SerializeField] AudioClip winSound;
     [SerializeField] float AudioWinVol;
-    [SerializeField] AudioSource BattleMusic;
     [SerializeField] List<AudioClip> fightMusic;
     [SerializeField] float AudioFightVol;
 
@@ -137,8 +137,11 @@ public class GameManager : MonoBehaviour
             }
             if (!Aud.isPlaying)
             {
-                Aud.clip = levelUpMusic;
-                Aud.Play();
+                if (Aud.clip != null)
+                {
+                    Aud.clip = levelUpMusic;
+                    Aud.Play();
+                }
             }
         }
         else if (deadMenu.activeSelf)
@@ -212,13 +215,14 @@ public class GameManager : MonoBehaviour
 
     void StartCombat()
     {
-        
+        playerCam.gameObject.SetActive(false);
+        battleCamera.SetActive(true);
         battleUI.SetActive(true);
         randomSound = UnityEngine.Random.Range(0, fightMusic.Count);
         Aud.volume = AudioFightVol;
         Aud.clip = fightMusic[randomSound];
 
-        BattleMusic.Play();
+        //BattleMusic.Play();
         worldEnemyParent.SetActive(false);
         QuestManager.instance.questParent.SetActive(false);
 
@@ -335,8 +339,8 @@ public class GameManager : MonoBehaviour
         Vector3[] positions = new Vector3[]
         {
             new Vector3(629.849976f,3.51999998f,297.48999f),   // Enemy 1: Top
-            new Vector3(628.929993f,2.80000019f,294.589996f),  // Enemy 2: Middle-left
-            new Vector3(634.309998f,2.81999874f,294.179993f),   // Enemy 3: Middle-right
+            new Vector3(628.929993f,3.16000009f,294.589996f),  // Enemy 2: Middle-left
+            new Vector3(634.309998f,3.17000008f,294.179993f),   // Enemy 3: Middle-right
             new Vector3(632.200012f,2.52999997f,291.799988f)   // Enemy 4: Bottom
         };
 
@@ -528,6 +532,7 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator EndCombat()
     {
+        playerCam.gameObject.SetActive(true);
         foreach (var bar in weaknessBars)
         {
             bar.GetComponent<WeknessManager>().ClearWeakness();
@@ -629,6 +634,7 @@ public class GameManager : MonoBehaviour
     }
     public void FleeCombat()
     {
+        playerCam.gameObject.SetActive(true);
         for (int i = 0; i < characters.Count; i++)
         {
             characters[i].maxMana = characters[i].maxManaOG;

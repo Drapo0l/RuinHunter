@@ -16,7 +16,7 @@ MonoBehaviour:
   itemName: Small Potion
   description: Heals user for 500HP
   effectAmount: 500
-  amountOfItem: 5
+  amountOfItem: 11
   itemPrice: 2
   damageable: 0
   potionEffect: 2
