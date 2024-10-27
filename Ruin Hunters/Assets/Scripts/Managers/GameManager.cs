@@ -326,6 +326,7 @@ public class GameManager : MonoBehaviour
         int pos = 0;
         foreach (GameObject player in battleParty)
         {
+            player.GetComponent<playerController>().playerAnimator.SetBool("moving", false);
             player.GetComponent<SphereCollider>().enabled = false;
             player.GetComponent<Rigidbody>().velocity = Vector3.zero * 0;
             if (player.transform.localScale.x > 0)

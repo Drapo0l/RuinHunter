@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1494014929999922193}
   - component: {fileID: 4630283450995794502}
-  - component: {fileID: 8898317188921346340}
   - component: {fileID: 6370405855337744454}
   - component: {fileID: 7956586562812018318}
   - component: {fileID: -7953720136466529569}
+  - component: {fileID: 7494458449893683069}
   m_Layer: 0
   m_Name: Skull_combat
   m_TagString: Untagged
@@ -89,27 +89,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &8898317188921346340
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8641859716527120936}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: eee5ae94b5fdd4949a11c40843de3ff3, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &6370405855337744454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,8 +123,15 @@ MonoBehaviour:
   minGold: 10
   maxGold: 90
   finalBoss: 0
-  animator: {fileID: 8898317188921346340}
+  animator: {fileID: 7494458449893683069}
   weaknesBar: {fileID: 0}
+  Aud: {fileID: 0}
+  AttackAud: {fileID: 0}
+  AttackVol: 0
+  HitAud: {fileID: 0}
+  HitVol: 0
+  DeathAud: {fileID: 0}
+  DeathVol: 0
 --- !u!54 &7956586562812018318
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -194,3 +180,24 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.32
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!95 &7494458449893683069
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8641859716527120936}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: eee5ae94b5fdd4949a11c40843de3ff3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

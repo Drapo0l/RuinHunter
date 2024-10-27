@@ -54,7 +54,7 @@ public class QuestManager : MonoBehaviour
                 questCopy.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = quest.description;
                 questCopy.transform.SetParent(questParent.transform);
                 questCopy.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, spacing);
-                spacing -= 120;
+                spacing -= 180;
                 questPanels.Add(questCopy);
             }
         }

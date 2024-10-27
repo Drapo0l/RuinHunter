@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using static UnityEngine.RuleTile.TilingRuleOutput;
@@ -75,11 +76,14 @@ public class EnemyChaser : MonoBehaviour
 
     bool HasParameter(Animator animator, string paramName)
     {
-        foreach (AnimatorControllerParameter param in animator.parameters)
+        if (animator.parameters.Length != 0)
         {
-            if (param.name == paramName)
+            foreach (AnimatorControllerParameter param in animator.parameters)
             {
-                return true;
+                if (param.name == paramName)
+                {
+                    return true;
+                }
             }
         }
         return false;
